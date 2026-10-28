@@ -1,0 +1,63 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Deny by default: any path not explicitly matched below is forbidden
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null && request.auth.token.disabled != true;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (request.auth.token.role == 'admin' || request.auth.token.role == 'super_admin');
+    }
+
+    // 1. Public university assets (read-only for everyone; uploads restricted to admin)
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin()
+        && request.resource.size <= 10 * 1024 * 1024
+        && (request.resource.contentType.matches('image/.*') || request.resource.contentType == 'application/pdf');
+    }
+
+    // 2. Private User Documents (profile photo, clearance papers, student submissions)
+    // Only the user themselves or authorized administrators / registrar may access
+    match /users/{userId}/{fileName} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == userId ||
+        request.auth.token.role in ['super_admin', 'admin', 'registrar']
+      );
+
+      // Strict validation: user can only upload to their own path
+      // Size limit: <= 5MB
+      // Content-type whitelist: standard images (jpeg, png, webp) or PDF documents only
+      allow write: if isAuthenticated()
+        && request.auth.uid == userId
+        && request.resource.size <= 5 * 1024 * 1024
+        && (
+          request.resource.contentType.matches('image/(jpeg|png|webp)') ||
+          request.resource.contentType == 'application/pdf'
+        );
+
+      allow delete: if isAuthenticated() && (
+        request.auth.uid == userId ||
+        isAdmin()
+      );
+    }
+
+    // 3. Departmental Official Records & Gazettes
+    match /departments/{deptId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (
+        isAdmin() ||
+        (request.auth.token.role == 'dept_chairman' && request.auth.token.deptId == deptId)
+      ) && request.resource.size <= 10 * 1024 * 1024
+        && request.resource.contentType == 'application/pdf';
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Remix JSTU Smart Campus",
+  "description": "Smart Paperless University Management System for Jamalpur Science \u0026 Technology University",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,284 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------------------------------------------------------
+    // Helper Functions
+    // ---------------------------------------------------------
+
+    function isAuthenticated() {
+      return request.auth != null && request.auth.token.disabled != true;
+    }
+
+    function isUser(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    // Role extraction strictly from Custom Claims
+    function getRole() {
+      return request.auth.token.role;
+    }
+
+    function getDeptId() {
+      return request.auth.token.deptId != null ? request.auth.token.deptId : request.auth.token.departmentId;
+    }
+
+    function isSuperAdmin() {
+      return isAuthenticated() && getRole() == 'super_admin';
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (getRole() == 'admin' || getRole() == 'super_admin');
+    }
+
+    function isRegistrar() {
+      return isAuthenticated() && (getRole() == 'registrar' || isAdmin());
+    }
+
+    function isExamController() {
+      return isAuthenticated() && (getRole() == 'exam_controller' || isSuperAdmin());
+    }
+
+    function isDeptChairman(deptId) {
+      return isAuthenticated() && getRole() == 'dept_chairman' && (deptId == null || getDeptId() == deptId);
+    }
+
+    function isTeacher(deptId) {
+      return isAuthenticated() && (getRole() == 'teacher' || getRole() == 'dept_chairman') && (deptId == null || getDeptId() == deptId);
+    }
+
+    function isAccountOfficer() {
+      return isAuthenticated() && (getRole() == 'account_officer' || isAdmin());
+    }
+
+    function isLibraryOfficer() {
+      return isAuthenticated() && (getRole() == 'library_officer' || isAdmin());
+    }
+
+    function isStudent() {
+      return isAuthenticated() && getRole() == 'student';
+    }
+
+    // ---------------------------------------------------------
+    // 1. Users Collection
+    // ---------------------------------------------------------
+    match /users/{userId} {
+      // Any authenticated user can read minimal profile, but sensitive data is restricted
+      allow read: if isAuthenticated() && (
+        request.auth.uid == userId ||
+        isAdmin() ||
+        isRegistrar() ||
+        (isTeacher(null) && resource.data.deptId == getDeptId())
+      );
+
+      // Clients CANNOT create, delete, or set their own roles/claims.
+      allow create, delete: if false; // Provisioned exclusively via Cloud Functions
+      allow update: if isUser(userId) 
+        // User can only update bio-data fields, NEVER role, deptId, departmentId, studentId, or verified flags
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'deptId', 'departmentId', 'studentId', 'isMfaEnforced', 'email', 'customClaims', 'disabled']);
+    }
+
+    // ---------------------------------------------------------
+    // 2. University Academic Master Records (Departments, Sessions, Courses)
+    // ---------------------------------------------------------
+    match /departments/{deptId} {
+      allow read: if true; // Public catalog
+      allow write: if isAdmin();
+    }
+
+    match /academic_sessions/{sessionId} {
+      allow read: if true;
+      allow write: if isAdmin() || isRegistrar();
+    }
+
+    match /courses/{courseId} {
+      allow read: if true;
+      allow create, update: if isAdmin() || (isDeptChairman(request.resource.data.deptId));
+      allow delete: if isAdmin();
+    }
+
+    // ---------------------------------------------------------
+    // 3. Course Offerings & Enrollments
+    // ---------------------------------------------------------
+    match /course_offerings/{offeringId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAdmin() || isDeptChairman(request.resource.data.deptId);
+      allow delete: if isAdmin();
+    }
+
+    match /course_enrollments/{enrollmentId} {
+      // Students can view their enrollments; teachers/chairmen can view their department enrollments
+      allow read: if isAuthenticated() && (
+        resource.data.studentUid == request.auth.uid ||
+        isDeptChairman(resource.data.deptId) ||
+        isAdmin() ||
+        isExamController() ||
+        isRegistrar()
+      );
+      // Student can request enrollment during open registration, but cannot confirm it directly
+      allow create: if isStudent() && request.resource.data.studentUid == request.auth.uid && request.resource.data.status == 'SUBMITTED';
+      allow update: if isAdmin() || isRegistrar() || isDeptChairman(resource.data.deptId);
+      allow delete: if isAdmin();
+    }
+
+    // ---------------------------------------------------------
+    // 4. Marks & Grading (The Critical Academic Integrity Core)
+    // ---------------------------------------------------------
+    match /marks/{markId} {
+      // Reading draft marks: restricted to assigned teacher, chairman, and exam controller. Students CANNOT see draft marks.
+      allow read: if isAuthenticated() && (
+        isAdmin() ||
+        isExamController() ||
+        (isTeacher(resource.data.deptId) && request.auth.uid in resource.data.assignedTeacherUids) ||
+        isDeptChairman(resource.data.deptId)
+      );
+
+      // Creating draft mark sheet: assigned teacher for their course offering
+      allow create: if isAuthenticated() && (
+        isTeacher(request.resource.data.deptId) &&
+        request.auth.uid in request.resource.data.assignedTeacherUids &&
+        request.resource.data.status == 'DRAFT'
+      );
+
+      // Updating mark sheet:
+      // - Teacher can only update if status is 'DRAFT' and they are assigned
+      // - Once SUBMITTED or VERIFIED, teacher cannot update directly
+      // - Once PUBLISHED, client updates are completely DENIED
+      allow update: if isAuthenticated() && (
+        resource.data.status == 'DRAFT' &&
+        isTeacher(resource.data.deptId) &&
+        request.auth.uid in resource.data.assignedTeacherUids &&
+        request.resource.data.status in ['DRAFT', 'SUBMITTED'] &&
+        request.resource.data.assignedTeacherUids == resource.data.assignedTeacherUids
+      );
+
+      // Deletion is strictly prohibited on all marks
+      allow delete: if false;
+    }
+
+    // ---------------------------------------------------------
+    // 5. Semester Results & CGPA (Immutable once Published)
+    // ---------------------------------------------------------
+    match /semester_results/{resultId} {
+      // Published results can be viewed by the individual student, their teachers, chairman, registrar, controller
+      allow read: if isAuthenticated() && (
+        (resource.data.studentUid == request.auth.uid && resource.data.isPublished == true) ||
+        isExamController() ||
+        isAdmin() ||
+        isRegistrar() ||
+        isDeptChairman(resource.data.deptId)
+      );
+
+      // Clients CANNOT write, update, or delete semester results! Results are computed and committed exclusively by Cloud Functions
+      allow write: if false;
+    }
+
+    // ---------------------------------------------------------
+    // 6. Clearance Requests (State Machine Workflow)
+    // ---------------------------------------------------------
+    match /clearance_requests/{requestId} {
+      allow read: if isAuthenticated() && (
+        resource.data.studentUid == request.auth.uid ||
+        isAdmin() ||
+        isRegistrar() ||
+        isDeptChairman(resource.data.deptId) ||
+        isAccountOfficer() ||
+        isLibraryOfficer()
+      );
+
+      // Students can initiate their clearance request
+      allow create: if isStudent() 
+        && request.resource.data.studentUid == request.auth.uid
+        && request.resource.data.overallStatus == 'PENDING';
+
+      // Updates to clearances are controlled strictly by Cloud Functions or respective authorized officers
+      allow update: if isAuthenticated() && (
+        isAdmin() ||
+        isRegistrar() ||
+        // Account officer signing off financial clearance
+        (isAccountOfficer() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['accountsClearance', 'updatedAt'])) ||
+        // Library officer signing off library dues
+        (isLibraryOfficer() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['libraryClearance', 'updatedAt'])) ||
+        // Dept chairman signing off departmental clearance
+        (isDeptChairman(resource.data.deptId) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['deptClearance', 'updatedAt']))
+      );
+
+      allow delete: if false;
+    }
+
+    // ---------------------------------------------------------
+    // 7. Certificates & Verification Ledger
+    // ---------------------------------------------------------
+    match /certificates/{certId} {
+      // Public verification can read minimal sanitized certificate status if certId is known
+      allow read: if true;
+
+      // Written ONLY by Cloud Function generateDigitalCertificate
+      allow write: if false;
+    }
+
+    // ---------------------------------------------------------
+    // 8. Finance & Invoices
+    // ---------------------------------------------------------
+    match /fee_invoices/{invoiceId} {
+      allow read: if isAuthenticated() && (
+        resource.data.studentUid == request.auth.uid ||
+        isAccountOfficer() ||
+        isAdmin()
+      );
+      // Created and managed by Account Officers / Cloud Functions
+      allow create, update: if isAccountOfficer() || isAdmin();
+      allow delete: if false;
+    }
+
+    // ---------------------------------------------------------
+    // 9. Library Catalog & Loans
+    // ---------------------------------------------------------
+    match /library_books/{bookId} {
+      allow read: if isAuthenticated();
+      allow write: if isLibraryOfficer() || isAdmin();
+    }
+
+    match /library_loans/{loanId} {
+      allow read: if isAuthenticated() && (
+        resource.data.studentUid == request.auth.uid ||
+        isLibraryOfficer() ||
+        isAdmin()
+      );
+      allow write: if isLibraryOfficer() || isAdmin();
+    }
+
+    // ---------------------------------------------------------
+    // 10. Audit Logs (Append-Only, Written ONLY by Cloud Functions)
+    // ---------------------------------------------------------
+    // Clients cannot read or write auditLogs. Only super_admin can read, via getAuditLogs Cloud Function.
+    match /auditLogs/{logId} {
+      allow read, write: if false;
+    }
+
+    // ---------------------------------------------------------
+    // 11. Server-Side Brute-Force Tracking (preLoginCheck Cloud Function)
+    // ---------------------------------------------------------
+    match /loginAttempts/{attemptId} {
+      allow read, write: if false;
+    }
+
+    // ---------------------------------------------------------
+    // 12. University Notices (Public read-only for published status)
+    // ---------------------------------------------------------
+    match /notices/{noticeId} {
+      // Any visitor can read if status is explicitly published
+      allow read: if resource.data.status == 'published';
+
+      // Written exclusively by Registrar or Admin
+      allow create, update, delete: if isRegistrar() || isAdmin();
+    }
+
+    // ---------------------------------------------------------
+    // 13. Deny Any Unmatched Documents by Default
+    // ---------------------------------------------------------
+    match /{unmatchedPath=**} {
+      allow read, write: if false;
+    }
+  }
+}
