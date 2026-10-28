@@ -108,6 +108,9 @@ const VerifyIDPage = lazy(() =>
 const RequestAccountPage = lazy(() =>
   import('./pages/public/RequestAccountPage').then((m) => ({ default: m.RequestAccountPage }))
 );
+const HelpdeskPage = lazy(() =>
+  import('./pages/public/HelpdeskPage').then((m) => ({ default: m.HelpdeskPage }))
+);
 const NotFoundPage = lazy(() =>
   import('./pages/public/NotFoundPage').then((m) => ({ default: m.NotFoundPage }))
 );
@@ -305,6 +308,8 @@ export default function App() {
                   <Route path="/verify/:id" element={<VerifyDocumentPage />} />
                   <Route path="/verify-id" element={<VerifyIDPage />} />
                   <Route path="/verify-id/:token" element={<VerifyIDPage />} />
+                  <Route path="/helpdesk" element={<HelpdeskPage />} />
+                  <Route path="/helpdesk/track" element={<HelpdeskPage />} />
 
                   {/* 2. Authentication Flow Routes */}
                   <Route path="/login" element={<LoginPage />} />

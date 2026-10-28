@@ -55,6 +55,8 @@ import {
   initialContentAuditTrail
 } from '../../data/contentManagementSeedData';
 import { StudentIDCard, IDCardStatus } from '../idCard/idCardService';
+import { HelpdeskTicket, TicketCategory, TicketPriority, TicketStatus, AssignedOffice, TicketReply, TicketAttachment } from '../../types/helpdesk';
+import { initialHelpdeskTickets } from '../../data/helpdeskSeedData';
 
 export const SHARED_STORAGE_KEY = 'jstu_demo_shared_data_v2';
 
@@ -452,6 +454,7 @@ export interface SharedStoreData {
   managedStaticPages: ManagedStaticPageItem[];
   contentAuditTrail: ContentAuditEntry[];
   studentIdCards: StudentIDCard[];
+  helpdeskTickets: HelpdeskTicket[];
 }
 
 // 12 Realistic Students for CSE 6th Semester
@@ -1311,7 +1314,8 @@ export function getInitialSharedStoreData(): SharedStoreData {
     managedVcMessage: initialManagedVcMessage,
     managedStaticPages: initialManagedStaticPages,
     contentAuditTrail: initialContentAuditTrail,
-    studentIdCards: initialStudentIdCards
+    studentIdCards: initialStudentIdCards,
+    helpdeskTickets: initialHelpdeskTickets
   };
 }
 
@@ -1432,6 +1436,9 @@ export class SharedDataStoreManager {
       }
       if (!parsed.studentIdCards || !Array.isArray(parsed.studentIdCards) || parsed.studentIdCards.length === 0) {
         parsed.studentIdCards = getInitialSharedStoreData().studentIdCards;
+      }
+      if (!parsed.helpdeskTickets || !Array.isArray(parsed.helpdeskTickets) || parsed.helpdeskTickets.length === 0) {
+        parsed.helpdeskTickets = getInitialSharedStoreData().helpdeskTickets;
       }
       this.inMemoryStore = parsed;
       return parsed;
@@ -2080,6 +2087,252 @@ export class SharedDataStoreManager {
 
     this.saveStore(store);
     return target;
+  }
+
+  // --- Helpdesk Domain Operations ---
+
+  public getHelpdeskTickets(): HelpdeskTicket[] {
+    const store = this.getStore();
+    return store.helpdeskTickets || [];
+  }
+
+  public getHelpdeskTicketByRef(ref: string): HelpdeskTicket | undefined {
+    const store = this.getStore();
+    const clean = ref.trim().toLowerCase();
+    return store.helpdeskTickets?.find(
+      (t) => t.referenceNumber.toLowerCase() === clean || t.id.toLowerCase() === clean
+    );
+  }
+
+  public createHelpdeskTicket(params: {
+    category: TicketCategory;
+    priority: TicketPriority;
+    subject: string;
+    description: string;
+    isAnonymous: boolean;
+    submitterUid?: string;
+    submitterName?: string;
+    submitterEmail?: string;
+    submitterStudentId?: string;
+    submitterRole?: 'student' | 'teacher' | 'staff' | 'alumni' | 'other';
+    submitterPhone?: string;
+    assignedOffice?: AssignedOffice;
+    attachments?: TicketAttachment[];
+  }): HelpdeskTicket {
+    const store = this.getStore();
+    if (!store.helpdeskTickets) store.helpdeskTickets = [];
+
+    // SLA hours calculation by priority
+    let slaHours = 48; // default Medium
+    if (params.priority === 'Urgent') slaHours = 12;
+    else if (params.priority === 'High') slaHours = 24;
+    else if (params.priority === 'Low') slaHours = 72;
+
+    const now = new Date();
+    const deadline = new Date(now.getTime() + slaHours * 3600 * 1000);
+
+    // Auto default assigned office by category if not explicitly chosen
+    let defaultOffice: AssignedOffice = 'General Administration';
+    switch (params.category) {
+      case 'Academic':
+        defaultOffice = 'Academic Council / Dean Office';
+        break;
+      case 'Exam':
+        defaultOffice = 'Exam Controller Office';
+        break;
+      case 'Fee':
+        defaultOffice = 'Accounts & Finance Office';
+        break;
+      case 'Hostel':
+        defaultOffice = 'Hall / Hostel Administration';
+        break;
+      case 'IT':
+        defaultOffice = 'IT Cell';
+        break;
+      case 'Harassment/Complaint':
+        defaultOffice = 'Anti-Harassment & Grievance Cell';
+        break;
+      default:
+        defaultOffice = params.assignedOffice || 'General Administration';
+        break;
+    }
+
+    const refNumber = `HD-2026-${Math.floor(10000 + Math.random() * 90000)}`;
+
+    // CRITICAL: If anonymous, NEVER store any submitter identity
+    const newTicket: HelpdeskTicket = {
+      id: `ticket-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      referenceNumber: refNumber,
+      category: params.category,
+      priority: params.priority,
+      status: 'Open',
+      subject: params.subject.trim(),
+      description: params.description.trim(),
+      isAnonymous: !!params.isAnonymous,
+      // Identity fields are undefined if anonymous
+      submitterUid: params.isAnonymous ? undefined : params.submitterUid,
+      submitterName: params.isAnonymous ? undefined : params.submitterName,
+      submitterEmail: params.isAnonymous ? undefined : params.submitterEmail,
+      submitterStudentId: params.isAnonymous ? undefined : params.submitterStudentId,
+      submitterRole: params.isAnonymous ? undefined : params.submitterRole,
+      submitterPhone: params.isAnonymous ? undefined : params.submitterPhone,
+      assignedOffice: params.assignedOffice || defaultOffice,
+      attachments: params.attachments || [],
+      replies: [
+        {
+          id: `reply-${Date.now()}-init`,
+          authorType: 'system',
+          authorName: 'Helpdesk System',
+          message: `Ticket logged with Reference #${refNumber}. Auto-routed to ${params.assignedOffice || defaultOffice} (SLA target: ${slaHours} hours).`,
+          createdAt: now.toISOString(),
+          isInternalNote: false
+        }
+      ],
+      createdAt: now.toISOString(),
+      updatedAt: now.toISOString(),
+      slaHours,
+      slaDeadline: deadline.toISOString()
+    };
+
+    store.helpdeskTickets.unshift(newTicket);
+    this.saveStore(store);
+    return newTicket;
+  }
+
+  public updateTicketStatus(
+    ticketIdOrRef: string,
+    status: TicketStatus,
+    assignedOffice?: AssignedOffice,
+    assignedStaffName?: string,
+    actor?: { name: string; role: string }
+  ): HelpdeskTicket | null {
+    const store = this.getStore();
+    const clean = ticketIdOrRef.trim().toLowerCase();
+    const ticket = store.helpdeskTickets?.find(
+      (t) => t.referenceNumber.toLowerCase() === clean || t.id.toLowerCase() === clean
+    );
+    if (!ticket) return null;
+
+    const prevStatus = ticket.status;
+    ticket.status = status;
+    if (assignedOffice) ticket.assignedOffice = assignedOffice;
+    if (assignedStaffName !== undefined) ticket.assignedStaffName = assignedStaffName;
+    ticket.updatedAt = new Date().toISOString();
+
+    if (status === 'Resolved' && !ticket.resolvedAt) {
+      ticket.resolvedAt = new Date().toISOString();
+    }
+    if (status === 'Closed' && !ticket.closedAt) {
+      ticket.closedAt = new Date().toISOString();
+    }
+
+    // System audit reply in ticket thread
+    ticket.replies.push({
+      id: `reply-sys-${Date.now()}`,
+      authorType: 'system',
+      authorName: 'Helpdesk System',
+      message: `Status changed from ${prevStatus} to "${status}"${assignedOffice ? ` • Assigned to: ${assignedOffice}` : ''} by ${actor?.name || 'Authorized Staff'}.`,
+      createdAt: new Date().toISOString(),
+      isInternalNote: false
+    });
+
+    // In-app Notification for non-anonymous user on status change
+    if (!ticket.isAnonymous && ticket.submitterStudentId && store.studentNotifications) {
+      store.studentNotifications.unshift({
+        id: `notif-hd-${Date.now()}`,
+        title: `Ticket ${ticket.referenceNumber} Status: ${status}`,
+        titleBn: `টিকিট ${ticket.referenceNumber} স্থিতি: ${status}`,
+        message: `Your support request "${ticket.subject}" is now marked as "${status}". Assigned to: ${ticket.assignedOffice}.`,
+        messageBn: `আপনার অনুরোধ "${ticket.subject}" বর্তমানে "${status}" হিসেবে হালনাগাদ করা হয়েছে।`,
+        category: 'academic',
+        timestamp: new Date().toISOString(),
+        read: false,
+        link: `/helpdesk?ref=${ticket.referenceNumber}`
+      });
+    }
+
+    this.saveStore(store);
+    return ticket;
+  }
+
+  public addTicketReply(
+    ticketIdOrRef: string,
+    reply: {
+      authorType: 'submitter' | 'staff';
+      authorName: string;
+      authorRole?: string;
+      message: string;
+      isInternalNote: boolean;
+    }
+  ): HelpdeskTicket | null {
+    const store = this.getStore();
+    const clean = ticketIdOrRef.trim().toLowerCase();
+    const ticket = store.helpdeskTickets?.find(
+      (t) => t.referenceNumber.toLowerCase() === clean || t.id.toLowerCase() === clean
+    );
+    if (!ticket) return null;
+
+    const newReply: TicketReply = {
+      id: `reply-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      authorType: reply.authorType,
+      authorName: reply.authorName,
+      authorRole: reply.authorRole,
+      message: reply.message.trim(),
+      createdAt: new Date().toISOString(),
+      isInternalNote: !!reply.isInternalNote
+    };
+
+    ticket.replies.push(newReply);
+    ticket.updatedAt = new Date().toISOString();
+
+    // If staff added a public reply and ticket is NOT anonymous, notify the student
+    if (!reply.isInternalNote && reply.authorType === 'staff' && !ticket.isAnonymous && ticket.submitterStudentId && store.studentNotifications) {
+      store.studentNotifications.unshift({
+        id: `notif-reply-${Date.now()}`,
+        title: `New Reply on Ticket ${ticket.referenceNumber}`,
+        titleBn: `টিকিট ${ticket.referenceNumber}-এ নতুন উত্তর`,
+        message: `${reply.authorName} (${ticket.assignedOffice}) has replied to your ticket "${ticket.subject}".`,
+        messageBn: `${ticket.assignedOffice} থেকে আপনার টিকিট "${ticket.subject}"-এ একটি উত্তর দেওয়া হয়েছে।`,
+        category: 'academic',
+        timestamp: new Date().toISOString(),
+        read: false,
+        link: `/helpdesk?ref=${ticket.referenceNumber}`
+      });
+    }
+
+    this.saveStore(store);
+    return ticket;
+  }
+
+  public assignTicketOffice(
+    ticketIdOrRef: string,
+    office: AssignedOffice,
+    staffName?: string,
+    actorName?: string
+  ): HelpdeskTicket | null {
+    const store = this.getStore();
+    const clean = ticketIdOrRef.trim().toLowerCase();
+    const ticket = store.helpdeskTickets?.find(
+      (t) => t.referenceNumber.toLowerCase() === clean || t.id.toLowerCase() === clean
+    );
+    if (!ticket) return null;
+
+    const prevOffice = ticket.assignedOffice;
+    ticket.assignedOffice = office;
+    if (staffName !== undefined) ticket.assignedStaffName = staffName;
+    ticket.updatedAt = new Date().toISOString();
+
+    ticket.replies.push({
+      id: `reply-assign-${Date.now()}`,
+      authorType: 'system',
+      authorName: 'Helpdesk System',
+      message: `Ticket re-assigned from ${prevOffice} to ${office}${staffName ? ` (${staffName})` : ''} by ${actorName || 'Staff'}.`,
+      createdAt: new Date().toISOString(),
+      isInternalNote: false
+    });
+
+    this.saveStore(store);
+    return ticket;
   }
 }
 

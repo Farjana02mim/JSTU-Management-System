@@ -20,7 +20,8 @@ import {
   Upload,
   Megaphone,
   CheckSquare,
-  Inbox
+  Inbox,
+  HelpCircle
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -69,7 +70,8 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle:
           { label: 'Assignments', labelBn: 'অ্যাসাইনমেন্ট', to: '/student/assignments', icon: <FileText className="w-4 h-4" /> },
           { label: 'Fees & Payments', labelBn: 'ফি ও পেমেন্ট', to: '/student/fees', icon: <CreditCard className="w-4 h-4" /> },
           { label: 'Notifications', labelBn: 'বিজ্ঞপ্তি', to: '/student/notifications', icon: <Bell className="w-4 h-4" /> },
-          { label: 'Profile', labelBn: 'প্রোফাইল', to: '/student/profile', icon: <User className="w-4 h-4" /> }
+          { label: 'Profile', labelBn: 'প্রোফাইল', to: '/student/profile', icon: <User className="w-4 h-4" /> },
+          { label: 'Helpdesk & Grievance', labelBn: 'হেল্পডেস্ক ও অভিযোগ', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> }
         ];
       case 'teacher':
         return [
@@ -81,6 +83,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle:
           { label: 'Announcements', labelBn: 'বিজ্ঞপ্তি প্রকাশ', to: '/teacher/announcements', icon: <Megaphone className="w-4 h-4" /> },
           { label: 'Marks Entry', labelBn: 'মার্কস এন্ট্রি', to: '/teacher/marks', icon: <Award className="w-4 h-4" /> },
           { label: 'Class Routine', labelBn: 'ক্লাস রুটিন', to: '/teacher/routine', icon: <Calendar className="w-4 h-4" /> },
+          { label: 'Helpdesk Support', labelBn: 'হেল্পডেস্ক সহায়তা', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> },
           { label: 'Profile', labelBn: 'প্রোফাইল', to: '/teacher/profile', icon: <User className="w-4 h-4" /> }
         ];
       case 'dept_chairman':
@@ -88,24 +91,28 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle:
           { label: 'Dashboard', labelBn: 'ড্যাশবোর্ড', to: '/chairman', icon: <LayoutDashboard className="w-4 h-4" /> },
           { label: 'Department Content', labelBn: 'বিভাগীয় কন্টেন্ট', to: '/admin/content', icon: <FileText className="w-4 h-4" /> },
           { label: 'Marks Scrutiny', labelBn: 'ফলাফল নিরীক্ষণ', to: '/chairman', icon: <Award className="w-4 h-4" /> },
-          { label: 'Applications Inbox', labelBn: 'আবেদন ইনবক্স', to: '/chairman', icon: <Inbox className="w-4 h-4" /> }
+          { label: 'Applications Inbox', labelBn: 'আবেদন ইনবক্স', to: '/chairman', icon: <Inbox className="w-4 h-4" /> },
+          { label: 'Helpdesk Queue', labelBn: 'হেল্পডেস্ক কিউ', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> }
         ];
       case 'exam_controller':
         return [
           { label: 'Dashboard', labelBn: 'ড্যাশবোর্ড', to: '/office/exam_controller', icon: <LayoutDashboard className="w-4 h-4" /> },
           { label: 'Results Register', labelBn: 'ফলাফল রেজিস্টার', to: '/office/exam_controller', icon: <Award className="w-4 h-4" /> },
-          { label: 'Applications Inbox', labelBn: 'আবেদন ইনবক্স', to: '/office/exam_controller', icon: <Inbox className="w-4 h-4" /> }
+          { label: 'Applications Inbox', labelBn: 'আবেদন ইনবক্স', to: '/office/exam_controller', icon: <Inbox className="w-4 h-4" /> },
+          { label: 'Helpdesk Queue', labelBn: 'হেল্পডেস্ক কিউ', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> }
         ];
       case 'registrar':
         return [
           { label: 'Dashboard', labelBn: 'ড্যাশবোর্ড', to: '/office/registrar', icon: <LayoutDashboard className="w-4 h-4" /> },
-          { label: 'Applications Inbox', labelBn: 'আবেদন ইনবক্স', to: '/office/registrar', icon: <Inbox className="w-4 h-4" /> }
+          { label: 'Applications Inbox', labelBn: 'আবেদন ইনবক্স', to: '/office/registrar', icon: <Inbox className="w-4 h-4" /> },
+          { label: 'Helpdesk Queue', labelBn: 'হেল্পডেস্ক কিউ', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> }
         ];
       case 'admin':
       case 'super_admin':
         return [
           { label: 'Admin Hub', labelBn: 'অ্যাডমিন হাব', to: '/admin', icon: <LayoutDashboard className="w-4 h-4" /> },
           { label: 'Content Management', labelBn: 'ওয়েবসাইট কন্টেন্ট', to: '/admin/content', icon: <FileText className="w-4 h-4" /> },
+          { label: 'Helpdesk Queue', labelBn: 'হেল্পডেস্ক কিউ', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> },
           { label: 'User Directory', labelBn: 'ব্যবহারকারী তালিকা', to: '/admin#users', icon: <BookOpen className="w-4 h-4" /> },
           { label: 'Security & Audit Logs', labelBn: 'নিরাপত্তা অডিট লগ', to: '/admin#audit-logs', icon: <BookOpen className="w-4 h-4" /> }
         ];
