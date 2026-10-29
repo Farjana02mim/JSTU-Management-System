@@ -14,7 +14,8 @@ import {
   FileText,
   Search,
   Lock,
-  HeartHandshake
+  HeartHandshake,
+  HelpCircle
 } from 'lucide-react';
 import { UniversityLogo } from './UniversityLogo';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -56,6 +57,14 @@ export const Footer: React.FC = () => {
             >
               <Search className="w-3.5 h-3.5 text-slate-500" />
               <span>{isBn ? 'সার্চ ইঞ্জিন' : 'Search Site'}</span>
+            </Link>
+
+            <Link
+              to="/helpdesk"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-[#1E3A8A] hover:bg-blue-100 transition-colors font-semibold border border-blue-200"
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-[#1E3A8A]" />
+              <span>{isBn ? 'হেল্পডেস্ক ও অভিযোগ' : 'Helpdesk & Support'}</span>
             </Link>
 
             <Link
@@ -125,6 +134,11 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/admission" className="hover:text-[#1E3A8A] transition-colors font-semibold text-[#0F172A]">
                   {isBn ? 'স্নাতক ভর্তি ২০২৬' : 'Undergraduate 2026'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/scholarships" className="hover:text-[#1E3A8A] transition-colors font-medium text-[#1E3A8A]">
+                  {isBn ? 'বৃত্তি ও আর্থিক সহায়তা' : 'Scholarships & Aid'}
                 </Link>
               </li>
               <li>

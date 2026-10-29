@@ -7,7 +7,8 @@ import {
   Globe,
   ShieldCheck,
   GraduationCap,
-  Search
+  Search,
+  HelpCircle
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { UniversityLogo } from './UniversityLogo';
@@ -96,6 +97,14 @@ export const Navbar: React.FC = () => {
             >
               <ShieldCheck className="w-3.5 h-3.5 text-[#1E3A8A]" />
               <span>{isBn ? 'সনদ যাচাই' : 'Verify'}</span>
+            </Link>
+            <span className="text-slate-300">|</span>
+            <Link
+              to="/helpdesk"
+              className="flex items-center gap-1 sm:gap-1.5 text-slate-600 hover:text-[#1E3A8A] font-medium transition-colors text-[11px] sm:text-xs"
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-[#1E3A8A]" />
+              <span>{isBn ? 'হেল্পডেস্ক' : 'Helpdesk'}</span>
             </Link>
             <span className="text-slate-300">|</span>
             {/* Language Toggle */}
@@ -282,6 +291,14 @@ export const Navbar: React.FC = () => {
                   >
                     <span>{isBn ? 'সাপ্তাহিক ক্লাস রুটিন' : 'Weekly Class Routine'}</span>
                     <span className="text-[10px] text-slate-400">Timetable</span>
+                  </Link>
+                  <Link
+                    to="/scholarships"
+                    onClick={() => setActiveDropdown(null)}
+                    className="flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-semibold text-[#1E3A8A] hover:bg-[#EFF6FF] transition-colors"
+                  >
+                    <span>{isBn ? 'বৃত্তি ও আর্থিক সহায়তা' : 'Scholarships & Financial Aid'}</span>
+                    <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded">Open</span>
                   </Link>
                 </div>
               </div>
@@ -568,6 +585,13 @@ export const Navbar: React.FC = () => {
               className="px-3 py-2 pl-6 text-xs text-slate-600 rounded-xl hover:bg-[#F8FAFC] hover:text-[#1E3A8A]"
             >
               • {isBn ? 'সাপ্তাহিক ক্লাস রুটিন' : 'Class Routine'}
+            </Link>
+            <Link
+              to="/scholarships"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 pl-6 text-xs text-slate-600 rounded-xl hover:bg-[#F8FAFC] hover:text-[#1E3A8A] font-medium text-[#1E3A8A]"
+            >
+              • {isBn ? 'বৃত্তি ও আর্থিক সহায়তা' : 'Scholarships & Financial Aid'}
             </Link>
             <Link
               to="/administration"

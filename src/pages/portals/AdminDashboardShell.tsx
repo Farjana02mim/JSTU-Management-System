@@ -21,13 +21,16 @@ import {
   RefreshCw,
   UserCheck,
   TrendingUp,
-  GraduationCap
+  GraduationCap,
+  Award
 } from 'lucide-react';
 import { UserRole, AuditLogEntry, UserProfile, UserCustomClaims } from '../../types/auth';
 import { getUserAdminService, getAuditService } from '../../services/auth';
 import { AdminAccountRequestsTab } from '../../components/admin/AdminAccountRequestsTab';
 import { AdminAnalyticsDashboard } from '../../components/admin/AdminAnalyticsDashboard';
 import { AdmissionApplicationsManagementTab } from '../../components/admin/AdmissionApplicationsManagementTab';
+import { AdminIqacEvaluations } from '../../components/evaluation/AdminIqacEvaluations';
+import { AdminScholarshipsTab } from '../../components/admin/AdminScholarshipsTab';
 import { SharedDataStoreManager } from '../../services/shared/sharedDataStore';
 
 export const AdminDashboardShell: React.FC = () => {
@@ -37,8 +40,8 @@ export const AdminDashboardShell: React.FC = () => {
 
   const isSuperAdmin = role === 'super_admin';
 
-  // Navigation tab state: 'analytics' | 'admissions' | 'requests' | 'users' | 'audit'
-  const [activeTab, setActiveTab] = useState<'analytics' | 'admissions' | 'requests' | 'users' | 'audit'>('analytics');
+  // Navigation tab state: 'analytics' | 'evaluations' | 'scholarships' | 'admissions' | 'requests' | 'users' | 'audit'
+  const [activeTab, setActiveTab] = useState<'analytics' | 'evaluations' | 'scholarships' | 'admissions' | 'requests' | 'users' | 'audit'>('analytics');
   const pendingRequestsCount = (SharedDataStoreManager.getInstance().getStore().accountRequests || []).filter(
     (r) => r.status === 'PENDING'
   ).length;
@@ -296,6 +299,30 @@ export const AdminDashboardShell: React.FC = () => {
           </button>
 
           <button
+            onClick={() => setActiveTab('evaluations')}
+            className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
+              activeTab === 'evaluations'
+                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+            }`}
+          >
+            <Award className="w-4 h-4" />
+            <span>{isBn ? 'আইকিউএসি কোর্স মূল্যায়ন' : 'IQAC Evaluations'}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('scholarships')}
+            className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
+              activeTab === 'scholarships'
+                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+            }`}
+          >
+            <Award className="w-4 h-4" />
+            <span>{isBn ? 'বৃত্তি ও অনুদান' : 'Scholarships & Grants'}</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('admissions')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'admissions'
@@ -358,11 +385,23 @@ export const AdminDashboardShell: React.FC = () => {
           />
         )}
 
+        {/* Tab: IQAC Teaching & Course Evaluations */}
+        {activeTab === 'evaluations' && (
+          <AdminIqacEvaluations />
+        )}
+
         {/* Tab: Admission Applications */}
         {activeTab === 'admissions' && (
           <AdmissionApplicationsManagementTab
             reviewerRole={role === 'super_admin' ? 'super_admin' : 'admin'}
             reviewerDisplayName={user?.displayName || 'University Central Admin'}
+          />
+        )}
+
+        {/* Tab: Scholarships & Grants Management */}
+        {activeTab === 'scholarships' && (
+          <AdminScholarshipsTab
+            onNotification={(msg) => setUserActionMessage(msg)}
           />
         )}
 

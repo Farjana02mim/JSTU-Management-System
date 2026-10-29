@@ -21,7 +21,8 @@ import {
   Megaphone,
   CheckSquare,
   Inbox,
-  HelpCircle
+  HelpCircle,
+  Star
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -38,9 +39,9 @@ export interface DashboardNavSubItem {
   icon: React.ReactNode;
 }
 
-export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle: string }> = ({
+export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?: string }> = ({
   children,
-  portalTitle
+  portalTitle = 'JSTU Portal'
 }) => {
   const { user, role, signOut, idleTimeRemaining, resetIdleTimer } = useAuth();
   const { language, toggleLanguage } = useLanguage();
@@ -67,6 +68,8 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle:
           { label: 'Attendance', labelBn: 'উপস্থিতি', to: '/student/attendance', icon: <CheckCircle2 className="w-4 h-4" /> },
           { label: 'Results & CGPA', labelBn: 'ফলাফল ও সিজিপিএ', to: '/student/results', icon: <Award className="w-4 h-4" /> },
           { label: 'Class Routine', labelBn: 'ক্লাস রুটিন', to: '/student/routine', icon: <Calendar className="w-4 h-4" /> },
+          { label: 'Online Quizzes', labelBn: 'অনলাইন কুইজ', to: '/student/quizzes', icon: <HelpCircle className="w-4 h-4" /> },
+          { label: 'Course Evaluation', labelBn: 'কোর্স মূল্যায়ন', to: '/student/evaluations', icon: <Star className="w-4 h-4" /> },
           { label: 'Assignments', labelBn: 'অ্যাসাইনমেন্ট', to: '/student/assignments', icon: <FileText className="w-4 h-4" /> },
           { label: 'Fees & Payments', labelBn: 'ফি ও পেমেন্ট', to: '/student/fees', icon: <CreditCard className="w-4 h-4" /> },
           { label: 'Notifications', labelBn: 'বিজ্ঞপ্তি', to: '/student/notifications', icon: <Bell className="w-4 h-4" /> },
@@ -77,6 +80,8 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle:
         return [
           { label: 'Dashboard', labelBn: 'ড্যাশবোর্ড', to: '/teacher', icon: <LayoutDashboard className="w-4 h-4" /> },
           { label: 'My Courses', labelBn: 'আমার কোর্সসমূহ', to: '/teacher/courses', icon: <BookOpen className="w-4 h-4" /> },
+          { label: 'Online Quizzes', labelBn: 'অনলাইন কুইজ', to: '/teacher/quizzes', icon: <HelpCircle className="w-4 h-4" /> },
+          { label: 'Course Evaluation', labelBn: 'কোর্স মূল্যায়ন', to: '/teacher/evaluations', icon: <Star className="w-4 h-4" /> },
           { label: 'Take Attendance', labelBn: 'উপস্থিতি গ্রহণ', to: '/teacher/attendance', icon: <CheckSquare className="w-4 h-4" /> },
           { label: 'Assignments', labelBn: 'অ্যাসাইনমেন্ট', to: '/teacher/assignments', icon: <FileText className="w-4 h-4" /> },
           { label: 'Course Materials', labelBn: 'কোর্স ম্যাটেরিয়ালস', to: '/teacher/materials', icon: <Upload className="w-4 h-4" /> },

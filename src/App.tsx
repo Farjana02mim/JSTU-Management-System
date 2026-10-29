@@ -111,6 +111,9 @@ const RequestAccountPage = lazy(() =>
 const HelpdeskPage = lazy(() =>
   import('./pages/public/HelpdeskPage').then((m) => ({ default: m.HelpdeskPage }))
 );
+const ScholarshipsPage = lazy(() =>
+  import('./pages/public/ScholarshipsPage').then((m) => ({ default: m.ScholarshipsPage }))
+);
 const NotFoundPage = lazy(() =>
   import('./pages/public/NotFoundPage').then((m) => ({ default: m.NotFoundPage }))
 );
@@ -178,8 +181,20 @@ const StudentDocumentsPage = lazy(() =>
 const StudentIDCardPage = lazy(() =>
   import('./pages/portals/student/StudentIDCardPage').then((m) => ({ default: m.StudentIDCardPage }))
 );
+const StudentEvaluationsPage = lazy(() =>
+  import('./pages/portals/student/StudentEvaluationsPage').then((m) => ({ default: m.StudentEvaluationsPage }))
+);
+const StudentQuizzesPage = lazy(() =>
+  import('./pages/portals/student/StudentQuizzesPage').then((m) => ({ default: m.StudentQuizzesPage }))
+);
 const TeacherDashboard = lazy(() =>
   import('./pages/portals/teacher/TeacherDashboard').then((m) => ({ default: m.TeacherDashboard }))
+);
+const TeacherEvaluationsPage = lazy(() =>
+  import('./pages/portals/teacher/TeacherEvaluationsPage').then((m) => ({ default: m.TeacherEvaluationsPage }))
+);
+const TeacherQuizzesPage = lazy(() =>
+  import('./pages/portals/teacher/TeacherQuizzesPage').then((m) => ({ default: m.TeacherQuizzesPage }))
 );
 const TeacherCoursesPage = lazy(() =>
   import('./pages/portals/teacher/TeacherCoursesPage').then((m) => ({ default: m.TeacherCoursesPage }))
@@ -271,6 +286,7 @@ export default function App() {
                   <Route path="/academics/program/:programId" element={<ProgramDetailPage />} />
                   <Route path="/academics/department/:deptId/program/:programId" element={<ProgramDetailPage />} />
                   <Route path="/admission" element={<AdmissionPage />} />
+                  <Route path="/scholarships" element={<ScholarshipsPage />} />
                   <Route path="/notices" element={<NoticesPage />} />
                   <Route path="/notices/:id" element={<NoticeDetailPage />} />
                   <Route path="/news" element={<NewsPage />} />
@@ -441,6 +457,26 @@ export default function App() {
                   }
                 />
                 <Route
+                  path="/student/evaluations"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['student']}>
+                        <StudentEvaluationsPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/student/quizzes"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['student']}>
+                        <StudentQuizzesPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path="/student/profile"
                   element={
                     <ProtectedRoute>
@@ -568,6 +604,26 @@ export default function App() {
                     <ProtectedRoute>
                       <RoleGuard allowedRoles={['teacher']}>
                         <TeacherProfilePage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/teacher/evaluations"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['teacher']}>
+                        <TeacherEvaluationsPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/teacher/quizzes"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['teacher']}>
+                        <TeacherQuizzesPage />
                       </RoleGuard>
                     </ProtectedRoute>
                   }

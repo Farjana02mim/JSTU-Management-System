@@ -20,7 +20,8 @@ export type MarksLifecycleAction =
   | 'RETURN_TO_CHAIRMAN'
   | 'REQUEST_CORRECTION'
   | 'APPROVE_CORRECTION'
-  | 'REJECT_CORRECTION';
+  | 'REJECT_CORRECTION'
+  | 'UPDATE_DRAFT';
 
 export interface MarksLifecycleActor {
   uid: string;

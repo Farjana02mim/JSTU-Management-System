@@ -57,6 +57,39 @@ import {
 import { StudentIDCard, IDCardStatus } from '../idCard/idCardService';
 import { HelpdeskTicket, TicketCategory, TicketPriority, TicketStatus, AssignedOffice, TicketReply, TicketAttachment } from '../../types/helpdesk';
 import { initialHelpdeskTickets } from '../../data/helpdeskSeedData';
+import {
+  EvaluationWindow,
+  AnonymousCourseEvaluation,
+  EvaluationSubmissionRecord,
+  EvaluationCriteriaRating,
+  CourseEvaluationSummary
+} from '../../types/evaluation';
+import {
+  initialEvaluationWindows,
+  initialAnonymousEvaluations,
+  initialSubmissionLedger
+} from '../../data/evaluationSeedData';
+import {
+  Quiz,
+  StudentQuizAttempt,
+  QuizQuestion,
+  StudentQuizAnswer,
+  QuestionDifficultyStat,
+  QuizResultAnalytics
+} from '../../types/quiz';
+import {
+  INITIAL_DEMO_QUIZZES,
+  INITIAL_DEMO_ATTEMPTS
+} from '../../data/quizSeedData';
+import {
+  Scholarship,
+  IncomeRuleConfig,
+  RankedScholarshipApplicant
+} from '../../types/scholarship';
+import {
+  INITIAL_DEMO_SCHOLARSHIPS,
+  INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS
+} from '../../data/scholarshipSeedData';
 
 export const SHARED_STORAGE_KEY = 'jstu_demo_shared_data_v2';
 
@@ -455,6 +488,12 @@ export interface SharedStoreData {
   contentAuditTrail: ContentAuditEntry[];
   studentIdCards: StudentIDCard[];
   helpdeskTickets: HelpdeskTicket[];
+  evaluationWindows: EvaluationWindow[];
+  anonymousCourseEvaluations: AnonymousCourseEvaluation[];
+  evaluationSubmissionLedger: EvaluationSubmissionRecord[];
+  quizzes: Quiz[];
+  quizAttempts: StudentQuizAttempt[];
+  scholarships: Scholarship[];
 }
 
 // 12 Realistic Students for CSE 6th Semester
@@ -1315,7 +1354,13 @@ export function getInitialSharedStoreData(): SharedStoreData {
     managedStaticPages: initialManagedStaticPages,
     contentAuditTrail: initialContentAuditTrail,
     studentIdCards: initialStudentIdCards,
-    helpdeskTickets: initialHelpdeskTickets
+    helpdeskTickets: initialHelpdeskTickets,
+    evaluationWindows: initialEvaluationWindows,
+    anonymousCourseEvaluations: initialAnonymousEvaluations,
+    evaluationSubmissionLedger: initialSubmissionLedger,
+    quizzes: INITIAL_DEMO_QUIZZES,
+    quizAttempts: INITIAL_DEMO_ATTEMPTS,
+    scholarships: INITIAL_DEMO_SCHOLARSHIPS
   };
 }
 
@@ -1439,6 +1484,27 @@ export class SharedDataStoreManager {
       }
       if (!parsed.helpdeskTickets || !Array.isArray(parsed.helpdeskTickets) || parsed.helpdeskTickets.length === 0) {
         parsed.helpdeskTickets = getInitialSharedStoreData().helpdeskTickets;
+      }
+      if (!parsed.evaluationWindows || !Array.isArray(parsed.evaluationWindows) || parsed.evaluationWindows.length === 0) {
+        parsed.evaluationWindows = getInitialSharedStoreData().evaluationWindows;
+      }
+      if (!parsed.anonymousCourseEvaluations || !Array.isArray(parsed.anonymousCourseEvaluations) || parsed.anonymousCourseEvaluations.length === 0) {
+        parsed.anonymousCourseEvaluations = getInitialSharedStoreData().anonymousCourseEvaluations;
+      }
+      if (!parsed.evaluationSubmissionLedger || !Array.isArray(parsed.evaluationSubmissionLedger)) {
+        parsed.evaluationSubmissionLedger = getInitialSharedStoreData().evaluationSubmissionLedger;
+      }
+      if (!parsed.quizzes || !Array.isArray(parsed.quizzes) || parsed.quizzes.length === 0) {
+        parsed.quizzes = getInitialSharedStoreData().quizzes;
+      }
+      if (!parsed.quizAttempts || !Array.isArray(parsed.quizAttempts)) {
+        parsed.quizAttempts = getInitialSharedStoreData().quizAttempts;
+      }
+      if (!parsed.scholarships || !Array.isArray(parsed.scholarships) || parsed.scholarships.length === 0) {
+        parsed.scholarships = getInitialSharedStoreData().scholarships;
+      }
+      if (parsed.applications && !parsed.applications.some((a: any) => a.type === 'scholarship')) {
+        parsed.applications.push(...(INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS as any[]));
       }
       this.inMemoryStore = parsed;
       return parsed;
@@ -2333,6 +2399,814 @@ export class SharedDataStoreManager {
 
     this.saveStore(store);
     return ticket;
+  }
+
+  // --- Course & Teacher Evaluation Domain Operations ---
+
+  public getEvaluationWindows(): EvaluationWindow[] {
+    const store = this.getStore();
+    return store.evaluationWindows || [];
+  }
+
+  public getActiveEvaluationWindow(): EvaluationWindow | undefined {
+    const store = this.getStore();
+    return store.evaluationWindows?.find((w) => w.status === 'Open');
+  }
+
+  public openEvaluationWindow(data: {
+    title?: string;
+    titleBn?: string;
+    semester: string;
+    academicSession: string;
+    startDate: string;
+    endDate: string;
+    createdBy?: string;
+  }): EvaluationWindow {
+    const store = this.getStore();
+    if (!store.evaluationWindows) store.evaluationWindows = [];
+
+    const title = data.title?.trim() || data.semester.trim();
+    const titleBn = data.titleBn?.trim() || data.semester.trim();
+
+    const newWindow: EvaluationWindow = {
+      id: `win-${Date.now()}`,
+      title,
+      titleBn,
+      semester: data.semester.trim(),
+      semesterName: data.semester.trim(),
+      academicSession: data.academicSession.trim(),
+      status: 'Open',
+      startDate: data.startDate,
+      endDate: data.endDate,
+      startsAt: data.startDate,
+      closesAt: data.endDate,
+      createdBy: data.createdBy || 'Institutional Quality Assurance Cell (IQAC)',
+      createdAt: new Date().toISOString()
+    };
+
+    store.evaluationWindows.unshift(newWindow);
+    this.saveStore(store);
+    return newWindow;
+  }
+
+  public closeEvaluationWindow(windowId: string): boolean {
+    const store = this.getStore();
+    const target = store.evaluationWindows?.find((w) => w.id === windowId);
+    if (!target) return false;
+
+    target.status = 'Closed';
+    target.closedAt = new Date().toISOString();
+    this.saveStore(store);
+    return true;
+  }
+
+  public hasStudentSubmittedCourse(windowId: string, courseCode: string, studentId: string): boolean {
+    const store = this.getStore();
+    return !!store.evaluationSubmissionLedger?.some(
+      (r) =>
+        r.windowId === windowId &&
+        r.courseCode.toLowerCase() === courseCode.toLowerCase() &&
+        r.studentId.toLowerCase() === studentId.toLowerCase()
+    );
+  }
+
+  public submitAnonymousEvaluation(params: {
+    windowId: string;
+    courseCode: string;
+    courseTitle: string;
+    courseTitleBn?: string;
+    departmentId: string;
+    departmentName?: string;
+    teacherId: string;
+    teacherName: string;
+    teacherNameBn?: string;
+    ratings: EvaluationCriteriaRating;
+    comment?: string;
+    studentId: string;
+  }): { success: boolean; message: string } {
+    const store = this.getStore();
+    if (!store.anonymousCourseEvaluations) store.anonymousCourseEvaluations = [];
+    if (!store.evaluationSubmissionLedger) store.evaluationSubmissionLedger = [];
+
+    // Verify window is active
+    const windowObj = store.evaluationWindows?.find((w) => w.id === params.windowId);
+    if (!windowObj || windowObj.status !== 'Open') {
+      return { success: false, message: 'This evaluation window is currently closed.' };
+    }
+
+    // Verify one-time submission constraint
+    if (this.hasStudentSubmittedCourse(params.windowId, params.courseCode, params.studentId)) {
+      return { success: false, message: 'You have already submitted an evaluation for this course in this window.' };
+    }
+
+    // Calculate average score
+    const avg = Number(
+      (
+        (params.ratings.preparation +
+          params.ratings.punctuality +
+          params.ratings.engagement +
+          params.ratings.practicals +
+          params.ratings.fairness +
+          params.ratings.overall) /
+        6
+      ).toFixed(2)
+    );
+
+    // CRITICAL: Anonymity Guarantee - DO NOT STORE studentId with the answers!
+    const newEval: AnonymousCourseEvaluation = {
+      id: `eval-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      windowId: params.windowId,
+      courseCode: params.courseCode,
+      courseTitle: params.courseTitle,
+      courseTitleBn: params.courseTitleBn,
+      departmentId: params.departmentId,
+      departmentName: params.departmentName,
+      teacherId: params.teacherId,
+      teacherName: params.teacherName,
+      teacherNameBn: params.teacherNameBn,
+      ratings: params.ratings,
+      averageScore: avg,
+      comment: params.comment?.trim() || undefined,
+      submittedAt: new Date().toISOString()
+    };
+
+    store.anonymousCourseEvaluations.push(newEval);
+
+    // Store detached one-time submission record (records only studentId + courseCode)
+    store.evaluationSubmissionLedger.push({
+      windowId: params.windowId,
+      courseCode: params.courseCode,
+      studentId: params.studentId,
+      submittedAt: new Date().toISOString()
+    });
+
+    this.saveStore(store);
+    return { success: true, message: 'Anonymous evaluation submitted successfully. Identity detached.' };
+  }
+
+  public getCourseEvaluationSummary(windowId: string, courseCode: string): CourseEvaluationSummary | null {
+    const store = this.getStore();
+    const windowObj = store.evaluationWindows?.find((w) => w.id === windowId);
+    if (!windowObj) return null;
+
+    const evals = (store.anonymousCourseEvaluations || []).filter(
+      (e) => e.windowId === windowId && e.courseCode.toLowerCase() === courseCode.toLowerCase()
+    );
+
+    const total = evals.length;
+    const isThresholdMet = total >= 5;
+    const isAccessibleToTeacher = windowObj.status === 'Closed' && isThresholdMet;
+
+    if (total === 0) {
+      // Find course reference from courses list
+      const courseRef = store.courses?.find((c) => c.code.toLowerCase() === courseCode.toLowerCase());
+      return {
+        courseCode,
+        courseTitle: courseRef?.title || courseCode,
+        departmentId: courseRef?.department || 'CSE',
+        teacherId: 'demo_teacher_01',
+        teacherName: courseRef?.instructor || 'Faculty Instructor',
+        totalResponses: 0,
+        windowStatus: windowObj.status,
+        isThresholdMet: false,
+        isAccessibleToTeacher: false,
+        overallAverage: 0,
+        criteriaAverages: { preparation: 0, punctuality: 0, engagement: 0, practicals: 0, fairness: 0, overall: 0 },
+        ratingDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+        comments: []
+      };
+    }
+
+    const first = evals[0];
+    const sumRatings = evals.reduce(
+      (acc, curr) => ({
+        preparation: acc.preparation + curr.ratings.preparation,
+        punctuality: acc.punctuality + curr.ratings.punctuality,
+        engagement: acc.engagement + curr.ratings.engagement,
+        practicals: acc.practicals + curr.ratings.practicals,
+        fairness: acc.fairness + curr.ratings.fairness,
+        overall: acc.overall + curr.ratings.overall
+      }),
+      { preparation: 0, punctuality: 0, engagement: 0, practicals: 0, fairness: 0, overall: 0 }
+    );
+
+    const dist = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    evals.forEach((e) => {
+      const rounded = Math.round(e.averageScore) as 1 | 2 | 3 | 4 | 5;
+      if (dist[rounded] !== undefined) dist[rounded]++;
+    });
+
+    const comments = evals.map((e) => e.comment).filter(Boolean) as string[];
+    const overallAvg = Number((evals.reduce((sum, e) => sum + e.averageScore, 0) / total).toFixed(2));
+
+    return {
+      courseCode: first.courseCode,
+      courseTitle: first.courseTitle,
+      departmentId: first.departmentId,
+      teacherId: first.teacherId,
+      teacherName: first.teacherName,
+      totalResponses: total,
+      windowStatus: windowObj.status,
+      isThresholdMet,
+      isAccessibleToTeacher,
+      overallAverage: overallAvg,
+      criteriaAverages: {
+        preparation: Number((sumRatings.preparation / total).toFixed(2)),
+        punctuality: Number((sumRatings.punctuality / total).toFixed(2)),
+        engagement: Number((sumRatings.engagement / total).toFixed(2)),
+        practicals: Number((sumRatings.practicals / total).toFixed(2)),
+        fairness: Number((sumRatings.fairness / total).toFixed(2)),
+        overall: Number((sumRatings.overall / total).toFixed(2))
+      },
+      ratingDistribution: dist,
+      comments
+    };
+  }
+
+  public getTeacherEvaluationSummaries(windowId: string, teacherId: string): CourseEvaluationSummary[] {
+    const store = this.getStore();
+    const evals = store.anonymousCourseEvaluations?.filter(
+      (e) => e.windowId === windowId && e.teacherId === teacherId
+    ) || [];
+
+    // Distinct course codes
+    const courseCodes = Array.from(new Set(evals.map((e) => e.courseCode)));
+
+    // Also include teacher's assigned courses even if 0 evaluations yet
+    const teacherCourses = store.teacherProfile?.assignedCourseCodes || ['CSE-3201', 'CSE-3205', 'CSE-1101'];
+    teacherCourses.forEach((code) => {
+      if (!courseCodes.includes(code)) courseCodes.push(code);
+    });
+
+    return courseCodes
+      .map((code) => this.getCourseEvaluationSummary(windowId, code))
+      .filter(Boolean) as CourseEvaluationSummary[];
+  }
+
+  public getDepartmentEvaluationSummaries(windowId: string, departmentId: string): CourseEvaluationSummary[] {
+    const store = this.getStore();
+    const evals = store.anonymousCourseEvaluations?.filter(
+      (e) => e.windowId === windowId && e.departmentId.toLowerCase() === departmentId.toLowerCase()
+    ) || [];
+
+    const courseCodes = Array.from(new Set(evals.map((e) => e.courseCode)));
+    if (courseCodes.length === 0 && departmentId.toLowerCase() === 'cse') {
+      courseCodes.push('CSE-3201', 'CSE-3205', 'CSE-1101');
+    }
+
+    return courseCodes
+      .map((code) => this.getCourseEvaluationSummary(windowId, code))
+      .filter(Boolean) as CourseEvaluationSummary[];
+  }
+
+  public getUniversityEvaluationAnalytics(windowId: string) {
+    const store = this.getStore();
+    const evals = store.anonymousCourseEvaluations?.filter((e) => e.windowId === windowId) || [];
+
+    // Department comparison list
+    const depts = ['CSE', 'EEE', 'MATH', 'FISH', 'GEOL', 'MGT', 'SOC'];
+    const deptData = depts.map((d) => {
+      const dEvals = evals.filter((e) => e.departmentId.toUpperCase() === d);
+      const avg = dEvals.length > 0
+        ? Number((dEvals.reduce((sum, e) => sum + e.averageScore, 0) / dEvals.length).toFixed(2))
+        : 0;
+      return {
+        department: d,
+        average: avg,
+        evaluationsCount: dEvals.length
+      };
+    });
+
+    // Criteria breakdown
+    const total = evals.length;
+    const criteriaData = [
+      {
+        criteria: 'Preparation & Clarity',
+        score: total > 0 ? Number((evals.reduce((sum, e) => sum + e.ratings.preparation, 0) / total).toFixed(2)) : 0
+      },
+      {
+        criteria: 'Punctuality & Routine',
+        score: total > 0 ? Number((evals.reduce((sum, e) => sum + e.ratings.punctuality, 0) / total).toFixed(2)) : 0
+      },
+      {
+        criteria: 'Engagement & Questions',
+        score: total > 0 ? Number((evals.reduce((sum, e) => sum + e.ratings.engagement, 0) / total).toFixed(2)) : 0
+      },
+      {
+        criteria: 'Lab & Assignments',
+        score: total > 0 ? Number((evals.reduce((sum, e) => sum + e.ratings.practicals, 0) / total).toFixed(2)) : 0
+      },
+      {
+        criteria: 'Assessment Fairness',
+        score: total > 0 ? Number((evals.reduce((sum, e) => sum + e.ratings.fairness, 0) / total).toFixed(2)) : 0
+      },
+      {
+        criteria: 'Overall Effectiveness',
+        score: total > 0 ? Number((evals.reduce((sum, e) => sum + e.ratings.overall, 0) / total).toFixed(2)) : 0
+      }
+    ];
+
+    // Ratings distribution
+    const distData = [
+      { rating: '5 Stars', count: evals.filter((e) => Math.round(e.averageScore) === 5).length },
+      { rating: '4 Stars', count: evals.filter((e) => Math.round(e.averageScore) === 4).length },
+      { rating: '3 Stars', count: evals.filter((e) => Math.round(e.averageScore) === 3).length },
+      { rating: '2 Stars', count: evals.filter((e) => Math.round(e.averageScore) === 2).length },
+      { rating: '1 Star', count: evals.filter((e) => Math.round(e.averageScore) === 1).length }
+    ];
+
+    const overallUniAverage = total > 0
+      ? Number((evals.reduce((sum, e) => sum + e.averageScore, 0) / total).toFixed(2))
+      : 0;
+
+    return {
+      totalEvaluations: total,
+      overallAverage: overallUniAverage,
+      departmentComparison: deptData,
+      criteriaBreakdown: criteriaData,
+      ratingDistribution: distData
+    };
+  }
+
+  // ================= QUIZ SYSTEM METHODS =================
+
+  public getQuizzes(courseCode?: string): Quiz[] {
+    const store = this.getStore();
+    const list = store.quizzes || [];
+    if (!courseCode) return list;
+    return list.filter((q) => q.courseCode.toLowerCase() === courseCode.toLowerCase());
+  }
+
+  public getQuizById(quizId: string): Quiz | undefined {
+    const store = this.getStore();
+    return store.quizzes?.find((q) => q.id === quizId);
+  }
+
+  public createQuiz(quizData: Omit<Quiz, 'id' | 'createdAt'>): Quiz {
+    const store = this.getStore();
+    if (!store.quizzes) store.quizzes = [];
+
+    const newQuiz: Quiz = {
+      ...quizData,
+      id: `quiz-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      createdAt: new Date().toISOString()
+    };
+
+    store.quizzes.unshift(newQuiz);
+    this.saveStore(store);
+    return newQuiz;
+  }
+
+  public getQuizAttempts(quizId: string): StudentQuizAttempt[] {
+    const store = this.getStore();
+    return store.quizAttempts?.filter((a) => a.quizId === quizId) || [];
+  }
+
+  public getStudentQuizAttempt(quizId: string, studentId: string): StudentQuizAttempt | undefined {
+    const store = this.getStore();
+    return store.quizAttempts?.find(
+      (a) => a.quizId === quizId && a.studentId.toLowerCase() === studentId.toLowerCase()
+    );
+  }
+
+  public startQuizAttempt(quizId: string, studentId: string, studentName: string): StudentQuizAttempt {
+    const store = this.getStore();
+    if (!store.quizAttempts) store.quizAttempts = [];
+
+    const existing = this.getStudentQuizAttempt(quizId, studentId);
+    if (existing) return existing;
+
+    const quiz = this.getQuizById(quizId);
+    const newAttempt: StudentQuizAttempt = {
+      id: `att-${Date.now()}-${studentId}`,
+      quizId,
+      courseCode: quiz?.courseCode || 'CSE-3201',
+      studentId,
+      studentName,
+      startedAt: new Date().toISOString(),
+      isSubmitted: false,
+      answers: {},
+      autoScore: 0,
+      isFullyGraded: false,
+      syncedToContinuousAssessment: false
+    };
+
+    store.quizAttempts.push(newAttempt);
+    this.saveStore(store);
+    return newAttempt;
+  }
+
+  public saveStudentQuizAnswer(
+    attemptId: string,
+    questionId: string,
+    answer: { selectedOptionId?: string; shortAnswerText?: string }
+  ): boolean {
+    const store = this.getStore();
+    const attempt = store.quizAttempts?.find((a) => a.id === attemptId);
+    if (!attempt || attempt.isSubmitted) return false;
+
+    if (!attempt.answers) attempt.answers = {};
+    attempt.answers[questionId] = {
+      questionId,
+      selectedOptionId: answer.selectedOptionId,
+      shortAnswerText: answer.shortAnswerText,
+      updatedAt: new Date().toISOString()
+    };
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public submitQuizAttempt(attemptId: string): { success: boolean; attempt?: StudentQuizAttempt; message: string } {
+    const store = this.getStore();
+    const attempt = store.quizAttempts?.find((a) => a.id === attemptId);
+    if (!attempt) return { success: false, message: 'Quiz attempt not found.' };
+    if (attempt.isSubmitted) return { success: false, attempt, message: 'Quiz was already submitted.' };
+
+    const quiz = store.quizzes?.find((q) => q.id === attempt.quizId);
+    if (!quiz) return { success: false, message: 'Associated quiz not found.' };
+
+    let autoScore = 0;
+    let hasShortAnswer = false;
+
+    quiz.questions.forEach((q) => {
+      const studentAns = attempt.answers[q.id];
+      if (q.type === 'MCQ') {
+        const isCorrect = studentAns?.selectedOptionId === q.correctOptionId;
+        const awarded = isCorrect ? q.points : 0;
+        autoScore += awarded;
+        if (studentAns) {
+          studentAns.isAutoGraded = true;
+          studentAns.autoScore = awarded;
+        } else {
+          attempt.answers[q.id] = {
+            questionId: q.id,
+            isAutoGraded: true,
+            autoScore: 0
+          };
+        }
+      } else if (q.type === 'SHORT_ANSWER') {
+        hasShortAnswer = true;
+      }
+    });
+
+    attempt.isSubmitted = true;
+    attempt.submittedAt = new Date().toISOString();
+    attempt.autoScore = autoScore;
+
+    if (!hasShortAnswer) {
+      attempt.manualScore = 0;
+      attempt.totalScore = autoScore;
+      attempt.isFullyGraded = true;
+    } else {
+      attempt.manualScore = undefined;
+      attempt.totalScore = autoScore; // Partial until teacher grades
+      attempt.isFullyGraded = false;
+    }
+
+    this.saveStore(store);
+    return { success: true, attempt, message: 'Quiz submitted successfully.' };
+  }
+
+  public gradeShortAnswer(
+    attemptId: string,
+    questionId: string,
+    teacherScore: number,
+    teacherFeedback?: string
+  ): boolean {
+    const store = this.getStore();
+    const attempt = store.quizAttempts?.find((a) => a.id === attemptId);
+    if (!attempt) return false;
+
+    const quiz = store.quizzes?.find((q) => q.id === attempt.quizId);
+    if (!quiz) return false;
+
+    if (!attempt.answers[questionId]) {
+      attempt.answers[questionId] = { questionId };
+    }
+    attempt.answers[questionId].teacherScore = teacherScore;
+    if (teacherFeedback !== undefined) {
+      attempt.answers[questionId].teacherFeedback = teacherFeedback.trim();
+    }
+
+    // Recompute manualScore and check if fully graded
+    const shortAnswerQuestions = quiz.questions.filter((q) => q.type === 'SHORT_ANSWER');
+    let totalManual = 0;
+    let allGraded = true;
+
+    shortAnswerQuestions.forEach((q) => {
+      const ans = attempt.answers[q.id];
+      if (ans && ans.teacherScore !== undefined) {
+        totalManual += ans.teacherScore;
+      } else {
+        allGraded = false;
+      }
+    });
+
+    attempt.manualScore = totalManual;
+    attempt.totalScore = attempt.autoScore + totalManual;
+    attempt.isFullyGraded = allGraded;
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public syncQuizToContinuousAssessment(quizId: string, courseCode: string): { success: boolean; count: number; message: string } {
+    const store = this.getStore();
+    const quiz = store.quizzes?.find((q) => q.id === quizId);
+    if (!quiz) return { success: false, count: 0, message: 'Quiz not found.' };
+
+    const attempts = store.quizAttempts?.filter((a) => a.quizId === quizId && a.isSubmitted) || [];
+    if (attempts.length === 0) {
+      return { success: false, count: 0, message: 'No submitted attempts available to sync.' };
+    }
+
+    const course = store.courses?.find((c) => c.code.toLowerCase() === courseCode.toLowerCase());
+    if (!course || !course.marksSheet) {
+      return { success: false, count: 0, message: `Marks sheet for ${courseCode} not found.` };
+    }
+
+    let updatedCount = 0;
+    attempts.forEach((att) => {
+      const score = att.totalScore ?? att.autoScore ?? 0;
+      // Scale quiz score to 20 marks limit for Class Tests continuous assessment
+      const scaledClassTest = Math.min(
+        20,
+        Math.round(((score / Math.max(1, quiz.totalMarks)) * 20) * 10) / 10
+      );
+
+      if (course.marksSheet.entries[att.studentId]) {
+        course.marksSheet.entries[att.studentId].classTests = scaledClassTest;
+        const comp = computeTotalMarks({
+          attendance: course.marksSheet.entries[att.studentId].attendance,
+          classTests: scaledClassTest,
+          midterm: course.marksSheet.entries[att.studentId].midterm,
+          finalExam: course.marksSheet.entries[att.studentId].finalExam
+        });
+        course.marksSheet.entries[att.studentId].total = comp.totalMarks;
+        course.marksSheet.entries[att.studentId].letterGrade = comp.letterGrade;
+        course.marksSheet.entries[att.studentId].gradePoint = comp.gradePoint;
+
+        att.syncedToContinuousAssessment = true;
+        updatedCount++;
+      }
+    });
+
+    // Add audit entry to marks sheet
+    if (!course.marksSheet.auditTrail) course.marksSheet.auditTrail = [];
+    course.marksSheet.auditTrail.push({
+      id: `audit-sync-quiz-${Date.now()}`,
+      resultSheetId: course.marksSheet.id || `sheet-${courseCode}`,
+      courseCode,
+      actorUid: quiz.teacherId,
+      actorName: quiz.teacherName,
+      actorEmail: 'teacher.demo@jstu.ac.bd',
+      role: 'teacher',
+      action: 'UPDATE_DRAFT',
+      fromStatus: course.marksSheet.status,
+      toStatus: 'DRAFT',
+      comment: `Continuous assessment updated: Synced results from Quiz "${quiz.title}" (${updatedCount} students) into Class Tests column for teacher review.`,
+      timestamp: new Date().toISOString()
+    });
+
+    this.saveStore(store);
+    return {
+      success: true,
+      count: updatedCount,
+      message: `Successfully synchronized ${updatedCount} student marks to Continuous Assessment (Class Tests) as DRAFT.`
+    };
+  }
+
+  public getQuizAnalytics(quizId: string): QuizResultAnalytics | null {
+    const store = this.getStore();
+    const quiz = store.quizzes?.find((q) => q.id === quizId);
+    if (!quiz) return null;
+
+    const attempts = store.quizAttempts?.filter((a) => a.quizId === quizId && a.isSubmitted) || [];
+    if (attempts.length === 0) {
+      return {
+        quizId,
+        totalAttempts: 0,
+        highestScore: 0,
+        lowestScore: 0,
+        averageScore: 0,
+        questionStats: quiz.questions.map((q) => ({
+          questionId: q.id,
+          prompt: q.prompt,
+          type: q.type,
+          points: q.points,
+          totalAttempts: 0,
+          correctOrHighScoreCount: 0,
+          successRate: 0,
+          difficultyLabel: 'Moderate'
+        }))
+      };
+    }
+
+    const scores = attempts.map((a) => a.totalScore ?? a.autoScore ?? 0);
+    const highest = Math.max(...scores);
+    const lowest = Math.min(...scores);
+    const avg = Number((scores.reduce((sum, s) => sum + s, 0) / scores.length).toFixed(2));
+
+    const questionStats: QuestionDifficultyStat[] = quiz.questions.map((q) => {
+      let highCount = 0;
+      attempts.forEach((att) => {
+        const ans = att.answers[q.id];
+        if (q.type === 'MCQ') {
+          if (ans?.selectedOptionId === q.correctOptionId) {
+            highCount++;
+          }
+        } else {
+          // For short answer, consider score >= 60% of points as successful
+          if (ans && ans.teacherScore !== undefined && ans.teacherScore >= q.points * 0.6) {
+            highCount++;
+          }
+        }
+      });
+
+      const rate = Math.round((highCount / attempts.length) * 100);
+      let label: 'Easy' | 'Moderate' | 'Challenging' = 'Moderate';
+      if (rate >= 75) label = 'Easy';
+      else if (rate < 40) label = 'Challenging';
+
+      return {
+        questionId: q.id,
+        prompt: q.prompt,
+        type: q.type,
+        points: q.points,
+        totalAttempts: attempts.length,
+        correctOrHighScoreCount: highCount,
+        successRate: rate,
+        difficultyLabel: label
+      };
+    });
+
+    return {
+      quizId,
+      totalAttempts: attempts.length,
+      highestScore: highest,
+      lowestScore: lowest,
+      averageScore: avg,
+      questionStats
+    };
+  }
+
+  // ================= SCHOLARSHIP SYSTEM METHODS =================
+
+  public getScholarships(): Scholarship[] {
+    const store = this.getStore();
+    return store.scholarships || [];
+  }
+
+  public getScholarshipById(id: string): Scholarship | undefined {
+    const store = this.getStore();
+    return store.scholarships?.find((s) => s.id === id);
+  }
+
+  public createScholarship(data: Omit<Scholarship, 'id' | 'createdAt'>): Scholarship {
+    const store = this.getStore();
+    if (!store.scholarships) store.scholarships = [];
+
+    const newSch: Scholarship = {
+      ...data,
+      id: `sch-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      createdAt: new Date().toISOString()
+    };
+
+    store.scholarships.unshift(newSch);
+    this.saveStore(store);
+    return newSch;
+  }
+
+  public updateScholarship(id: string, updates: Partial<Scholarship>): boolean {
+    const store = this.getStore();
+    const sch = store.scholarships?.find((s) => s.id === id);
+    if (!sch) return false;
+
+    Object.assign(sch, updates);
+    this.saveStore(store);
+    return true;
+  }
+
+  public getScholarshipApplicants(
+    scholarshipId: string,
+    rule: IncomeRuleConfig = { cgpaWeight: 0.6, incomeWeight: 0.4, maxIncomeCeiling: 300000 }
+  ): RankedScholarshipApplicant[] {
+    const store = this.getStore();
+    const scholarship = this.getScholarshipById(scholarshipId);
+    if (!scholarship) return [];
+
+    // Filter paperless applications of type 'scholarship' matching this scholarship
+    const apps = (store.applications || []).filter(
+      (a) =>
+        a.type === 'scholarship' &&
+        (a.payload?.scholarshipId === scholarshipId ||
+          a.payload?.scholarshipType?.toLowerCase().includes(scholarship.category.toLowerCase()) ||
+          a.payload?.scholarshipTitle?.toLowerCase() === scholarship.title.toLowerCase())
+    );
+
+    const ceiling = rule.maxIncomeCeiling || 300000;
+
+    const ranked: RankedScholarshipApplicant[] = apps.map((app) => {
+      const cgpa = Number(app.payload?.cgpa) || 3.5;
+      const income = Number(app.payload?.annualIncome) || 200000;
+
+      // Normalize CGPA on 4.0 scale to 0-100
+      const cgpaScore = Math.min(100, Math.max(0, (cgpa / 4.0) * 100));
+
+      // Inverse income score: lower income = higher need
+      const needScore = income >= ceiling ? 0 : Math.min(100, Math.max(0, ((ceiling - income) / ceiling) * 100));
+
+      const composite = Number(((cgpaScore * rule.cgpaWeight) + (needScore * rule.incomeWeight)).toFixed(2));
+
+      return {
+        applicationId: app.id,
+        applicationNumber: app.applicationNumber,
+        studentId: app.studentId || (app as any).studentUid || 'JSTU2026001',
+        studentName: app.applicantName || (app as any).studentName || 'Student Applicant',
+        studentNameBn: app.applicantNameBn || (app as any).studentNameBn,
+        department: app.department || (app as any).studentDepartment || 'CSE',
+        cgpa,
+        annualIncome: income,
+        appliedDate: app.submittedAt || (app as any).createdAt || new Date().toISOString(),
+        workflowStatus: app.status,
+        currentStepIndex: app.currentStepIndex,
+        compositeScore: composite,
+        rank: 0,
+        selectionStatus: 'WAITLIST'
+      };
+    });
+
+    // Sort by composite score descending, then by CGPA descending
+    ranked.sort((a, b) => {
+      if (b.compositeScore !== a.compositeScore) return b.compositeScore - a.compositeScore;
+      return b.cgpa - a.cgpa;
+    });
+
+    // Assign ranks and selection status based on slots
+    ranked.forEach((item, idx) => {
+      item.rank = idx + 1;
+      if (item.cgpa < scholarship.minimumCgpa) {
+        item.selectionStatus = 'INELIGIBLE';
+      } else if (item.rank <= scholarship.slots) {
+        item.selectionStatus = 'SELECTED';
+      } else {
+        item.selectionStatus = 'WAITLIST';
+      }
+    });
+
+    return ranked;
+  }
+
+  public publishScholarshipResults(scholarshipId: string, selectedApplicantIds: string[]): boolean {
+    const store = this.getStore();
+    const sch = store.scholarships?.find((s) => s.id === scholarshipId);
+    if (!sch) return false;
+
+    // Get applicants
+    const applicants = this.getScholarshipApplicants(scholarshipId);
+    const chosen = applicants.filter((a) => selectedApplicantIds.includes(a.applicationId));
+
+    sch.status = 'PUBLISHED';
+    sch.publishedAt = new Date().toISOString();
+    sch.publishedRecipients = chosen.map((c) => ({
+      studentId: c.studentId,
+      studentName: c.studentName,
+      studentNameBn: c.studentNameBn,
+      department: c.department,
+      cgpa: c.cgpa,
+      rank: c.rank,
+      awardAmount: sch.amountFormatted
+    }));
+
+    // Approve the underlying applications in the workflow
+    chosen.forEach((c) => {
+      const app = store.applications?.find((a) => a.id === c.applicationId);
+      if (app) {
+        app.status = 'APPROVED';
+        app.currentStepIndex = 2; // Final approved step
+        if (!app.auditTrail) app.auditTrail = [];
+        app.auditTrail.push({
+          id: `aud-pub-${Date.now()}-${c.studentId}`,
+          applicationId: app.id,
+          applicationNumber: app.applicationNumber,
+          actorUid: 'scholarship_committee_admin',
+          actorName: 'Scholarship Selection Committee & Admin',
+          actorEmail: 'scholarship.committee@jstu.ac.bd',
+          role: 'admin',
+          action: 'APPROVE',
+          fromStatus: app.status,
+          toStatus: 'APPROVED',
+          fromStepIndex: 1,
+          toStepIndex: 2,
+          comment: `Official Grant Awarded: Ranked #${c.rank} with composite score of ${c.compositeScore} points. Published in scholarship award register.`,
+          timestamp: new Date().toISOString()
+        });
+      }
+    });
+
+    this.saveStore(store);
+    return true;
   }
 }
 

@@ -28,6 +28,8 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { AdminAnalyticsDashboard } from '../../../components/admin/AdminAnalyticsDashboard';
+import { ChairmanDepartmentEvaluations } from '../../../components/evaluation/ChairmanDepartmentEvaluations';
+import { Star } from 'lucide-react';
 
 export const ChairmanDashboard: React.FC = () => {
   const { user, profile, claims } = useAuth();
@@ -37,7 +39,7 @@ export const ChairmanDashboard: React.FC = () => {
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<ChairmanDashboardData | null>(null);
-  const [activeSection, setActiveSection] = useState<'analytics' | 'marks' | 'applications'>('analytics');
+  const [activeSection, setActiveSection] = useState<'analytics' | 'marks' | 'applications' | 'evaluations'>('analytics');
   const [filter, setFilter] = useState<'all' | 'SUBMITTED' | 'VERIFIED' | 'DRAFT'>('all');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -209,6 +211,18 @@ export const ChairmanDashboard: React.FC = () => {
             <Inbox className="w-4 h-4" />
             <span>{isBn ? 'পেপারলেস আবেদন ইনবক্স' : 'Paperless Applications Inbox'}</span>
           </button>
+
+          <button
+            onClick={() => setActiveSection('evaluations')}
+            className={`pb-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer flex items-center gap-1.5 ${
+              activeSection === 'evaluations'
+                ? 'text-[#1E3A8A] border-b-2 border-[#1E3A8A]'
+                : 'text-slate-500 hover:text-slate-700'
+            }`}
+          >
+            <Star className="w-4 h-4" />
+            <span>{isBn ? 'কোর্স মূল্যায়ন' : 'Course Evaluations'}</span>
+          </button>
         </div>
 
         {activeSection === 'analytics' ? (
@@ -220,6 +234,8 @@ export const ChairmanDashboard: React.FC = () => {
           />
         ) : activeSection === 'applications' ? (
           <ApproverInbox actor={chairmanActor} portalTitle="Department Chairman" />
+        ) : activeSection === 'evaluations' ? (
+          <ChairmanDepartmentEvaluations departmentId={departmentId} />
         ) : (
           <>
             {/* 4 Metric Cards */}
