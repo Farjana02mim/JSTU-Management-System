@@ -362,7 +362,6 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                       ? 'primary'
                       : 'neutral'
                   }
-                  size="md"
                   className="font-bold uppercase tracking-wider"
                 >
                   {activeScholarship.status}
@@ -701,15 +700,15 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                       <td className="py-3 px-3">
                         <div className="flex items-center gap-1.5">
                           {app.workflowStatus === 'APPROVED' ? (
-                            <Badge variant="success" size="sm">
+                            <Badge variant="success">
                               APPROVED
                             </Badge>
                           ) : app.currentStepIndex >= 1 ? (
-                            <Badge variant="primary" size="sm">
+                            <Badge variant="primary">
                               CHAIRMAN VERIFIED
                             </Badge>
                           ) : (
-                            <Badge variant="neutral" size="sm">
+                            <Badge variant="neutral">
                               SUBMITTED
                             </Badge>
                           )}
@@ -725,7 +724,6 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                               ? 'warning'
                               : 'danger'
                           }
-                          size="sm"
                           className="font-bold"
                         >
                           {app.selectionStatus}
@@ -993,68 +991,78 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                       ? 'warning'
                       : 'danger'
                   }
-                  size="sm"
                 >
                   {viewingApplicant.selectionStatus}
                 </Badge>
               </div>
               <div>
                 <span className="text-slate-400 block text-[10px]">WORKFLOW STAGE</span>
-                <Badge variant="primary" size="sm">
+                <Badge variant="primary">
                   Step {viewingApplicant.currentStepIndex + 1} of 2
                 </Badge>
               </div>
             </div>
 
             {/* Application Payload details */}
-            {activePaperlessApp?.payload && (
-              <div className="space-y-1.5 p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl">
-                <span className="font-bold text-slate-700 dark:text-slate-300">
-                  Applicant Statement & Financial Grounds:
-                </span>
-                <p className="text-slate-600 dark:text-slate-300 text-xs italic">
-                  &ldquo;{activePaperlessApp.payload.reason || 'No statement provided'}&rdquo;
-                </p>
-                {activePaperlessApp.payload.fatherOccupation && (
-                  <p className="text-[11px] text-slate-500">
-                    Guardian Occupation: <strong>{activePaperlessApp.payload.fatherOccupation}</strong> &bull;{' '}
-                    Family Members: <strong>{activePaperlessApp.payload.familyMembers || 4}</strong>
+            {(() => {
+              const data = activePaperlessApp?.formData || (activePaperlessApp as any)?.payload;
+              if (!data) return null;
+              return (
+                <div className="space-y-1.5 p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl">
+                  <span className="font-bold text-slate-700 dark:text-slate-300">
+                    Applicant Statement & Financial Grounds:
+                  </span>
+                  <p className="text-slate-600 dark:text-slate-300 text-xs italic">
+                    &ldquo;{data.reason || 'No statement provided'}&rdquo;
                   </p>
-                )}
-              </div>
-            )}
+                  {data.fatherOccupation && (
+                    <p className="text-[11px] text-slate-500">
+                      Guardian Occupation: <strong>{data.fatherOccupation}</strong> &bull;{' '}
+                      Family Members: <strong>{data.familyMembers || 4}</strong>
+                    </p>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* Submitted Document Attachments */}
-            {activePaperlessApp?.attachments && activePaperlessApp.attachments.length > 0 && (
-              <div className="space-y-2">
-                <span className="font-bold text-slate-700 dark:text-slate-300 block">
-                  Uploaded Verification Documents ({activePaperlessApp.attachments.length}):
-                </span>
-                <div className="space-y-1.5">
-                  {activePaperlessApp.attachments.map((att: any, idx: number) => (
-                    <div
-                      key={idx}
-                      className="p-2 bg-slate-50 dark:bg-slate-800/80 rounded-lg flex items-center justify-between border border-slate-200 dark:border-slate-700"
-                    >
-                      <div className="flex items-center gap-2">
-                        <FileText className="w-4 h-4 text-red-500" />
-                        <div>
-                          <div className="font-semibold text-slate-800 dark:text-slate-200">
-                            {att.name}
-                          </div>
-                          <div className="text-[10px] text-slate-400">
-                            {att.size ? `${(att.size / 1024).toFixed(0)} KB` : 'Verified attachment'}
+            {(() => {
+              const attList = activePaperlessApp?.attachment
+                ? [activePaperlessApp.attachment]
+                : (activePaperlessApp as any)?.attachments || [];
+              if (attList.length === 0) return null;
+
+              return (
+                <div className="space-y-2">
+                  <span className="font-bold text-slate-700 dark:text-slate-300 block">
+                    Uploaded Verification Documents ({attList.length}):
+                  </span>
+                  <div className="space-y-1.5">
+                    {attList.map((att: any, idx: number) => (
+                      <div
+                        key={idx}
+                        className="p-2 bg-slate-50 dark:bg-slate-800/80 rounded-lg flex items-center justify-between border border-slate-200 dark:border-slate-700"
+                      >
+                        <div className="flex items-center gap-2">
+                          <FileText className="w-4 h-4 text-red-500" />
+                          <div>
+                            <div className="font-semibold text-slate-800 dark:text-slate-200">
+                              {att.name}
+                            </div>
+                            <div className="text-[10px] text-slate-400">
+                              {att.size ? `${(att.size / 1024).toFixed(0)} KB` : 'Verified attachment'}
+                            </div>
                           </div>
                         </div>
+                        <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" /> Chairman Verified
+                        </span>
                       </div>
-                      <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" /> Chairman Verified
-                      </span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
             {/* Paperless Workflow Step Trail (Chairman -> Committee/Admin -> Approved) */}
             <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">

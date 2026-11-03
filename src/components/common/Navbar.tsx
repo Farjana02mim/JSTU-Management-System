@@ -8,7 +8,8 @@ import {
   ShieldCheck,
   GraduationCap,
   Search,
-  HelpCircle
+  HelpCircle,
+  Briefcase
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { UniversityLogo } from './UniversityLogo';
@@ -105,6 +106,14 @@ export const Navbar: React.FC = () => {
             >
               <HelpCircle className="w-3.5 h-3.5 text-[#1E3A8A]" />
               <span>{isBn ? 'হেল্পডেস্ক' : 'Helpdesk'}</span>
+            </Link>
+            <span className="text-slate-300">|</span>
+            <Link
+              to="/staff"
+              className="flex items-center gap-1 sm:gap-1.5 text-slate-600 hover:text-[#1E3A8A] font-semibold transition-colors text-[11px] sm:text-xs"
+            >
+              <Briefcase className="w-3.5 h-3.5 text-[#1E3A8A]" />
+              <span>{isBn ? 'স্টাফ কর্নার' : 'Staff Area'}</span>
             </Link>
             <span className="text-slate-300">|</span>
             {/* Language Toggle */}
@@ -414,6 +423,14 @@ export const Navbar: React.FC = () => {
                 >
                   {isBn ? 'অ্যালামনাই অ্যাসোসিয়েশন' : 'Alumni Network (JSTUAA)'}
                 </Link>
+                <Link
+                  to="/convocation"
+                  onClick={() => setActiveDropdown(null)}
+                  className="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-slate-700 hover:bg-[#F8FAFC] hover:text-[#1E3A8A]"
+                >
+                  <span>{isBn ? 'সমাবর্তন ২০২৬' : '2nd Convocation 2026'}</span>
+                  <span className="text-[10px] bg-blue-100 text-blue-800 font-bold px-1.5 py-0.5 rounded">Register</span>
+                </Link>
               </div>
             )}
           </div>
@@ -697,6 +714,14 @@ export const Navbar: React.FC = () => {
               className="px-3 py-1.5 pl-6 text-xs text-slate-600 rounded-xl hover:bg-[#F8FAFC] hover:text-[#1E3A8A]"
             >
               • {isBn ? 'অ্যালামনাই অ্যাসোসিয়েশন' : 'Alumni Network'}
+            </Link>
+            <Link
+              to="/convocation"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-1.5 pl-6 text-xs text-blue-700 font-semibold rounded-xl hover:bg-[#F8FAFC] flex items-center justify-between"
+            >
+              <span>• {isBn ? 'সমাবর্তন ২০২৬' : '2nd Convocation 2026'}</span>
+              <span className="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-bold">New</span>
             </Link>
             <Link
               to="/research"

@@ -1,4 +1,6 @@
 import { Scholarship } from '../types/scholarship';
+import { PaperlessApplication } from '../services/workflow/workflowTypes';
+import { WORKFLOW_CONFIGS } from '../config/workflows';
 
 export const INITIAL_DEMO_SCHOLARSHIPS: Scholarship[] = [
   {
@@ -133,22 +135,28 @@ export const INITIAL_DEMO_SCHOLARSHIPS: Scholarship[] = [
   }
 ];
 
-export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS = [
+const SCHOLARSHIP_CHAIN = WORKFLOW_CONFIGS.scholarship?.chain || [
+  { stepIndex: 0, role: 'dept_chairman' as const, title: 'Department Chairman', titleBn: 'বিভাগীয় চেয়ারম্যান', departmentScoped: true },
+  { stepIndex: 1, role: 'registrar' as const, title: 'Scholarship Committee & Admin', titleBn: 'বৃত্তি কমিটি ও প্রশাসন', officeScoped: 'REGISTRAR' }
+];
+
+export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS: PaperlessApplication[] = [
   {
     id: 'app-sch-001',
     applicationNumber: 'JSTU-APP-2026-880101',
-    type: 'scholarship' as const,
+    type: 'scholarship',
     title: 'Merit Scholarship / Tuition Stipend Application',
     titleBn: 'মেধাবৃত্তি ও শিক্ষাবৃত্তি আবেদন',
-    applicantUid: 'demo_student_01',
-    applicantName: 'Tanvir Ahmed',
-    applicantNameBn: 'তানভীর আহমেদ',
-    applicantEmail: 'student.demo@jstu.ac.bd',
+    studentUid: 'demo_student_01',
+    studentName: 'Tanvir Ahmed',
+    studentNameBn: 'তানভীর আহমেদ',
+    studentEmail: 'student.demo@jstu.ac.bd',
     studentId: 'JSTU2026001',
-    department: 'CSE',
-    status: 'UNDER_REVIEW' as const,
+    studentDepartment: 'CSE',
+    status: 'UNDER_REVIEW',
     currentStepIndex: 1, // Endorsed by Chairman, now with Scholarship Committee / Admin
-    payload: {
+    chain: SCHOLARSHIP_CHAIN,
+    formData: {
       scholarshipId: 'sch-need-cum-merit-2026',
       scholarshipType: 'Need-Based Financial Aid',
       scholarshipTitle: 'JSTU Institutional Need-Cum-Merit Financial Aid Stipend',
@@ -158,20 +166,12 @@ export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS = [
       familyMembers: 5,
       reason: 'Living in university hall with limited family financial backing. High GPA maintained across all terms.'
     },
-    attachments: [
-      {
-        name: 'Ward_Commissioner_Income_Certificate.pdf',
-        size: 1450000,
-        type: 'application/pdf',
-        uploadedAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString()
-      },
-      {
-        name: '5th_Semester_Official_GradeSheet.pdf',
-        size: 1250000,
-        type: 'application/pdf',
-        uploadedAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString()
-      }
-    ],
+    attachment: {
+      name: 'Ward_Commissioner_Income_Certificate.pdf',
+      size: 1450000,
+      type: 'application/pdf',
+      uploadedAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString()
+    },
     auditTrail: [
       {
         id: 'aud-sch-1',
@@ -181,9 +181,9 @@ export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS = [
         actorName: 'Tanvir Ahmed',
         actorEmail: 'student.demo@jstu.ac.bd',
         role: 'student',
-        action: 'SUBMIT' as const,
-        fromStatus: 'DRAFT' as const,
-        toStatus: 'SUBMITTED' as const,
+        action: 'SUBMIT',
+        fromStatus: 'DRAFT',
+        toStatus: 'SUBMITTED',
         fromStepIndex: 0,
         toStepIndex: 0,
         comment: 'Application submitted with income certificate and grade transcript.',
@@ -197,34 +197,34 @@ export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS = [
         actorName: 'Prof. Dr. Chairman CSE',
         actorEmail: 'chairman.demo@jstu.ac.bd',
         role: 'dept_chairman',
-        action: 'APPROVE' as const,
-        fromStatus: 'SUBMITTED' as const,
-        toStatus: 'UNDER_REVIEW' as const,
+        action: 'APPROVE',
+        fromStatus: 'SUBMITTED',
+        toStatus: 'UNDER_REVIEW',
         fromStepIndex: 0,
         toStepIndex: 1,
         comment: 'Recommended and verified by Department Chairman. Student academic track record and conduct are exemplary.',
         timestamp: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString()
       }
     ],
-    submittedAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(),
     createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: 'app-sch-002',
     applicationNumber: 'JSTU-APP-2026-880102',
-    type: 'scholarship' as const,
+    type: 'scholarship',
     title: 'Merit Scholarship / Tuition Stipend Application',
     titleBn: 'মেধাবৃত্তি ও শিক্ষাবৃত্তি আবেদন',
-    applicantUid: 'demo_st_02',
-    applicantName: 'Sadia Afrin',
-    applicantNameBn: 'সাদিয়া আফরিন',
-    applicantEmail: 'sadia.2026002@jstu.ac.bd',
+    studentUid: 'demo_st_02',
+    studentName: 'Sadia Afrin',
+    studentNameBn: 'সাদিয়া আফরিন',
+    studentEmail: 'sadia.2026002@jstu.ac.bd',
     studentId: 'JSTU2026002',
-    department: 'CSE',
-    status: 'UNDER_REVIEW' as const,
+    studentDepartment: 'CSE',
+    status: 'UNDER_REVIEW',
     currentStepIndex: 1,
-    payload: {
+    chain: SCHOLARSHIP_CHAIN,
+    formData: {
       scholarshipId: 'sch-need-cum-merit-2026',
       scholarshipType: 'Need-Based Financial Aid',
       scholarshipTitle: 'JSTU Institutional Need-Cum-Merit Financial Aid Stipend',
@@ -234,34 +234,32 @@ export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS = [
       familyMembers: 4,
       reason: 'Top cohort student pursuing advanced software engineering research.'
     },
-    attachments: [
-      {
-        name: 'Income_Certificate_Sadia.pdf',
-        size: 980000,
-        type: 'application/pdf',
-        uploadedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
-      }
-    ],
+    attachment: {
+      name: 'Income_Certificate_Sadia.pdf',
+      size: 980000,
+      type: 'application/pdf',
+      uploadedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
+    },
     auditTrail: [],
-    submittedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
     createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: 'app-sch-003',
     applicationNumber: 'JSTU-APP-2026-880103',
-    type: 'scholarship' as const,
+    type: 'scholarship',
     title: 'Merit Scholarship / Tuition Stipend Application',
     titleBn: 'মেধাবৃত্তি ও শিক্ষাবৃত্তি আবেদন',
-    applicantUid: 'demo_st_03',
-    applicantName: 'Mahmudur Rahman',
-    applicantNameBn: 'মাহমুদুর রহমান',
-    applicantEmail: 'mahmud.2026003@jstu.ac.bd',
+    studentUid: 'demo_st_03',
+    studentName: 'Mahmudur Rahman',
+    studentNameBn: 'মাহমুদুর রহমান',
+    studentEmail: 'mahmud.2026003@jstu.ac.bd',
     studentId: 'JSTU2026003',
-    department: 'CSE',
-    status: 'UNDER_REVIEW' as const,
+    studentDepartment: 'CSE',
+    status: 'UNDER_REVIEW',
     currentStepIndex: 1,
-    payload: {
+    chain: SCHOLARSHIP_CHAIN,
+    formData: {
       scholarshipId: 'sch-need-cum-merit-2026',
       scholarshipType: 'Need-Based Financial Aid',
       scholarshipTitle: 'JSTU Institutional Need-Cum-Merit Financial Aid Stipend',
@@ -271,34 +269,32 @@ export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS = [
       familyMembers: 6,
       reason: 'Acute financial difficulty with rural agricultural background. Consistent academic diligence.'
     },
-    attachments: [
-      {
-        name: 'UP_Chairman_Income_Doc.pdf',
-        size: 1100000,
-        type: 'application/pdf',
-        uploadedAt: new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).toISOString()
-      }
-    ],
+    attachment: {
+      name: 'UP_Chairman_Income_Doc.pdf',
+      size: 1100000,
+      type: 'application/pdf',
+      uploadedAt: new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).toISOString()
+    },
     auditTrail: [],
-    submittedAt: new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).toISOString(),
     createdAt: new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: 'app-sch-004',
     applicationNumber: 'JSTU-APP-2026-880104',
-    type: 'scholarship' as const,
+    type: 'scholarship',
     title: 'Merit Scholarship / Tuition Stipend Application',
     titleBn: 'মেধাবৃত্তি ও শিক্ষাবৃত্তি আবেদন',
-    applicantUid: 'demo_st_04',
-    applicantName: 'Nusrat Jahan',
-    applicantNameBn: 'নুসরাত জাহান',
-    applicantEmail: 'nusrat.2026004@jstu.ac.bd',
+    studentUid: 'demo_st_04',
+    studentName: 'Nusrat Jahan',
+    studentNameBn: 'নুসরাত জাহান',
+    studentEmail: 'nusrat.2026004@jstu.ac.bd',
     studentId: 'JSTU2026004',
-    department: 'CSE',
-    status: 'UNDER_REVIEW' as const,
+    studentDepartment: 'CSE',
+    status: 'UNDER_REVIEW',
     currentStepIndex: 1,
-    payload: {
+    chain: SCHOLARSHIP_CHAIN,
+    formData: {
       scholarshipId: 'sch-need-cum-merit-2026',
       scholarshipType: 'Need-Based Financial Aid',
       scholarshipTitle: 'JSTU Institutional Need-Cum-Merit Financial Aid Stipend',
@@ -308,27 +304,26 @@ export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS = [
       familyMembers: 5,
       reason: 'Strong academic dedication with demonstrated need for semester laboratory books and fees.'
     },
-    attachments: [],
     auditTrail: [],
-    submittedAt: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).toISOString(),
     createdAt: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: 'app-sch-005',
     applicationNumber: 'JSTU-APP-2026-880105',
-    type: 'scholarship' as const,
+    type: 'scholarship',
     title: 'Merit Scholarship / Tuition Stipend Application',
     titleBn: 'মেধাবৃত্তি ও শিক্ষাবৃত্তি আবেদন',
-    applicantUid: 'demo_st_05',
-    applicantName: 'Arif Faisal',
-    applicantNameBn: 'আরিফ ফয়সাল',
-    applicantEmail: 'arif.2026005@jstu.ac.bd',
+    studentUid: 'demo_st_05',
+    studentName: 'Arif Faisal',
+    studentNameBn: 'আরিফ ফয়সাল',
+    studentEmail: 'arif.2026005@jstu.ac.bd',
     studentId: 'JSTU2026005',
-    department: 'EEE',
-    status: 'UNDER_REVIEW' as const,
+    studentDepartment: 'EEE',
+    status: 'UNDER_REVIEW',
     currentStepIndex: 1,
-    payload: {
+    chain: SCHOLARSHIP_CHAIN,
+    formData: {
       scholarshipId: 'sch-need-cum-merit-2026',
       scholarshipType: 'Need-Based Financial Aid',
       scholarshipTitle: 'JSTU Institutional Need-Cum-Merit Financial Aid Stipend',
@@ -338,27 +333,26 @@ export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS = [
       familyMembers: 6,
       reason: 'First in family to attend university. Extremely constrained family income.'
     },
-    attachments: [],
     auditTrail: [],
-    submittedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
     createdAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: 'app-sch-006',
     applicationNumber: 'JSTU-APP-2026-880106',
-    type: 'scholarship' as const,
+    type: 'scholarship',
     title: 'Merit Scholarship / Tuition Stipend Application',
     titleBn: 'মেধাবৃত্তি ও শিক্ষাবৃত্তি আবেদন',
-    applicantUid: 'demo_st_06',
-    applicantName: 'Fahmida Haque',
-    applicantNameBn: 'ফাহমিদা হক',
-    applicantEmail: 'fahmida.2026006@jstu.ac.bd',
+    studentUid: 'demo_st_06',
+    studentName: 'Fahmida Haque',
+    studentNameBn: 'ফাহমিদা হক',
+    studentEmail: 'fahmida.2026006@jstu.ac.bd',
     studentId: 'JSTU2026006',
-    department: 'CSE',
-    status: 'UNDER_REVIEW' as const,
+    studentDepartment: 'CSE',
+    status: 'UNDER_REVIEW',
     currentStepIndex: 1,
-    payload: {
+    chain: SCHOLARSHIP_CHAIN,
+    formData: {
       scholarshipId: 'sch-need-cum-merit-2026',
       scholarshipType: 'Need-Based Financial Aid',
       scholarshipTitle: 'JSTU Institutional Need-Cum-Merit Financial Aid Stipend',
@@ -368,9 +362,7 @@ export const INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS = [
       familyMembers: 4,
       reason: 'Consistently on Dean honor roll. Living in student hall.'
     },
-    attachments: [],
     auditTrail: [],
-    submittedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
     createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString()
   }

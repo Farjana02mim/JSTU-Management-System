@@ -105,6 +105,15 @@ const VerifyDocumentPage = lazy(() =>
 const VerifyIDPage = lazy(() =>
   import('./pages/public/VerifyIDPage').then((m) => ({ default: m.VerifyIDPage }))
 );
+const ConvocationPage = lazy(() =>
+  import('./pages/public/ConvocationPage').then((m) => ({ default: m.ConvocationPage }))
+);
+const VerifyConvocationPage = lazy(() =>
+  import('./pages/public/VerifyConvocationPage').then((m) => ({ default: m.VerifyConvocationPage }))
+);
+const StaffPortalPage = lazy(() =>
+  import('./pages/public/StaffPortalPage').then((m) => ({ default: m.StaffPortalPage }))
+);
 const RequestAccountPage = lazy(() =>
   import('./pages/public/RequestAccountPage').then((m) => ({ default: m.RequestAccountPage }))
 );
@@ -324,8 +333,14 @@ export default function App() {
                   <Route path="/verify/:id" element={<VerifyDocumentPage />} />
                   <Route path="/verify-id" element={<VerifyIDPage />} />
                   <Route path="/verify-id/:token" element={<VerifyIDPage />} />
+                  <Route path="/convocation" element={<ConvocationPage />} />
+                  <Route path="/verify-convocation" element={<VerifyConvocationPage />} />
+                  <Route path="/verify-convocation/:token" element={<VerifyConvocationPage />} />
                   <Route path="/helpdesk" element={<HelpdeskPage />} />
                   <Route path="/helpdesk/track" element={<HelpdeskPage />} />
+                  <Route path="/staff" element={<StaffPortalPage />} />
+                  <Route path="/staff-portal" element={<StaffPortalPage />} />
+                  <Route path="/portal/staff" element={<StaffPortalPage />} />
 
                   {/* 2. Authentication Flow Routes */}
                   <Route path="/login" element={<LoginPage />} />
@@ -624,6 +639,26 @@ export default function App() {
                     <ProtectedRoute>
                       <RoleGuard allowedRoles={['teacher']}>
                         <TeacherQuizzesPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/teacher/leave"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['teacher', 'dept_chairman']}>
+                        <StaffPortalPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/teacher/services"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['teacher', 'dept_chairman']}>
+                        <StaffPortalPage />
                       </RoleGuard>
                     </ProtectedRoute>
                   }

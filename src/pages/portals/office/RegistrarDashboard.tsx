@@ -39,6 +39,7 @@ import {
 import { AdminAccountRequestsTab } from '../../../components/admin/AdminAccountRequestsTab';
 import { AdmissionApplicationsManagementTab } from '../../../components/admin/AdmissionApplicationsManagementTab';
 import { RegistrarIdCardsTab } from '../../../components/admin/RegistrarIdCardsTab';
+import { RegistrarConvocationTab } from '../../../components/admin/RegistrarConvocationTab';
 
 const revokeSchema = z.object({
   reason: z
@@ -59,7 +60,7 @@ export const RegistrarDashboard: React.FC = () => {
   const { language } = useLanguage();
   const isBn = language === 'bn';
 
-  const [activeTab, setActiveTab] = useState<'applications' | 'admissions' | 'documents' | 'requests' | 'id-cards'>('applications');
+  const [activeTab, setActiveTab] = useState<'applications' | 'admissions' | 'documents' | 'requests' | 'id-cards' | 'convocation'>('applications');
   const [loading, setLoading] = useState(false);
   const [documents, setDocuments] = useState<DigitalDocument[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -273,7 +274,24 @@ export const RegistrarDashboard: React.FC = () => {
             <CreditCard className="w-4 h-4" />
             <span>{isBn ? 'ডিজিটাল আইডি কার্ড' : 'Digital ID Cards'}</span>
           </button>
+
+          <button
+            onClick={() => setActiveTab('convocation')}
+            className={`pb-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer flex items-center gap-1.5 ${
+              activeTab === 'convocation'
+                ? 'text-[#1E3A8A] border-b-2 border-[#1E3A8A]'
+                : 'text-slate-500 hover:text-slate-700'
+            }`}
+          >
+            <GraduationCap className="w-4 h-4" />
+            <span>{isBn ? 'সমাবর্তন রেজিস্ট্রি' : 'Convocation Registry'}</span>
+          </button>
         </div>
+
+        {/* Tab: Convocation Registry */}
+        {activeTab === 'convocation' && (
+          <RegistrarConvocationTab />
+        )}
 
         {/* Tab: Digital ID Cards */}
         {activeTab === 'id-cards' && (

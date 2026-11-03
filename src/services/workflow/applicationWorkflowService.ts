@@ -176,8 +176,9 @@ export class ApplicationWorkflowService {
       throw new WorkflowValidationError(`Invalid application type "${type}".`);
     }
 
-    if (actor.role !== 'student' && actor.role !== 'super_admin') {
-      throw new WorkflowPermissionError('Only enrolled students can initiate paperless applications.');
+    const isStaffApp = type === 'staff_leave';
+    if (!isStaffApp && actor.role !== 'student' && actor.role !== 'super_admin') {
+      throw new WorkflowPermissionError('Only enrolled students can initiate paperless student applications.');
     }
 
     // Attachment validation if required

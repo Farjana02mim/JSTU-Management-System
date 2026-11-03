@@ -13,7 +13,8 @@ import {
   AlertCircle,
   Megaphone,
   Upload,
-  FileText
+  FileText,
+  Briefcase
 } from 'lucide-react';
 import { DashboardLayout } from '../../../layouts/DashboardLayout';
 import { Card } from '../../../components/common/Card';
@@ -324,6 +325,31 @@ export const TeacherDashboard: React.FC = () => {
                   ? 'সকল কোর্স শিক্ষককে ১৫ অক্টোবরের মধ্যে ধারাবাহিক মূল্যায়নের মার্কস ড্রাফট সম্পন্ন করে চেয়ারম্যানের কাছে পাঠানোর অনুরোধ করা হলো।'
                   : 'Faculty members are reminded to finalize continuous assessment marks and submit drafts to the Dept. Chairman before 15 October.'}
               </p>
+            </Card>
+
+            {/* Staff Services & Leave Management Card */}
+            <Card padding="md" className="bg-gradient-to-br from-blue-50 to-indigo-50/40 border-blue-200 shadow-2xs space-y-2">
+              <div className="flex items-center justify-between text-xs font-bold text-[#0F172A]">
+                <div className="flex items-center gap-1.5 text-blue-900">
+                  <Briefcase className="w-3.5 h-3.5 text-[#1E3A8A]" />
+                  <span>{isBn ? 'ছুটি ও কর্মকর্তা পোর্টাল' : 'Staff Services & Leave'}</span>
+                </div>
+                <Badge variant="primary">Chairman → Registrar</Badge>
+              </div>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                {isBn
+                  ? 'নৈমিত্তিক ও অর্জিত ছুটির আবেদন, ব্যালেন্স ট্র্যাকিং, সার্ভিস রিকোয়েস্ট এবং অভ্যন্তরীণ নোটিশ।'
+                  : 'Apply for casual/medical/study leave, track multi-tier approvals, log service requests and access internal notices.'}
+              </p>
+              <div className="pt-1">
+                <Link
+                  to="/staff"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-[#1E3A8A] hover:underline"
+                >
+                  <span>{isBn ? 'স্টাফ পোর্টালে যান' : 'Open Staff Portal'}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </Card>
           </div>
         </div>

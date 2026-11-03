@@ -31,6 +31,7 @@ import { AdminAnalyticsDashboard } from '../../components/admin/AdminAnalyticsDa
 import { AdmissionApplicationsManagementTab } from '../../components/admin/AdmissionApplicationsManagementTab';
 import { AdminIqacEvaluations } from '../../components/evaluation/AdminIqacEvaluations';
 import { AdminScholarshipsTab } from '../../components/admin/AdminScholarshipsTab';
+import { AdminAlumniTab } from '../../components/admin/AdminAlumniTab';
 import { SharedDataStoreManager } from '../../services/shared/sharedDataStore';
 
 export const AdminDashboardShell: React.FC = () => {
@@ -40,9 +41,12 @@ export const AdminDashboardShell: React.FC = () => {
 
   const isSuperAdmin = role === 'super_admin';
 
-  // Navigation tab state: 'analytics' | 'evaluations' | 'scholarships' | 'admissions' | 'requests' | 'users' | 'audit'
-  const [activeTab, setActiveTab] = useState<'analytics' | 'evaluations' | 'scholarships' | 'admissions' | 'requests' | 'users' | 'audit'>('analytics');
+  // Navigation tab state: 'analytics' | 'evaluations' | 'scholarships' | 'alumni' | 'admissions' | 'requests' | 'users' | 'audit'
+  const [activeTab, setActiveTab] = useState<'analytics' | 'evaluations' | 'scholarships' | 'alumni' | 'admissions' | 'requests' | 'users' | 'audit'>('analytics');
   const pendingRequestsCount = (SharedDataStoreManager.getInstance().getStore().accountRequests || []).filter(
+    (r) => r.status === 'PENDING'
+  ).length;
+  const pendingAlumniCount = (SharedDataStoreManager.getInstance().getAlumniRegistrationRequests() || []).filter(
     (r) => r.status === 'PENDING'
   ).length;
 
@@ -323,6 +327,23 @@ export const AdminDashboardShell: React.FC = () => {
           </button>
 
           <button
+            onClick={() => setActiveTab('alumni')}
+            className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
+              activeTab === 'alumni'
+                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+            }`}
+          >
+            <Users className="w-4 h-4" />
+            <span>{isBn ? 'অ্যালামনাই ও অনুদান' : 'Alumni & Giving'}</span>
+            {pendingAlumniCount > 0 && (
+              <span className="px-1.5 py-0.5 bg-amber-500 text-white rounded-full text-[10px] font-bold">
+                {pendingAlumniCount}
+              </span>
+            )}
+          </button>
+
+          <button
             onClick={() => setActiveTab('admissions')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'admissions'
@@ -403,6 +424,11 @@ export const AdminDashboardShell: React.FC = () => {
           <AdminScholarshipsTab
             onNotification={(msg) => setUserActionMessage(msg)}
           />
+        )}
+
+        {/* Tab: Alumni Directory, Approvals & Giving */}
+        {activeTab === 'alumni' && (
+          <AdminAlumniTab />
         )}
 
         {/* Tab 1: Account Requests */}

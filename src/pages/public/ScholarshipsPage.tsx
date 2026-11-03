@@ -94,19 +94,19 @@ export const ScholarshipsPage: React.FC = () => {
       type: 'scholarship' as const,
       title: 'Merit Scholarship / Tuition Stipend Application',
       titleBn: 'মেধাবৃত্তি ও শিক্ষাবৃত্তি আবেদন',
-      applicantUid: user?.uid || 'demo_student_01',
-      applicantName: applicantName || 'Tanvir Ahmed',
-      applicantNameBn: profile?.fullNameBn || 'তানভীর আহমেদ',
-      applicantEmail: user?.email || 'student.demo@jstu.ac.bd',
+      studentUid: user?.uid || 'demo_student_01',
+      studentName: applicantName || 'Tanvir Ahmed',
+      studentNameBn: profile?.fullNameBn || 'তানভীর আহমেদ',
+      studentEmail: user?.email || 'student.demo@jstu.ac.bd',
       studentId: studentId || 'JSTU2026001',
-      department: department || 'CSE',
+      studentDepartment: department || 'CSE',
       status: 'SUBMITTED' as const,
       currentStepIndex: 0, // Starts at Chairman endorsement step
       chain: [
         { stepIndex: 0, role: 'dept_chairman' as const, title: 'Department Chairman', titleBn: 'বিভাগীয় চেয়ারম্যান', departmentScoped: true },
         { stepIndex: 1, role: 'registrar' as const, title: 'Scholarship Committee & Admin', titleBn: 'বৃত্তি কমিটি ও প্রশাসন', officeScoped: 'REGISTRAR' }
       ],
-      payload: {
+      formData: {
         scholarshipId: targetScholarship.id,
         scholarshipType: targetScholarship.category,
         scholarshipTitle: targetScholarship.title,
@@ -116,12 +116,12 @@ export const ScholarshipsPage: React.FC = () => {
         familyMembers: Number(familyMembers) || 5,
         reason: reason || 'Application submitted for semester financial grant.'
       },
-      attachments: attachedFiles.map((name) => ({
-        name,
+      attachment: attachedFiles.length > 0 ? {
+        name: attachedFiles[0],
         size: 1200000,
         type: 'application/pdf',
         uploadedAt: new Date().toISOString()
-      })),
+      } : undefined,
       auditTrail: [
         {
           id: `aud-${Date.now()}`,
@@ -140,7 +140,6 @@ export const ScholarshipsPage: React.FC = () => {
           timestamp: new Date().toISOString()
         }
       ],
-      submittedAt: new Date().toISOString(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };

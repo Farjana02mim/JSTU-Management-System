@@ -90,6 +90,42 @@ import {
   INITIAL_DEMO_SCHOLARSHIPS,
   INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS
 } from '../../data/scholarshipSeedData';
+import {
+  AlumnusProfile,
+  AlumniRegistrationRequest as NewAlumniRegistrationRequest,
+  AlumniJobPost,
+  AlumniDonation
+} from '../../types/alumni';
+import {
+  INITIAL_ALUMNI_PROFILES,
+  INITIAL_ALUMNI_REGISTRATION_REQUESTS,
+  INITIAL_ALUMNI_JOB_POSTS,
+  INITIAL_ALUMNI_DONATIONS
+} from '../../data/alumniSeedData';
+import {
+  ConvocationEvent,
+  ConvocationRegistration,
+  GownSize
+} from '../../types/convocation';
+import {
+  INITIAL_CONVOCATION_EVENT,
+  INITIAL_CONVOCATION_REGISTRATIONS
+} from '../../data/convocationSeedData';
+import {
+  StaffLeaveType,
+  StaffLeaveBalance,
+  StaffLeaveApplicationRecord,
+  StaffNotice,
+  StaffServiceRequest,
+  StaffDirectoryMember
+} from '../../types/staff';
+import {
+  INITIAL_STAFF_LEAVE_BALANCES,
+  INITIAL_STAFF_LEAVE_APPLICATIONS,
+  INITIAL_STAFF_NOTICES,
+  INITIAL_STAFF_SERVICE_REQUESTS,
+  INITIAL_STAFF_DIRECTORY
+} from '../../data/staffSeedData';
 
 export const SHARED_STORAGE_KEY = 'jstu_demo_shared_data_v2';
 
@@ -494,6 +530,17 @@ export interface SharedStoreData {
   quizzes: Quiz[];
   quizAttempts: StudentQuizAttempt[];
   scholarships: Scholarship[];
+  alumniProfiles: AlumnusProfile[];
+  alumniRegRequests: NewAlumniRegistrationRequest[];
+  alumniJobs: AlumniJobPost[];
+  alumniDonations: AlumniDonation[];
+  convocationEvents: ConvocationEvent[];
+  convocationRegistrations: ConvocationRegistration[];
+  staffLeaveBalances: StaffLeaveBalance[];
+  staffLeaveApplications: StaffLeaveApplicationRecord[];
+  staffNotices: StaffNotice[];
+  staffServiceRequests: StaffServiceRequest[];
+  staffDirectory: StaffDirectoryMember[];
 }
 
 // 12 Realistic Students for CSE 6th Semester
@@ -1360,7 +1407,18 @@ export function getInitialSharedStoreData(): SharedStoreData {
     evaluationSubmissionLedger: initialSubmissionLedger,
     quizzes: INITIAL_DEMO_QUIZZES,
     quizAttempts: INITIAL_DEMO_ATTEMPTS,
-    scholarships: INITIAL_DEMO_SCHOLARSHIPS
+    scholarships: INITIAL_DEMO_SCHOLARSHIPS,
+    alumniProfiles: INITIAL_ALUMNI_PROFILES,
+    alumniRegRequests: INITIAL_ALUMNI_REGISTRATION_REQUESTS,
+    alumniJobs: INITIAL_ALUMNI_JOB_POSTS,
+    alumniDonations: INITIAL_ALUMNI_DONATIONS,
+    convocationEvents: [INITIAL_CONVOCATION_EVENT],
+    convocationRegistrations: INITIAL_CONVOCATION_REGISTRATIONS,
+    staffLeaveBalances: INITIAL_STAFF_LEAVE_BALANCES,
+    staffLeaveApplications: INITIAL_STAFF_LEAVE_APPLICATIONS,
+    staffNotices: INITIAL_STAFF_NOTICES,
+    staffServiceRequests: INITIAL_STAFF_SERVICE_REQUESTS,
+    staffDirectory: INITIAL_STAFF_DIRECTORY
   };
 }
 
@@ -1505,6 +1563,39 @@ export class SharedDataStoreManager {
       }
       if (parsed.applications && !parsed.applications.some((a: any) => a.type === 'scholarship')) {
         parsed.applications.push(...(INITIAL_DEMO_SCHOLARSHIP_APPLICATIONS as any[]));
+      }
+      if (!parsed.alumniProfiles || !Array.isArray(parsed.alumniProfiles) || parsed.alumniProfiles.length === 0) {
+        parsed.alumniProfiles = getInitialSharedStoreData().alumniProfiles;
+      }
+      if (!parsed.alumniRegRequests || !Array.isArray(parsed.alumniRegRequests)) {
+        parsed.alumniRegRequests = getInitialSharedStoreData().alumniRegRequests;
+      }
+      if (!parsed.alumniJobs || !Array.isArray(parsed.alumniJobs)) {
+        parsed.alumniJobs = getInitialSharedStoreData().alumniJobs;
+      }
+      if (!parsed.alumniDonations || !Array.isArray(parsed.alumniDonations)) {
+        parsed.alumniDonations = getInitialSharedStoreData().alumniDonations;
+      }
+      if (!parsed.convocationEvents || !Array.isArray(parsed.convocationEvents) || parsed.convocationEvents.length === 0) {
+        parsed.convocationEvents = getInitialSharedStoreData().convocationEvents;
+      }
+      if (!parsed.convocationRegistrations || !Array.isArray(parsed.convocationRegistrations)) {
+        parsed.convocationRegistrations = getInitialSharedStoreData().convocationRegistrations;
+      }
+      if (!parsed.staffLeaveBalances || !Array.isArray(parsed.staffLeaveBalances) || parsed.staffLeaveBalances.length === 0) {
+        parsed.staffLeaveBalances = getInitialSharedStoreData().staffLeaveBalances;
+      }
+      if (!parsed.staffLeaveApplications || !Array.isArray(parsed.staffLeaveApplications) || parsed.staffLeaveApplications.length === 0) {
+        parsed.staffLeaveApplications = getInitialSharedStoreData().staffLeaveApplications;
+      }
+      if (!parsed.staffNotices || !Array.isArray(parsed.staffNotices) || parsed.staffNotices.length === 0) {
+        parsed.staffNotices = getInitialSharedStoreData().staffNotices;
+      }
+      if (!parsed.staffServiceRequests || !Array.isArray(parsed.staffServiceRequests) || parsed.staffServiceRequests.length === 0) {
+        parsed.staffServiceRequests = getInitialSharedStoreData().staffServiceRequests;
+      }
+      if (!parsed.staffDirectory || !Array.isArray(parsed.staffDirectory) || parsed.staffDirectory.length === 0) {
+        parsed.staffDirectory = getInitialSharedStoreData().staffDirectory;
       }
       this.inMemoryStore = parsed;
       return parsed;
@@ -1800,7 +1891,7 @@ export class SharedDataStoreManager {
     return newApt;
   }
 
-  public submitAlumniRegistration(
+  public submitStudentLifeAlumniRegistration(
     reg: Omit<AlumniRegistrationRequest, 'id' | 'status' | 'appliedAt'>
   ): AlumniRegistrationRequest {
     const store = this.getStore();
@@ -3097,19 +3188,22 @@ export class SharedDataStoreManager {
     if (!scholarship) return [];
 
     // Filter paperless applications of type 'scholarship' matching this scholarship
-    const apps = (store.applications || []).filter(
-      (a) =>
-        a.type === 'scholarship' &&
-        (a.payload?.scholarshipId === scholarshipId ||
-          a.payload?.scholarshipType?.toLowerCase().includes(scholarship.category.toLowerCase()) ||
-          a.payload?.scholarshipTitle?.toLowerCase() === scholarship.title.toLowerCase())
-    );
+    const apps = (store.applications || []).filter((a) => {
+      if (a.type !== 'scholarship') return false;
+      const data = a.formData || (a as any).payload || {};
+      return (
+        data.scholarshipId === scholarshipId ||
+        data.scholarshipType?.toLowerCase().includes(scholarship.category.toLowerCase()) ||
+        data.scholarshipTitle?.toLowerCase() === scholarship.title.toLowerCase()
+      );
+    });
 
     const ceiling = rule.maxIncomeCeiling || 300000;
 
     const ranked: RankedScholarshipApplicant[] = apps.map((app) => {
-      const cgpa = Number(app.payload?.cgpa) || 3.5;
-      const income = Number(app.payload?.annualIncome) || 200000;
+      const data = app.formData || (app as any).payload || {};
+      const cgpa = Number(data.cgpa) || 3.5;
+      const income = Number(data.annualIncome) || 200000;
 
       // Normalize CGPA on 4.0 scale to 0-100
       const cgpaScore = Math.min(100, Math.max(0, (cgpa / 4.0) * 100));
@@ -3122,13 +3216,13 @@ export class SharedDataStoreManager {
       return {
         applicationId: app.id,
         applicationNumber: app.applicationNumber,
-        studentId: app.studentId || (app as any).studentUid || 'JSTU2026001',
-        studentName: app.applicantName || (app as any).studentName || 'Student Applicant',
-        studentNameBn: app.applicantNameBn || (app as any).studentNameBn,
-        department: app.department || (app as any).studentDepartment || 'CSE',
+        studentId: app.studentId || app.studentUid || 'JSTU2026001',
+        studentName: app.studentName || (app as any).applicantName || 'Student Applicant',
+        studentNameBn: app.studentNameBn || (app as any).applicantNameBn,
+        department: app.studentDepartment || (app as any).department || 'CSE',
         cgpa,
         annualIncome: income,
-        appliedDate: app.submittedAt || (app as any).createdAt || new Date().toISOString(),
+        appliedDate: app.createdAt || (app as any).submittedAt || new Date().toISOString(),
         workflowStatus: app.status,
         currentStepIndex: app.currentStepIndex,
         compositeScore: composite,
@@ -3207,6 +3301,698 @@ export class SharedDataStoreManager {
 
     this.saveStore(store);
     return true;
+  }
+
+  // ================= ALUMNI SYSTEM METHODS =================
+
+  public getAlumniProfiles(): AlumnusProfile[] {
+    const store = this.getStore();
+    return store.alumniProfiles || [];
+  }
+
+  public getAlumniRegistrationRequests(): NewAlumniRegistrationRequest[] {
+    const store = this.getStore();
+    return store.alumniRegRequests || [];
+  }
+
+  public submitAlumniRegistration(
+    data: Omit<NewAlumniRegistrationRequest, 'id' | 'status' | 'appliedAt'>
+  ): NewAlumniRegistrationRequest {
+    const store = this.getStore();
+    if (!store.alumniRegRequests) store.alumniRegRequests = [];
+
+    const newReq: NewAlumniRegistrationRequest = {
+      ...data,
+      id: `reg-req-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      status: 'PENDING',
+      appliedAt: new Date().toISOString()
+    };
+
+    store.alumniRegRequests.unshift(newReq);
+    this.saveStore(store);
+    return newReq;
+  }
+
+  public approveAlumniRegistration(requestId: string, adminName = 'Alumni Relations Admin'): boolean {
+    const store = this.getStore();
+    const req = store.alumniRegRequests?.find((r) => r.id === requestId);
+    if (!req) return false;
+
+    req.status = 'APPROVED';
+    req.reviewedAt = new Date().toISOString();
+    req.reviewedBy = adminName;
+
+    // Create or update verified AlumnusProfile in directory
+    if (!store.alumniProfiles) store.alumniProfiles = [];
+    const newProfile: AlumnusProfile = {
+      id: `alumnus-${Date.now()}`,
+      name: req.fullName,
+      nameBn: req.fullNameBn || req.fullName,
+      studentId: req.studentId,
+      departmentCode: req.departmentCode || 'CSE',
+      departmentName: req.department,
+      degree: req.degree,
+      batch: req.batch,
+      graduatedYear: req.graduationYear,
+      currentPosition: req.designation,
+      organization: req.currentCompany,
+      organizationType: req.organizationType,
+      country: req.country,
+      city: req.city,
+      email: req.email,
+      phone: req.phone,
+      linkedinUrl: req.linkedinUrl,
+      privacy: req.privacy,
+      isApproved: true,
+      registeredAt: req.appliedAt
+    };
+
+    store.alumniProfiles.unshift(newProfile);
+    this.saveStore(store);
+    return true;
+  }
+
+  public rejectAlumniRegistration(requestId: string, reason: string, adminName = 'Alumni Relations Admin'): boolean {
+    const store = this.getStore();
+    const req = store.alumniRegRequests?.find((r) => r.id === requestId);
+    if (!req) return false;
+
+    req.status = 'REJECTED';
+    req.rejectionReason = reason;
+    req.reviewedAt = new Date().toISOString();
+    req.reviewedBy = adminName;
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public getAlumniJobs(): AlumniJobPost[] {
+    const store = this.getStore();
+    return store.alumniJobs || [];
+  }
+
+  public createAlumniJob(
+    data: Omit<AlumniJobPost, 'id' | 'createdAt' | 'status'>
+  ): AlumniJobPost {
+    const store = this.getStore();
+    if (!store.alumniJobs) store.alumniJobs = [];
+
+    const newJob: AlumniJobPost = {
+      ...data,
+      id: `job-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      status: 'ACTIVE',
+      createdAt: new Date().toISOString()
+    };
+
+    store.alumniJobs.unshift(newJob);
+    this.saveStore(store);
+    return newJob;
+  }
+
+  public getAlumniDonations(): AlumniDonation[] {
+    const store = this.getStore();
+    return store.alumniDonations || [];
+  }
+
+  public createAlumniDonation(
+    data: Omit<AlumniDonation, 'id' | 'receiptNo' | 'status' | 'donatedAt'>
+  ): AlumniDonation {
+    const store = this.getStore();
+    if (!store.alumniDonations) store.alumniDonations = [];
+
+    const receiptNo = `JSTU-DON-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const newDonation: AlumniDonation = {
+      ...data,
+      id: `don-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      receiptNo,
+      status: 'COMPLETED',
+      donatedAt: new Date().toISOString()
+    };
+
+    store.alumniDonations.unshift(newDonation);
+    this.saveStore(store);
+    return newDonation;
+  }
+
+  // ================= CONVOCATION SYSTEM METHODS =================
+
+  public getConvocationEvent(): ConvocationEvent {
+    const store = this.getStore();
+    if (!store.convocationEvents || store.convocationEvents.length === 0) {
+      return INITIAL_CONVOCATION_EVENT;
+    }
+    return store.convocationEvents[0];
+  }
+
+  public getConvocationRegistrations(): ConvocationRegistration[] {
+    const store = this.getStore();
+    return store.convocationRegistrations || [];
+  }
+
+  public getConvocationRegistrationByStudentId(studentId: string): ConvocationRegistration | undefined {
+    const store = this.getStore();
+    return store.convocationRegistrations?.find(
+      (r) => r.studentId.toLowerCase() === studentId.toLowerCase()
+    );
+  }
+
+  public getConvocationRegistrationByToken(token: string): ConvocationRegistration | undefined {
+    const store = this.getStore();
+    return store.convocationRegistrations?.find((r) => r.passToken === token);
+  }
+
+  public createConvocationRegistration(
+    data: Omit<
+      ConvocationRegistration,
+      'id' | 'registrationNumber' | 'approvalStatus' | 'paymentStatus' | 'passToken' | 'registeredAt'
+    >
+  ): ConvocationRegistration {
+    const store = this.getStore();
+    if (!store.convocationRegistrations) store.convocationRegistrations = [];
+
+    const existingIdx = store.convocationRegistrations.findIndex(
+      (r) => r.studentId.toLowerCase() === data.studentId.toLowerCase()
+    );
+
+    const regNumber = `JSTU-CONV-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const passToken = `CNV-${new Date().getFullYear()}-SECURE-${Math.floor(100000 + Math.random() * 900000)}`;
+
+    const newReg: ConvocationRegistration = {
+      ...data,
+      id: `conv-reg-${Date.now()}`,
+      registrationNumber: regNumber,
+      approvalStatus: 'PENDING',
+      paymentStatus: 'UNPAID',
+      passToken,
+      registeredAt: new Date().toISOString()
+    };
+
+    if (existingIdx >= 0) {
+      store.convocationRegistrations[existingIdx] = newReg;
+    } else {
+      store.convocationRegistrations.unshift(newReg);
+    }
+
+    this.saveStore(store);
+    return newReg;
+  }
+
+  public approveConvocationRegistration(
+    regId: string,
+    reviewerName = 'Office of the Registrar',
+    seat?: string,
+    kitId?: string
+  ): boolean {
+    const store = this.getStore();
+    const reg = store.convocationRegistrations?.find((r) => r.id === regId);
+    if (!reg) return false;
+
+    reg.approvalStatus = 'APPROVED';
+    reg.approvedBy = reviewerName;
+    reg.approvedAt = new Date().toISOString();
+    if (seat) reg.assignedSeat = seat;
+    else if (!reg.assignedSeat) {
+      const row = Math.floor(1 + Math.random() * 15);
+      const seatNum = Math.floor(1 + Math.random() * 30);
+      reg.assignedSeat = `Auditorium Main — Zone ${reg.departmentCode === 'CSE' ? 'A' : 'B'}, Row ${row}, Seat ${seatNum}`;
+    }
+
+    if (kitId) reg.assignedGownKitId = kitId;
+    else if (!reg.assignedGownKitId) {
+      reg.assignedGownKitId = `GW-KIT-${reg.departmentCode}-${Math.floor(100 + Math.random() * 900)}`;
+    }
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public rejectConvocationRegistration(
+    regId: string,
+    reason: string,
+    reviewerName = 'Office of the Registrar'
+  ): boolean {
+    const store = this.getStore();
+    const reg = store.convocationRegistrations?.find((r) => r.id === regId);
+    if (!reg) return false;
+
+    reg.approvalStatus = 'REJECTED';
+    reg.rejectionReason = reason;
+    reg.approvedBy = reviewerName;
+    reg.approvedAt = new Date().toISOString();
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public payConvocationFee(regId: string, paymentMethod: string, txnId: string): boolean {
+    const store = this.getStore();
+    const reg = store.convocationRegistrations?.find((r) => r.id === regId);
+    if (!reg) return false;
+
+    reg.paymentStatus = 'PAID';
+    reg.paymentMethod = paymentMethod;
+    reg.paymentTxnId = txnId;
+    reg.paymentDate = new Date().toISOString();
+
+    this.saveStore(store);
+    return true;
+  }
+
+  // ==========================================
+  // Staff & Faculty Area Operations
+  // ==========================================
+
+  public getStaffLeaveBalances(): StaffLeaveBalance[] {
+    const store = this.getStore();
+    return store.staffLeaveBalances || [];
+  }
+
+  public getStaffLeaveBalance(staffIdOrUserId: string): StaffLeaveBalance | undefined {
+    const store = this.getStore();
+    return (store.staffLeaveBalances || []).find(
+      (b) =>
+        b.staffId.toLowerCase() === staffIdOrUserId.toLowerCase() ||
+        b.userId.toLowerCase() === staffIdOrUserId.toLowerCase()
+    );
+  }
+
+  public getStaffLeaveApplications(staffId?: string): StaffLeaveApplicationRecord[] {
+    const store = this.getStore();
+    const list = store.staffLeaveApplications || [];
+    if (!staffId) return list;
+    return list.filter((a) => a.staffId.toLowerCase() === staffId.toLowerCase());
+  }
+
+  public submitStaffLeave(params: {
+    staffId: string;
+    staffName: string;
+    staffNameBn?: string;
+    designation: string;
+    departmentOrOffice: string;
+    role: 'teacher' | 'officer';
+    leaveType: StaffLeaveType;
+    startDate: string;
+    endDate: string;
+    daysRequested: number;
+    reason: string;
+    actingStaff: string;
+    attachmentName?: string;
+  }): { success: boolean; applicationNumber?: string; message: string } {
+    const store = this.getStore();
+    if (!store.staffLeaveBalances) store.staffLeaveBalances = [];
+    if (!store.staffLeaveApplications) store.staffLeaveApplications = [];
+    if (!store.applications) store.applications = [];
+
+    // Find or create balance
+    let balance = store.staffLeaveBalances.find(
+      (b) => b.staffId.toLowerCase() === params.staffId.toLowerCase()
+    );
+    if (!balance) {
+      balance = {
+        userId: params.staffId,
+        staffId: params.staffId,
+        staffName: params.staffName,
+        staffNameBn: params.staffNameBn,
+        designation: params.designation,
+        departmentOrOffice: params.departmentOrOffice,
+        role: params.role,
+        casualTotal: 20,
+        casualUsed: 0,
+        casualRemaining: 20,
+        medicalTotal: 30,
+        medicalUsed: 0,
+        medicalRemaining: 30,
+        studyTotalMonths: 36,
+        studyUsedMonths: 0,
+        studyRemainingMonths: 36
+      };
+      store.staffLeaveBalances.push(balance);
+    }
+
+    // Check balance validity
+    if (params.leaveType === 'casual' && params.daysRequested > balance.casualRemaining) {
+      return {
+        success: false,
+        message: `Insufficient casual leave balance. Available: ${balance.casualRemaining} days, Requested: ${params.daysRequested} days.`
+      };
+    }
+    if (params.leaveType === 'medical' && params.daysRequested > balance.medicalRemaining) {
+      return {
+        success: false,
+        message: `Insufficient medical leave balance. Available: ${balance.medicalRemaining} days, Requested: ${params.daysRequested} days.`
+      };
+    }
+    const requestedMonths = Math.ceil(params.daysRequested / 30);
+    if (params.leaveType === 'study' && requestedMonths > balance.studyRemainingMonths) {
+      return {
+        success: false,
+        message: `Insufficient study leave quota. Available: ${balance.studyRemainingMonths} months, Requested: ${requestedMonths} months.`
+      };
+    }
+
+    const year = new Date().getFullYear();
+    const randomHex = Math.floor(100000 + Math.random() * 900000);
+    const appNumber = `JSTU-APP-${year}-${randomHex}`;
+    const appId = `app-staff-leave-${Date.now()}`;
+
+    // 1. Create PaperlessApplication in workflow engine
+    const newPaperlessApp: PaperlessApplication = {
+      id: appId,
+      applicationNumber: appNumber,
+      type: 'staff_leave',
+      title: 'Staff Leave Application (Casual, Medical, Study)',
+      titleBn: 'শিক্ষক ও কর্মকর্তাদের ছুটির আবেদন',
+      studentUid: params.staffId,
+      studentId: params.staffId,
+      studentName: params.staffName,
+      studentNameBn: params.staffNameBn,
+      studentEmail: `${params.staffId.toLowerCase()}@jstu.ac.bd`,
+      studentDepartment: params.departmentOrOffice,
+      status: 'UNDER_REVIEW',
+      currentStepIndex: 0,
+      chain: [
+        {
+          stepIndex: 0,
+          role: 'dept_chairman',
+          title: 'Department Chairman / Head of Office',
+          titleBn: 'বিভাগীয় চেয়ারম্যান / দপ্তর প্রধান',
+          departmentScoped: true
+        },
+        {
+          stepIndex: 1,
+          role: 'registrar',
+          title: 'Office of the Registrar',
+          titleBn: 'রেজিস্ট্রার কার্যালয়',
+          officeScoped: 'REGISTRAR'
+        }
+      ],
+      formData: {
+        leaveType: params.leaveType,
+        startDate: params.startDate,
+        endDate: params.endDate,
+        daysRequested: params.daysRequested,
+        actingStaff: params.actingStaff,
+        reason: params.reason
+      },
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      auditTrail: [
+        {
+          id: `audit-${Date.now()}`,
+          applicationId: appId,
+          applicationNumber: appNumber,
+          actorUid: params.staffId,
+          actorName: params.staffName,
+          actorEmail: `${params.staffId.toLowerCase()}@jstu.ac.bd`,
+          role: params.role,
+          action: 'SUBMIT',
+          fromStatus: 'DRAFT',
+          toStatus: 'UNDER_REVIEW',
+          fromStepIndex: 0,
+          toStepIndex: 0,
+          comment: `Leave application (${params.leaveType.toUpperCase()}, ${params.daysRequested} days) submitted for departmental review. Designated substitute: ${params.actingStaff}.`,
+          timestamp: new Date().toISOString()
+        }
+      ]
+    };
+    store.applications.unshift(newPaperlessApp);
+
+    // 2. Create StaffLeaveApplicationRecord
+    const newRecord: StaffLeaveApplicationRecord = {
+      id: appId,
+      applicationNumber: appNumber,
+      staffId: params.staffId,
+      staffName: params.staffName,
+      staffNameBn: params.staffNameBn,
+      designation: params.designation,
+      departmentOrOffice: params.departmentOrOffice,
+      leaveType: params.leaveType,
+      startDate: params.startDate,
+      endDate: params.endDate,
+      daysRequested: params.daysRequested,
+      reason: params.reason,
+      actingStaff: params.actingStaff,
+      attachmentName: params.attachmentName,
+      status: 'PENDING_CHAIRMAN',
+      currentStepIndex: 0,
+      submittedAt: new Date().toLocaleString()
+    };
+    store.staffLeaveApplications.unshift(newRecord);
+
+    this.saveStore(store);
+    return {
+      success: true,
+      applicationNumber: appNumber,
+      message: 'Leave application submitted successfully. Forwarded to Department Chairman for review.'
+    };
+  }
+
+  public approveStaffLeaveStep(
+    appIdOrNumber: string,
+    actor: {
+      uid: string;
+      name: string;
+      role: 'dept_chairman' | 'registrar' | 'super_admin';
+      comment?: string;
+    }
+  ): { success: boolean; nextStep?: string; isFullyApproved?: boolean; message: string } {
+    const store = this.getStore();
+    const app = store.applications?.find(
+      (a) => a.id === appIdOrNumber || a.applicationNumber === appIdOrNumber
+    );
+    const record = store.staffLeaveApplications?.find(
+      (r) => r.id === appIdOrNumber || r.applicationNumber === appIdOrNumber
+    );
+
+    if (!record) {
+      return { success: false, message: 'Leave application not found.' };
+    }
+
+    const balance = store.staffLeaveBalances?.find(
+      (b) => b.staffId.toLowerCase() === record.staffId.toLowerCase()
+    );
+
+    // Step 0: Chairman Approval
+    if (record.currentStepIndex === 0) {
+      record.currentStepIndex = 1;
+      record.status = 'PENDING_REGISTRAR';
+      record.chairmanReviewedAt = new Date().toLocaleString();
+      record.chairmanComment = actor.comment || 'Recommended for approval.';
+
+      if (app) {
+        app.currentStepIndex = 1;
+        app.status = 'UNDER_REVIEW';
+        app.auditTrail.push({
+          id: `audit-${Date.now()}`,
+          applicationId: app.id,
+          applicationNumber: app.applicationNumber,
+          actorUid: actor.uid,
+          actorName: actor.name,
+          actorEmail: `${actor.role}@jstu.ac.bd`,
+          role: actor.role,
+          action: 'APPROVE',
+          fromStatus: 'UNDER_REVIEW',
+          toStatus: 'UNDER_REVIEW',
+          fromStepIndex: 0,
+          toStepIndex: 1,
+          comment: actor.comment || 'Chairman recommended leave without objection.',
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      this.saveStore(store);
+      return {
+        success: true,
+        nextStep: 'Office of the Registrar',
+        isFullyApproved: false,
+        message: 'Leave application recommended by Chairman and forwarded to the Registrar.'
+      };
+    }
+
+    // Step 1: Registrar Final Approval
+    if (record.currentStepIndex === 1) {
+      record.currentStepIndex = 2;
+      record.status = 'APPROVED';
+      record.registrarReviewedAt = new Date().toLocaleString();
+      record.registrarComment = actor.comment || 'Formally approved by the Registrar.';
+
+      // Deduct from balance
+      if (balance) {
+        if (record.leaveType === 'casual') {
+          balance.casualUsed += record.daysRequested;
+          balance.casualRemaining = Math.max(0, balance.casualTotal - balance.casualUsed);
+        } else if (record.leaveType === 'medical') {
+          balance.medicalUsed += record.daysRequested;
+          balance.medicalRemaining = Math.max(0, balance.medicalTotal - balance.medicalUsed);
+        } else if (record.leaveType === 'study') {
+          const months = Math.ceil(record.daysRequested / 30);
+          balance.studyUsedMonths += months;
+          balance.studyRemainingMonths = Math.max(0, balance.studyTotalMonths - balance.studyUsedMonths);
+        }
+      }
+
+      if (app) {
+        app.currentStepIndex = 2;
+        app.status = 'APPROVED';
+        app.completedAt = new Date().toISOString();
+        app.auditTrail.push({
+          id: `audit-${Date.now()}`,
+          applicationId: app.id,
+          applicationNumber: app.applicationNumber,
+          actorUid: actor.uid,
+          actorName: actor.name,
+          actorEmail: 'registrar@jstu.ac.bd',
+          role: actor.role,
+          action: 'APPROVE',
+          fromStatus: 'UNDER_REVIEW',
+          toStatus: 'APPROVED',
+          fromStepIndex: 1,
+          toStepIndex: 2,
+          comment: actor.comment || 'Final approval granted by Office of the Registrar.',
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      this.saveStore(store);
+      return {
+        success: true,
+        isFullyApproved: true,
+        message: 'Leave application officially granted by the Registrar. Leave balance adjusted.'
+      };
+    }
+
+    return { success: false, message: 'Application is already finalized.' };
+  }
+
+  public rejectStaffLeaveStep(
+    appIdOrNumber: string,
+    actor: {
+      uid: string;
+      name: string;
+      role: 'dept_chairman' | 'registrar' | 'super_admin';
+      reason: string;
+    }
+  ): { success: boolean; message: string } {
+    const store = this.getStore();
+    const app = store.applications?.find(
+      (a) => a.id === appIdOrNumber || a.applicationNumber === appIdOrNumber
+    );
+    const record = store.staffLeaveApplications?.find(
+      (r) => r.id === appIdOrNumber || r.applicationNumber === appIdOrNumber
+    );
+
+    if (!record) {
+      return { success: false, message: 'Leave application not found.' };
+    }
+
+    record.status = 'REJECTED';
+    if (record.currentStepIndex === 0) {
+      record.chairmanComment = `Rejected: ${actor.reason}`;
+    } else {
+      record.registrarComment = `Rejected: ${actor.reason}`;
+    }
+
+    if (app) {
+      app.status = 'REJECTED';
+      app.rejectionReason = actor.reason;
+      app.auditTrail.push({
+        id: `audit-${Date.now()}`,
+        applicationId: app.id,
+        applicationNumber: app.applicationNumber,
+        actorUid: actor.uid,
+        actorName: actor.name,
+        actorEmail: `${actor.role}@jstu.ac.bd`,
+        role: actor.role,
+        action: 'REJECT',
+        fromStatus: 'UNDER_REVIEW',
+        toStatus: 'REJECTED',
+        fromStepIndex: app.currentStepIndex,
+        toStepIndex: app.currentStepIndex,
+        comment: actor.reason,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    this.saveStore(store);
+    return { success: true, message: 'Leave application has been rejected.' };
+  }
+
+  public getStaffNotices(): StaffNotice[] {
+    const store = this.getStore();
+    return store.staffNotices || [];
+  }
+
+  public getStaffServiceRequests(staffId?: string): StaffServiceRequest[] {
+    const store = this.getStore();
+    const list = store.staffServiceRequests || [];
+    if (!staffId) return list;
+    return list.filter((r) => r.staffId.toLowerCase() === staffId.toLowerCase());
+  }
+
+  public submitStaffServiceRequest(
+    data: Omit<StaffServiceRequest, 'id' | 'status' | 'submittedAt'>
+  ): StaffServiceRequest {
+    const store = this.getStore();
+    if (!store.staffServiceRequests) store.staffServiceRequests = [];
+
+    const randomNum = Math.floor(100 + Math.random() * 900);
+    const newReq: StaffServiceRequest = {
+      ...data,
+      id: `JSTU-SR-2026-${randomNum}`,
+      status: 'SUBMITTED',
+      submittedAt: new Date().toLocaleString()
+    };
+
+    store.staffServiceRequests.unshift(newReq);
+    this.saveStore(store);
+    return newReq;
+  }
+
+  public updateStaffServiceRequest(
+    id: string,
+    updates: Partial<StaffServiceRequest>
+  ): boolean {
+    const store = this.getStore();
+    const req = store.staffServiceRequests?.find((r) => r.id === id);
+    if (!req) return false;
+
+    Object.assign(req, updates);
+    if (updates.status === 'RESOLVED' && !req.resolvedAt) {
+      req.resolvedAt = new Date().toLocaleString();
+    }
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public getStaffDirectory(filter?: {
+    type?: string;
+    query?: string;
+    departmentOrOffice?: string;
+  }): StaffDirectoryMember[] {
+    const store = this.getStore();
+    let list = store.staffDirectory || [];
+
+    if (filter?.type && filter.type !== 'ALL') {
+      list = list.filter((m) => m.type === filter.type);
+    }
+    if (filter?.departmentOrOffice && filter.departmentOrOffice !== 'ALL') {
+      list = list.filter((m) => m.departmentOrOffice === filter.departmentOrOffice);
+    }
+    if (filter?.query && filter.query.trim()) {
+      const q = filter.query.toLowerCase().trim();
+      list = list.filter(
+        (m) =>
+          m.name.toLowerCase().includes(q) ||
+          m.nameBn.toLowerCase().includes(q) ||
+          m.designation.toLowerCase().includes(q) ||
+          m.departmentOrOffice.toLowerCase().includes(q) ||
+          m.email.toLowerCase().includes(q) ||
+          (m.specialization && m.specialization.toLowerCase().includes(q))
+      );
+    }
+
+    return list;
   }
 }
 

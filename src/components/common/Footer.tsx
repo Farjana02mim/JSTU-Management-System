@@ -176,6 +176,11 @@ export const Footer: React.FC = () => {
                   {isBn ? 'জেএসটিইউ অ্যালামনাই' : 'Alumni Network'}
                 </Link>
               </li>
+              <li>
+                <Link to="/convocation" className="hover:text-[#1E3A8A] transition-colors font-semibold text-[#1E3A8A]">
+                  {isBn ? '২য় সমাবর্তন ২০২৬' : '2nd Convocation 2026'}
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -264,6 +269,11 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/page/vision-and-mission" className="hover:text-[#1E3A8A] transition-colors">
                   {isBn ? 'ভিশন ২০৩০ মহাপরিকল্পনা' : 'Vision 2030 Roadmap'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/staff" className="hover:text-[#1E3A8A] transition-colors font-semibold text-[#1E3A8A]">
+                  {isBn ? 'কর্মকর্তা ও শিক্ষক পোর্টাল' : 'Staff & Faculty Portal'}
                 </Link>
               </li>
             </ul>

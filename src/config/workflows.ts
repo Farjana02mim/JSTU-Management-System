@@ -20,6 +20,7 @@ export type ApplicationType =
   | 'certificate'
   | 'testimonial'
   | 'leave'
+  | 'staff_leave'
   | 'course_withdrawal'
   | 'scholarship'
   | 'clearance'
@@ -260,6 +261,72 @@ export const WORKFLOW_CONFIGS: Record<ApplicationType, WorkflowDefinition> = {
     ],
     attachmentRequired: false,
     allowedAttachmentTypes: ['application/pdf'],
+    maxAttachmentSizeBytes: 5 * 1024 * 1024
+  },
+
+  staff_leave: {
+    type: 'staff_leave',
+    title: 'Staff Leave Application (Casual, Medical, Study)',
+    titleBn: 'শিক্ষক ও কর্মকর্তাদের ছুটির আবেদন',
+    description: 'Institutional leave request for faculty members and administrative officers with multi-level approval chain: Department Chairman -> Registrar.',
+    descriptionBn: 'বিশ্ববিদ্যালয়ের শিক্ষক ও কর্মকর্তাদের নৈমিত্তিক, অর্জিত/চিকিৎসা এবং উচ্চশিক্ষা গবেষণা ছুটির আবেদন। অনুমোদন পর্যায়: বিভাগীয় চেয়ারম্যান -> রেজিস্ট্রার।',
+    chain: [
+      { stepIndex: 0, role: 'dept_chairman', title: 'Department Chairman / Head of Office', titleBn: 'বিভাগীয় চেয়ারম্যান / দপ্তর প্রধান', departmentScoped: true },
+      { stepIndex: 1, role: 'registrar', title: 'Office of the Registrar', titleBn: 'রেজিস্ট্রার কার্যালয়', officeScoped: 'REGISTRAR' }
+    ],
+    fields: [
+      {
+        name: 'leaveType',
+        label: 'Leave Category',
+        labelBn: 'ছুটির ধরন',
+        type: 'select',
+        required: true,
+        options: [
+          { value: 'casual', label: 'Casual Leave (CL)', labelBn: 'নৈমিত্তিক ছুটি (সিএল)' },
+          { value: 'medical', label: 'Medical / Earned Leave (ML)', labelBn: 'অর্জিত / চিকিৎসাজনিত ছুটি (এমএল)' },
+          { value: 'study', label: 'Study & Research Leave (Higher Degrees)', labelBn: 'উচ্চশিক্ষা ও গবেষণা ছুটি' }
+        ]
+      },
+      {
+        name: 'startDate',
+        label: 'Start Date',
+        labelBn: 'ছুটি শুরুর তারিখ',
+        type: 'date',
+        required: true
+      },
+      {
+        name: 'endDate',
+        label: 'End Date',
+        labelBn: 'ছুটি সমাপ্তির তারিখ',
+        type: 'date',
+        required: true
+      },
+      {
+        name: 'daysRequested',
+        label: 'Total Working Days / Duration',
+        labelBn: 'মোট কার্যদিবস / মেয়াদ',
+        type: 'number',
+        required: true
+      },
+      {
+        name: 'actingStaff',
+        label: 'Designated Acting Colleague / Substitute Staff',
+        labelBn: 'অনুপস্থিতিকালীন দায়িত্বপ্রাপ্ত সহকর্মী / কর্মকর্তা',
+        type: 'text',
+        required: true,
+        placeholder: 'e.g. Dr. Kamrul Hasan, Assistant Professor'
+      },
+      {
+        name: 'reason',
+        label: 'Purpose / Justification of Leave',
+        labelBn: 'ছুটির সুনির্দিষ্ট কারণ ও বিবরণ',
+        type: 'textarea',
+        required: true,
+        placeholder: 'Official reason, medical condition, fellowship institution...'
+      }
+    ],
+    attachmentRequired: false,
+    allowedAttachmentTypes: ['application/pdf', 'image/jpeg', 'image/png'],
     maxAttachmentSizeBytes: 5 * 1024 * 1024
   },
 
