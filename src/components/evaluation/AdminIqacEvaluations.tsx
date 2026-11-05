@@ -166,7 +166,7 @@ export const AdminIqacEvaluations: React.FC = () => {
                   {activeWindow.status === 'Open' ? (isBn ? 'উন্মুক্ত (সক্রিয়)' : 'Active Open') : (isBn ? 'সমাপ্ত' : 'Closed')}
                 </Badge>
               </div>
-              <p className="text-xs text-[#64748B]">
+              <p className="text-xs text-[#475569]">
                 {isBn ? 'শুরু:' : 'Opened:'} {new Date(activeWindow.startDate).toLocaleDateString()} •{' '}
                 {isBn ? 'সমাপ্তি:' : 'Closing:'} {new Date(activeWindow.endDate).toLocaleDateString()}
               </p>
@@ -199,7 +199,7 @@ export const AdminIqacEvaluations: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Card className="p-5 border border-[#E2E8F0] bg-white">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">
+              <span className="text-xs font-semibold text-[#475569] uppercase tracking-wider">
                 {isBn ? 'বিশ্ববিদ্যালয় সার্বিক গড়' : 'University Overall Rating'}
               </span>
               <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
@@ -210,7 +210,7 @@ export const AdminIqacEvaluations: React.FC = () => {
               <span className="text-3xl font-extrabold text-[#0F172A]">
                 {analytics.overallAverage.toFixed(2)}
               </span>
-              <span className="text-xs text-[#64748B]">/ 5.00</span>
+              <span className="text-xs text-[#475569]">/ 5.00</span>
             </div>
             <div className="mt-2">
               <Badge variant="success">IQAC Benchmark Standard</Badge>
@@ -219,7 +219,7 @@ export const AdminIqacEvaluations: React.FC = () => {
 
           <Card className="p-5 border border-[#E2E8F0] bg-white">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">
+              <span className="text-xs font-semibold text-[#475569] uppercase tracking-wider">
                 {isBn ? 'মোট সংগৃহীত মূল্যায়ন' : 'Total Anonymous Evaluations'}
               </span>
               <div className="p-2 bg-emerald-50 text-[#006A4E] rounded-lg">
@@ -230,7 +230,7 @@ export const AdminIqacEvaluations: React.FC = () => {
               <span className="text-3xl font-extrabold text-[#0F172A]">
                 {analytics.totalEvaluations}
               </span>
-              <span className="text-xs text-[#64748B]">{isBn ? 'টি প্রতিক্রিয়া' : 'submissions'}</span>
+              <span className="text-xs text-[#475569]">{isBn ? 'টি প্রতিক্রিয়া' : 'submissions'}</span>
             </div>
             <div className="mt-2">
               <Badge variant="neutral">Across 7 Academic Departments</Badge>
@@ -239,7 +239,7 @@ export const AdminIqacEvaluations: React.FC = () => {
 
           <Card className="p-5 border border-[#E2E8F0] bg-white">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">
+              <span className="text-xs font-semibold text-[#475569] uppercase tracking-wider">
                 {isBn ? 'গোপনীয়তা ও তথ্য নিরাপত্তা' : 'Anonymity Ledger Status'}
               </span>
               <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
@@ -251,7 +251,7 @@ export const AdminIqacEvaluations: React.FC = () => {
                 <CheckCircle2 className="w-4 h-4 text-[#006A4E]" />
                 Zero Student Linkage
               </span>
-              <p className="text-xs text-[#64748B] mt-1">
+              <p className="text-xs text-[#475569] mt-1">
                 {isBn
                   ? 'উত্তরের সাথে কোনো আইডি বা পরিচয় সংরক্ষিত হয় না।'
                   : 'Detached submission flag with unlinked answers.'}
@@ -272,13 +272,13 @@ export const AdminIqacEvaluations: React.FC = () => {
                   <BarChart3 className="w-4 h-4 text-[#006A4E]" />
                   {isBn ? 'বিভাগভিত্তিক গড় মূল্যায়ন স্কোর' : 'Departmental Average Ratings Comparison'}
                 </h3>
-                <p className="text-xs text-[#64748B] mt-0.5">
+                <p className="text-xs text-[#475569] mt-0.5">
                   {isBn
                     ? '৭টি একাডেমিক বিভাগের গড় স্কোর (১.০ থেকে ৫.০ স্কেল)'
                     : 'Average score across CSE, EEE, MATH, FISH, GEOL, MGT, SOC'}
                 </p>
               </div>
-              <span className="text-xs font-mono text-[#64748B]">Scale: 0 - 5.0</span>
+              <span className="text-xs font-mono text-[#475569]">Scale: 0 - 5.0</span>
             </div>
 
             <div className="h-64 sm:h-72 w-full pt-2">
@@ -294,7 +294,7 @@ export const AdminIqacEvaluations: React.FC = () => {
                   <YAxis
                     domain={[0, 5]}
                     ticks={[1, 2, 3, 4, 5]}
-                    tick={{ fill: '#64748B', fontSize: 11 }}
+                    tick={{ fill: '#475569', fontSize: 11 }}
                     axisLine={{ stroke: '#CBD5E1' }}
                     tickLine={false}
                   />
@@ -307,7 +307,7 @@ export const AdminIqacEvaluations: React.FC = () => {
                           <div className="bg-white border border-[#CBD5E1] p-2.5 rounded-lg shadow-md text-xs">
                             <div className="font-bold text-[#0F172A]">Department of {data.department}</div>
                             <div className="text-[#006A4E] font-semibold mt-1">Average: {data.average} / 5.00</div>
-                            <div className="text-[#64748B] text-[11px]">{data.evaluationsCount} student evaluations</div>
+                            <div className="text-[#475569] text-[11px]">{data.evaluationsCount} student evaluations</div>
                           </div>
                         );
                       }
@@ -335,7 +335,7 @@ export const AdminIqacEvaluations: React.FC = () => {
                 <h3 className="font-bold text-[#0F172A]">
                   {isBn ? 'মানদণ্ডভিত্তিক প্রাতিষ্ঠানিক বিশ্লেষণ' : 'Criteria-Level Benchmark Scores'}
                 </h3>
-                <p className="text-xs text-[#64748B] mt-0.5">
+                <p className="text-xs text-[#475569] mt-0.5">
                   {isBn ? '৬টি মূল্যায়িত উপাদানের সার্বিক গড়' : 'University-wide aggregate across 6 pedagogical dimensions'}
                 </p>
               </div>
@@ -352,7 +352,7 @@ export const AdminIqacEvaluations: React.FC = () => {
                       type="number"
                       domain={[0, 5]}
                       ticks={[1, 2, 3, 4, 5]}
-                      tick={{ fill: '#64748B', fontSize: 11 }}
+                      tick={{ fill: '#475569', fontSize: 11 }}
                       axisLine={{ stroke: '#CBD5E1' }}
                       tickLine={false}
                     />
@@ -380,7 +380,7 @@ export const AdminIqacEvaluations: React.FC = () => {
                 <h3 className="font-bold text-[#0F172A]">
                   {isBn ? 'স্টার রেটিং বণ্টন' : 'Rating Score Frequency (1 to 5 Stars)'}
                 </h3>
-                <p className="text-xs text-[#64748B] mt-0.5">
+                <p className="text-xs text-[#475569] mt-0.5">
                   {isBn ? 'শিক্ষার্থীদের প্রদত্ত তারকার সামগ্রিক বিন্যাস' : 'Aggregate frequency of ratings across all courses'}
                 </p>
               </div>
@@ -396,7 +396,7 @@ export const AdminIqacEvaluations: React.FC = () => {
                       tickLine={false}
                     />
                     <YAxis
-                      tick={{ fill: '#64748B', fontSize: 11 }}
+                      tick={{ fill: '#475569', fontSize: 11 }}
                       axisLine={{ stroke: '#CBD5E1' }}
                       tickLine={false}
                     />

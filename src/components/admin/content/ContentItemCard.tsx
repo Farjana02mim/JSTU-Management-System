@@ -76,8 +76,8 @@ export const ContentItemCard: React.FC<ContentItemCardProps> = ({
             <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
           </div>
         ) : (
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 text-slate-400">
-            <FileText className="w-7 h-7 text-slate-300" />
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 text-slate-600">
+            <FileText className="w-7 h-7 text-slate-600" />
           </div>
         )}
 
@@ -115,7 +115,7 @@ export const ContentItemCard: React.FC<ContentItemCardProps> = ({
             </p>
           )}
 
-          <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-400 pt-0.5">
+          <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-600 pt-0.5">
             {item.publishDate && (
               <span className="flex items-center gap-1">
                 <Calendar className="w-3 h-3" /> {item.publishDate}
@@ -194,7 +194,7 @@ export const ContentItemCard: React.FC<ContentItemCardProps> = ({
           )
         ) : (
           <span
-            className="text-[11px] text-slate-400 italic px-2"
+            className="text-[11px] text-slate-600 italic px-2"
             title="Only admin and super_admin can publish content live"
           >
             Publishing requires Admin
@@ -206,7 +206,7 @@ export const ContentItemCard: React.FC<ContentItemCardProps> = ({
           <button
             type="button"
             onClick={() => onDelete(item)}
-            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
+            className="p-1.5 text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
             title="Delete this item"
           >
             <Trash2 className="w-3.5 h-3.5" />

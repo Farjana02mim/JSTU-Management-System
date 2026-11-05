@@ -168,7 +168,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
               <span className="text-sm font-extrabold text-[#0F172A] leading-tight">
                 JSTU <span className="text-[#1E3A8A] font-semibold">{portalTitle}</span>
               </span>
-              <span className="text-[10px] text-slate-400 font-mono">Jamalpur-2012</span>
+              <span className="text-[10px] text-slate-600 font-mono">Jamalpur-2012</span>
             </div>
           </Link>
 
@@ -181,15 +181,17 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
 
         {/* Right: Idle Countdown, Reset Demo Button, Language, Profile */}
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-          {/* Reset Demo Data button */}
-          <button
-            onClick={() => setResetConfirmOpen(true)}
-            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-slate-600 hover:text-red-700 hover:bg-red-50 border border-[#E2E8F0] hover:border-red-200 rounded-lg transition-colors cursor-pointer"
-            title="Reset demo student data to defaults"
-          >
-            <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
-            <span className="text-[11px]">{isBn ? 'রিসেট ডেমো' : 'Reset Demo'}</span>
-          </button>
+          {/* Reset Demo Data button: strictly when VITE_USE_MOCK === "true" */}
+          {import.meta.env.VITE_USE_MOCK === 'true' && (
+            <button
+              onClick={() => setResetConfirmOpen(true)}
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-slate-700 hover:text-red-700 hover:bg-red-50 border border-[#E2E8F0] hover:border-red-200 rounded-lg transition-colors cursor-pointer"
+              title="Reset demo student data to defaults"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-slate-600" />
+              <span className="text-[11px]">{isBn ? 'রিসেট ডেমো' : 'Reset Demo'}</span>
+            </button>
+          )}
 
           {/* Idle Timeout Countdown */}
           {idleTimeRemaining !== null && (
@@ -226,7 +228,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
               <div className="w-7 h-7 rounded-full bg-blue-50 text-[#1E3A8A] flex items-center justify-center font-bold text-xs uppercase">
                 {user?.displayName ? user.displayName[0] : 'U'}
               </div>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 text-slate-600" />
             </button>
 
             {userDropdownOpen && (
@@ -250,16 +252,18 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
                   <span>{isBn ? 'আমার প্রোফাইল' : 'Profile Settings'}</span>
                 </Link>
 
-                <button
-                  onClick={() => {
-                    setUserDropdownOpen(false);
-                    setResetConfirmOpen(true);
-                  }}
-                  className="w-full flex items-center gap-2 px-2.5 py-2 text-slate-700 hover:bg-[#F8FAFC] rounded-lg cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
-                  <span>{isBn ? 'রিসেট ডেমো ডাটা' : 'Reset Demo Data'}</span>
-                </button>
+                {import.meta.env.VITE_USE_MOCK === 'true' && (
+                  <button
+                    onClick={() => {
+                      setUserDropdownOpen(false);
+                      setResetConfirmOpen(true);
+                    }}
+                    className="w-full flex items-center gap-2 px-2.5 py-2 text-slate-700 hover:bg-[#F8FAFC] rounded-lg cursor-pointer"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 text-slate-600" />
+                    <span>{isBn ? 'রিসেট ডেমো ডাটা' : 'Reset Demo Data'}</span>
+                  </button>
+                )}
 
                 <button
                   onClick={handleLogout}
@@ -279,7 +283,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
         {/* Desktop Sidebar */}
         <aside className="hidden md:flex flex-col w-64 border-r border-[#E2E8F0] bg-[#F8FAFC] p-4 space-y-4 shrink-0">
           <div className="space-y-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 px-3">
               {isBn ? 'মেন্যু নেভিগেশন' : 'Portal Navigation'}
             </span>
             {navItems.map((item) => {
@@ -321,7 +325,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
                 <span className="font-bold text-xs uppercase text-[#1E3A8A] tracking-wider">
                   {portalTitle}
                 </span>
-                <button onClick={() => setSidebarOpen(false)} className="p-1 rounded-md text-slate-400">
+                <button onClick={() => setSidebarOpen(false)} className="p-1 rounded-md text-slate-600">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -479,29 +483,31 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
         </nav>
       )}
 
-      {/* Reset Demo Data Modal */}
-      <Modal
-        isOpen={resetConfirmOpen}
-        onClose={() => setResetConfirmOpen(false)}
-        title={isBn ? 'ডেমো ডাটা রিসেট নিশ্চিতকরণ' : 'Reset Demo Data'}
-        description={
-          isBn
-            ? 'এটি লোকালস্টোরেজ থেকে সকল পরিবর্তন (জমা দেওয়া অ্যাসাইনমেন্ট, পরিশোধিত ফি) মুছে প্রাথমিক অবস্থায় ফিরিয়ে নেবে।'
-            : 'This will reset all modified student state (submitted assignments, fee payments) back to the clean initial demo seed.'
-        }
-      >
-        <div className="space-y-4 text-xs sm:text-sm text-slate-700">
-          <p>Are you sure you want to clear simulated local student mutations?</p>
-          <div className="flex justify-end gap-2 pt-2">
-            <Button variant="outline" size="sm" onClick={() => setResetConfirmOpen(false)}>
-              {isBn ? 'বাতিল' : 'Cancel'}
-            </Button>
-            <Button variant="primary" size="sm" onClick={handleResetDemoData}>
-              {isBn ? 'রিসেট করুন' : 'Confirm Reset'}
-            </Button>
+      {/* Reset Demo Data Modal: strictly when VITE_USE_MOCK === "true" */}
+      {import.meta.env.VITE_USE_MOCK === 'true' && (
+        <Modal
+          isOpen={resetConfirmOpen}
+          onClose={() => setResetConfirmOpen(false)}
+          title={isBn ? 'ডেমো ডাটা রিসেট নিশ্চিতকরণ' : 'Reset Demo Data'}
+          description={
+            isBn
+              ? 'এটি লোকালস্টোরেজ থেকে সকল পরিবর্তন (জমা দেওয়া অ্যাসাইনমেন্ট, পরিশোধিত ফি) মুছে প্রাথমিক অবস্থায় ফিরিয়ে নেবে।'
+              : 'This will reset all modified student state (submitted assignments, fee payments) back to the clean initial demo seed.'
+          }
+        >
+          <div className="space-y-4 text-xs sm:text-sm text-slate-700">
+            <p>Are you sure you want to clear simulated local student mutations?</p>
+            <div className="flex justify-end gap-2 pt-2">
+              <Button variant="outline" size="sm" onClick={() => setResetConfirmOpen(false)}>
+                {isBn ? 'বাতিল' : 'Cancel'}
+              </Button>
+              <Button variant="primary" size="sm" onClick={handleResetDemoData}>
+                {isBn ? 'রিসেট করুন' : 'Confirm Reset'}
+              </Button>
+            </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
+      )}
 
       {/* Idle Warning Modal */}
       <Modal

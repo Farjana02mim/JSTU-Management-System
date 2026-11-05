@@ -178,7 +178,7 @@ export class MockAuthService implements AuthService {
   }
 
   async completeMfaChallenge(code: string): Promise<boolean> {
-    if (code === '123456') {
+    if (import.meta.env.VITE_USE_MOCK === 'true' && code === '123456') {
       return true;
     }
     return false;

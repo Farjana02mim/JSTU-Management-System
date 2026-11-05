@@ -236,7 +236,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
   return (
     <div className="space-y-6">
       {/* 1. Header Banner & Demo Data Pill */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-5 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs">
+      <div className="flex flex-wrap items-center justify-between gap-4 p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs">
         <div>
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
@@ -277,7 +277,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
           </div>
           <button
             onClick={() => setActionSuccessMessage(null)}
-            className="text-slate-400 hover:text-slate-600 font-bold"
+            className="text-slate-600 hover:text-slate-600 font-bold"
           >
             &times;
           </button>
@@ -287,7 +287,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
       {/* 2. Stat Cards Grid (6 Cards) */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-2.5 sm:gap-4">
         {/* Total Students */}
-        <div className="p-3 sm:p-4 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs hover:shadow-xs transition">
+        <div className="p-3 sm:p-4 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs hover:shadow-xs transition">
           <div className="flex items-center justify-between text-slate-500 text-[11px] sm:text-xs font-semibold mb-1">
             <span className="truncate">{isBn ? 'মোট শিক্ষার্থী' : 'Total Students'}</span>
             <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 shrink-0 ml-1" />
@@ -295,13 +295,13 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
           <div className="text-xl sm:text-2xl font-black text-[#0A2540] dark:text-white tabular-nums">
             {statCards.totalStudents.toLocaleString()}
           </div>
-          <p className="text-[10px] text-slate-400 mt-0.5 truncate">
+          <p className="text-[10px] text-slate-600 mt-0.5 truncate">
             {departmentScoped ? (isBn ? 'বিভাগীয় তালিকাভুক্ত' : 'Department Enrolled') : (isBn ? '৭টি বিভাগে সর্বমোট' : 'Across 7 Departments')}
           </p>
         </div>
 
         {/* Total Teachers */}
-        <div className="p-3 sm:p-4 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs hover:shadow-xs transition">
+        <div className="p-3 sm:p-4 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs hover:shadow-xs transition">
           <div className="flex items-center justify-between text-slate-500 text-[11px] sm:text-xs font-semibold mb-1">
             <span className="truncate">{isBn ? 'মোট শিক্ষক' : 'Total Teachers'}</span>
             <GraduationCap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0 ml-1" />
@@ -309,13 +309,13 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
           <div className="text-xl sm:text-2xl font-black text-[#0A2540] dark:text-white tabular-nums">
             {statCards.totalTeachers.toLocaleString()}
           </div>
-          <p className="text-[10px] text-slate-400 mt-0.5 truncate">
+          <p className="text-[10px] text-slate-600 mt-0.5 truncate">
             {departmentScoped ? (isBn ? 'অনুষদ সদস্য' : 'Faculty Members') : (isBn ? 'পূর্ণকালীন অনুষদ' : 'Full-Time Faculty')}
           </p>
         </div>
 
         {/* Departments */}
-        <div className="p-3 sm:p-4 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs hover:shadow-xs transition">
+        <div className="p-3 sm:p-4 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs hover:shadow-xs transition">
           <div className="flex items-center justify-between text-slate-500 text-[11px] sm:text-xs font-semibold mb-1">
             <span className="truncate">{isBn ? 'একাডেমিক বিভাগ' : 'Departments'}</span>
             <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600 shrink-0 ml-1" />
@@ -323,7 +323,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
           <div className="text-xl sm:text-2xl font-black text-[#0A2540] dark:text-white tabular-nums">
             {departmentScoped ? statCards.departmentCode || 'CSE' : statCards.totalDepartments}
           </div>
-          <p className="text-[10px] text-slate-400 mt-0.5 truncate">
+          <p className="text-[10px] text-slate-600 mt-0.5 truncate">
             {departmentScoped ? (isBn ? 'নির্দিষ্ট বিভাগীয় কোড' : 'Department Scope') : (isBn ? 'অফিসিয়াল জেএসটিইউ বিভাগ' : 'Official JSTU Units')}
           </p>
         </div>
@@ -385,7 +385,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
       </div>
 
       {/* 3. Quick Actions Bar */}
-      <div className="p-3.5 sm:p-4 bg-gradient-to-r from-slate-50 to-blue-50/40 border border-slate-200 dark:border-slate-800 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div className="p-3.5 sm:p-4 bg-gradient-to-r from-slate-50 to-blue-50/40 border border-slate-200 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
           <span className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider">
@@ -450,7 +450,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
       {/* 4. Charts Section (6 Recharts in Responsive 2x3 Grid) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Chart 1: Students per Department / Batch Cohorts */}
-        <div className="p-5 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs space-y-3">
+        <div className="p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs space-y-3">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
             <div>
               <h3 className="text-sm font-bold text-[#0F172A] dark:text-white flex items-center gap-1.5">
@@ -475,12 +475,12 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
                 <XAxis
                   dataKey="department"
-                  tick={{ fontSize: 11, fill: '#64748B' }}
+                  tick={{ fontSize: 11, fill: '#475569' }}
                   interval={0}
                   angle={-15}
                   textAnchor="end"
                 />
-                <YAxis tick={{ fontSize: 11, fill: '#64748B' }} />
+                <YAxis tick={{ fontSize: 11, fill: '#475569' }} />
                 <Tooltip
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
@@ -513,7 +513,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
         </div>
 
         {/* Chart 2: Application Status Breakdown (Pie / Donut) */}
-        <div className="p-5 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs space-y-3">
+        <div className="p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs space-y-3">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
             <div>
               <h3 className="text-sm font-bold text-[#0F172A] dark:text-white flex items-center gap-1.5">
@@ -572,7 +572,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
         </div>
 
         {/* Chart 3: Average Attendance per Department */}
-        <div className="p-5 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs space-y-3">
+        <div className="p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs space-y-3">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
             <div>
               <h3 className="text-sm font-bold text-[#0F172A] dark:text-white flex items-center gap-1.5">
@@ -595,12 +595,12 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
                 <XAxis
                   dataKey="department"
-                  tick={{ fontSize: 11, fill: '#64748B' }}
+                  tick={{ fontSize: 11, fill: '#475569' }}
                   interval={0}
                   angle={-10}
                   textAnchor="end"
                 />
-                <YAxis domain={[50, 100]} tick={{ fontSize: 11, fill: '#64748B' }} unit="%" />
+                <YAxis domain={[50, 100]} tick={{ fontSize: 11, fill: '#475569' }} unit="%" />
                 <Tooltip
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
@@ -629,7 +629,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
         </div>
 
         {/* Chart 4: Result Grade Distribution */}
-        <div className="p-5 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs space-y-3">
+        <div className="p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs space-y-3">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
             <div>
               <h3 className="text-sm font-bold text-[#0F172A] dark:text-white flex items-center gap-1.5">
@@ -646,8 +646,8 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data.gradeDistribution} margin={{ top: 10, right: 10, left: -15, bottom: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
-                <XAxis dataKey="grade" tick={{ fontSize: 11, fill: '#64748B' }} />
-                <YAxis tick={{ fontSize: 11, fill: '#64748B' }} />
+                <XAxis dataKey="grade" tick={{ fontSize: 11, fill: '#475569' }} />
+                <YAxis tick={{ fontSize: 11, fill: '#475569' }} />
                 <Tooltip
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
@@ -675,7 +675,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
         </div>
 
         {/* Chart 5: Fee Collected vs Due */}
-        <div className="p-5 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs space-y-3">
+        <div className="p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs space-y-3">
           <div className="flex flex-wrap items-center justify-between border-b border-slate-100 pb-2 gap-2">
             <div>
               <h3 className="text-sm font-bold text-[#0F172A] dark:text-white flex items-center gap-1.5">
@@ -688,7 +688,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
             </div>
             <div className="text-right text-xs">
               <span className="text-emerald-700 font-bold">{formatCurrency(data.feeComparison.totalCollected)}</span>
-              <span className="text-slate-400 mx-1">/</span>
+              <span className="text-slate-600 mx-1">/</span>
               <span className="text-rose-600 font-bold">{formatCurrency(data.feeComparison.totalDue)} Due</span>
             </div>
           </div>
@@ -699,13 +699,13 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
                 <XAxis
                   dataKey="category"
-                  tick={{ fontSize: 10, fill: '#64748B' }}
+                  tick={{ fontSize: 10, fill: '#475569' }}
                   interval={0}
                   angle={-10}
                   textAnchor="end"
                 />
                 <YAxis
-                  tick={{ fontSize: 10, fill: '#64748B' }}
+                  tick={{ fontSize: 10, fill: '#475569' }}
                   tickFormatter={(v) => (v >= 100000 ? `${(v / 100000).toFixed(0)}L` : `${v / 1000}k`)}
                 />
                 <Tooltip
@@ -736,7 +736,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
         </div>
 
         {/* Chart 6: Applications per Month */}
-        <div className="p-5 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs space-y-3">
+        <div className="p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs space-y-3">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2">
             <div>
               <h3 className="text-sm font-bold text-[#0F172A] dark:text-white flex items-center gap-1.5">
@@ -759,8 +759,8 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
-                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#64748B' }} />
-                <YAxis tick={{ fontSize: 11, fill: '#64748B' }} />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#475569' }} />
+                <YAxis tick={{ fontSize: 11, fill: '#475569' }} />
                 <Tooltip
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
@@ -791,7 +791,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
       </div>
 
       {/* 5. Recent Activity Feed from the Audit Trail (Role, Action, Time; NO PERSONAL DATA) */}
-      <div className="p-5 bg-white border border-[#E2E8F0] dark:border-slate-800 rounded-2xl shadow-2xs space-y-4">
+      <div className="p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs space-y-4">
         <div className="flex flex-wrap items-center justify-between border-b border-slate-100 pb-3 gap-2">
           <div>
             <h3 className="text-sm font-bold text-[#0F172A] dark:text-white flex items-center gap-2">
@@ -810,7 +810,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
         </div>
 
         {data.recentActivities.length === 0 ? (
-          <div className="p-6 text-center text-slate-400 text-xs">
+          <div className="p-6 text-center text-slate-600 text-xs">
             {isBn ? 'সাম্প্রতিক কোনো কার্যকলাপ পাওয়া যায়নি।' : 'No recent audit trail entries logged.'}
           </div>
         ) : (
@@ -825,11 +825,11 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
                   >
                     {isBn ? act.roleBn : act.role.replace('_', ' ')}
                   </span>
-                  <span className="text-slate-800 dark:text-slate-200 truncate font-medium">
+                  <span className="text-slate-800 truncate font-medium">
                     {isBn ? act.actionBn : act.action}
                   </span>
                 </div>
-                <span className="text-[10px] sm:text-[11px] text-slate-400 whitespace-nowrap font-mono shrink-0 pl-1 sm:pl-0">
+                <span className="text-[10px] sm:text-[11px] text-slate-600 whitespace-nowrap font-mono shrink-0 pl-1 sm:pl-0">
                   {isBn ? act.timeAgoBn : act.timeAgo}
                 </span>
               </div>
@@ -951,7 +951,7 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
 
           <div className="max-h-80 overflow-y-auto divide-y divide-slate-100">
             {storeApplications.length === 0 ? (
-              <p className="text-xs text-slate-400 py-4 text-center">No applications found.</p>
+              <p className="text-xs text-slate-600 py-4 text-center">No applications found.</p>
             ) : (
               storeApplications.map((app) => (
                 <div key={app.id} className="py-2.5 flex items-center justify-between text-xs gap-2">

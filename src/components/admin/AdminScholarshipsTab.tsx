@@ -262,7 +262,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
           <div className="text-2xl font-black text-slate-900 dark:text-white tabular-nums">
             {scholarships.length}
           </div>
-          <p className="text-[11px] text-slate-400">Institutional Grants</p>
+          <p className="text-[11px] text-slate-600">Institutional Grants</p>
         </Card>
 
         <Card padding="md" className="space-y-1">
@@ -270,7 +270,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
           <div className="text-2xl font-black text-blue-600 dark:text-blue-400 tabular-nums">
             {totalApplications}
           </div>
-          <p className="text-[11px] text-slate-400">Through Paperless Engine</p>
+          <p className="text-[11px] text-slate-600">Through Paperless Engine</p>
         </Card>
 
         <Card padding="md" className="space-y-1">
@@ -278,7 +278,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
           <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">
             {publishedSchemes}
           </div>
-          <p className="text-[11px] text-slate-400">Official Recipient Lists</p>
+          <p className="text-[11px] text-slate-600">Official Recipient Lists</p>
         </Card>
 
         <Card padding="md" className="space-y-1">
@@ -286,14 +286,14 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
           <div className="text-2xl font-black text-purple-600 dark:text-purple-400 tabular-nums">
             ৳{(totalFundsAllocated / 1000).toFixed(0)}k
           </div>
-          <p className="text-[11px] text-slate-400">BDT Total Endowment</p>
+          <p className="text-[11px] text-slate-600">BDT Total Endowment</p>
         </Card>
       </div>
 
       {/* Main Management Control Panel */}
       <Card padding="lg" className="space-y-6">
         {/* Header with Scheme Selector and New Scheme Button */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
           <div className="space-y-1">
             <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Award className="w-5 h-5 text-blue-600" />
@@ -328,15 +328,15 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
         </div>
 
         {/* Scheme Selector Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 /50 p-4 rounded-xl border border-slate-200">
           <div className="md:col-span-2 space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <label className="text-xs font-semibold text-slate-700">
               {isBn ? 'নির্বাচিত বৃত্তি স্কিম' : 'Select Scholarship Scheme to Evaluate'}
             </label>
             <select
               value={selectedSchId}
               onChange={(e) => setSelectedSchId(e.target.value)}
-              className="w-full text-xs font-medium bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full text-xs font-medium bg-white border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             >
               {scholarships.map((sch) => (
                 <option key={sch.id} value={sch.id}>
@@ -347,7 +347,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <label className="text-xs font-semibold text-slate-700">
               {isBn ? 'স্কিমের বর্তমান অবস্থা' : 'Scheme Status'}
             </label>
             <div className="flex items-center gap-2">
@@ -368,7 +368,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 </Badge>
               )}
               {activeScholarship?.publishedAt && (
-                <span className="text-[11px] text-slate-400">
+                <span className="text-[11px] text-slate-600">
                   Published: {new Date(activeScholarship.publishedAt).toLocaleDateString()}
                 </span>
               )}
@@ -378,7 +378,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
 
         {/* Active Scheme Details Summary */}
         {activeScholarship && (
-          <div className="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-3">
+          <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -398,35 +398,35 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 <div className="text-base font-extrabold text-emerald-600 dark:text-emerald-400">
                   {isBn ? activeScholarship.amountFormattedBn : activeScholarship.amountFormatted}
                 </div>
-                <div className="text-[11px] text-slate-400">
+                <div className="text-[11px] text-slate-600">
                   {activeScholarship.slots} {isBn ? 'টি পদবী / স্লট' : 'Allocated Slots'}
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs pt-2 border-t border-slate-100">
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase font-semibold">Min CGPA</span>
-                <span className="font-bold text-slate-700 dark:text-slate-300">
+                <span className="text-slate-600 block text-[10px] uppercase font-semibold">Min CGPA</span>
+                <span className="font-bold text-slate-700">
                   {activeScholarship.minimumCgpa.toFixed(2)} / 4.00
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase font-semibold">Max Income</span>
-                <span className="font-bold text-slate-700 dark:text-slate-300">
+                <span className="text-slate-600 block text-[10px] uppercase font-semibold">Max Income</span>
+                <span className="font-bold text-slate-700">
                   {activeScholarship.maxFamilyIncome
                     ? `৳${activeScholarship.maxFamilyIncome.toLocaleString('en-US')}`
                     : 'No Ceiling'}
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase font-semibold">Deadline</span>
-                <span className="font-bold text-slate-700 dark:text-slate-300">
+                <span className="text-slate-600 block text-[10px] uppercase font-semibold">Deadline</span>
+                <span className="font-bold text-slate-700">
                   {new Date(activeScholarship.deadline).toLocaleDateString()}
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase font-semibold">
+                <span className="text-slate-600 block text-[10px] uppercase font-semibold">
                   Applicants in Queue
                 </span>
                 <span className="font-bold text-blue-600 dark:text-blue-400">
@@ -438,8 +438,8 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
         )}
 
         {/* Configurable Dynamic Ranking Engine Controls */}
-        <div className="bg-gradient-to-r from-blue-50/60 via-indigo-50/40 to-slate-50 dark:from-slate-800/60 dark:via-slate-800/40 dark:to-slate-800/30 p-5 rounded-2xl border border-blue-100 dark:border-slate-700 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-200/50 dark:border-slate-700 pb-3">
+        <div className="bg-gradient-to-r from-blue-50/60 via-indigo-50/40 to-slate-50 dark:from-slate-800/60 dark:via-slate-800/40 dark:to-slate-800/30 p-5 rounded-2xl border border-blue-100 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-200/50 pb-3">
             <div className="flex items-center gap-2">
               <Sliders className="w-5 h-5 text-blue-600" />
               <div>
@@ -454,16 +454,16 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
               </div>
             </div>
 
-            <div className="font-mono text-[11px] bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-slate-700 text-blue-700 dark:text-blue-300">
+            <div className="font-mono text-[11px] bg-white px-3 py-1.5 rounded-lg border border-blue-200 text-blue-700 dark:text-blue-300">
               Score = (CGPA &times; {cgpaWeightPercent}%) + (Need &times; {incomeWeightPercent}%)
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* CGPA Weight Slider */}
-            <div className="space-y-2 bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700">
+            <div className="space-y-2 bg-white p-3.5 rounded-xl border border-slate-200">
               <div className="flex justify-between items-center text-xs">
-                <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <span className="font-bold text-slate-700 flex items-center gap-1.5">
                   <GraduationCap className="w-4 h-4 text-blue-600" />
                   Academic CGPA Weight
                 </span>
@@ -478,17 +478,17 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 step="5"
                 value={cgpaWeightPercent}
                 onChange={(e) => setCgpaWeightPercent(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
               />
-              <p className="text-[10px] text-slate-400">
+              <p className="text-[10px] text-slate-600">
                 Scales student cumulative GPA (0.0 to 4.0) into a 100-point merit index.
               </p>
             </div>
 
             {/* Income Need Weight Slider (Auto-balanced) */}
-            <div className="space-y-2 bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700">
+            <div className="space-y-2 bg-white p-3.5 rounded-xl border border-slate-200">
               <div className="flex justify-between items-center text-xs">
-                <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <span className="font-bold text-slate-700 flex items-center gap-1.5">
                   <DollarSign className="w-4 h-4 text-emerald-600" />
                   Financial Need Weight
                 </span>
@@ -503,17 +503,17 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 step="5"
                 value={incomeWeightPercent}
                 onChange={(e) => setCgpaWeightPercent(100 - Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
               />
-              <p className="text-[10px] text-slate-400">
+              <p className="text-[10px] text-slate-600">
                 Inverse index prioritizing verified household income deficit under the ceiling.
               </p>
             </div>
 
             {/* Max Income Ceiling Input */}
-            <div className="space-y-2 bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700">
+            <div className="space-y-2 bg-white p-3.5 rounded-xl border border-slate-200">
               <div className="flex justify-between items-center text-xs">
-                <span className="font-bold text-slate-700 dark:text-slate-300">
+                <span className="font-bold text-slate-700">
                   Annual Income Ceiling (BDT)
                 </span>
                 <span className="font-mono font-bold text-purple-600 text-xs">
@@ -527,9 +527,9 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 step="10000"
                 value={incomeCeiling}
                 onChange={(e) => setIncomeCeiling(Math.max(10000, Number(e.target.value)))}
-                className="w-full text-xs font-mono bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full text-xs font-mono bg-slate-50 border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
-              <p className="text-[10px] text-slate-400">
+              <p className="text-[10px] text-slate-600">
                 Incomes above this threshold receive 0 need points in the scoring model.
               </p>
             </div>
@@ -540,20 +540,20 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
           <div className="flex items-center gap-2 flex-1 max-w-md">
             <div className="relative w-full">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-slate-600 absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder={isBn ? 'নাম, আইডি বা বিভাগ দিয়ে খুঁজুন...' : 'Search applicant name, ID, or department...'}
                 value={applicantSearch}
                 onChange={(e) => setApplicantSearch(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 /80 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             <select
               value={applicantStatusFilter}
               onChange={(e) => setApplicantStatusFilter(e.target.value)}
-              className="text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-2 focus:outline-none"
+              className="text-xs bg-slate-50 /80 border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none"
             >
               <option value="ALL">{isBn ? 'সকল অবস্থা' : 'All Status'}</option>
               <option value="SELECTED">{isBn ? 'নির্বাচিত' : 'Selected (Top Rank)'}</option>
@@ -587,9 +587,9 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
         </div>
 
         {/* Applicants Ranking Table */}
-        <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl">
+        <div className="overflow-x-auto border border-slate-200 rounded-xl">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+            <thead className="bg-slate-50 /80 text-slate-700 font-semibold border-b border-slate-200">
               <tr>
                 <th className="py-3 px-3 w-10 text-center">
                   <input
@@ -626,7 +626,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filteredApplicants.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="py-8 text-center text-slate-400">
+                  <td colSpan={10} className="py-8 text-center text-slate-600">
                     {isBn
                       ? 'এই স্কিমের জন্য কোনো আবেদনকারী পাওয়া যায়নি।'
                       : 'No applicants found matching the search and filter criteria.'}
@@ -673,12 +673,12 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                         <div className="font-semibold text-slate-900 dark:text-white">
                           {isBn && app.studentNameBn ? app.studentNameBn : app.studentName}
                         </div>
-                        <div className="text-[11px] text-slate-400 font-mono">
+                        <div className="text-[11px] text-slate-600 font-mono">
                           {app.studentId} &bull; {app.applicationNumber}
                         </div>
                       </td>
 
-                      <td className="py-3 px-3 font-medium text-slate-700 dark:text-slate-300">
+                      <td className="py-3 px-3 font-medium text-slate-700">
                         {app.department}
                       </td>
 
@@ -686,7 +686,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                         {app.cgpa.toFixed(2)}
                       </td>
 
-                      <td className="py-3 px-3 text-right font-mono text-slate-700 dark:text-slate-300">
+                      <td className="py-3 px-3 text-right font-mono text-slate-700">
                         ৳{app.annualIncome.toLocaleString('en-US')}
                       </td>
 
@@ -694,7 +694,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                         <span className="font-mono font-bold text-blue-600 dark:text-blue-400 text-sm">
                           {app.compositeScore.toFixed(1)}
                         </span>
-                        <span className="text-[10px] text-slate-400 block">/ 100 pts</span>
+                        <span className="text-[10px] text-slate-600 block">/ 100 pts</span>
                       </td>
 
                       <td className="py-3 px-3">
@@ -752,10 +752,10 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
         </div>
 
         {/* Selected Summary Footer */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-500 gap-2 border-t border-slate-100 dark:border-slate-800 pt-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-500 gap-2 border-t border-slate-100 pt-3">
           <div>
             Showing {filteredApplicants.length} applicants &bull;{' '}
-            <strong className="text-slate-700 dark:text-slate-300">
+            <strong className="text-slate-700">
               {selectedApplicantIds.length} candidate(s)
             </strong>{' '}
             currently flagged for official award distribution.
@@ -785,7 +785,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
         <form onSubmit={handleCreateScholarship} className="space-y-4 text-xs">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 dark:text-slate-300">
+              <label className="font-semibold text-slate-700">
                 Scheme Title (English) *
               </label>
               <input
@@ -794,12 +794,12 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
                 placeholder="e.g. Bangabandhu ICT Research Fellowship"
-                className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 dark:text-slate-300">
+              <label className="font-semibold text-slate-700">
                 স্কিমের নাম (বাংলা)
               </label>
               <input
@@ -807,18 +807,18 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 value={newTitleBn}
                 onChange={(e) => setNewTitleBn(e.target.value)}
                 placeholder="যেমন: উপাচার্য মেধা ফেলোশিপ"
-                className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 dark:text-slate-300">Category *</label>
+              <label className="font-semibold text-slate-700">Category *</label>
               <select
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value as ScholarshipCategory)}
-                className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
                 <option value="Merit">Merit Academic</option>
                 <option value="Need-Based">Need-Based Financial Aid</option>
@@ -828,7 +828,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
             </div>
 
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 dark:text-slate-300">
+              <label className="font-semibold text-slate-700">
                 Award Amount (BDT) *
               </label>
               <input
@@ -838,12 +838,12 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 step="1000"
                 value={newAmount}
                 onChange={(e) => setNewAmount(Number(e.target.value))}
-                className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 dark:text-slate-300">
+              <label className="font-semibold text-slate-700">
                 Number of Slots (Quota) *
               </label>
               <input
@@ -853,14 +853,14 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 max="100"
                 value={newSlots}
                 onChange={(e) => setNewSlots(Number(e.target.value))}
-                className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 dark:text-slate-300">
+              <label className="font-semibold text-slate-700">
                 Minimum CGPA Requirement *
               </label>
               <input
@@ -870,12 +870,12 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 max="4.0"
                 value={newMinCgpa}
                 onChange={(e) => setNewMinCgpa(Number(e.target.value))}
-                className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 dark:text-slate-300">
+              <label className="font-semibold text-slate-700">
                 Max Income Ceiling (if Need-Based)
               </label>
               <input
@@ -883,12 +883,12 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 step="10000"
                 value={newMaxIncome}
                 onChange={(e) => setNewMaxIncome(Number(e.target.value))}
-                className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 dark:text-slate-300">
+              <label className="font-semibold text-slate-700">
                 Application Deadline *
               </label>
               <input
@@ -896,13 +896,13 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 required
                 value={newDeadline}
                 onChange={(e) => setNewDeadline(e.target.value)}
-                className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
           </div>
 
           <div className="space-y-1">
-            <label className="font-semibold text-slate-700 dark:text-slate-300">
+            <label className="font-semibold text-slate-700">
               Description & Purpose
             </label>
             <textarea
@@ -910,23 +910,23 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
               placeholder="Outline eligible faculties, funding sources, and institutional aims..."
-              className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="font-semibold text-slate-700 dark:text-slate-300">
+            <label className="font-semibold text-slate-700">
               Eligibility Rules (One criterion per line)
             </label>
             <textarea
               rows={3}
               value={newEligibilityText}
               onChange={(e) => setNewEligibilityText(e.target.value)}
-              className="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg font-mono text-[11px] focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-mono text-[11px] focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
             <Button variant="ghost" size="sm" type="button" onClick={() => setCreateModalOpen(false)}>
               Cancel
             </Button>
@@ -947,7 +947,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
         {viewingApplicant && (
           <div className="space-y-4 text-xs">
             {/* Header info */}
-            <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-between">
+            <div className="p-3 bg-slate-50 rounded-xl flex items-center justify-between">
               <div>
                 <h4 className="font-bold text-sm text-slate-900 dark:text-white">
                   {viewingApplicant.studentName}
@@ -961,28 +961,28 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 <div className="text-sm font-extrabold text-blue-600">
                   Rank #{viewingApplicant.rank}
                 </div>
-                <div className="text-[11px] text-slate-400">
+                <div className="text-[11px] text-slate-600">
                   Score: {viewingApplicant.compositeScore} pts
                 </div>
               </div>
             </div>
 
             {/* Academic & Financial Data */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-3 rounded-xl border border-slate-200">
               <div>
-                <span className="text-slate-400 block text-[10px]">CURRENT CGPA</span>
-                <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                <span className="text-slate-600 block text-[10px]">CURRENT CGPA</span>
+                <span className="font-bold text-slate-800 text-sm">
                   {viewingApplicant.cgpa.toFixed(2)} / 4.00
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px]">ANNUAL HOUSEHOLD INCOME</span>
+                <span className="text-slate-600 block text-[10px]">ANNUAL HOUSEHOLD INCOME</span>
                 <span className="font-bold text-emerald-600 text-sm">
                   ৳{viewingApplicant.annualIncome.toLocaleString('en-US')}
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px]">SELECTION PRIORITY</span>
+                <span className="text-slate-600 block text-[10px]">SELECTION PRIORITY</span>
                 <Badge
                   variant={
                     viewingApplicant.selectionStatus === 'SELECTED'
@@ -996,7 +996,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 </Badge>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px]">WORKFLOW STAGE</span>
+                <span className="text-slate-600 block text-[10px]">WORKFLOW STAGE</span>
                 <Badge variant="primary">
                   Step {viewingApplicant.currentStepIndex + 1} of 2
                 </Badge>
@@ -1008,11 +1008,11 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
               const data = activePaperlessApp?.formData || (activePaperlessApp as any)?.payload;
               if (!data) return null;
               return (
-                <div className="space-y-1.5 p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl">
-                  <span className="font-bold text-slate-700 dark:text-slate-300">
+                <div className="space-y-1.5 p-3 bg-slate-50 /60 rounded-xl">
+                  <span className="font-bold text-slate-700">
                     Applicant Statement & Financial Grounds:
                   </span>
-                  <p className="text-slate-600 dark:text-slate-300 text-xs italic">
+                  <p className="text-slate-600 text-xs italic">
                     &ldquo;{data.reason || 'No statement provided'}&rdquo;
                   </p>
                   {data.fatherOccupation && (
@@ -1034,22 +1034,22 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
 
               return (
                 <div className="space-y-2">
-                  <span className="font-bold text-slate-700 dark:text-slate-300 block">
+                  <span className="font-bold text-slate-700 block">
                     Uploaded Verification Documents ({attList.length}):
                   </span>
                   <div className="space-y-1.5">
                     {attList.map((att: any, idx: number) => (
                       <div
                         key={idx}
-                        className="p-2 bg-slate-50 dark:bg-slate-800/80 rounded-lg flex items-center justify-between border border-slate-200 dark:border-slate-700"
+                        className="p-2 bg-slate-50 /80 rounded-lg flex items-center justify-between border border-slate-200"
                       >
                         <div className="flex items-center gap-2">
                           <FileText className="w-4 h-4 text-red-500" />
                           <div>
-                            <div className="font-semibold text-slate-800 dark:text-slate-200">
+                            <div className="font-semibold text-slate-800">
                               {att.name}
                             </div>
-                            <div className="text-[10px] text-slate-400">
+                            <div className="text-[10px] text-slate-600">
                               {att.size ? `${(att.size / 1024).toFixed(0)} KB` : 'Verified attachment'}
                             </div>
                           </div>
@@ -1065,8 +1065,8 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
             })()}
 
             {/* Paperless Workflow Step Trail (Chairman -> Committee/Admin -> Approved) */}
-            <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+            <div className="space-y-2 pt-2 border-t border-slate-100">
+              <span className="font-bold text-slate-700 flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 Paperless Multi-Step Audit Trail:
               </span>
@@ -1074,17 +1074,17 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 {activePaperlessApp?.auditTrail?.map((audit: any, aIdx: number) => (
                   <div
                     key={aIdx}
-                    className="p-2.5 bg-slate-50 dark:bg-slate-800/60 rounded-lg border-l-2 border-blue-500 space-y-1"
+                    className="p-2.5 bg-slate-50 /60 rounded-lg border-l-2 border-blue-500 space-y-1"
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-slate-900 dark:text-white">
                         {audit.actorName} ({audit.role})
                       </span>
-                      <span className="text-[10px] text-slate-400">
+                      <span className="text-[10px] text-slate-600">
                         {new Date(audit.timestamp).toLocaleDateString()}
                       </span>
                     </div>
-                    <div className="text-slate-600 dark:text-slate-300 text-[11px]">
+                    <div className="text-slate-600 text-[11px]">
                       {audit.comment || 'Application step completed'}
                     </div>
                     <div className="text-[10px] font-mono text-blue-600">
@@ -1125,7 +1125,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
             </p>
           </div>
 
-          <div className="space-y-2 border border-slate-200 dark:border-slate-700 rounded-xl p-3 bg-slate-50 dark:bg-slate-800/50">
+          <div className="space-y-2 border border-slate-200 rounded-xl p-3 bg-slate-50 /50">
             <div className="font-bold text-slate-900 dark:text-white">
               Selected Awardees ({selectedApplicantIds.length} Students):
             </div>
@@ -1135,7 +1135,7 @@ export const AdminScholarshipsTab: React.FC<AdminScholarshipsTabProps> = ({ onNo
                 .map((a) => (
                   <div
                     key={a.applicationId}
-                    className="p-1.5 bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800 flex justify-between items-center"
+                    className="p-1.5 bg-white rounded border border-slate-200 flex justify-between items-center"
                   >
                     <span>
                       #{a.rank} {a.studentName} ({a.department})

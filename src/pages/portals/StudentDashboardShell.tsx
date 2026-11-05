@@ -40,19 +40,19 @@ export const StudentDashboardShell: React.FC = () => {
           <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-xs">
             <span className="text-xs text-slate-500 font-medium">Registered Credits (Current)</span>
             <div className="text-2xl font-extrabold text-[#0F172A] tabular-nums">21.5</div>
-            <p className="text-[11px] text-slate-400">Fall Semester 2026</p>
+            <p className="text-[11px] text-slate-600">Fall Semester 2026</p>
           </Card>
 
           <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-xs">
             <span className="text-xs text-slate-500 font-medium">Cumulative CGPA</span>
             <div className="text-2xl font-extrabold text-[#0F172A] tabular-nums">3.84</div>
-            <p className="text-[11px] text-slate-400">Scale: 4.00 (UGC Bangladesh)</p>
+            <p className="text-[11px] text-slate-600">Scale: 4.00 (UGC Bangladesh)</p>
           </Card>
 
           <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-xs">
             <span className="text-xs text-slate-500 font-medium">Digital Clearance Status</span>
             <div className="text-2xl font-extrabold text-emerald-600">CLEAR</div>
-            <p className="text-[11px] text-slate-400">Zero Outstanding Dues</p>
+            <p className="text-[11px] text-slate-600">Zero Outstanding Dues</p>
           </Card>
         </div>
 

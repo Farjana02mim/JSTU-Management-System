@@ -229,7 +229,7 @@ export const ClassRoutinePage: React.FC = () => {
 
           <div className="flex items-center gap-3">
             <div className="relative w-full sm:w-60">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+              <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-600" />
               <input
                 type="text"
                 placeholder={isBn ? 'কোর্স, শিক্ষক বা কক্ষ...' : 'Search course, instructor...'}
@@ -243,14 +243,14 @@ export const ClassRoutinePage: React.FC = () => {
             <div className="hidden sm:flex items-center gap-1 border border-[#E2E8F0] p-1 rounded-xl bg-white shrink-0">
               <button
                 onClick={() => setRoutineLayout('grid')}
-                className={`p-1.5 rounded-lg ${routineLayout === 'grid' ? 'bg-slate-100 text-[#1E3A8A]' : 'text-slate-400'}`}
+                className={`p-1.5 rounded-lg ${routineLayout === 'grid' ? 'bg-slate-100 text-[#1E3A8A]' : 'text-slate-600'}`}
                 title="Timetable Grid"
               >
                 <LayoutGrid className="w-3.5 h-3.5" />
               </button>
               <button
                 onClick={() => setRoutineLayout('cards')}
-                className={`p-1.5 rounded-lg ${routineLayout === 'cards' ? 'bg-slate-100 text-[#1E3A8A]' : 'text-slate-400'}`}
+                className={`p-1.5 rounded-lg ${routineLayout === 'cards' ? 'bg-slate-100 text-[#1E3A8A]' : 'text-slate-600'}`}
                 title="Cards List"
               >
                 <List className="w-3.5 h-3.5" />
@@ -386,7 +386,7 @@ export const ClassRoutinePage: React.FC = () => {
                                     </div>
                                   </div>
                                 ) : (
-                                  <span className="text-slate-300 text-[11px] block text-center py-2">
+                                  <span className="text-slate-600 text-[11px] block text-center py-2">
                                     —
                                   </span>
                                 )}
@@ -426,7 +426,7 @@ export const ClassRoutinePage: React.FC = () => {
                   {isBn ? slot.courseTitleBn : slot.courseTitle}
                 </h4>
                 <div className="flex items-center gap-2 text-xs text-slate-600">
-                  <Clock className="w-3.5 h-3.5 text-slate-400" />
+                  <Clock className="w-3.5 h-3.5 text-slate-600" />
                   <span>
                     {slot.startTime} – {slot.endTime}
                   </span>

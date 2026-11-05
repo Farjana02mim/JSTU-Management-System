@@ -677,7 +677,7 @@ export const ContentEditorModal: React.FC<ContentEditorModalProps> = ({
               <label className="block text-xs font-bold text-slate-800">
                 Body Content (Safe Markdown Supported)
               </label>
-              <span className="text-[11px] text-slate-400">
+              <span className="text-[11px] text-slate-600">
                 Rendered safely without dangerouslySetInnerHTML
               </span>
             </div>
@@ -809,13 +809,13 @@ export const ContentEditorModal: React.FC<ContentEditorModalProps> = ({
 
             {(viewMode === 'preview' || viewMode === 'split') && (
               <div className="p-3 bg-slate-50 border border-slate-200 rounded-md min-h-48 max-h-96 overflow-y-auto">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-2">
                   Safe React Preview (No raw HTML)
                 </p>
                 {body.trim() ? (
                   <SafeMarkdown content={body} className="text-xs" />
                 ) : (
-                  <p className="text-slate-400 text-xs italic">
+                  <p className="text-slate-600 text-xs italic">
                     Type markdown in the editor to see instant live preview.
                   </p>
                 )}

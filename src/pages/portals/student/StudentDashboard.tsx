@@ -121,7 +121,7 @@ export const StudentDashboard: React.FC = () => {
             {/* Top Metrics Row */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-2xs">
-                <div className="flex items-center justify-between text-slate-400">
+                <div className="flex items-center justify-between text-slate-600">
                   <span className="text-xs font-semibold text-slate-500">
                     {isBn ? 'সিজিপিএ (স্কেল ৪.০০)' : 'Cumulative CGPA'}
                   </span>
@@ -136,7 +136,7 @@ export const StudentDashboard: React.FC = () => {
               </Card>
 
               <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-2xs">
-                <div className="flex items-center justify-between text-slate-400">
+                <div className="flex items-center justify-between text-slate-600">
                   <span className="text-xs font-semibold text-slate-500">
                     {isBn ? 'অর্জিত ক্রেডিট' : 'Credits Completed'}
                   </span>
@@ -145,13 +145,13 @@ export const StudentDashboard: React.FC = () => {
                 <div className="text-2xl font-extrabold text-[#0F172A] tabular-nums">
                   {data.stats.completedCredits}
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-600">
                   {isBn ? 'মোট ১৪৪ ক্রেডিটের মধ্যে' : 'Out of 144 Total'}
                 </p>
               </Card>
 
               <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-2xs">
-                <div className="flex items-center justify-between text-slate-400">
+                <div className="flex items-center justify-between text-slate-600">
                   <span className="text-xs font-semibold text-slate-500">
                     {isBn ? 'গড় উপস্থিতি' : 'Attendance Rate'}
                   </span>
@@ -168,7 +168,7 @@ export const StudentDashboard: React.FC = () => {
               </Card>
 
               <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-2xs">
-                <div className="flex items-center justify-between text-slate-400">
+                <div className="flex items-center justify-between text-slate-600">
                   <span className="text-xs font-semibold text-slate-500">
                     {isBn ? 'বকেয়া কাজ ও ফি' : 'Pending Tasks'}
                   </span>
@@ -177,7 +177,7 @@ export const StudentDashboard: React.FC = () => {
                 <div className="text-2xl font-extrabold text-[#0F172A] tabular-nums">
                   {data.stats.pendingAssignmentsCount + data.stats.unpaidFeesCount}
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-600">
                   {data.stats.pendingAssignmentsCount} {isBn ? 'অ্যাসাইনমেন্ট' : 'Assignments'}, {data.stats.unpaidFeesCount} {isBn ? 'বকেয়া ফি' : 'Unpaid Fee'}
                 </p>
               </Card>
@@ -323,7 +323,7 @@ export const StudentDashboard: React.FC = () => {
                     >
                       <div className="flex items-center justify-between text-[10px]">
                         <span className="font-semibold text-[#1E3A8A] uppercase">{n.category}</span>
-                        <span className="text-slate-400 font-mono">{n.date}</span>
+                        <span className="text-slate-600 font-mono">{n.date}</span>
                       </div>
                       <h4 className="text-xs font-bold text-[#0F172A] leading-snug line-clamp-2">
                         {isBn ? n.titleBn : n.title}

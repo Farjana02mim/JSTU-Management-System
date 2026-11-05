@@ -136,7 +136,7 @@ export const ImageUploadWithValidation: React.FC<ImageUploadWithValidationProps>
           >
             Upload File
           </button>
-          <span className="text-slate-300">|</span>
+          <span className="text-slate-600">|</span>
           <button
             type="button"
             onClick={() => setMode('url')}
@@ -167,7 +167,7 @@ export const ImageUploadWithValidation: React.FC<ImageUploadWithValidationProps>
               <p className="text-xs font-medium text-slate-700">
                 Click to browse or drag & drop image
               </p>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-600">
                 JPG, PNG, WebP or GIF up to {maxSizeMB}MB
               </p>
             </div>
@@ -177,7 +177,7 @@ export const ImageUploadWithValidation: React.FC<ImageUploadWithValidationProps>
         <div className="space-y-2">
           <div className="flex gap-2">
             <div className="relative flex-1">
-              <Link2 className="absolute left-2.5 top-2.5 w-4 h-4 text-slate-400" />
+              <Link2 className="absolute left-2.5 top-2.5 w-4 h-4 text-slate-600" />
               <input
                 type="url"
                 value={urlInput}
@@ -257,7 +257,7 @@ export const ImageUploadWithValidation: React.FC<ImageUploadWithValidationProps>
               {metadata?.sizeKb ? ` • ${metadata.sizeKb} KB` : ''}
               {metadata?.type ? ` • ${metadata.type.replace('image/', '').toUpperCase()}` : ''}
             </span>
-            <span className="text-slate-400 italic text-[10px]">{aspectRatioHint}</span>
+            <span className="text-slate-600 italic text-[10px]">{aspectRatioHint}</span>
           </div>
         </div>
       )}

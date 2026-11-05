@@ -228,7 +228,7 @@ export const AdminDashboardShell: React.FC = () => {
               </Button>
             </div>
           </div>
-          <p className="text-xs text-slate-300">
+          <p className="text-xs text-slate-600">
             {isBn
               ? 'জেএসটিইউ আইডেন্টিটি ও রোল-বেসড অ্যাক্সেস কন্ট্রোল (ফেজ ২: ক্লাউড ফাংশন ও কাস্টম ক্লেইমস সক্রিয়)।'
               : 'JSTU RBAC Engine: Roles set only via Cloud Functions. users/{uid} is never trusted for authorization.'}
@@ -240,25 +240,25 @@ export const AdminDashboardShell: React.FC = () => {
           <Card padding="md" className="space-y-1">
             <span className="text-xs text-slate-500 font-medium">Provisioned Accounts</span>
             <div className="text-2xl font-extrabold text-[#0A2540] dark:text-white tabular-nums">9</div>
-            <p className="text-[11px] text-slate-400">1 per Institutional Role</p>
+            <p className="text-[11px] text-slate-600">1 per Institutional Role</p>
           </Card>
 
           <Card padding="md" className="space-y-1">
             <span className="text-xs text-slate-500 font-medium">MFA Compliance Rate</span>
             <div className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 tabular-nums">100%</div>
-            <p className="text-[11px] text-slate-400">Mandatory for all 8 Staff Roles</p>
+            <p className="text-[11px] text-slate-600">Mandatory for all 8 Staff Roles</p>
           </Card>
 
           <Card padding="md" className="space-y-1">
             <span className="text-xs text-slate-500 font-medium">Brute Force Defenses</span>
             <div className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 tabular-nums">Active</div>
-            <p className="text-[11px] text-slate-400">App Check + Throttling</p>
+            <p className="text-[11px] text-slate-600">App Check + Throttling</p>
           </Card>
 
           <Card padding="md" className="space-y-1">
             <span className="text-xs text-slate-500 font-medium">Idle Timeout Policy</span>
-            <div className="text-2xl font-extrabold text-slate-700 dark:text-slate-300 tabular-nums">30 Min</div>
-            <p className="text-[11px] text-slate-400">5 Min Grace Warning</p>
+            <div className="text-2xl font-extrabold text-slate-700 tabular-nums">30 Min</div>
+            <p className="text-[11px] text-slate-600">5 Min Grace Warning</p>
           </Card>
         </div>
 
@@ -281,7 +281,7 @@ export const AdminDashboardShell: React.FC = () => {
             </div>
             <button
               onClick={() => setUserActionMessage(null)}
-              className="text-slate-400 hover:text-slate-600 font-bold"
+              className="text-slate-600 hover:text-slate-600 font-bold"
             >
               &times;
             </button>
@@ -289,12 +289,12 @@ export const AdminDashboardShell: React.FC = () => {
         )}
 
         {/* Navigation Tabs */}
-        <div className="flex border-b border-slate-200 dark:border-slate-800 gap-1 pt-1">
+        <div className="flex border-b border-slate-200 gap-1 pt-1">
           <button
             onClick={() => setActiveTab('analytics')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'analytics'
-                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                ? 'border-blue-600 text-blue-600 bg-white  shadow-sm'
                 : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
             }`}
           >
@@ -306,7 +306,7 @@ export const AdminDashboardShell: React.FC = () => {
             onClick={() => setActiveTab('evaluations')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'evaluations'
-                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                ? 'border-blue-600 text-blue-600 bg-white  shadow-sm'
                 : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
             }`}
           >
@@ -318,7 +318,7 @@ export const AdminDashboardShell: React.FC = () => {
             onClick={() => setActiveTab('scholarships')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'scholarships'
-                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                ? 'border-blue-600 text-blue-600 bg-white  shadow-sm'
                 : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
             }`}
           >
@@ -330,7 +330,7 @@ export const AdminDashboardShell: React.FC = () => {
             onClick={() => setActiveTab('alumni')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'alumni'
-                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                ? 'border-blue-600 text-blue-600 bg-white  shadow-sm'
                 : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
             }`}
           >
@@ -347,7 +347,7 @@ export const AdminDashboardShell: React.FC = () => {
             onClick={() => setActiveTab('admissions')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'admissions'
-                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                ? 'border-blue-600 text-blue-600 bg-white  shadow-sm'
                 : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
             }`}
           >
@@ -359,7 +359,7 @@ export const AdminDashboardShell: React.FC = () => {
             onClick={() => setActiveTab('requests')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'requests'
-                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                ? 'border-blue-600 text-blue-600 bg-white  shadow-sm'
                 : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
             }`}
           >
@@ -376,7 +376,7 @@ export const AdminDashboardShell: React.FC = () => {
             onClick={() => setActiveTab('users')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'users'
-                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                ? 'border-blue-600 text-blue-600 bg-white  shadow-sm'
                 : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
             }`}
           >
@@ -388,7 +388,7 @@ export const AdminDashboardShell: React.FC = () => {
             onClick={() => setActiveTab('audit')}
             className={`px-4 py-2.5 text-xs font-semibold rounded-t-xl transition flex items-center gap-2 border-b-2 ${
               activeTab === 'audit'
-                ? 'border-blue-600 text-blue-600 bg-white dark:bg-slate-900 shadow-sm'
+                ? 'border-blue-600 text-blue-600 bg-white  shadow-sm'
                 : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50'
             }`}
           >
@@ -448,9 +448,9 @@ export const AdminDashboardShell: React.FC = () => {
         {/* Tab 2: User Accounts & Custom Claims Management Table */}
         {activeTab === 'users' && (
         <Card padding="md" className="space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 <Users className="w-4 h-4 text-blue-600" />
                 <span>Institutional User Accounts & Custom Claims</span>
               </h2>
@@ -470,7 +470,7 @@ export const AdminDashboardShell: React.FC = () => {
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+              <thead className="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
                 <tr>
                   <th className="py-2.5 px-3">Full Name & Email</th>
                   <th className="py-2.5 px-3">Role Custom Claim</th>
@@ -489,7 +489,7 @@ export const AdminDashboardShell: React.FC = () => {
                   return (
                     <tr key={profile.uid} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
                       <td className="py-2 px-3">
-                        <div className="font-semibold text-slate-900 dark:text-slate-100">{profile.fullName}</div>
+                        <div className="font-semibold text-slate-900">{profile.fullName}</div>
                         <div className="text-[11px] text-slate-500 font-mono">{profile.email}</div>
                       </td>
                       <td className="py-2 px-3">
@@ -497,7 +497,7 @@ export const AdminDashboardShell: React.FC = () => {
                           {itemClaims.role}
                         </span>
                       </td>
-                      <td className="py-2 px-3 text-slate-600 dark:text-slate-300 font-mono text-[11px]">
+                      <td className="py-2 px-3 text-slate-600 font-mono text-[11px]">
                         {itemClaims.studentId || itemClaims.departmentId || '-'}
                       </td>
                       <td className="py-2 px-3">
@@ -506,7 +506,7 @@ export const AdminDashboardShell: React.FC = () => {
                             <ShieldCheck className="w-3.5 h-3.5" /> Enforced
                           </span>
                         ) : (
-                          <span className="text-[11px] text-slate-400">Optional</span>
+                          <span className="text-[11px] text-slate-600">Optional</span>
                         )}
                       </td>
                       <td className="py-2 px-3">
@@ -558,9 +558,9 @@ export const AdminDashboardShell: React.FC = () => {
         {/* Tab 3: Audit Logs Trail (Strictly Super Admin Only) */}
         {activeTab === 'audit' && (
         <Card padding="md" className="space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 <FileText className="w-4 h-4 text-blue-600" />
                 <span>Append-Only Immutable Audit Log Trail</span>
               </h2>
@@ -583,9 +583,9 @@ export const AdminDashboardShell: React.FC = () => {
           </div>
 
           {!isSuperAdmin ? (
-            <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 dark:bg-slate-800/40 rounded-xl space-y-2">
+            <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 /40 rounded-xl space-y-2">
               <Lock className="w-8 h-8 text-amber-500 mx-auto" />
-              <p className="font-semibold text-slate-800 dark:text-slate-200">
+              <p className="font-semibold text-slate-800">
                 Audit Trail Restricted to Super Admin
               </p>
               <p className="max-w-md mx-auto">
@@ -595,7 +595,7 @@ export const AdminDashboardShell: React.FC = () => {
           ) : auditLogs.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+                <thead className="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
                   <tr>
                     <th className="py-2.5 px-3">Timestamp</th>
                     <th className="py-2.5 px-3">Action</th>
@@ -609,8 +609,8 @@ export const AdminDashboardShell: React.FC = () => {
                     <tr key={log.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 font-mono text-[11px]">
                       <td className="py-2 px-3 text-slate-500 whitespace-nowrap">{new Date(log.timestamp).toLocaleTimeString()}</td>
                       <td className="py-2 px-3 font-semibold text-blue-700 dark:text-blue-400">{log.action}</td>
-                      <td className="py-2 px-3 text-slate-600 dark:text-slate-300 truncate max-w-[120px]">{log.actorUid}</td>
-                      <td className="py-2 px-3 text-slate-600 dark:text-slate-300 truncate max-w-[140px]">{log.targetEmail || log.targetUid || '-'}</td>
+                      <td className="py-2 px-3 text-slate-600 truncate max-w-[120px]">{log.actorUid}</td>
+                      <td className="py-2 px-3 text-slate-600 truncate max-w-[140px]">{log.targetEmail || log.targetUid || '-'}</td>
                       <td className="py-2 px-3 text-slate-500 truncate max-w-[200px]">{JSON.stringify(log.details || {})}</td>
                     </tr>
                   ))}
@@ -714,8 +714,8 @@ export const AdminDashboardShell: React.FC = () => {
             />
           )}
 
-          <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg text-[11px] text-slate-500 space-y-1">
-            <p className="font-semibold text-slate-700 dark:text-slate-300">Hierarchy & Claims Invariant:</p>
+          <div className="p-3 bg-slate-50 rounded-lg text-[11px] text-slate-500 space-y-1">
+            <p className="font-semibold text-slate-700">Hierarchy & Claims Invariant:</p>
             <p>
               Admins cannot create admin or super_admin accounts. Custom claims are provisioned with <code>mustChangePassword: true</code> and staff MFA requirement.
             </p>
@@ -751,8 +751,8 @@ export const AdminDashboardShell: React.FC = () => {
       >
         {selectedUserForRoleChange && (
           <form onSubmit={handleRoleUpdate} className="space-y-4 text-xs">
-            <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg space-y-1">
-              <div className="font-semibold text-slate-800 dark:text-slate-200">
+            <div className="p-3 bg-slate-50 rounded-lg space-y-1">
+              <div className="font-semibold text-slate-800">
                 {selectedUserForRoleChange.profile.fullName}
               </div>
               <div className="text-[11px] text-slate-500 font-mono">

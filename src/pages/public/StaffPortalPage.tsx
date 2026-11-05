@@ -387,12 +387,12 @@ export const StaffPortalPage: React.FC = () => {
                 <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-200 border border-blue-400/30 text-[11px] font-bold tracking-wide uppercase">
                   {isBn ? 'জেএসটিইউ শিক্ষক ও কর্মকর্তা পোর্টাল' : 'JSTU Faculty & Staff Portal'}
                 </span>
-                <span className="text-slate-400 text-xs">• Paperless Enterprise</span>
+                <span className="text-slate-600 text-xs">• Paperless Enterprise</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
                 {isBn ? 'কর্মকর্তা ও শিক্ষক সেবা হাব' : 'Staff Services & Leave Management'}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
+              <p className="text-xs sm:text-sm text-blue-100 mt-1 max-w-2xl">
                 {isBn
                   ? 'নৈমিত্তিক ও গবেষণা ছুটির আবেদন, অনুমোদন চেইন (চেয়ারম্যান → রেজিস্ট্রার), অভ্যন্তরীণ বিজ্ঞপ্তি ও সার্ভিস রিকোয়েস্ট।'
                   : 'Multi-tiered statutory leave approval chain (Chairman -> Registrar), internal notices, logistics requests & staff directory.'}
@@ -422,7 +422,7 @@ export const StaffPortalPage: React.FC = () => {
                       className={`text-left px-2.5 py-1.5 rounded-lg text-xs transition border flex items-center gap-2 ${
                         isCurrent
                           ? 'bg-blue-600 text-white border-blue-400 font-bold shadow-sm'
-                          : 'bg-white/5 text-slate-200 border-white/10 hover:bg-white/15'
+                          : 'bg-white/10 text-white border-white/20 hover:bg-white/20'
                       }`}
                     >
                       <div className="w-5 h-5 rounded-full bg-blue-900 text-blue-200 font-mono text-[10px] flex items-center justify-center shrink-0">
@@ -462,7 +462,7 @@ export const StaffPortalPage: React.FC = () => {
             </div>
             <button
               onClick={() => setFeedback(null)}
-              className="text-slate-400 hover:text-slate-600 text-base font-bold ml-4"
+              className="text-slate-600 hover:text-slate-600 text-base font-bold ml-4"
             >
               ×
             </button>
@@ -769,7 +769,7 @@ export const StaffPortalPage: React.FC = () => {
                           <td className="py-3 px-4">
                             <div className="font-mono font-bold text-blue-900">{app.applicationNumber}</div>
                             <div className="font-semibold text-slate-800">{app.staffName}</div>
-                            <div className="text-[10px] text-slate-400 font-mono">{app.departmentOrOffice}</div>
+                            <div className="text-[10px] text-slate-600 font-mono">{app.departmentOrOffice}</div>
                           </td>
                           <td className="py-3 px-4">
                             <span className="font-bold uppercase tracking-wider text-slate-700 block">
@@ -797,7 +797,7 @@ export const StaffPortalPage: React.FC = () => {
                               >
                                 {app.currentStepIndex > 0 || app.status === 'APPROVED' ? '✓ ' : ''}Chairman
                               </span>
-                              <ChevronRight className="w-3 h-3 text-slate-300" />
+                              <ChevronRight className="w-3 h-3 text-slate-600" />
                               {/* Step 2: Registrar */}
                               <span
                                 className={`px-2 py-0.5 rounded font-semibold text-[10px] flex items-center gap-1 ${
@@ -805,7 +805,7 @@ export const StaffPortalPage: React.FC = () => {
                                     ? 'bg-emerald-100 text-emerald-800'
                                     : app.status === 'PENDING_REGISTRAR'
                                     ? 'bg-amber-100 text-amber-800'
-                                    : 'bg-slate-100 text-slate-400'
+                                    : 'bg-slate-100 text-slate-600'
                                 }`}
                               >
                                 {app.status === 'APPROVED' ? '✓ ' : ''}Registrar
@@ -853,7 +853,7 @@ export const StaffPortalPage: React.FC = () => {
             <Card padding="md" className="bg-white border-slate-200 shadow-xs space-y-3">
               <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
                 <div className="relative flex-1">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Search className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     value={noticeSearch}
@@ -889,7 +889,7 @@ export const StaffPortalPage: React.FC = () => {
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-[10px] text-slate-400 font-bold">{n.refNo}</span>
+                      <span className="font-mono text-[10px] text-slate-600 font-bold">{n.refNo}</span>
                       <div className="flex items-center gap-1.5">
                         <span className={`text-[10px] px-2 py-0.5 rounded font-bold ${
                           n.priority === 'Urgent'
@@ -914,7 +914,7 @@ export const StaffPortalPage: React.FC = () => {
                   </div>
 
                   <div className="pt-3 border-t border-slate-100 mt-3 flex items-center justify-between text-xs">
-                    <div className="text-[11px] text-slate-400">
+                    <div className="text-[11px] text-slate-600">
                       {n.publishDate} • {isBn ? n.issuedByBn : n.issuedBy}
                     </div>
                     <Button
@@ -996,7 +996,7 @@ export const StaffPortalPage: React.FC = () => {
 
                   <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-xs space-y-1">
                     <div className="flex items-center gap-1.5 text-slate-600">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                       <span className="font-medium">{req.location}</span>
                     </div>
                     {req.assignedTo && (
@@ -1012,7 +1012,7 @@ export const StaffPortalPage: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+                  <div className="flex items-center justify-between text-[11px] text-slate-600 pt-1">
                     <span>Submitted by {req.staffName}</span>
                     <span className="font-mono">{req.submittedAt}</span>
                   </div>
@@ -1029,7 +1029,7 @@ export const StaffPortalPage: React.FC = () => {
             <Card padding="md" className="bg-white border-slate-200 shadow-xs space-y-3">
               <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
                 <div className="relative flex-1">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Search className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     value={dirSearch}
@@ -1111,11 +1111,11 @@ export const StaffPortalPage: React.FC = () => {
                       </a>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <Phone className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                       <span className="font-mono text-[11px]">{m.phone}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                       <span className="text-[11px] text-slate-500">{m.room}</span>
                     </div>
                   </div>
@@ -1137,7 +1137,7 @@ export const StaffPortalPage: React.FC = () => {
               </h3>
               <button
                 onClick={() => setApplyLeaveModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 font-bold"
+                className="text-slate-600 hover:text-slate-600 font-bold"
               >
                 ✕
               </button>
@@ -1279,7 +1279,7 @@ export const StaffPortalPage: React.FC = () => {
                   {inspectLeaveApp.staffName} — {inspectLeaveApp.leaveType.toUpperCase()} LEAVE
                 </h3>
               </div>
-              <button onClick={() => setInspectLeaveApp(null)} className="text-slate-400 hover:text-slate-600 font-bold">
+              <button onClick={() => setInspectLeaveApp(null)} className="text-slate-600 hover:text-slate-600 font-bold">
                 ✕
               </button>
             </div>
@@ -1287,27 +1287,27 @@ export const StaffPortalPage: React.FC = () => {
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Department</span>
+                  <span className="text-[10px] uppercase font-bold text-slate-600 block">Department</span>
                   <span className="font-bold text-slate-800">{inspectLeaveApp.departmentOrOffice}</span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Designation</span>
+                  <span className="text-[10px] uppercase font-bold text-slate-600 block">Designation</span>
                   <span className="font-bold text-slate-800">{inspectLeaveApp.designation}</span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Duration</span>
+                  <span className="text-[10px] uppercase font-bold text-slate-600 block">Duration</span>
                   <span className="font-mono font-bold text-slate-800">
                     {inspectLeaveApp.daysRequested} days ({inspectLeaveApp.startDate} to {inspectLeaveApp.endDate})
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Acting Substitute</span>
+                  <span className="text-[10px] uppercase font-bold text-slate-600 block">Acting Substitute</span>
                   <span className="font-semibold text-slate-800">{inspectLeaveApp.actingStaff}</span>
                 </div>
               </div>
 
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Reason for Absence</span>
+                <span className="text-[10px] uppercase font-bold text-slate-600 block mb-1">Reason for Absence</span>
                 <p className="bg-slate-50 p-3 rounded-xl border text-slate-700 leading-relaxed">
                   "{inspectLeaveApp.reason}"
                 </p>
@@ -1338,7 +1338,7 @@ export const StaffPortalPage: React.FC = () => {
                       </p>
                     )}
                     {inspectLeaveApp.chairmanReviewedAt && (
-                      <span className="text-[10px] text-slate-400 font-mono block mt-1">
+                      <span className="text-[10px] text-slate-600 font-mono block mt-1">
                         Reviewed: {inspectLeaveApp.chairmanReviewedAt}
                       </span>
                     )}
@@ -1364,7 +1364,7 @@ export const StaffPortalPage: React.FC = () => {
                       </p>
                     )}
                     {inspectLeaveApp.registrarReviewedAt && (
-                      <span className="text-[10px] text-slate-400 font-mono block mt-1">
+                      <span className="text-[10px] text-slate-600 font-mono block mt-1">
                         Reviewed: {inspectLeaveApp.registrarReviewedAt}
                       </span>
                     )}
@@ -1450,7 +1450,7 @@ export const StaffPortalPage: React.FC = () => {
                 <Wrench className="w-5 h-5 text-blue-900" />
                 {isBn ? 'নতুন লজিস্টিক / সার্ভিস রিকোয়েস্ট' : 'Logistics & Service Requisition'}
               </h3>
-              <button onClick={() => setNewServiceModalOpen(false)} className="text-slate-400 hover:text-slate-600 font-bold">
+              <button onClick={() => setNewServiceModalOpen(false)} className="text-slate-600 hover:text-slate-600 font-bold">
                 ✕
               </button>
             </div>
@@ -1540,12 +1540,12 @@ export const StaffPortalPage: React.FC = () => {
           <div className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-xs">
             <div className="flex items-center justify-between border-b pb-3">
               <div>
-                <span className="font-mono text-[11px] font-bold text-slate-400">{selectedNotice.refNo}</span>
+                <span className="font-mono text-[11px] font-bold text-slate-600">{selectedNotice.refNo}</span>
                 <h3 className="text-base font-bold text-slate-900 mt-0.5">
                   {isBn ? selectedNotice.titleBn : selectedNotice.title}
                 </h3>
               </div>
-              <button onClick={() => setSelectedNotice(null)} className="text-slate-400 hover:text-slate-600 font-bold">
+              <button onClick={() => setSelectedNotice(null)} className="text-slate-600 hover:text-slate-600 font-bold">
                 ✕
               </button>
             </div>
@@ -1569,7 +1569,7 @@ export const StaffPortalPage: React.FC = () => {
                   <FileText className="w-4 h-4 text-blue-700" />
                   <div>
                     <span className="font-semibold text-slate-900">{selectedNotice.attachmentName}</span>
-                    <span className="text-[10px] text-slate-400 block">{selectedNotice.attachmentSize}</span>
+                    <span className="text-[10px] text-slate-600 block">{selectedNotice.attachmentSize}</span>
                   </div>
                 </div>
                 <Button

@@ -3,51 +3,52 @@
 @layer base {
   :root {
     /* -------------------------------------------------------------
-       JSTU Smart Campus — Clean White & Academic Design Tokens
+       JSTU Smart Campus — Unified Contrast Tokens (WCAG AA Compliant)
        ------------------------------------------------------------- */
-    /* Primary Brand Color: Deep Academic Navy */
-    --color-primary: #1e3a8a;
-    --color-primary-hover: #172554;
-    --color-primary-light: #eff6ff;
-    --color-primary-border: #bfdbfe;
-
-    /* Secondary Brand Color: Subtle Academic Gold */
-    --color-accent: #b45309;
-    --color-accent-light: #fef3c7;
-    --color-accent-border: #fde68a;
-
-    /* Canvas & Surface Backgrounds */
-    --bg-canvas: #ffffff;
-    --bg-surface: #ffffff;
-    --bg-neutral-alt: #f8fafc;
-    --bg-neutral-subtle: #f1f5f9;
+    /* Canvas & Backgrounds */
+    --bg-canvas: #FFFFFF;
+    --bg-surface: #FFFFFF;
+    --bg-subtle: #F8FAFC;
+    --bg-neutral-alt: #F8FAFC;
+    --bg-neutral-subtle: #F1F5F9;
 
     /* Borders */
-    --border-light: #e2e8f0;
-    --border-subtle: #f1f5f9;
+    --border: #E2E8F0;
+    --border-light: #E2E8F0;
+    --border-subtle: #E2E8F0;
 
-    /* Typography Colors */
-    --text-heading: #0f172a;
-    --text-body: #475569;
-    --text-muted: #64748b;
-    --text-light: #94a3b8;
+    /* Typography Colors (Passes >= 4.5:1 contrast against white) */
+    --text-heading: #0F172A;
+    --text-body: #334155;
+    --text-muted: #475569;
+    --text-light: #475569;
 
-    /* Status Semantics (Soft, accessible tints) */
-    --status-success: #059669;
-    --status-success-bg: #ecfdf5;
-    --status-success-border: #a7f3d0;
+    /* Brand Primary & Accents */
+    --color-primary: #1E3A8A;
+    --color-primary-hover: #1E40AF;
+    --color-brand-navy: #1E3A8A;
+    --color-brand-navy-hover: #1E40AF;
+    --color-accent: #B45309;
+    --color-accent-gold: #B45309;
+    --color-accent-light: #FEF3C7;
+    --color-accent-border: #FDE68A;
 
-    --status-warning: #d97706;
-    --status-warning-bg: #fffbeb;
-    --status-warning-border: #fde68a;
+    /* Semantic Status Pairs (High Contrast) */
+    --status-success: #166534;
+    --status-success-bg: #DCFCE7;
+    --status-success-border: #BBF7D0;
 
-    --status-danger: #dc2626;
-    --status-danger-bg: #fef2f2;
-    --status-danger-border: #fecaca;
+    --status-warning: #92400E;
+    --status-warning-bg: #FEF3C7;
+    --status-warning-border: #FDE68A;
 
-    --status-info: #2563eb;
-    --status-info-bg: #eff6ff;
-    --status-info-border: #bfdbfe;
+    --status-danger: #991B1B;
+    --status-danger-bg: #FEE2E2;
+    --status-danger-border: #FECACA;
+
+    --status-info: #1E40AF;
+    --status-info-bg: #DBEAFE;
+    --status-info-border: #BFDBFE;
 
     /* Radii & Shadows */
     --radius-sm: 8px;
@@ -62,21 +63,33 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    background-color: #ffffff;
-    color: #475569;
+    background-color: #FFFFFF;
+    color: #334155;
     overflow-x: hidden;
   }
 
   body {
-    background-color: #ffffff;
-    color: #475569;
+    background-color: #FFFFFF;
+    color: #334155;
     min-height: 100vh;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: #0f172a;
+    color: #0F172A;
     letter-spacing: -0.015em;
+  }
+
+  p, span, li, td, th, label {
+    color: inherit;
+  }
+
+  /* Accessible links: brand navy, underlined on hover */
+  a:not([class*="text-"]) {
+    color: #1E3A8A;
+  }
+  a:hover {
+    text-decoration: underline;
   }
 
   [lang="bn"] {
@@ -85,17 +98,24 @@
 
   /* Visible WCAG Focus ring */
   *:focus-visible {
-    outline: 2px solid #1e3a8a;
+    outline: 2px solid #1E3A8A;
     outline-offset: 2px;
   }
 
-  /* Prefers-reduced-motion compliance */
+  /* Prefers-reduced-motion compliance and opaque animation ends */
   @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
+      opacity: 1 !important;
+      transform: none !important;
     }
+  }
+
+  /* Scroll animations must end fully opaque */
+  .fade-in-up, [data-animate], .motion-safe {
+    opacity: 1;
   }
 }

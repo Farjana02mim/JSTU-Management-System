@@ -254,7 +254,7 @@ export const AdmissionApplicationsManagementTab: React.FC<{
           </div>
           <button
             onClick={() => setFeedbackSuccess(null)}
-            className="text-slate-400 hover:text-slate-600 font-bold"
+            className="text-slate-600 hover:text-slate-600 font-bold"
           >
             &times;
           </button>
@@ -332,7 +332,7 @@ export const AdmissionApplicationsManagementTab: React.FC<{
           <tbody className="divide-y divide-[#E2E8F0] text-slate-600">
             {applications.length === 0 ? (
               <tr>
-                <td colSpan={7} className="py-10 text-center text-slate-400">
+                <td colSpan={7} className="py-10 text-center text-slate-600">
                   {isBn ? 'কোনো আবেদন পাওয়া যায়নি।' : 'No admission applications match the selected criteria.'}
                 </td>
               </tr>
@@ -343,7 +343,7 @@ export const AdmissionApplicationsManagementTab: React.FC<{
                     <span className="font-mono font-bold text-[#1E3A8A] block">
                       {app.referenceNumber}
                     </span>
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-[11px] text-slate-600">
                       {new Date(app.submittedAt).toLocaleDateString()}
                     </span>
                     {app.testRollNumber && (
@@ -360,7 +360,7 @@ export const AdmissionApplicationsManagementTab: React.FC<{
                     <span className="text-[11px] text-slate-500 truncate block max-w-[180px]">
                       {app.personalInfo.email}
                     </span>
-                    <span className="text-[11px] text-slate-400 block font-mono">
+                    <span className="text-[11px] text-slate-600 block font-mono">
                       {app.personalInfo.phone}
                     </span>
                   </td>
@@ -372,7 +372,7 @@ export const AdmissionApplicationsManagementTab: React.FC<{
                     <span className="font-bold text-[#0F172A]">
                       1st: {app.programChoice.firstChoiceDept}
                     </span>
-                    <span className="text-[10px] text-slate-400 block">
+                    <span className="text-[10px] text-slate-600 block">
                       (2nd: {app.programChoice.secondChoiceDept}, 3rd: {app.programChoice.thirdChoiceDept})
                     </span>
                   </td>
@@ -510,18 +510,18 @@ export const AdmissionApplicationsManagementTab: React.FC<{
             {/* Status & Reviewer Pill */}
             <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
               <div>
-                <span className="text-slate-400 block">{isBn ? 'বর্তমান স্ট্যাটাস:' : 'Current Status:'}</span>
+                <span className="text-slate-600 block">{isBn ? 'বর্তমান স্ট্যাটাস:' : 'Current Status:'}</span>
                 <span className="font-bold text-sm text-[#0F172A]">{selectedApp.status}</span>
               </div>
               {selectedApp.testRollNumber && (
                 <div>
-                  <span className="text-slate-400 block">Assigned Roll:</span>
+                  <span className="text-slate-600 block">Assigned Roll:</span>
                   <span className="font-mono font-bold text-sm text-[#1E3A8A]">{selectedApp.testRollNumber}</span>
                 </div>
               )}
               {selectedApp.reviewedBy && (
                 <div>
-                  <span className="text-slate-400 block">Reviewed By:</span>
+                  <span className="text-slate-600 block">Reviewed By:</span>
                   <span className="font-medium text-slate-700">{selectedApp.reviewedBy}</span>
                 </div>
               )}
@@ -574,7 +574,7 @@ export const AdmissionApplicationsManagementTab: React.FC<{
                         <span className="text-slate-600">{doc.fileName}</span>
                       </div>
                     </div>
-                    <span className="text-[10px] text-slate-400">
+                    <span className="text-[10px] text-slate-600">
                       {(doc.fileSize / 1024).toFixed(0)} KB &bull; Verified
                     </span>
                   </div>

@@ -145,7 +145,7 @@ export const GalleryPage: React.FC = () => {
 
       {filteredPhotos.length === 0 ? (
         <div className="py-16 text-center space-y-3 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-          <Camera className="w-10 h-10 text-slate-400 mx-auto" />
+          <Camera className="w-10 h-10 text-slate-600 mx-auto" />
           <p className="text-sm font-semibold text-slate-700">
             {isBn ? 'কোনো ছবি খুঁজে পাওয়া যায়নি' : 'No photos match your search criteria'}
           </p>
@@ -205,7 +205,7 @@ export const GalleryPage: React.FC = () => {
               <h5 className="text-xs font-bold text-[#0F172A] truncate">
                 {isBn ? photo.titleBn : photo.title}
               </h5>
-              <span className="text-[10px] text-slate-400 font-mono block mt-0.5">
+              <span className="text-[10px] text-slate-600 font-mono block mt-0.5">
                 {photo.date}
               </span>
             </div>
@@ -274,7 +274,7 @@ export const GalleryPage: React.FC = () => {
 
           {/* Bottom Caption Bar */}
           <div className="bg-slate-900/80 rounded-2xl p-4 text-white text-xs max-w-3xl mx-auto w-full text-center space-y-1">
-            <p className="text-slate-300 leading-relaxed">
+            <p className="text-slate-600 leading-relaxed">
               {isBn ? activePhoto.captionBn : activePhoto.caption}
             </p>
             <span className="text-[11px] text-slate-500 block font-mono">

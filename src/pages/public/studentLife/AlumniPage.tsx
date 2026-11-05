@@ -337,7 +337,7 @@ export const AlumniPage: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono text-slate-300 bg-white/10 px-2.5 py-1 rounded-lg">
+              <span className="text-[11px] font-mono text-slate-600 bg-white/10 px-2.5 py-1 rounded-lg">
                 ESTD. 2017 &bull; 8 DEPARTMENTS &bull; 3,200+ GRADUATES
               </span>
             </div>
@@ -451,7 +451,7 @@ export const AlumniPage: React.FC = () => {
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>{feedback}</span>
             </div>
-            <button onClick={() => setFeedback(null)} className="text-slate-400 hover:text-slate-600 font-bold">
+            <button onClick={() => setFeedback(null)} className="text-slate-600 hover:text-slate-600 font-bold">
               &times;
             </button>
           </div>
@@ -480,7 +480,7 @@ export const AlumniPage: React.FC = () => {
             <Card padding="md" className="space-y-3">
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
                 <div className="sm:col-span-5 relative">
-                  <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+                  <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-600" />
                   <input
                     type="text"
                     placeholder={isBn ? 'নাম, কোম্পানি, পদবী বা শহর দিয়ে খুঁজুন...' : 'Search by name, organization, designation, city...'}
@@ -538,12 +538,12 @@ export const AlumniPage: React.FC = () => {
             {/* Alumni Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredAlumni.length === 0 ? (
-                <div className="col-span-full py-12 text-center text-slate-400 bg-white border border-slate-200 rounded-2xl space-y-2">
-                  <Users className="w-8 h-8 mx-auto text-slate-300" />
+                <div className="col-span-full py-12 text-center text-slate-600 bg-white border border-slate-200 rounded-2xl space-y-2">
+                  <Users className="w-8 h-8 mx-auto text-slate-600" />
                   <p className="text-sm font-semibold text-slate-600">
                     {isBn ? 'কোনো অ্যালামনাই প্রোফাইল পাওয়া যায়নি' : 'No alumni profiles match the selected filters'}
                   </p>
-                  <p className="text-xs text-slate-400">Try adjusting your search criteria or department filter.</p>
+                  <p className="text-xs text-slate-600">Try adjusting your search criteria or department filter.</p>
                 </div>
               ) : (
                 filteredAlumni.map((alum) => {
@@ -573,7 +573,7 @@ export const AlumniPage: React.FC = () => {
                                   </span>
                                 )}
                               </div>
-                              <span className="text-[11px] text-slate-400 font-mono block">
+                              <span className="text-[11px] text-slate-600 font-mono block">
                                 {alum.batch} &bull; {alum.departmentCode}
                               </span>
                             </div>
@@ -588,14 +588,14 @@ export const AlumniPage: React.FC = () => {
                         <div className="space-y-1.5 pt-2 border-t border-slate-100 text-xs">
                           {/* Designation */}
                           <div className="flex items-start gap-2">
-                            <Briefcase className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                            <Briefcase className="w-3.5 h-3.5 text-slate-600 shrink-0 mt-0.5" />
                             <div className="min-w-0">
                               {p.showDesignation ? (
                                 <span className="font-semibold text-slate-800">
                                   {isBn && alum.currentPositionBn ? alum.currentPositionBn : alum.currentPosition}
                                 </span>
                               ) : (
-                                <span className="text-slate-400 italic flex items-center gap-1 text-[11px]">
+                                <span className="text-slate-600 italic flex items-center gap-1 text-[11px]">
                                   <EyeOff className="w-3 h-3" /> Position concealed
                                 </span>
                               )}
@@ -604,14 +604,14 @@ export const AlumniPage: React.FC = () => {
 
                           {/* Company / Organization */}
                           <div className="flex items-start gap-2">
-                            <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                            <Building2 className="w-3.5 h-3.5 text-slate-600 shrink-0 mt-0.5" />
                             <div className="min-w-0">
                               {p.showCurrentCompany ? (
                                 <span className="text-slate-600 font-medium truncate block">
                                   {alum.organization}
                                 </span>
                               ) : (
-                                <span className="text-slate-400 italic flex items-center gap-1 text-[11px]">
+                                <span className="text-slate-600 italic flex items-center gap-1 text-[11px]">
                                   <EyeOff className="w-3 h-3" /> Employer hidden
                                 </span>
                               )}
@@ -620,14 +620,14 @@ export const AlumniPage: React.FC = () => {
 
                           {/* Location */}
                           <div className="flex items-start gap-2">
-                            <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                            <MapPin className="w-3.5 h-3.5 text-slate-600 shrink-0 mt-0.5" />
                             <div className="min-w-0">
                               {p.showCityCountry ? (
                                 <span className="text-slate-500 text-[11px]">
                                   {alum.city}, {alum.country}
                                 </span>
                               ) : (
-                                <span className="text-slate-400 italic text-[11px]">Location hidden</span>
+                                <span className="text-slate-600 italic text-[11px]">Location hidden</span>
                               )}
                             </div>
                           </div>
@@ -646,7 +646,7 @@ export const AlumniPage: React.FC = () => {
                               <Mail className="w-3.5 h-3.5" />
                             </a>
                           ) : (
-                            <span className="text-slate-300 p-1.5" title="Email private">
+                            <span className="text-slate-600 p-1.5" title="Email private">
                               <EyeOff className="w-3.5 h-3.5" />
                             </span>
                           )}
@@ -719,7 +719,7 @@ export const AlumniPage: React.FC = () => {
                           {isBn ? alum.nameBn : alum.name}
                         </h3>
                         <p className="text-xs text-blue-700 font-semibold">{alum.currentPosition}</p>
-                        <p className="text-[11px] text-slate-400">{alum.organization}</p>
+                        <p className="text-[11px] text-slate-600">{alum.organization}</p>
                       </div>
                     </div>
 
@@ -735,7 +735,7 @@ export const AlumniPage: React.FC = () => {
                   </div>
 
                   <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <span className="font-mono text-[11px] text-slate-400">
+                    <span className="font-mono text-[11px] text-slate-600">
                       {alum.degree} &bull; {alum.graduatedYear}
                     </span>
                     <Button
@@ -783,7 +783,7 @@ export const AlumniPage: React.FC = () => {
             {/* Filter row */}
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
               <div className="sm:col-span-8 relative">
-                <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+                <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-600" />
                 <input
                   type="text"
                   placeholder={isBn ? 'পদবী, কোম্পানি বা অবস্থান দিয়ে খুঁজুন...' : 'Search by job title, company, location, or alumni name...'}
@@ -811,8 +811,8 @@ export const AlumniPage: React.FC = () => {
             {/* Job listings list */}
             <div className="space-y-3">
               {filteredJobs.length === 0 ? (
-                <div className="py-12 text-center text-slate-400 bg-white border border-slate-200 rounded-2xl space-y-2">
-                  <Briefcase className="w-8 h-8 mx-auto text-slate-300" />
+                <div className="py-12 text-center text-slate-600 bg-white border border-slate-200 rounded-2xl space-y-2">
+                  <Briefcase className="w-8 h-8 mx-auto text-slate-600" />
                   <p className="text-sm font-semibold text-slate-600">No active job posts matching your criteria</p>
                 </div>
               ) : (
@@ -837,7 +837,7 @@ export const AlumniPage: React.FC = () => {
                           <span className="font-semibold text-slate-700">{job.company}</span>
                           <span>&bull;</span>
                           <span className="flex items-center gap-1">
-                            <MapPin className="w-3.5 h-3.5 text-slate-400" /> {job.location}
+                            <MapPin className="w-3.5 h-3.5 text-slate-600" /> {job.location}
                           </span>
                           {job.salaryRange && (
                             <>
@@ -869,7 +869,7 @@ export const AlumniPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600">
                       <div>
                         Referred by: <strong className="text-slate-600">{job.postedByAlumnusName}</strong> ({job.postedByAlumnusBatch})
                       </div>
@@ -924,7 +924,7 @@ export const AlumniPage: React.FC = () => {
                         <div className="w-full bg-slate-200 rounded-full h-1.5 mt-2">
                           <div className="bg-blue-600 h-1.5 rounded-full" style={{ width: '74%' }}></div>
                         </div>
-                        <span className="text-[10px] text-slate-400 font-mono block">৳1,480,000 / ৳2,000,000 Goal</span>
+                        <span className="text-[10px] text-slate-600 font-mono block">৳1,480,000 / ৳2,000,000 Goal</span>
                       </div>
 
                       <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
@@ -938,7 +938,7 @@ export const AlumniPage: React.FC = () => {
                         <div className="w-full bg-slate-200 rounded-full h-1.5 mt-2">
                           <div className="bg-purple-600 h-1.5 rounded-full" style={{ width: '58%' }}></div>
                         </div>
-                        <span className="text-[10px] text-slate-400 font-mono block">৳870,000 / ৳1,500,000 Goal</span>
+                        <span className="text-[10px] text-slate-600 font-mono block">৳870,000 / ৳1,500,000 Goal</span>
                       </div>
 
                       <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
@@ -952,7 +952,7 @@ export const AlumniPage: React.FC = () => {
                         <div className="w-full bg-slate-200 rounded-full h-1.5 mt-2">
                           <div className="bg-emerald-600 h-1.5 rounded-full" style={{ width: '85%' }}></div>
                         </div>
-                        <span className="text-[10px] text-slate-400 font-mono block">৳425,000 / ৳500,000 Goal</span>
+                        <span className="text-[10px] text-slate-600 font-mono block">৳425,000 / ৳500,000 Goal</span>
                       </div>
 
                       <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
@@ -966,7 +966,7 @@ export const AlumniPage: React.FC = () => {
                         <div className="w-full bg-slate-200 rounded-full h-1.5 mt-2">
                           <div className="bg-rose-600 h-1.5 rounded-full" style={{ width: '62%' }}></div>
                         </div>
-                        <span className="text-[10px] text-slate-400 font-mono block">৳310,000 / ৳500,000 Goal</span>
+                        <span className="text-[10px] text-slate-600 font-mono block">৳310,000 / ৳500,000 Goal</span>
                       </div>
                     </div>
                   </div>
@@ -988,7 +988,7 @@ export const AlumniPage: React.FC = () => {
                 <Card padding="md" className="bg-white border-slate-200 space-y-3">
                   <h3 className="font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center justify-between">
                     <span>Recent Donor Honor Roll</span>
-                    <span className="font-mono text-slate-400 font-normal">Audited Ledger</span>
+                    <span className="font-mono text-slate-600 font-normal">Audited Ledger</span>
                   </h3>
 
                   <div className="divide-y divide-slate-100 text-xs">
@@ -1002,7 +1002,7 @@ export const AlumniPage: React.FC = () => {
                             {d.causeTitle} &bull; {d.alumnusBatch}
                           </div>
                           {d.message && (
-                            <p className="text-[10px] text-slate-400 italic mt-0.5">&ldquo;{d.message}&rdquo;</p>
+                            <p className="text-[10px] text-slate-600 italic mt-0.5">&ldquo;{d.message}&rdquo;</p>
                           )}
                         </div>
 
@@ -1010,7 +1010,7 @@ export const AlumniPage: React.FC = () => {
                           <div className="font-mono font-bold text-emerald-600">
                             ৳{d.amount.toLocaleString('en-US')}
                           </div>
-                          <div className="text-[10px] font-mono text-slate-400">{d.receiptNo}</div>
+                          <div className="text-[10px] font-mono text-slate-600">{d.receiptNo}</div>
                         </div>
                       </div>
                     ))}
@@ -1082,13 +1082,13 @@ export const AlumniPage: React.FC = () => {
             <div className="space-y-2.5 p-3 bg-white border border-slate-200 rounded-xl">
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-semibold">Current Role</span>
+                  <span className="text-slate-600 block text-[10px] uppercase font-semibold">Current Role</span>
                   <span className="font-bold text-slate-800">
                     {selectedAlumnus.privacy.showDesignation ? selectedAlumnus.currentPosition : 'Concealed by member'}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-semibold">Company / Org</span>
+                  <span className="text-slate-600 block text-[10px] uppercase font-semibold">Company / Org</span>
                   <span className="font-bold text-slate-800">
                     {selectedAlumnus.privacy.showCurrentCompany ? selectedAlumnus.organization : 'Hidden by member'}
                   </span>
@@ -1097,7 +1097,7 @@ export const AlumniPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-semibold">Location</span>
+                  <span className="text-slate-600 block text-[10px] uppercase font-semibold">Location</span>
                   <span className="text-slate-700">
                     {selectedAlumnus.privacy.showCityCountry
                       ? `${selectedAlumnus.city}, ${selectedAlumnus.country}`
@@ -1105,14 +1105,14 @@ export const AlumniPage: React.FC = () => {
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-semibold">Sector</span>
+                  <span className="text-slate-600 block text-[10px] uppercase font-semibold">Sector</span>
                   <span className="text-slate-700">{selectedAlumnus.organizationType}</span>
                 </div>
               </div>
 
               {selectedAlumnus.privacy.showEmail && selectedAlumnus.email && (
                 <div className="pt-2 border-t border-slate-100">
-                  <span className="text-slate-400 block text-[10px] uppercase font-semibold">Verified Email</span>
+                  <span className="text-slate-600 block text-[10px] uppercase font-semibold">Verified Email</span>
                   <a href={`mailto:${selectedAlumnus.email}`} className="text-blue-600 hover:underline font-mono">
                     {selectedAlumnus.email}
                   </a>
@@ -1121,7 +1121,7 @@ export const AlumniPage: React.FC = () => {
 
               {selectedAlumnus.privacy.showLinkedin && selectedAlumnus.linkedinUrl && (
                 <div className="pt-2 border-t border-slate-100">
-                  <span className="text-slate-400 block text-[10px] uppercase font-semibold">LinkedIn Profile</span>
+                  <span className="text-slate-600 block text-[10px] uppercase font-semibold">LinkedIn Profile</span>
                   <a
                     href={selectedAlumnus.linkedinUrl}
                     target="_blank"
@@ -1758,7 +1758,7 @@ export const AlumniPage: React.FC = () => {
                 value={isAnonymous ? 'Anonymous Alumnus' : donorName}
                 onChange={(e) => setDonorName(e.target.value)}
                 placeholder="Your full name"
-                className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg disabled:opacity-50"
+                className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg disabled:bg-slate-200 disabled:text-slate-700"
               />
             </div>
 
@@ -1843,7 +1843,7 @@ export const AlumniPage: React.FC = () => {
         <div className="space-y-4 text-xs">
           <div className="p-3 bg-slate-900 text-white rounded-xl flex items-center justify-between">
             <div>
-              <span className="text-[10px] text-slate-400 font-mono uppercase block">Total Payable Amount</span>
+              <span className="text-[10px] text-slate-600 font-mono uppercase block">Total Payable Amount</span>
               <span className="text-xl font-bold font-mono text-emerald-400">
                 ৳{donationAmount.toLocaleString('en-US')} BDT
               </span>
@@ -1916,7 +1916,7 @@ export const AlumniPage: React.FC = () => {
             <div className="p-5 bg-white border-2 border-slate-200 rounded-2xl shadow-sm space-y-4 font-sans text-slate-800">
               {/* Header */}
               <div className="text-center border-b border-slate-200 pb-3 space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold block">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-slate-600 font-bold block">
                   GOVERNMENT OF THE PEOPLE’S REPUBLIC OF BANGLADESH
                 </span>
                 <h3 className="font-extrabold text-base text-slate-900 tracking-tight">
@@ -1930,11 +1930,11 @@ export const AlumniPage: React.FC = () => {
               {/* Receipt details */}
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <span className="text-[10px] text-slate-400 font-mono block">RECEIPT NO</span>
+                  <span className="text-[10px] text-slate-600 font-mono block">RECEIPT NO</span>
                   <span className="font-mono font-bold text-blue-700">{completedDonationReceipt.receiptNo}</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] text-slate-400 font-mono block">TRANSACTION ID</span>
+                  <span className="text-[10px] text-slate-600 font-mono block">TRANSACTION ID</span>
                   <span className="font-mono font-bold text-slate-800">{completedDonationReceipt.transactionId}</span>
                 </div>
               </div>
@@ -1966,7 +1966,7 @@ export const AlumniPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-[10px] text-slate-400 pt-2">
+              <div className="flex items-center justify-between text-[10px] text-slate-600 pt-2">
                 <span className="flex items-center gap-1 text-emerald-700 font-bold">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Officially Endorsed & Audited
                 </span>

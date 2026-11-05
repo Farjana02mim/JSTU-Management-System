@@ -180,7 +180,7 @@ export const CareerPage: React.FC = () => {
 
         {filteredItems.length === 0 ? (
           <div className="py-16 text-center space-y-3 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-            <Briefcase className="w-10 h-10 text-slate-400 mx-auto" />
+            <Briefcase className="w-10 h-10 text-slate-600 mx-auto" />
             <p className="text-sm font-semibold text-slate-700">
               {isBn ? 'কোনো বিজ্ঞপ্তি পাওয়া যায়নি' : 'No open opportunities match your search'}
             </p>
@@ -210,7 +210,7 @@ export const CareerPage: React.FC = () => {
                     <span className="font-mono text-slate-500 font-bold">
                       {item.refNumber}
                     </span>
-                    <span className="text-slate-400">&bull;</span>
+                    <span className="text-slate-600">&bull;</span>
                     <span className="text-slate-500">
                       {isBn ? item.departmentOrOfficeBn : item.departmentOrOffice}
                     </span>
@@ -226,7 +226,7 @@ export const CareerPage: React.FC = () => {
 
                   <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 pt-1">
                     <div className="flex items-center gap-1.5 font-mono">
-                      <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                      <Calendar className="w-3.5 h-3.5 text-slate-600" />
                       <span>Published: {isBn ? item.publishDateBn : item.publishDate}</span>
                     </div>
 
@@ -288,19 +288,19 @@ export const CareerPage: React.FC = () => {
           <div className="space-y-6 text-xs max-h-[75vh] overflow-y-auto pr-1">
             <div className="grid grid-cols-2 gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-200">
               <div>
-                <span className="text-slate-400 block">Department / Branch:</span>
+                <span className="text-slate-600 block">Department / Branch:</span>
                 <strong className="text-slate-900">{selectedItem.departmentOrOffice}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block">Application Deadline:</span>
+                <span className="text-slate-600 block">Application Deadline:</span>
                 <strong className="text-red-700 font-mono">{selectedItem.deadline}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block">Category:</span>
+                <span className="text-slate-600 block">Category:</span>
                 <strong className="text-[#1E3A8A]">{selectedItem.category}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block">Status:</span>
+                <span className="text-slate-600 block">Status:</span>
                 <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">
                   {selectedItem.status.toUpperCase()}
                 </span>
@@ -342,7 +342,7 @@ export const CareerPage: React.FC = () => {
                       <FileText className="w-4 h-4 text-[#1E3A8A]" />
                       <div>
                         <strong className="text-slate-800 block">{isBn ? att.titleBn : att.title}</strong>
-                        <span className="text-slate-400 text-[10px]">{att.fileName} ({att.fileSize})</span>
+                        <span className="text-slate-600 text-[10px]">{att.fileName} ({att.fileSize})</span>
                       </div>
                     </div>
                     <Button

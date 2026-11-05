@@ -98,8 +98,8 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({ onOpenPortalModal })
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
               {isBn
-                ? 'অনলাইন ফলাফল প্রণয়ন, ডিজিটাল বিভাগীয় ছাড়পত্র ও সুরক্ষিত কিউআর সনদ যাচাইকরণসহ সকল একাডেমিক ও দাপ্তরিক কার্যাবলীর স্বয়ংক্রিয় সমাধান।'
-                : 'Automated administrative workflows, tamper-proof semester grading, digital clearance, and verifiable e-credentials for Jamalpur Science & Technology University.'}
+                ? 'অনলাইন ফলাফল প্রণয়ন, ডিজিটাল বিভাগীয় ছাড়পত্র ও অডিট ট্রেইলযুক্ত সনদ যাচাইয়ের জন্য পরিকল্পিত স্মার্ট ক্যাম্পাস প্রোটোটাইপ।'
+                : 'Prototype designed to support automated administrative workflows, digital workflow with audit trail for semester grading, online clearance, and verifiable credentials.'}
             </p>
 
             {/* CTAs: 4 requested buttons */}
@@ -153,7 +153,7 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({ onOpenPortalModal })
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-amber-500" />
-                <span className="font-semibold text-[#0F172A]">Tamper-Proof QR Verified</span>
+                <span className="font-semibold text-[#0F172A]">Audit Trail & QR Verification</span>
               </div>
             </div>
           </div>

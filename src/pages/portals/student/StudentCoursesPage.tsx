@@ -114,17 +114,17 @@ export const StudentCoursesPage: React.FC = () => {
                     <h2 className="text-base font-bold text-[#0F172A] leading-snug">
                       {isBn ? course.titleBn : course.title}
                     </h2>
-                    <p className="text-[11px] text-slate-400 font-mono mt-0.5">
+                    <p className="text-[11px] text-slate-600 font-mono mt-0.5">
                       {course.department} &bull; {course.semester}
                     </p>
                   </div>
 
                   <div className="pt-2 border-t border-[#F1F5F9] space-y-1 text-xs text-slate-600">
                     <div className="flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <User className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                       <span className="truncate">{course.instructor}</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-slate-400 text-[11px]">
+                    <div className="flex items-center gap-1.5 text-slate-600 text-[11px]">
                       <Mail className="w-3.5 h-3.5 shrink-0" />
                       <span className="truncate">{course.instructorEmail}</span>
                     </div>

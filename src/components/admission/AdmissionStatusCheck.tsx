@@ -137,7 +137,7 @@ export const AdmissionStatusCheck: React.FC<{
 
           {/* Quick Demo Credentials Hint */}
           <div className="pt-2">
-            <span className="text-[11px] text-slate-400 block mb-1">
+            <span className="text-[11px] text-slate-600 block mb-1">
               {isBn ? 'দ্রুত পরীক্ষামূলক নমুনা ক্রেডেনশিয়াল (Demo Data):' : 'Sample demo credentials to test:'}
             </span>
             <div className="flex flex-wrap justify-center gap-2 text-[11px] text-[#1E3A8A]">
@@ -283,7 +283,7 @@ export const AdmissionStatusCheck: React.FC<{
                     className={`p-3 rounded-xl border transition ${
                       s.done
                         ? 'bg-emerald-50/70 border-emerald-300 text-emerald-900'
-                        : 'bg-slate-50 border-slate-200 text-slate-400'
+                        : 'bg-slate-50 border-slate-200 text-slate-600'
                     }`}
                   >
                     <div className="flex items-center justify-center gap-1.5 font-bold mb-1">
@@ -313,7 +313,7 @@ export const AdmissionStatusCheck: React.FC<{
                     <h4 className="text-lg sm:text-xl font-black">
                       {isBn ? 'আপনার ভর্তি পরীক্ষার প্রবেশপত্র প্রস্তুত!' : 'Your Examination Pass & Admit Card is Ready'}
                     </h4>
-                    <p className="text-xs text-slate-200">
+                    <p className="text-xs text-slate-600">
                       {isBn
                         ? 'এ৪ সাইজের কাগজে রঙিন প্রিন্ট নিয়ে মূল এইচএসসি রেজিস্ট্রেশন কার্ডসহ পরীক্ষার হলে উপস্থিত হোন।'
                         : 'Print this official Admit Card and bring it along with your original HSC Registration card to the hall.'}
@@ -346,7 +346,7 @@ export const AdmissionStatusCheck: React.FC<{
                 )}
 
                 {/* Exam Hall Details Pill */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs border-t border-blue-800 text-slate-200">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs border-t border-blue-800 text-slate-600">
                   <div className="flex items-center gap-2">
                     <QrCode className="w-4 h-4 text-amber-300" />
                     <span>
@@ -389,19 +389,19 @@ export const AdmissionStatusCheck: React.FC<{
                 </span>
                 <div className="grid grid-cols-2 gap-2 text-slate-700">
                   <div>
-                    <span className="text-slate-400 block">SSC Board & Roll:</span>
+                    <span className="text-slate-600 block">SSC Board & Roll:</span>
                     <span className="font-semibold">{application.academicInfo.sscBoard} - {application.academicInfo.sscRoll}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">SSC GPA:</span>
+                    <span className="text-slate-600 block">SSC GPA:</span>
                     <span className="font-bold text-emerald-700">{application.academicInfo.sscGpa.toFixed(2)}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">HSC Board & Roll:</span>
+                    <span className="text-slate-600 block">HSC Board & Roll:</span>
                     <span className="font-semibold">{application.academicInfo.hscBoard} - {application.academicInfo.hscRoll}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">HSC GPA:</span>
+                    <span className="text-slate-600 block">HSC GPA:</span>
                     <span className="font-bold text-emerald-700">{application.academicInfo.hscGpa.toFixed(2)}</span>
                   </div>
                 </div>
@@ -414,19 +414,19 @@ export const AdmissionStatusCheck: React.FC<{
                 </span>
                 <div className="grid grid-cols-2 gap-2 text-slate-700">
                   <div>
-                    <span className="text-slate-400 block">Unit:</span>
+                    <span className="text-slate-600 block">Unit:</span>
                     <span className="font-bold text-[#1E3A8A]">{application.programChoice.unit.replace('_', ' ')}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">Quota:</span>
+                    <span className="text-slate-600 block">Quota:</span>
                     <span className="font-semibold">{application.personalInfo.quota.replace('_', ' ')}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">1st Choice Dept:</span>
+                    <span className="text-slate-600 block">1st Choice Dept:</span>
                     <span className="font-bold">{application.programChoice.firstChoiceDept}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">2nd & 3rd:</span>
+                    <span className="text-slate-600 block">2nd & 3rd:</span>
                     <span className="font-semibold">{application.programChoice.secondChoiceDept}, {application.programChoice.thirdChoiceDept}</span>
                   </div>
                 </div>

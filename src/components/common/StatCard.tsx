@@ -21,26 +21,26 @@ export const StatCard: React.FC<StatCardProps> = ({
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+            <span className="text-xs font-semibold text-slate-700">
               {label}
             </span>
             {isDemo && (
-              <span className="text-[10px] uppercase tracking-wider text-amber-700 dark:text-amber-400 font-semibold">
+              <span className="text-[10px] uppercase tracking-wider text-amber-800 font-semibold">
                 [Demo]
               </span>
             )}
           </div>
-          <div className="text-3xl font-extrabold text-[#0A2540] dark:text-slate-100 tabular-nums tracking-tight">
+          <div className="text-3xl font-extrabold text-[#0F172A] tabular-nums tracking-tight">
             {value}
           </div>
           {description && (
-            <p className="text-xs text-slate-500 dark:text-slate-400 pt-1">
+            <p className="text-xs text-slate-600 pt-1 font-medium">
               {description}
             </p>
           )}
         </div>
         {icon && (
-          <div className="p-3 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl group-hover:scale-105 transition-transform">
+          <div className="p-3 bg-slate-50 text-slate-600 rounded-xl group-hover:scale-105 transition-transform">
             {icon}
           </div>
         )}

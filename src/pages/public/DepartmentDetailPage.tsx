@@ -456,11 +456,11 @@ export const DepartmentDetailPage: React.FC = () => {
 
                 <div className="space-y-2 pt-2 border-t border-[#E2E8F0] text-xs text-slate-600">
                   <div className="flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <Mail className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                     <span className="font-mono text-[11px] truncate">{department.headOfDepartment.email}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                     <span>Academic Complex, Floor 4 [REPLACE]</span>
                   </div>
                 </div>
@@ -468,7 +468,7 @@ export const DepartmentDetailPage: React.FC = () => {
 
               {/* Research Areas Card */}
               <Card padding="md" className="space-y-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-600 block">
                   {isBn ? 'প্রধান গবেষণার বিষয়সমূহ' : 'Departmental Research Focus'}
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -518,7 +518,7 @@ export const DepartmentDetailPage: React.FC = () => {
                         <span className="text-xs font-mono font-bold text-[#1E3A8A] bg-[#EFF6FF] px-2 py-0.5 rounded-md">
                           {isBn ? prog.degreeTypeBn : prog.degreeType}
                         </span>
-                        <span className="text-xs text-slate-400">·</span>
+                        <span className="text-xs text-slate-600">·</span>
                         <span className="text-xs font-medium text-slate-500">
                           {isBn ? prog.durationBn : prog.duration}
                         </span>
@@ -618,7 +618,7 @@ export const DepartmentDetailPage: React.FC = () => {
 
             {/* Filter Search */}
             <div className="relative w-full sm:w-72">
-              <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-600" />
               <input
                 type="text"
                 placeholder={isBn ? 'শিক্ষক বা গবেষণার বিষয় খুঁজুন...' : 'Search teacher or research area...'}
@@ -667,7 +667,7 @@ export const DepartmentDetailPage: React.FC = () => {
                           {isBn ? member.designationBn : member.designation}
                         </p>
                         <p className="text-[11px] text-slate-500 flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                          <MapPin className="w-3 h-3 text-slate-600 shrink-0" />
                           <span className="truncate">{isBn ? member.roomBn : member.room}</span>
                         </p>
                       </div>
@@ -675,7 +675,7 @@ export const DepartmentDetailPage: React.FC = () => {
 
                     {/* Educational Degrees */}
                     <div className="space-y-1 text-xs text-slate-600 border-t border-[#E2E8F0] pt-3">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                         {isBn ? 'শিক্ষাগত যোগ্যতা' : 'Academic Credentials'}
                       </span>
                       <ul className="space-y-0.5">
@@ -689,7 +689,7 @@ export const DepartmentDetailPage: React.FC = () => {
 
                     {/* Research Interests */}
                     <div className="space-y-1.5 pt-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                         {isBn ? 'গবেষণার আগ্রহের বিষয়' : 'Research Interests'}
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -708,7 +708,7 @@ export const DepartmentDetailPage: React.FC = () => {
                   {/* Contact Info Footer */}
                   <div className="pt-3 border-t border-[#E2E8F0] text-xs text-slate-500 flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5 text-slate-600 font-mono text-[11px]">
-                      <Mail className="w-3 h-3 text-slate-400 shrink-0" />
+                      <Mail className="w-3 h-3 text-slate-600 shrink-0" />
                       <a href={`mailto:${member.email}`} className="hover:text-[#1E3A8A] truncate max-w-[180px]">
                         {member.email}
                       </a>
@@ -741,7 +741,7 @@ export const DepartmentDetailPage: React.FC = () => {
 
             {/* Course Search */}
             <div className="relative w-full sm:w-72">
-              <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-600" />
               <input
                 type="text"
                 placeholder={isBn ? 'কোর্স কোড বা শিরোনাম...' : 'Search course code or title...'}
@@ -882,7 +882,7 @@ export const DepartmentDetailPage: React.FC = () => {
                       {isBn ? lab.nameBn : lab.name}
                     </h3>
                     <p className="text-xs text-slate-500 flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                       <span>{isBn ? lab.locationBn : lab.location}</span>
                     </p>
                   </div>
@@ -893,7 +893,7 @@ export const DepartmentDetailPage: React.FC = () => {
 
                   {/* Key Equipment */}
                   <div className="space-y-1.5 pt-2 border-t border-[#E2E8F0]">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                       {isBn ? 'প্রধান যন্ত্রপাতি ও সফটওয়্যার:' : 'Major Equipment & Hardware:'}
                     </span>
                     <ul className="space-y-1 text-xs text-slate-700">
@@ -964,13 +964,13 @@ export const DepartmentDetailPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-slate-600 border-t border-[#E2E8F0]">
                     <div>
-                      <span className="text-slate-400 block text-[10px] uppercase font-bold">
+                      <span className="text-slate-600 block text-[10px] uppercase font-bold">
                         {isBn ? 'প্রধান গবেষক:' : 'Principal Investigator:'}
                       </span>
                       <strong className="text-slate-800">{isBn ? project.principalInvestigatorBn : project.principalInvestigator}</strong>
                     </div>
                     <div>
-                      <span className="text-slate-400 block text-[10px] uppercase font-bold">
+                      <span className="text-slate-600 block text-[10px] uppercase font-bold">
                         {isBn ? 'তহবিল সংস্থা:' : 'Funding Agency:'}
                       </span>
                       <strong className="text-slate-800">{isBn ? project.fundingAgencyBn : project.fundingAgency}</strong>
@@ -1012,7 +1012,7 @@ export const DepartmentDetailPage: React.FC = () => {
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <Calendar className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <Calendar className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                       <span>{isBn ? notice.dateBn : notice.date}</span>
                       <span>·</span>
                       <span className="font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded text-[10px]">

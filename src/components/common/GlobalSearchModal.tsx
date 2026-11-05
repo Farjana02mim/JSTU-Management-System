@@ -370,7 +370,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       case 'portal':
         return <GraduationCap className="w-4 h-4 text-[#1E3A8A]" />;
       default:
-        return <Search className="w-4 h-4 text-slate-400" />;
+        return <Search className="w-4 h-4 text-slate-600" />;
     }
   };
 
@@ -391,7 +391,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       >
         {/* Top Search Input Field */}
         <div className="relative border-b border-slate-200 flex items-center px-4 py-3 sm:py-4 gap-3 bg-white">
-          <Search className="w-5 h-5 text-slate-400 shrink-0" />
+          <Search className="w-5 h-5 text-slate-600 shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -405,13 +405,13 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                 ? 'বিজ্ঞপ্তি, সংবাদ, বিভাগ, শিক্ষক বা পেজ খুঁজুন...'
                 : 'Search notices, news, departments, faculty, events, or pages...'
             }
-            className="w-full text-sm sm:text-base text-slate-900 placeholder:text-slate-400 bg-transparent outline-none font-medium"
+            className="w-full text-sm sm:text-base text-slate-900 placeholder:text-slate-600 bg-transparent outline-none font-medium"
             aria-label="Search site content"
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="p-1 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+              className="p-1 rounded-md text-slate-600 hover:text-slate-600 hover:bg-slate-100 transition-colors"
               aria-label="Clear search input"
             >
               <X className="w-4 h-4" />
@@ -427,7 +427,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
 
         {/* Category Filter Pills */}
         <div className="px-4 py-2 bg-slate-50 border-b border-slate-200 flex items-center gap-1.5 overflow-x-auto scrollbar-none text-xs">
-          <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mr-1 hidden sm:inline">
+          <span className="text-[11px] font-semibold text-slate-600 uppercase tracking-wider mr-1 hidden sm:inline">
             {isBn ? 'ফিল্টার:' : 'Filter:'}
           </span>
           {[
@@ -460,11 +460,11 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         <div ref={listRef} className="flex-1 overflow-y-auto p-2 divide-y divide-slate-100">
           {filteredResults.length === 0 ? (
             <div className="py-12 px-4 text-center space-y-2">
-              <Search className="w-8 h-8 text-slate-300 mx-auto" />
+              <Search className="w-8 h-8 text-slate-600 mx-auto" />
               <p className="text-sm font-semibold text-slate-700">
                 {isBn ? `"${query}" এর জন্য কোনো ফলাফল পাওয়া যায়নি` : `No results found for "${query}"`}
               </p>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600">
                 {isBn
                   ? 'অনুগ্রহ করে বানানের সঠিকতা যাচাই করুন অথবা ভিন্ন কীওয়ার্ড ব্যবহার করুন।'
                   : 'Check for typos or try searching with a more general keyword like "CSE", "Admission", or "Exam".'}
@@ -501,7 +501,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                           {isBn ? item.typeLabelBn : item.typeLabel}
                         </span>
                         {item.metaBadge && (
-                          <span className="text-[10px] font-mono text-slate-400 truncate">
+                          <span className="text-[10px] font-mono text-slate-600 truncate">
                             {item.metaBadge}
                           </span>
                         )}
@@ -517,14 +517,14 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     </div>
                   </div>
 
-                  <div className="shrink-0 flex items-center text-slate-400">
+                  <div className="shrink-0 flex items-center text-slate-600">
                     {isSelected ? (
                       <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#1E3A8A]">
                         <span>{isBn ? 'প্রবেশ করুন' : 'Open'}</span>
                         <CornerDownLeft className="w-3.5 h-3.5" />
                       </span>
                     ) : (
-                      <ChevronRight className="w-4 h-4 text-slate-300" />
+                      <ChevronRight className="w-4 h-4 text-slate-600" />
                     )}
                   </div>
                 </div>
@@ -534,7 +534,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         </div>
 
         {/* Bottom Helper Keyboard Strip */}
-        <div className="px-4 py-2.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-400">
+        <div className="px-4 py-2.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-600">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
               <kbd className="px-1.5 py-0.5 bg-white border border-slate-200 rounded font-mono text-[10px]">↑</kbd>

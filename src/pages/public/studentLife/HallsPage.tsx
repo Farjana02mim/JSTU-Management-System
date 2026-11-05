@@ -203,7 +203,7 @@ export const HallsPage: React.FC = () => {
                       {isBn ? hall.nameBn : hall.name}
                     </h3>
                     <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                      <MapPin className="w-3 h-3 text-slate-600 shrink-0" />
                       <span>{isBn ? hall.locationBn : hall.location}</span>
                     </p>
                   </button>
@@ -227,18 +227,18 @@ export const HallsPage: React.FC = () => {
                       Est. {selectedHall.established}
                     </span>
                     <h2 className="text-2xl font-black">{isBn ? selectedHall.nameBn : selectedHall.name}</h2>
-                    <p className="text-xs text-slate-200">{isBn ? selectedHall.locationBn : selectedHall.location}</p>
+                    <p className="text-xs text-blue-100">{isBn ? selectedHall.locationBn : selectedHall.location}</p>
                     <div className="flex items-center gap-3 pt-2 text-xs">
                       <div>
-                        <span className="text-slate-400 block text-[10px]">Total Beds</span>
+                        <span className="text-slate-600 block text-[10px]">Total Beds</span>
                         <span className="font-bold text-white text-base">{selectedHall.capacity}</span>
                       </div>
                       <div>
-                        <span className="text-slate-400 block text-[10px]">Occupied</span>
+                        <span className="text-slate-600 block text-[10px]">Occupied</span>
                         <span className="font-bold text-emerald-400 text-base">{selectedHall.currentResidents}</span>
                       </div>
                       <div>
-                        <span className="text-slate-400 block text-[10px]">Vacant</span>
+                        <span className="text-slate-600 block text-[10px]">Vacant</span>
                         <span className="font-bold text-amber-300 text-base">
                           {selectedHall.capacity - selectedHall.currentResidents}
                         </span>
@@ -268,7 +268,7 @@ export const HallsPage: React.FC = () => {
                         <div key={rt.name} className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
                           <span className="font-bold text-slate-900 text-xs block">{rt.name}</span>
                           <div className="text-base font-black text-[#1E3A8A]">
-                            ৳{rt.feePerMonth} <span className="text-[10px] text-slate-400 font-normal">/ month</span>
+                            ৳{rt.feePerMonth} <span className="text-[10px] text-slate-600 font-normal">/ month</span>
                           </div>
                           <span className="text-[11px] text-emerald-600 font-semibold block">
                             {rt.availableBeds} beds available
@@ -406,19 +406,19 @@ export const HallsPage: React.FC = () => {
 
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs bg-slate-50 p-3 rounded-xl">
                         <div>
-                          <span className="text-[10px] text-slate-400 block">Applicant</span>
+                          <span className="text-[10px] text-slate-600 block">Applicant</span>
                           <span className="font-semibold text-slate-800">{app.studentName} ({app.rollNumber})</span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-slate-400 block">Merit (CGPA)</span>
+                          <span className="text-[10px] text-slate-600 block">Merit (CGPA)</span>
                           <span className="font-bold text-[#1E3A8A]">{app.cgpa}</span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-slate-400 block">Home District</span>
+                          <span className="text-[10px] text-slate-600 block">Home District</span>
                           <span className="text-slate-800">{app.homeDistrict} ({app.distanceKm} km away)</span>
                         </div>
                         <div>
-                          <span className="text-[10px] text-slate-400 block">Room Preference</span>
+                          <span className="text-[10px] text-slate-600 block">Room Preference</span>
                           <span className="text-slate-800">{app.preferredRoomType}</span>
                         </div>
                       </div>

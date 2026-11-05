@@ -18,11 +18,11 @@ export const NoticeItem: React.FC<NoticeItemProps> = ({ notice, compact = false 
   const dept = isBn ? (notice.departmentBn || '') : (notice.department || '');
 
   return (
-    <article className="group py-4 px-4 sm:px-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 border-b border-slate-200/80 dark:border-slate-800 transition-colors">
+    <article className="group py-4 px-4 sm:px-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 border-b border-slate-200/80 transition-colors">
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
         <div className="space-y-1.5 flex-1">
           {/* Clean unboxed metadata with typographic separators (anti-slop rule) */}
-          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
             <span className="font-semibold text-blue-700 dark:text-blue-400">{notice.category}</span>
             <span aria-hidden="true">·</span>
             <time dateTime={notice.publishDate}>{date}</time>
@@ -35,7 +35,7 @@ export const NoticeItem: React.FC<NoticeItemProps> = ({ notice, compact = false 
             {notice.referenceNumber && (
               <>
                 <span aria-hidden="true">·</span>
-                <span className="font-mono text-[11px] text-slate-400">{notice.referenceNumber}</span>
+                <span className="font-mono text-[11px] text-slate-600">{notice.referenceNumber}</span>
               </>
             )}
             {notice.isImportant && (
@@ -49,14 +49,14 @@ export const NoticeItem: React.FC<NoticeItemProps> = ({ notice, compact = false 
           </div>
 
           {/* Title */}
-          <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-900 dark:group-hover:text-blue-400 transition-colors leading-snug">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-900 dark:group-hover:text-blue-400 transition-colors leading-snug">
             <Link to={`/notices/${notice.id}`} className="focus-visible:outline-none">
               {title}
             </Link>
           </h3>
 
           {!compact && (
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
               {isBn ? notice.summaryBn : notice.summary}
             </p>
           )}

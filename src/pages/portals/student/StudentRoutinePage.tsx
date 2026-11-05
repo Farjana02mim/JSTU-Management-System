@@ -172,12 +172,12 @@ export const StudentRoutinePage: React.FC = () => {
 
                         <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
                           <div className="flex items-center gap-1">
-                            <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                            <MapPin className="w-3.5 h-3.5 text-slate-600" />
                             <span>{item.room}</span>
                           </div>
                           <span>&bull;</span>
                           <div className="flex items-center gap-1">
-                            <User className="w-3.5 h-3.5 text-slate-400" />
+                            <User className="w-3.5 h-3.5 text-slate-600" />
                             <span>{item.instructor}</span>
                           </div>
                         </div>

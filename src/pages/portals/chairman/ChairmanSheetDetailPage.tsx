@@ -279,7 +279,7 @@ export const ChairmanSheetDetailPage: React.FC = () => {
           </div>
         ) : !detail ? (
           <EmptyState
-            icon={<Award className="w-12 h-12 text-slate-300" />}
+            icon={<Award className="w-12 h-12 text-slate-600" />}
             title={isBn ? 'ফলাফল শিট পাওয়া যায়নি' : 'Result Sheet Not Found'}
             description={isBn ? 'এই কোর্সের কোনো মার্কস শিট নেই।' : 'No sheet found for the given course code.'}
           />
@@ -307,7 +307,7 @@ export const ChairmanSheetDetailPage: React.FC = () => {
 
                 <div className="flex flex-col items-end gap-2">
                   {getStatusBadge(detail.status)}
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-slate-600">
                     {isBn ? 'সর্বশেষ সংরক্ষিত:' : 'Last saved:'} {new Date(detail.lastSavedAt).toLocaleString()}
                   </span>
                 </div>
@@ -316,17 +316,17 @@ export const ChairmanSheetDetailPage: React.FC = () => {
               {/* Course Meta Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[#E2E8F0] text-xs">
                 <div className="space-y-0.5">
-                  <span className="text-slate-400 uppercase font-semibold text-[10px]">Course Instructor</span>
+                  <span className="text-slate-600 uppercase font-semibold text-[10px]">Course Instructor</span>
                   <p className="font-semibold text-slate-800">{detail.instructorName}</p>
                   <p className="text-slate-500 font-mono text-[11px]">{detail.instructorEmail}</p>
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-slate-400 uppercase font-semibold text-[10px]">Academic Unit</span>
+                  <span className="text-slate-600 uppercase font-semibold text-[10px]">Academic Unit</span>
                   <p className="font-semibold text-slate-800">Dept. of {detail.department}</p>
                   <p className="text-slate-500">Jamalpur-2012</p>
                 </div>
                 <div className="space-y-0.5">
-                  <span className="text-slate-400 uppercase font-semibold text-[10px]">Enrollment & Roster</span>
+                  <span className="text-slate-600 uppercase font-semibold text-[10px]">Enrollment & Roster</span>
                   <p className="font-semibold text-slate-800">{detail.enrolledStudents.length} Students</p>
                   <p className="text-slate-500">Continuous Assessment (50%) + Final (50%)</p>
                 </div>
@@ -476,37 +476,37 @@ export const ChairmanSheetDetailPage: React.FC = () => {
                 {/* Statistics Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                   <div className="p-3 bg-white border border-[#E2E8F0] rounded-xl">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold">Enrolled</span>
+                    <span className="text-[10px] text-slate-600 uppercase font-semibold">Enrolled</span>
                     <div className="text-xl font-extrabold text-slate-900 tabular-nums">
                       {detail.stats.enrolledCount}
                     </div>
                   </div>
                   <div className="p-3 bg-white border border-[#E2E8F0] rounded-xl">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold">Passed</span>
+                    <span className="text-[10px] text-slate-600 uppercase font-semibold">Passed</span>
                     <div className="text-xl font-extrabold text-emerald-700 tabular-nums">
                       {detail.stats.passedCount}
                     </div>
                   </div>
                   <div className="p-3 bg-white border border-[#E2E8F0] rounded-xl">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold">Failed (F)</span>
+                    <span className="text-[10px] text-slate-600 uppercase font-semibold">Failed (F)</span>
                     <div className="text-xl font-extrabold text-rose-700 tabular-nums">
                       {detail.stats.failedCount}
                     </div>
                   </div>
                   <div className="p-3 bg-white border border-[#E2E8F0] rounded-xl">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold">Average Marks</span>
+                    <span className="text-[10px] text-slate-600 uppercase font-semibold">Average Marks</span>
                     <div className="text-xl font-extrabold text-blue-900 tabular-nums">
                       {detail.stats.averageMarks}
                     </div>
                   </div>
                   <div className="p-3 bg-white border border-[#E2E8F0] rounded-xl">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold">Highest Marks</span>
+                    <span className="text-[10px] text-slate-600 uppercase font-semibold">Highest Marks</span>
                     <div className="text-xl font-extrabold text-slate-900 tabular-nums">
                       {detail.stats.highestMarks}
                     </div>
                   </div>
                   <div className="p-3 bg-white border border-[#E2E8F0] rounded-xl">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold">Lowest Marks</span>
+                    <span className="text-[10px] text-slate-600 uppercase font-semibold">Lowest Marks</span>
                     <div className="text-xl font-extrabold text-slate-900 tabular-nums">
                       {detail.stats.lowestMarks}
                     </div>
@@ -594,7 +594,7 @@ export const ChairmanSheetDetailPage: React.FC = () => {
                                   </td>
                                 </>
                               ) : (
-                                <td colSpan={7} className="py-3 px-3 text-center text-slate-400 italic">
+                                <td colSpan={7} className="py-3 px-3 text-center text-slate-600 italic">
                                   No marks recorded
                                 </td>
                               )}
@@ -632,7 +632,7 @@ export const ChairmanSheetDetailPage: React.FC = () => {
                   </div>
 
                   {detail.auditTrail.length === 0 ? (
-                    <div className="py-8 text-center text-slate-400 text-xs">
+                    <div className="py-8 text-center text-slate-600 text-xs">
                       No audit transitions recorded yet.
                     </div>
                   ) : (
@@ -648,21 +648,21 @@ export const ChairmanSheetDetailPage: React.FC = () => {
                               <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700">
                                 {entry.role}
                               </span>
-                              <span className="text-slate-400 font-mono text-[11px]">&bull; {entry.actorEmail}</span>
+                              <span className="text-slate-600 font-mono text-[11px]">&bull; {entry.actorEmail}</span>
                             </div>
 
-                            <span className="text-slate-400 font-mono text-[11px]">
+                            <span className="text-slate-600 font-mono text-[11px]">
                               {new Date(entry.timestamp).toLocaleString()}
                             </span>
                           </div>
 
                           <div className="flex items-center gap-2 pt-1 font-mono">
                             <span className="font-bold text-[#1E3A8A]">{entry.action}</span>
-                            <span className="text-slate-400">:</span>
+                            <span className="text-slate-600">:</span>
                             <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px]">
                               {entry.fromStatus}
                             </span>
-                            <span className="text-slate-400">&rarr;</span>
+                            <span className="text-slate-600">&rarr;</span>
                             <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-800 font-bold text-[11px]">
                               {entry.toStatus}
                             </span>

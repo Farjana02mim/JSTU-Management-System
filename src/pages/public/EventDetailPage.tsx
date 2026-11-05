@@ -134,7 +134,7 @@ export const EventDetailPage: React.FC = () => {
           </div>
           <button
             onClick={() => setReminderAdded(false)}
-            className="text-slate-400 hover:text-slate-600 font-bold"
+            className="text-slate-600 hover:text-slate-600 font-bold"
           >
             &times;
           </button>
@@ -246,7 +246,7 @@ export const EventDetailPage: React.FC = () => {
                   <Calendar className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-semibold">Date</span>
+                  <span className="text-slate-600 block font-semibold">Date</span>
                   <strong className="text-slate-800 text-sm">
                     {isBn ? event.dateBn : event.date}
                   </strong>
@@ -258,7 +258,7 @@ export const EventDetailPage: React.FC = () => {
                   <Clock className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-semibold">Time</span>
+                  <span className="text-slate-600 block font-semibold">Time</span>
                   <strong className="text-slate-800 text-sm">
                     {isBn ? event.timeBn : event.time}
                   </strong>
@@ -270,7 +270,7 @@ export const EventDetailPage: React.FC = () => {
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-semibold">Venue</span>
+                  <span className="text-slate-600 block font-semibold">Venue</span>
                   <strong className="text-slate-800 text-sm">
                     {isBn ? event.venueBn : event.venue}
                   </strong>
@@ -282,7 +282,7 @@ export const EventDetailPage: React.FC = () => {
                   <Users className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-semibold">Organizer</span>
+                  <span className="text-slate-600 block font-semibold">Organizer</span>
                   <strong className="text-slate-800 text-sm">
                     {isBn ? event.organizerBn : event.organizer}
                   </strong>
@@ -300,7 +300,7 @@ export const EventDetailPage: React.FC = () => {
                 {isBn ? 'ক্যালেন্ডারে যোগ করুন (.ics)' : 'Add to Calendar (.ics)'}
               </Button>
 
-              <p className="text-[11px] text-slate-400 text-center">
+              <p className="text-[11px] text-slate-600 text-center">
                 /* [REPLACE WITH REAL CONTENT] Official JSTU Institutional Event */
               </p>
             </div>

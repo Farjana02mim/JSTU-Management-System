@@ -171,7 +171,7 @@ export const StudentNotificationsPage: React.FC = () => {
                       <p className="text-xs text-slate-600 leading-relaxed">
                         {isBn ? item.messageBn : item.message}
                       </p>
-                      <p className="text-[10px] text-slate-400 font-mono">
+                      <p className="text-[10px] text-slate-600 font-mono">
                         {new Date(item.timestamp).toLocaleString()}
                       </p>
                     </div>

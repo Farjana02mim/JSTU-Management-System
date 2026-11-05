@@ -205,7 +205,7 @@ export const ResearchPage: React.FC = () => {
                   <h2 className="text-2xl sm:text-3xl font-black">
                     Interdisciplinary Computing, Biotech & Sensor Laboratories
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-200 max-w-2xl leading-relaxed">
+                  <p className="text-xs sm:text-sm text-blue-100 max-w-2xl leading-relaxed">
                     Featuring high-performance computing clusters, aquaculture wet hatcheries, environmental spectroscopy benches, and automated microgrid simulators.
                   </p>
                 </div>
@@ -326,7 +326,7 @@ export const ResearchPage: React.FC = () => {
                       <span className="px-2 py-0.5 rounded font-mono font-bold text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200">
                         {pub.indexedIn}
                       </span>
-                      <span className="text-xs text-slate-400 font-mono">Year {pub.year}</span>
+                      <span className="text-xs text-slate-600 font-mono">Year {pub.year}</span>
                     </div>
                     <span className="text-xs text-slate-500 font-semibold font-mono">
                       Citations: {pub.citations}
@@ -366,7 +366,7 @@ export const ResearchPage: React.FC = () => {
                     </button>
 
                     <div className="flex items-center gap-3 font-mono text-[11px]">
-                      <span className="text-slate-400">DOI: {pub.doi}</span>
+                      <span className="text-slate-600">DOI: {pub.doi}</span>
                       <a
                         href={`https://doi.org/${pub.doi}`}
                         target="_blank"
@@ -397,10 +397,10 @@ export const ResearchPage: React.FC = () => {
               <h2 className="text-2xl sm:text-4xl font-black">
                 JSTU Journal of Science and Technology
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
                 A multidisciplinary international biannual journal published by Jashore Smart Technological University dedicated to original research in engineering, biology, applied mathematics, and environmental geosciences.
               </p>
-              <div className="flex flex-wrap gap-4 text-xs font-mono text-slate-300 pt-2 border-t border-white/10">
+              <div className="flex flex-wrap gap-4 text-xs font-mono text-slate-600 pt-2 border-t border-white/10">
                 <div>ISSN (Print): <strong>{jstuJournalData.issnPrint}</strong></div>
                 <div>ISSN (Online): <strong>{jstuJournalData.issnOnline}</strong></div>
                 <div>Current Issue: <strong>{jstuJournalData.volume}, {jstuJournalData.issue}</strong></div>
@@ -411,7 +411,7 @@ export const ResearchPage: React.FC = () => {
               <BookOpen className="w-12 h-12 text-amber-300" />
               <div className="text-xs">
                 <span className="block font-bold">Call for Papers &bull; Vol. 13 No. 1</span>
-                <span className="text-slate-300">Submission Deadline: Dec 31, 2026</span>
+                <span className="text-slate-600">Submission Deadline: Dec 31, 2026</span>
               </div>
               <Button
                 variant="primary"
@@ -474,7 +474,7 @@ export const ResearchPage: React.FC = () => {
               <Card className="p-6 border border-[#E2E8F0] bg-white space-y-4">
                 <div className="border-b border-slate-100 pb-3">
                   <h3 className="text-base font-bold text-[#0F172A]">Editorial Advisory Board</h3>
-                  <span className="text-xs text-slate-400">Distinguished national and international academics</span>
+                  <span className="text-xs text-slate-600">Distinguished national and international academics</span>
                 </div>
 
                 <div className="space-y-3">

@@ -112,37 +112,37 @@ export const ContentPreviewModal: React.FC<ContentPreviewModalProps> = ({
           <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 pt-2">
             {item.publishDate && (
               <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-slate-400" /> Published: {item.publishDate}
+                <Calendar className="w-3.5 h-3.5 text-slate-600" /> Published: {item.publishDate}
               </span>
             )}
             {item.date && (
               <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-slate-400" /> Event Date: {item.date}
+                <Calendar className="w-3.5 h-3.5 text-slate-600" /> Event Date: {item.date}
               </span>
             )}
             {item.venue && (
               <span className="flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-slate-400" /> Venue: {item.venue}
+                <MapPin className="w-3.5 h-3.5 text-slate-600" /> Venue: {item.venue}
               </span>
             )}
             {item.author && (
               <span className="flex items-center gap-1">
-                <User className="w-3.5 h-3.5 text-slate-400" /> Author: {item.author}
+                <User className="w-3.5 h-3.5 text-slate-600" /> Author: {item.author}
               </span>
             )}
             {item.designation && (
               <span className="flex items-center gap-1 font-medium text-slate-700">
-                <User className="w-3.5 h-3.5 text-slate-400" /> {item.designation}
+                <User className="w-3.5 h-3.5 text-slate-600" /> {item.designation}
               </span>
             )}
             {item.email && (
               <span className="flex items-center gap-1">
-                <Mail className="w-3.5 h-3.5 text-slate-400" /> {item.email}
+                <Mail className="w-3.5 h-3.5 text-slate-600" /> {item.email}
               </span>
             )}
             {item.phone && (
               <span className="flex items-center gap-1">
-                <Phone className="w-3.5 h-3.5 text-slate-400" /> {item.phone}
+                <Phone className="w-3.5 h-3.5 text-slate-600" /> {item.phone}
               </span>
             )}
             {item.referenceNumber && (
@@ -162,7 +162,7 @@ export const ContentPreviewModal: React.FC<ContentPreviewModalProps> = ({
 
         {/* Safe Markdown Content Body */}
         <div className="space-y-4">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-600">
             Formatted Content (Safe React Rendered)
           </h3>
           <div className="prose prose-slate max-w-none text-slate-700">
@@ -171,7 +171,7 @@ export const ContentPreviewModal: React.FC<ContentPreviewModalProps> = ({
 
           {contentBodyBn && (
             <div className="pt-4 border-t border-slate-100">
-              <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+              <h4 className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
                 Bengali Version / বাংলা সংস্করণ
               </h4>
               <div className="prose prose-slate max-w-none text-slate-700 font-bangla">

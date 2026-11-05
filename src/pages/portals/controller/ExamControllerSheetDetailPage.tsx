@@ -340,7 +340,7 @@ export const ExamControllerSheetDetailPage: React.FC = () => {
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span className="font-medium">{actionSuccessMsg}</span>
             </div>
-            <button onClick={() => setActionSuccessMsg(null)} className="text-slate-400 hover:text-slate-600 text-xs">
+            <button onClick={() => setActionSuccessMsg(null)} className="text-slate-600 hover:text-slate-600 text-xs">
               &times;
             </button>
           </div>
@@ -352,7 +352,7 @@ export const ExamControllerSheetDetailPage: React.FC = () => {
               <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
               <span>{actionErrorMsg}</span>
             </div>
-            <button onClick={() => setActionErrorMsg(null)} className="text-slate-400 hover:text-slate-600 text-xs">
+            <button onClick={() => setActionErrorMsg(null)} className="text-slate-600 hover:text-slate-600 text-xs">
               &times;
             </button>
           </div>
@@ -393,7 +393,7 @@ export const ExamControllerSheetDetailPage: React.FC = () => {
 
             <div className="flex items-center gap-3">
               <div className="bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl text-center">
-                <span className="text-[10px] text-slate-400 uppercase font-bold block">Enrolled</span>
+                <span className="text-[10px] text-slate-600 uppercase font-bold block">Enrolled</span>
                 <span className="text-xl font-black font-mono text-slate-800">{detail.statistics.enrolledCount}</span>
               </div>
               <div className="bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-xl text-center">
@@ -535,7 +535,7 @@ export const ExamControllerSheetDetailPage: React.FC = () => {
                         </td>
                         <td className="py-2 px-3">
                           <span className="font-semibold text-slate-900 block">{st.name}</span>
-                          <span className="text-[10px] text-slate-400 font-mono">{st.email}</span>
+                          <span className="text-[10px] text-slate-600 font-mono">{st.email}</span>
                         </td>
                         <td className="py-2 px-2 text-center font-mono">{entry.attendance}</td>
                         <td className="py-2 px-2 text-center font-mono">{entry.classTests}</td>
@@ -577,7 +577,7 @@ export const ExamControllerSheetDetailPage: React.FC = () => {
             {detail.corrections.length === 0 ? (
               <Card padding="lg" className="text-center py-12">
                 <EmptyState
-                  icon={<RotateCcw className="w-8 h-8 text-slate-400" />}
+                  icon={<RotateCcw className="w-8 h-8 text-slate-600" />}
                   title={isBn ? 'কোনো সংশোধন আবেদন নেই' : 'No Correction Requests'}
                   description={
                     isBn
@@ -608,29 +608,29 @@ export const ExamControllerSheetDetailPage: React.FC = () => {
                         >
                           {corr.status}
                         </span>
-                        <span className="text-[11px] text-slate-400">
+                        <span className="text-[11px] text-slate-600">
                           Target Version: v{corr.versionNumber}
                         </span>
                       </div>
 
-                      <div className="text-[11px] text-slate-400 font-mono">
+                      <div className="text-[11px] text-slate-600 font-mono">
                         Requested: {new Date(corr.requestedAt).toLocaleString()}
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                       <div>
-                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Student</span>
+                        <span className="text-slate-600 block text-[10px] uppercase font-bold">Student</span>
                         <span className="font-bold text-slate-800">{corr.studentName} ({corr.studentId})</span>
                       </div>
                       <div>
-                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Field & Change</span>
+                        <span className="text-slate-600 block text-[10px] uppercase font-bold">Field & Change</span>
                         <span className="font-mono font-bold text-[#1E3A8A]">
                           {corr.field}: {corr.originalValue} &rarr; <span className="text-emerald-600">{corr.newValue}</span>
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Requester</span>
+                        <span className="text-slate-600 block text-[10px] uppercase font-bold">Requester</span>
                         <span className="text-slate-700">{corr.requesterName} ({corr.requesterRole})</span>
                       </div>
                     </div>
@@ -711,12 +711,12 @@ export const ExamControllerSheetDetailPage: React.FC = () => {
                     <span className="font-mono font-bold text-slate-800">
                       Version Snapshot v{v.versionNumber}
                     </span>
-                    <span className="text-slate-400 font-mono text-[11px]">
+                    <span className="text-slate-600 font-mono text-[11px]">
                       Created: {new Date(v.createdAt).toLocaleString()}
                     </span>
                   </div>
                   <p className="text-xs text-slate-600">{v.createdReason}</p>
-                  <p className="text-[11px] text-slate-400 font-mono">
+                  <p className="text-[11px] text-slate-600 font-mono">
                     Approved by: {v.approvedBy} &bull; Student Records in Snapshot: {Object.keys(v.entries).length}
                   </p>
                 </Card>
@@ -739,11 +739,11 @@ export const ExamControllerSheetDetailPage: React.FC = () => {
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <span className="font-mono font-bold text-[#1E3A8A]">{audit.action}</span>
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-[11px] text-slate-600">
                         {audit.fromStatus} &rarr; <span className="font-bold text-slate-700">{audit.toStatus}</span>
                       </span>
                     </div>
-                    <span className="text-[11px] text-slate-400 font-mono">
+                    <span className="text-[11px] text-slate-600 font-mono">
                       {new Date(audit.timestamp).toLocaleString()}
                     </span>
                   </div>

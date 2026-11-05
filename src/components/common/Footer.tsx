@@ -100,7 +100,7 @@ export const Footer: React.FC = () => {
                     className="hover:text-[#1E3A8A] transition-colors flex items-center justify-between group"
                   >
                     <span className="truncate">{isBn ? d.nameBn : d.name}</span>
-                    <span className="font-mono text-[10px] text-slate-400 group-hover:text-[#1E3A8A] shrink-0 ml-1">
+                    <span className="font-mono text-[10px] text-slate-600 group-hover:text-[#1E3A8A] shrink-0 ml-1">
                       {d.code}
                     </span>
                   </Link>
@@ -352,11 +352,16 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* 4. Bottom Legal & Compliance Strip */}
-      <div className="border-t border-[#E2E8F0] bg-[#F8FAFC] py-4 px-4 sm:px-8 text-xs text-slate-500">
+      <div className="border-t border-[#E2E8F0] bg-[#F8FAFC] py-4 px-4 sm:px-8 text-xs text-slate-600">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
-          <p className="text-center sm:text-left">
-            &copy; {new Date().getFullYear()} Jamalpur Science & Technology University (JSTU). All Rights Reserved.
-          </p>
+          <div className="text-center sm:text-left space-y-1">
+            <p>
+              &copy; {new Date().getFullYear()} Jamalpur Science & Technology University (JSTU). All Rights Reserved.
+            </p>
+            <p className="font-semibold text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded inline-block">
+              Student project / Prototype - not the official JSTU website
+            </p>
+          </div>
 
           <div className="flex items-center gap-3">
             <span>UGC &amp; Statutory Charter Compliant</span>

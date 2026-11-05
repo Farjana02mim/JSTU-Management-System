@@ -73,11 +73,11 @@ export const StaticPageViewPage: React.FC = () => {
           </h1>
           <div className="flex items-center gap-4 text-xs text-slate-500 pt-1">
             <span className="flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-slate-400" />
+              <Calendar className="w-3.5 h-3.5 text-slate-600" />
               <span>{isBn ? 'হালনাগাদ:' : 'Updated:'} {page.updatedAt.split('T')[0]}</span>
             </span>
             <span className="flex items-center gap-1">
-              <User className="w-3.5 h-3.5 text-slate-400" />
+              <User className="w-3.5 h-3.5 text-slate-600" />
               <span>{isBn ? 'অনুমোদন:' : 'Authorized by:'} {page.updatedBy}</span>
             </span>
           </div>

@@ -227,7 +227,7 @@ export const AcademicsPage: React.FC = () => {
 
                     {/* Departments clickable badges */}
                     <div className="pt-1 space-y-1.5">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                         {isBn ? 'বিভাগসমূহ:' : 'Departments:'}
                       </span>
                       <div className="flex flex-wrap gap-1.5">
@@ -239,7 +239,7 @@ export const AcademicsPage: React.FC = () => {
                           >
                             <span className="font-mono font-bold text-[11px] text-[#1E3A8A]">{dept.code}</span>
                             <span className="truncate max-w-[120px]">{isBn ? dept.nameBn.split(' ')[0] : dept.name.replace('Department of ', '')}</span>
-                            <ArrowRight className="w-2.5 h-2.5 text-slate-400" />
+                            <ArrowRight className="w-2.5 h-2.5 text-slate-600" />
                           </Link>
                         ))}
                       </div>

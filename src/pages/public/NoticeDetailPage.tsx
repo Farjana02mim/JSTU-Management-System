@@ -151,7 +151,7 @@ export const NoticeDetailPage: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {relatedNotices.map((rel) => (
               <Card key={rel.id} padding="sm" className="space-y-2">
-                <span className="text-[11px] font-mono text-slate-400">{rel.publishDate}</span>
+                <span className="text-[11px] font-mono text-slate-600">{rel.publishDate}</span>
                 <h3 className="text-xs font-bold text-[#0F172A] line-clamp-2">
                   <Link to={`/notices/${rel.id}`} className="hover:text-[#1E3A8A]">
                     {isBn ? rel.titleBn : rel.title}

@@ -58,7 +58,7 @@ export const WorkflowStepper: React.FC<WorkflowStepperProps> = ({
                         ? 'bg-amber-500 text-white shadow-xs'
                         : isCurrent
                         ? 'bg-[#1E3A8A] text-white ring-4 ring-blue-100'
-                        : 'bg-slate-100 text-slate-400 border border-slate-300'
+                        : 'bg-slate-100 text-slate-600 border border-slate-300'
                     }`}
                   >
                     {isPast ? (
@@ -86,12 +86,12 @@ export const WorkflowStepper: React.FC<WorkflowStepperProps> = ({
                           ? 'text-red-700'
                           : isNeedsCorrection
                           ? 'text-amber-800'
-                          : 'text-slate-400'
+                          : 'text-slate-600'
                       }`}
                     >
                       {isBn ? step.titleBn : step.title}
                     </span>
-                    <span className="text-[10px] text-slate-400 block font-mono">
+                    <span className="text-[10px] text-slate-600 block font-mono">
                       {isPast
                         ? (isBn ? 'সম্পন্ন' : 'Endorsed')
                         : isFailed

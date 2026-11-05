@@ -23,11 +23,11 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
 
   return (
     <nav aria-label="Breadcrumb" className="py-3 px-1">
-      <ol className="flex flex-wrap items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+      <ol className="flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
         <li>
           <Link
             to="/"
-            className="flex items-center gap-1 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+            className="flex items-center gap-1 text-slate-500 hover:text-slate-800 dark:hover:text-slate-600 transition-colors"
           >
             <Home className="w-3.5 h-3.5" />
             <span>{isBn ? 'মূলপাতা' : 'Home'}</span>
@@ -39,15 +39,15 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
 
           return (
             <li key={idx} className="flex items-center gap-1.5">
-              <ChevronRight className="w-3 h-3 text-slate-400" aria-hidden="true" />
+              <ChevronRight className="w-3 h-3 text-slate-600" aria-hidden="true" />
               {isLast || !item.to ? (
-                <span className="font-semibold text-slate-800 dark:text-slate-200 truncate max-w-xs" aria-current="page">
+                <span className="font-semibold text-slate-800 truncate max-w-xs" aria-current="page">
                   {item.label}
                 </span>
               ) : (
                 <Link
                   to={item.to}
-                  className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors truncate max-w-xs"
+                  className="hover:text-slate-800 dark:hover:text-slate-600 transition-colors truncate max-w-xs"
                 >
                   {item.label}
                 </Link>

@@ -52,7 +52,7 @@ export const ProfilePage: React.FC = () => {
     <DashboardLayout portalTitle={isBn ? 'প্রোফাইল সেটিংস' : 'Profile Settings'}>
       <div className="max-w-3xl space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+          <h1 className="text-2xl font-bold text-slate-900">
             {isBn ? 'আমার ব্যবহারকারী প্রোফাইল' : 'User Profile & Security'}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -62,12 +62,12 @@ export const ProfilePage: React.FC = () => {
 
         {/* Profile Card */}
         <Card padding="lg" className="space-y-4">
-          <div className="flex items-center gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div className="flex items-center gap-4 border-b border-slate-100 pb-4">
             <div className="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 flex items-center justify-center font-bold text-xl uppercase">
               {user?.displayName ? user.displayName[0] : 'U'}
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+              <h2 className="text-lg font-bold text-slate-900">
                 {profile?.fullNameBn || user?.displayName || 'Institutional User'}
               </h2>
               <p className="text-xs text-slate-500">{user?.email}</p>
@@ -76,12 +76,12 @@ export const ProfilePage: React.FC = () => {
                   ROLE: {role?.replace('_', ' ')}
                 </span>
                 {claims?.studentId && (
-                  <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-[10px] rounded">
+                  <span className="px-2 py-0.5 bg-slate-100 text-slate-700 font-mono text-[10px] rounded">
                     ID: {claims.studentId}
                   </span>
                 )}
                 {claims?.departmentId && (
-                  <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-[10px] rounded">
+                  <span className="px-2 py-0.5 bg-slate-100 text-slate-700 font-mono text-[10px] rounded">
                     DEPT: {claims.departmentId}
                   </span>
                 )}
@@ -89,17 +89,17 @@ export const ProfilePage: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600 dark:text-slate-300">
-            <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl space-y-0.5">
-              <span className="text-slate-400 block text-[11px]">Email Verification Status</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600">
+            <div className="p-3 bg-slate-50 /60 rounded-xl space-y-0.5">
+              <span className="text-slate-600 block text-[11px]">Email Verification Status</span>
               <span className="font-semibold text-emerald-600 flex items-center gap-1">
                 <CheckCircle2 className="w-3.5 h-3.5" /> Verified
               </span>
             </div>
 
-            <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl space-y-0.5">
-              <span className="text-slate-400 block text-[11px]">Multi-Factor Authentication (MFA)</span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+            <div className="p-3 bg-slate-50 /60 rounded-xl space-y-0.5">
+              <span className="text-slate-600 block text-[11px]">Multi-Factor Authentication (MFA)</span>
+              <span className="font-semibold text-slate-800">
                 {claims?.mfaEnforced ? 'Mandatory & Active' : 'Not Required for Student Role'}
               </span>
             </div>
@@ -109,7 +109,7 @@ export const ProfilePage: React.FC = () => {
         {/* Change Password with Re-Authentication Card */}
         <Card padding="lg" className="space-y-4">
           <div className="space-y-1">
-            <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <KeyRound className="w-4 h-4 text-blue-600" />
               <span>Change Portal Password (Re-Auth Required)</span>
             </h2>
@@ -178,7 +178,7 @@ export const ProfilePage: React.FC = () => {
         {/* Multi-Factor Authentication (MFA) Enrollment & Status Card */}
         <Card padding="lg" className="space-y-4">
           <div className="space-y-1">
-            <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>Multi-Factor Authentication (MFA) Enrollment</span>
             </h2>
@@ -187,20 +187,20 @@ export const ProfilePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl space-y-2 text-xs">
+          <div className="p-3 bg-slate-50 /60 rounded-xl space-y-2 text-xs">
             <div className="flex items-center justify-between">
-              <span className="font-semibold text-slate-700 dark:text-slate-200">Enforcement Tier:</span>
+              <span className="font-semibold text-slate-700">Enforcement Tier:</span>
               <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase font-mono ${
                 claims?.mfaEnforced
                   ? 'bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300'
-                  : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+                  : 'bg-slate-200  text-slate-700 '
               }`}>
                 {claims?.mfaEnforced ? 'Mandatory Staff MFA' : 'Optional Student Tier'}
               </span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="font-semibold text-slate-700 dark:text-slate-200">Registered Second Factor:</span>
+              <span className="font-semibold text-slate-700">Registered Second Factor:</span>
               <span className="font-mono text-emerald-600 font-bold">
                 {claims?.mfaEnforced ? 'TOTP Authenticator & SMS Verified' : 'None Enrolled'}
               </span>

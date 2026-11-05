@@ -400,7 +400,7 @@ export const ChairmanDashboard: React.FC = () => {
           ) : filteredSheets.length === 0 ? (
             <div className="py-12">
               <EmptyState
-                icon={<Award className="w-12 h-12 text-slate-300" />}
+                icon={<Award className="w-12 h-12 text-slate-600" />}
                 title={isBn ? 'কোনো ফলাফল শিট পাওয়া যায়নি' : 'No Result Sheets Found'}
                 description={
                   isBn
@@ -437,7 +437,7 @@ export const ChairmanDashboard: React.FC = () => {
                           <span className="text-xs text-[#0F172A] font-medium line-clamp-1">
                             {isBn ? sheet.courseTitleBn : sheet.courseTitle}
                           </span>
-                          <span className="text-[10px] text-slate-400">
+                          <span className="text-[10px] text-slate-600">
                             {sheet.semester} &bull; {sheet.credits} Credits
                           </span>
                         </div>
@@ -446,7 +446,7 @@ export const ChairmanDashboard: React.FC = () => {
                       <td className="py-4 px-4">
                         <div className="flex flex-col">
                           <span className="font-semibold text-slate-900">{sheet.instructorName}</span>
-                          <span className="text-[11px] text-slate-400">{sheet.instructorEmail}</span>
+                          <span className="text-[11px] text-slate-600">{sheet.instructorEmail}</span>
                         </div>
                       </td>
 

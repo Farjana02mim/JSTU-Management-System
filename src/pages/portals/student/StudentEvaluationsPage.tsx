@@ -292,7 +292,7 @@ export const StudentEvaluationsPage: React.FC = () => {
                 <span className="font-semibold text-sm">
                   {currentWindowObj.semester} ({currentWindowObj.academicSession})
                 </span>
-                <span className="mx-2 text-xs opacity-60">|</span>
+                <span className="mx-2 text-xs text-blue-200">|</span>
                 <span className="text-xs">
                   {isBn ? 'সময়সীমা:' : 'Closing Date:'}{' '}
                   {new Date(currentWindowObj.endDate).toLocaleDateString(undefined, {
@@ -453,7 +453,7 @@ export const StudentEvaluationsPage: React.FC = () => {
                               className={`p-1.5 rounded-md transition-colors cursor-pointer ${
                                 isSelected
                                   ? 'text-amber-500 hover:text-amber-600 bg-amber-50'
-                                  : 'text-slate-300 hover:text-slate-400 bg-slate-50'
+                                  : 'text-slate-600 hover:text-slate-600 bg-slate-50'
                               }`}
                               title={`${starValue} of 5`}
                               aria-label={`Rate ${starValue} out of 5 for ${item.title}`}

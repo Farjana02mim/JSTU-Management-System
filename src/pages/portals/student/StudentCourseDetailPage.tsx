@@ -115,7 +115,7 @@ export const StudentCourseDetailPage: React.FC = () => {
 
                 <div className="flex items-center gap-3">
                   <div className="text-right">
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block">
+                    <span className="text-[10px] uppercase font-bold text-slate-600 block">
                       {isBn ? 'উপস্থিতি' : 'Attendance'}
                     </span>
                     <span
@@ -143,7 +143,7 @@ export const StudentCourseDetailPage: React.FC = () => {
                   <span>{course.instructor}</span>
                 </div>
                 <div className="flex items-center gap-1.5 font-mono text-[11px]">
-                  <Mail className="w-3.5 h-3.5 text-slate-400" />
+                  <Mail className="w-3.5 h-3.5 text-slate-600" />
                   <span>{course.instructorEmail}</span>
                 </div>
               </div>
@@ -229,7 +229,7 @@ export const StudentCourseDetailPage: React.FC = () => {
                             <h4 className="text-xs font-bold text-[#0F172A] leading-snug line-clamp-1">
                               {mat.title}
                             </h4>
-                            <p className="text-[11px] text-slate-400 font-mono mt-0.5">
+                            <p className="text-[11px] text-slate-600 font-mono mt-0.5">
                               {mat.fileSize} &bull; {isBn ? 'আপলোড:' : 'Uploaded:'} {mat.uploadDate}
                             </p>
                           </div>
@@ -267,10 +267,10 @@ export const StudentCourseDetailPage: React.FC = () => {
                     <Card key={ann.id} padding="md" className="space-y-2 bg-white border-[#E2E8F0]">
                       <div className="flex items-center justify-between text-xs">
                         <span className="font-bold text-[#0F172A]">{ann.title}</span>
-                        <span className="text-slate-400 font-mono text-[11px]">{ann.date}</span>
+                        <span className="text-slate-600 font-mono text-[11px]">{ann.date}</span>
                       </div>
                       <p className="text-xs text-slate-600 leading-relaxed">{ann.content}</p>
-                      <p className="text-[10px] text-slate-400 italic">Posted by {ann.author}</p>
+                      <p className="text-[10px] text-slate-600 italic">Posted by {ann.author}</p>
                     </Card>
                   ))
                 )}

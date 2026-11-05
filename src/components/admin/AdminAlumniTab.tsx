@@ -188,7 +188,7 @@ export const AdminAlumniTab: React.FC = () => {
           </div>
           <button
             onClick={() => setFeedback(null)}
-            className="text-slate-400 hover:text-slate-600 font-bold ml-4"
+            className="text-slate-600 hover:text-slate-600 font-bold ml-4"
           >
             ×
           </button>
@@ -245,7 +245,7 @@ export const AdminAlumniTab: React.FC = () => {
 
         {/* Search bar */}
         <div className="relative w-full sm:w-64 pb-2">
-          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-3.5 h-3.5 text-slate-600 absolute left-3 top-2.5" />
           <input
             type="text"
             value={searchQuery}
@@ -297,7 +297,7 @@ export const AdminAlumniTab: React.FC = () => {
                 <tbody className="divide-y divide-slate-100">
                   {filteredRequests.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="py-8 text-center text-slate-400">
+                      <td colSpan={6} className="py-8 text-center text-slate-600">
                         {isBn ? 'কোনো অ্যালামনাই নিবন্ধন আবেদন পাওয়া যায়নি।' : 'No alumni registration requests matching your filter.'}
                       </td>
                     </tr>
@@ -402,7 +402,7 @@ export const AdminAlumniTab: React.FC = () => {
                 <tbody className="divide-y divide-slate-100">
                   {filteredProfiles.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="py-8 text-center text-slate-400">
+                      <td colSpan={6} className="py-8 text-center text-slate-600">
                         {isBn ? 'কোনো অ্যালামনাই প্রোফাইল খুঁজে পাওয়া যায়নি।' : 'No alumni profiles found.'}
                       </td>
                     </tr>
@@ -440,7 +440,7 @@ export const AdminAlumniTab: React.FC = () => {
                           {prof.isSpotlight ? (
                             <Badge variant="success">Featured</Badge>
                           ) : (
-                            <span className="text-slate-400 text-[11px]">Standard</span>
+                            <span className="text-slate-600 text-[11px]">Standard</span>
                           )}
                         </td>
                         <td className="py-3.5 px-4 text-right">
@@ -480,7 +480,7 @@ export const AdminAlumniTab: React.FC = () => {
                     <tr key={don.id} className="hover:bg-slate-50/70 transition">
                       <td className="py-3.5 px-4 font-mono">
                         <div className="font-bold text-blue-900">{don.receiptNo}</div>
-                        <div className="text-[10px] text-slate-400">Trx: {don.transactionId}</div>
+                        <div className="text-[10px] text-slate-600">Trx: {don.transactionId}</div>
                       </td>
                       <td className="py-3.5 px-4">
                         <div className="font-bold text-slate-800">
@@ -535,7 +535,7 @@ export const AdminAlumniTab: React.FC = () => {
               </h3>
               <button
                 onClick={() => setSelectedReq(null)}
-                className="text-slate-400 hover:text-slate-600 font-bold"
+                className="text-slate-600 hover:text-slate-600 font-bold"
               >
                 ✕
               </button>
@@ -580,10 +580,10 @@ export const AdminAlumniTab: React.FC = () => {
               <div className="space-y-1">
                 <span className="text-slate-500 block text-[10px] uppercase font-bold">{isBn ? 'অনুরোধকৃত গোপনীয়তা প্রোফাইল' : 'Requested Privacy Preferences'}</span>
                 <div className="grid grid-cols-2 gap-1.5 text-[11px] text-slate-600">
-                  <div>Show Email: <strong className={selectedReq.privacy.showEmail ? 'text-emerald-600' : 'text-slate-400'}>{selectedReq.privacy.showEmail ? 'YES' : 'NO'}</strong></div>
-                  <div>Show Phone: <strong className={selectedReq.privacy.showPhone ? 'text-emerald-600' : 'text-slate-400'}>{selectedReq.privacy.showPhone ? 'YES' : 'NO'}</strong></div>
-                  <div>Show Company: <strong className={selectedReq.privacy.showCurrentCompany ? 'text-emerald-600' : 'text-slate-400'}>{selectedReq.privacy.showCurrentCompany ? 'YES' : 'NO'}</strong></div>
-                  <div>Show LinkedIn: <strong className={selectedReq.privacy.showLinkedin ? 'text-emerald-600' : 'text-slate-400'}>{selectedReq.privacy.showLinkedin ? 'YES' : 'NO'}</strong></div>
+                  <div>Show Email: <strong className={selectedReq.privacy.showEmail ? 'text-emerald-600' : 'text-slate-600'}>{selectedReq.privacy.showEmail ? 'YES' : 'NO'}</strong></div>
+                  <div>Show Phone: <strong className={selectedReq.privacy.showPhone ? 'text-emerald-600' : 'text-slate-600'}>{selectedReq.privacy.showPhone ? 'YES' : 'NO'}</strong></div>
+                  <div>Show Company: <strong className={selectedReq.privacy.showCurrentCompany ? 'text-emerald-600' : 'text-slate-600'}>{selectedReq.privacy.showCurrentCompany ? 'YES' : 'NO'}</strong></div>
+                  <div>Show LinkedIn: <strong className={selectedReq.privacy.showLinkedin ? 'text-emerald-600' : 'text-slate-600'}>{selectedReq.privacy.showLinkedin ? 'YES' : 'NO'}</strong></div>
                 </div>
               </div>
             </div>

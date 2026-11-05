@@ -312,9 +312,9 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
   return (
     <Card padding="md" className="space-y-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
         <div>
-          <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
             <UserCheck className="w-4 h-4 text-blue-600" />
             <span>{isBn ? 'শিক্ষার্থী অ্যাকাউন্ট আবেদন রেজিস্ট্রি' : 'Student Account Requests & Verification'}</span>
             <span className="text-[10px] bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200 px-2 py-0.5 rounded-full font-mono font-bold">
@@ -344,16 +344,16 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
             <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
             <span>{actionError}</span>
           </div>
-          <button onClick={() => setActionError(null)} className="text-slate-400 hover:text-slate-600 font-bold">
+          <button onClick={() => setActionError(null)} className="text-slate-600 hover:text-slate-600 font-bold">
             &times;
           </button>
         </div>
       )}
 
       {/* Search and Filters Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-slate-50 /40 p-3 rounded-xl border border-slate-200">
         <div>
-          <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
+          <label className="block text-[11px] font-bold text-slate-600 mb-1">
             {isBn ? 'অনুসন্ধান' : 'Search'}
           </label>
           <div className="relative">
@@ -362,13 +362,13 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
               placeholder={isBn ? 'নাম, আইডি, ইমেইল বা রেফ...' : 'Name, ID, email or ref...'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              leftIcon={<Search className="w-3.5 h-3.5 text-slate-400" />}
+              leftIcon={<Search className="w-3.5 h-3.5 text-slate-600" />}
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
+          <label className="block text-[11px] font-bold text-slate-600 mb-1">
             {isBn ? 'অবস্থা ফিল্টার' : 'Status Filter'}
           </label>
           <Select
@@ -385,7 +385,7 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
         </div>
 
         <div>
-          <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
+          <label className="block text-[11px] font-bold text-slate-600 mb-1">
             {isBn ? 'বিভাগ ফিল্টার (৭টি বিভাগ)' : 'Department Filter (7 Depts)'}
           </label>
           <Select
@@ -402,7 +402,7 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
         </div>
 
         <div>
-          <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-400 mb-1">
+          <label className="block text-[11px] font-bold text-slate-600 mb-1">
             {isBn ? 'সেশন ফিল্টার' : 'Session / Batch Filter'}
           </label>
           <Select
@@ -422,7 +422,7 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
       {/* Requests Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs">
-          <thead className="bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-700">
+          <thead className="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
             <tr>
               <th className="py-2.5 px-3">{isBn ? 'রেফারেন্স ও তারিখ' : 'Reference & Date'}</th>
               <th className="py-2.5 px-3">{isBn ? 'শিক্ষার্থী ও আইডি' : 'Student & ID'}</th>
@@ -435,9 +435,9 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
           <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
             {requests.length === 0 ? (
               <tr>
-                <td colSpan={6} className="py-8 text-center text-slate-500 dark:text-slate-400">
+                <td colSpan={6} className="py-8 text-center text-slate-500">
                   <div className="flex flex-col items-center justify-center gap-2">
-                    <UserCheck className="w-8 h-8 text-slate-400 stroke-[1.5]" />
+                    <UserCheck className="w-8 h-8 text-slate-600 stroke-[1.5]" />
                     <p className="font-medium">
                       {isBn ? 'কোনো অ্যাকাউন্ট আবেদন পাওয়া যায়নি' : 'No account requests found.'}
                     </p>
@@ -457,7 +457,7 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
                     <div className="font-mono font-bold text-blue-700 dark:text-blue-400">
                       {req.referenceNumber}
                     </div>
-                    <div className="text-[10px] text-slate-400">
+                    <div className="text-[10px] text-slate-600">
                       {new Date(req.createdAt).toLocaleDateString()} &bull;{' '}
                       {new Date(req.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </div>
@@ -465,22 +465,22 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
 
                   {/* Student & ID */}
                   <td className="py-2.5 px-3">
-                    <div className="font-bold text-slate-900 dark:text-slate-100">{req.fullName}</div>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    <div className="font-bold text-slate-900">{req.fullName}</div>
+                    <div className="text-[11px] font-mono text-slate-500">
                       ID: {req.studentId}
                     </div>
                   </td>
 
                   {/* Dept & Session */}
                   <td className="py-2.5 px-3">
-                    <span className="font-semibold text-slate-800 dark:text-slate-200">{req.department}</span>
+                    <span className="font-semibold text-slate-800">{req.department}</span>
                     <div className="text-[11px] text-slate-500">{req.session || '2023-2024'}</div>
                   </td>
 
                   {/* Email & Phone */}
                   <td className="py-2.5 px-3">
-                    <div className="text-slate-700 dark:text-slate-300 font-mono text-[11px]">{req.email}</div>
-                    {req.phone && <div className="text-[10px] text-slate-400">{req.phone}</div>}
+                    <div className="text-slate-700 font-mono text-[11px]">{req.email}</div>
+                    {req.phone && <div className="text-[10px] text-slate-600">{req.phone}</div>}
                   </td>
 
                   {/* Status Badge */}
@@ -539,47 +539,47 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
             )}
 
             {/* Applicant Summary Card */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 dark:bg-slate-800/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 /60 p-4 rounded-xl border border-slate-200">
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400">Reference Number</span>
+                <span className="text-[10px] uppercase font-bold text-slate-600">Reference Number</span>
                 <p className="font-mono font-bold text-blue-700 dark:text-blue-400 text-sm">
                   {selectedDetail.referenceNumber}
                 </p>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400">Application Status</span>
+                <span className="text-[10px] uppercase font-bold text-slate-600">Application Status</span>
                 <div>{getStatusBadge(selectedDetail.status)}</div>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400">Student Full Name</span>
-                <p className="font-semibold text-slate-900 dark:text-slate-100 text-sm">{selectedDetail.fullName}</p>
+                <span className="text-[10px] uppercase font-bold text-slate-600">Student Full Name</span>
+                <p className="font-semibold text-slate-900 text-sm">{selectedDetail.fullName}</p>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400">Student ID / Roll</span>
-                <p className="font-mono font-bold text-slate-800 dark:text-slate-200">{selectedDetail.studentId}</p>
+                <span className="text-[10px] uppercase font-bold text-slate-600">Student ID / Roll</span>
+                <p className="font-mono font-bold text-slate-800">{selectedDetail.studentId}</p>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400">Academic Department</span>
-                <p className="font-semibold text-slate-800 dark:text-slate-200">{selectedDetail.department}</p>
+                <span className="text-[10px] uppercase font-bold text-slate-600">Academic Department</span>
+                <p className="font-semibold text-slate-800">{selectedDetail.department}</p>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400">Session / Batch</span>
-                <p className="font-semibold text-slate-800 dark:text-slate-200">{selectedDetail.session || '2023-2024'}</p>
+                <span className="text-[10px] uppercase font-bold text-slate-600">Session / Batch</span>
+                <p className="font-semibold text-slate-800">{selectedDetail.session || '2023-2024'}</p>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400">Email Address</span>
-                <p className="font-mono text-slate-700 dark:text-slate-300">{selectedDetail.email}</p>
+                <span className="text-[10px] uppercase font-bold text-slate-600">Email Address</span>
+                <p className="font-mono text-slate-700">{selectedDetail.email}</p>
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400">Contact Phone</span>
-                <p className="text-slate-700 dark:text-slate-300">{selectedDetail.phone || 'Not provided'}</p>
+                <span className="text-[10px] uppercase font-bold text-slate-600">Contact Phone</span>
+                <p className="text-slate-700">{selectedDetail.phone || 'Not provided'}</p>
               </div>
             </div>
 
             {/* Applicant's Note */}
-            <div className="p-3 bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-xl space-y-1">
-              <span className="text-[10px] uppercase font-bold text-slate-400">Student Explanation / Note</span>
-              <p className="text-slate-700 dark:text-slate-300 italic whitespace-pre-wrap">
+            <div className="p-3 bg-slate-50 /40 border border-slate-200 rounded-xl space-y-1">
+              <span className="text-[10px] uppercase font-bold text-slate-600">Student Explanation / Note</span>
+              <p className="text-slate-700 italic whitespace-pre-wrap">
                 "{selectedDetail.note}"
               </p>
             </div>
@@ -613,13 +613,13 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
                     onChange={(e) => setVerificationChecked(e.target.checked)}
                     className="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
                   />
-                  <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                  <span className="text-xs font-semibold text-slate-800">
                     {isBn
                       ? 'বিশ্ববিদ্যালয় নথিপত্রের সাথে শিক্ষার্থীর আইডি ও তথ্য যাচাই করা হয়েছে (Student ID verified against university records)'
                       : 'Student ID verified against university records'}
                   </span>
                 </label>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 pl-6">
+                <p className="text-[10px] text-slate-500 pl-6">
                   {isBn
                     ? 'অনুমোদন নিশ্চিত করার আগে এই বক্সে টিক দেওয়া বাধ্যতামূলক। অনুমোদনের মাধ্যমে createUserAccount ক্লাউড ফাংশনের মাধ্যমে শুধুমাত্র student রোল প্রস্তুত হবে।'
                     : 'The admin must tick this verification box before Approve is enabled. Approving executes createUserAccount strictly for student role.'}
@@ -629,11 +629,11 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
 
             {/* Related Simulated Emails */}
             {relatedEmails.length > 0 && (
-              <div className="border border-slate-200 dark:border-slate-700 rounded-xl p-3 bg-slate-50 dark:bg-slate-800/40 space-y-2">
-                <div className="flex items-center gap-2 font-bold text-slate-700 dark:text-slate-300">
+              <div className="border border-slate-200 rounded-xl p-3 bg-slate-50 /40 space-y-2">
+                <div className="flex items-center gap-2 font-bold text-slate-700">
                   <Mail className="w-3.5 h-3.5 text-slate-500" />
                   <span>{isBn ? 'সিমুলেটেড ইমেইল লগ' : 'Simulated Email Notification Log'}</span>
-                  <span className="text-[10px] bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 px-1.5 py-0.5 rounded font-mono">
+                  <span className="text-[10px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-mono">
                     DEMO SIMULATION
                   </span>
                 </div>
@@ -643,19 +643,19 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
                     return (
                       <div
                         key={log.id}
-                        className="text-[11px] p-2.5 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2"
+                        className="text-[11px] p-2.5 bg-white rounded-lg border border-slate-200 space-y-2"
                       >
-                        <div className="flex items-center justify-between font-semibold text-slate-800 dark:text-slate-200">
+                        <div className="flex items-center justify-between font-semibold text-slate-800">
                           <span>{log.subject}</span>
-                          <span className="text-[10px] text-slate-400">
+                          <span className="text-[10px] text-slate-600">
                             {new Date(log.sentAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </span>
                         </div>
-                        <p className="text-[10px] text-slate-600 dark:text-slate-400 whitespace-pre-wrap leading-relaxed font-mono">
+                        <p className="text-[10px] text-slate-600 whitespace-pre-wrap leading-relaxed font-mono">
                           {log.body}
                         </p>
                         {tokenLinkMatch && (
-                          <div className="pt-2 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between gap-2 bg-blue-50/60 dark:bg-blue-950/20 p-2 rounded">
+                          <div className="pt-2 border-t border-slate-100 /60 flex items-center justify-between gap-2 bg-blue-50/60 dark:bg-blue-950/20 p-2 rounded">
                             <div className="truncate">
                               <span className="text-[10px] font-semibold text-blue-900 dark:text-blue-200 block">
                                 {isBn ? 'সক্রিয়করণ লিংক (ডেমো):' : 'Activation Link:'}
@@ -681,7 +681,7 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
             )}
 
             {/* Modal Actions */}
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-200">
               <Button
                 variant="secondary"
                 size="sm"
@@ -745,14 +745,14 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
           size="md"
         >
           <div className="space-y-4 text-xs">
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-slate-600">
               {isBn
                 ? 'আবেদনটি প্রত্যাখ্যান করার কারণ লিখুন। এটি শিক্ষার্থীর ট্র্যাকিং লগ ও সিমুলেটেড ইমেইলে সংরক্ষিত হবে।'
                 : `Please provide a mandatory reason for rejecting request ${selectedDetail.referenceNumber}. This reason will be logged in the immutable audit trail and dispatched to the student.`}
             </p>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 {isBn ? 'প্রত্যাখ্যানের কারণ (কমপক্ষে ৫ অক্ষর) *' : 'Rejection Reason (Minimum 5 characters) *'}
               </label>
               <textarea
@@ -765,11 +765,11 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
                     ? 'যেমন: প্রদত্ত রোল নম্বর বিশ্ববিদ্যালয় বর্তমান সেশনের ভর্তি তালিকার সাথে মিল নেই।'
                     : 'e.g. Student ID does not match current admission register for CSE 2023-2024 batch.'
                 }
-                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 p-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-red-600"
+                className="w-full rounded-xl border border-slate-300 bg-white p-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-red-600"
               />
             </div>
 
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex justify-end gap-2 pt-2 border-t border-slate-200">
               <Button variant="secondary" size="sm" onClick={() => setRejectionModalOpen(false)}>
                 {isBn ? 'বাতিল' : 'Cancel'}
               </Button>
@@ -796,14 +796,14 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
           size="md"
         >
           <div className="space-y-4 text-xs">
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-slate-600">
               {isBn
                 ? 'শিক্ষার্থীর কাছে প্রয়োজনীয় তথ্যের বিবরণ লিখুন (যেমন: সঠিক ভর্তি রোল বা বিভাগ সংক্রান্ত স্পষ্টীকরণ)।'
                 : `Specify what additional information or documents are needed for request ${selectedDetail.referenceNumber}.`}
             </p>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 {isBn ? 'রেজিস্ট্রার মন্তব্য বা নির্দেশনা (কমপক্ষে ৫ অক্ষর) *' : 'Reviewer Comment / Instructions (Min 5 chars) *'}
               </label>
               <textarea
@@ -816,11 +816,11 @@ export const AdminAccountRequestsTab: React.FC<AdminAccountRequestsTabProps> = (
                     ? 'যেমন: অনুগ্রহ করে আপনার মূল ভর্তি প্রশংসাপত্রের কপি নিয়ে সরাসরি রেজিস্ট্রার শাখায় যোগাযোগ করুন।'
                     : 'e.g. Please clarify your admission roll number or contact the academic office with your enrollment voucher.'
                 }
-                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 p-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-600"
+                className="w-full rounded-xl border border-slate-300 bg-white p-2.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-600"
               />
             </div>
 
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex justify-end gap-2 pt-2 border-t border-slate-200">
               <Button variant="secondary" size="sm" onClick={() => setMoreInfoModalOpen(false)}>
                 {isBn ? 'বাতিল' : 'Cancel'}
               </Button>

@@ -457,7 +457,7 @@ export const ContentManagementPage: React.FC = () => {
                   <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
                     Status: {store.managedVcMessage?.status.toUpperCase() || 'PUBLISHED'}
                   </span>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-slate-600">
                     Updated: {new Date(store.managedVcMessage?.updatedAt || '').toLocaleDateString()}
                   </span>
                 </div>
@@ -498,7 +498,7 @@ export const ContentManagementPage: React.FC = () => {
                   <h3 className="text-xl font-bold text-slate-900">{store.managedVcMessage?.vcName}</h3>
                   <p className="text-xs font-semibold text-emerald-700">{store.managedVcMessage?.designation}</p>
                   <p className="text-xs text-slate-500">{store.managedVcMessage?.officeLocation}</p>
-                  <p className="text-xs text-slate-400 font-mono">{store.managedVcMessage?.email}</p>
+                  <p className="text-xs text-slate-600 font-mono">{store.managedVcMessage?.email}</p>
                 </div>
               </div>
 
@@ -521,7 +521,7 @@ export const ContentManagementPage: React.FC = () => {
               <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
                 {/* Search */}
                 <div className="relative w-full sm:w-80">
-                  <Search className="absolute left-2.5 top-2.5 w-4 h-4 text-slate-400" />
+                  <Search className="absolute left-2.5 top-2.5 w-4 h-4 text-slate-600" />
                   <input
                     type="text"
                     value={searchQuery}
@@ -557,11 +557,11 @@ export const ContentManagementPage: React.FC = () => {
             {/* List of Content Items */}
             {currentSectionData.length === 0 ? (
               <div className="py-16 text-center bg-white rounded-xl border border-slate-200 p-8 space-y-3">
-                <FileText className="w-10 h-10 text-slate-300 mx-auto" />
+                <FileText className="w-10 h-10 text-slate-600 mx-auto" />
                 <h3 className="font-semibold text-slate-700 text-sm">
                   No {activeTab.replace('_', ' ')} items found
                 </h3>
-                <p className="text-xs text-slate-400 max-w-md mx-auto">
+                <p className="text-xs text-slate-600 max-w-md mx-auto">
                   {searchQuery || statusFilter !== 'all'
                     ? 'No records match the current search or status filter criteria.'
                     : `No content items have been added to ${activeTab.replace('_', ' ')} yet.`}

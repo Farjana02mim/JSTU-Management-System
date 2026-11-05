@@ -183,11 +183,11 @@ export const TeacherAnnouncementsPage: React.FC = () => {
                     {group.courseCode}
                   </span>
                   <h3 className="text-sm font-bold text-[#0F172A]">{group.courseTitle}</h3>
-                  <span className="text-xs text-slate-400">({group.announcements.length} posted)</span>
+                  <span className="text-xs text-slate-600">({group.announcements.length} posted)</span>
                 </div>
 
                 {group.announcements.length === 0 ? (
-                  <Card padding="md" className="text-center py-6 text-xs text-slate-400 border-[#E2E8F0] shadow-2xs">
+                  <Card padding="md" className="text-center py-6 text-xs text-slate-600 border-[#E2E8F0] shadow-2xs">
                     {isBn ? 'এই কোর্সে এখনও কোনো নোটিশ প্রকাশ করা হয়নি।' : 'No announcements published for this course yet.'}
                   </Card>
                 ) : (
@@ -196,13 +196,13 @@ export const TeacherAnnouncementsPage: React.FC = () => {
                       <Card key={ann.id} padding="md" className="border-[#E2E8F0] shadow-2xs space-y-2 hover:shadow-xs transition-shadow">
                         <div className="flex items-center justify-between text-xs">
                           <h4 className="font-bold text-[#0F172A] text-sm">{ann.title}</h4>
-                          <span className="text-[10px] text-slate-400 font-mono flex items-center gap-1">
+                          <span className="text-[10px] text-slate-600 font-mono flex items-center gap-1">
                             <Calendar className="w-3.5 h-3.5" />
                             <span>{ann.date}</span>
                           </span>
                         </div>
                         <p className="text-xs text-slate-600 leading-relaxed">{ann.content}</p>
-                        <div className="flex items-center justify-between pt-1 text-[11px] text-slate-400 border-t border-slate-100">
+                        <div className="flex items-center justify-between pt-1 text-[11px] text-slate-600 border-t border-slate-100">
                           <span>Author: {ann.author}</span>
                           <span className="text-emerald-700 font-semibold flex items-center gap-1">
                             <CheckCircle2 className="w-3 h-3" />

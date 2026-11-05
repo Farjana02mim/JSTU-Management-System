@@ -471,7 +471,7 @@ export const TeacherAttendancePage: React.FC = () => {
                       ? `মোট অনুষ্ঠিত ক্লাসের সংখ্যা: ${report.totalSessions}`
                       : `Total recorded lecture sessions: ${report.totalSessions}`}
                   </span>
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-slate-600">
                     {isBn ? 'ইউজিসি মানদণ্ডে ৭৫% বাধ্যতামূলক' : 'UGC standard: >=75% mandatory for finals'}
                   </span>
                 </div>
@@ -492,7 +492,7 @@ export const TeacherAttendancePage: React.FC = () => {
                         <tr key={st.studentId} className="hover:bg-slate-50 transition-colors">
                           <td className="py-3 px-4">
                             <div className="font-bold text-[#0F172A]">{isBn ? st.nameBn : st.name}</div>
-                            <div className="text-[10px] font-mono text-slate-400">{st.studentId}</div>
+                            <div className="text-[10px] font-mono text-slate-600">{st.studentId}</div>
                           </td>
                           <td className="py-3 px-4 text-center font-mono font-bold text-emerald-700">
                             {st.attended}

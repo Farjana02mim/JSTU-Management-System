@@ -386,7 +386,7 @@ export const AcademicCalendarPage: React.FC = () => {
                               ? 'text-[#1E3A8A]'
                               : hasEvents
                               ? 'text-[#0F172A]'
-                              : 'text-slate-400'
+                              : 'text-slate-600'
                           }`}
                         >
                           {dayNum}
@@ -425,7 +425,7 @@ export const AcademicCalendarPage: React.FC = () => {
               <Card padding="lg" className="space-y-4 bg-slate-50 border border-[#E2E8F0]">
                 <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2">
                   <div className="space-y-0.5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                       {isBn ? 'নির্বাচিত তারিখ' : 'Selected Date'}
                     </span>
                     <h3 className="text-base font-bold text-[#0F172A]">
@@ -465,7 +465,7 @@ export const AcademicCalendarPage: React.FC = () => {
                           >
                             {isBn ? evt.categoryBn : evt.category}
                           </span>
-                          <span className="text-[10px] text-slate-400 font-mono">
+                          <span className="text-[10px] text-slate-600 font-mono">
                             {isBn ? evt.termBn : evt.term}
                           </span>
                         </div>
@@ -533,7 +533,7 @@ export const AcademicCalendarPage: React.FC = () => {
 
               {/* Search box */}
               <div className="relative w-full md:w-72">
-                <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-600" />
                 <input
                   type="text"
                   placeholder={isBn ? 'ইভেন্ট বা তারিখ খুঁজুন...' : 'Search milestone or date...'}
@@ -601,7 +601,7 @@ export const AcademicCalendarPage: React.FC = () => {
                           {isBn ? evt.categoryBn : evt.category}
                         </span>
                         <span>·</span>
-                        <span className="text-slate-400">{isBn ? evt.termBn : evt.term}</span>
+                        <span className="text-slate-600">{isBn ? evt.termBn : evt.term}</span>
                         <span className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-mono">
                           [REPLACE]
                         </span>

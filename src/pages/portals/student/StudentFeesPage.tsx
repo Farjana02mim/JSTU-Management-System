@@ -134,7 +134,7 @@ export const StudentFeesPage: React.FC = () => {
                 <div className="text-2xl font-extrabold text-[#0F172A] font-mono tabular-nums">
                   ৳{feeData.totalPayable.toLocaleString()}
                 </div>
-                <p className="text-[11px] text-slate-400">{feeData.currentSemester}</p>
+                <p className="text-[11px] text-slate-600">{feeData.currentSemester}</p>
               </Card>
 
               <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-2xs">
@@ -150,7 +150,7 @@ export const StudentFeesPage: React.FC = () => {
                 <div className={`text-2xl font-extrabold font-mono tabular-nums ${feeData.totalDue > 0 ? 'text-red-600' : 'text-slate-700'}`}>
                   ৳{feeData.totalDue.toLocaleString()}
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-600">
                   {feeData.totalDue > 0 ? (isBn ? 'পরিশোধের শেষ সময়: ২০ অক্টোবর ২০২৬' : 'Due Date: 20 Oct 2026') : (isBn ? 'সকল ফি পরিশোধিত' : 'Zero Balance')}
                 </p>
               </Card>
@@ -162,7 +162,7 @@ export const StudentFeesPage: React.FC = () => {
                 <h2 className="text-base font-bold text-[#0F172A]">
                   {isBn ? 'ইনভয়েস তালিকা ও লেনদেন' : 'Invoices & Receipts'}
                 </h2>
-                <span className="text-xs text-slate-400 font-mono">
+                <span className="text-xs text-slate-600 font-mono">
                   {feeData.invoices.length} {isBn ? 'টি ইনভয়েস' : 'Invoices'}
                 </span>
               </div>
@@ -335,7 +335,7 @@ export const StudentFeesPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] font-mono text-slate-400 block">RECEIPT VOUCHER</span>
+                    <span className="text-[10px] font-mono text-slate-600 block">RECEIPT VOUCHER</span>
                     <span className="font-mono font-bold text-xs text-[#1E3A8A]">{receiptInvoice.invoiceNumber}</span>
                   </div>
                 </div>
@@ -343,19 +343,19 @@ export const StudentFeesPage: React.FC = () => {
                 {/* Student Details */}
                 <div className="grid grid-cols-2 gap-2 text-[11px] py-1">
                   <div>
-                    <span className="text-slate-400 block">Student Name:</span>
+                    <span className="text-slate-600 block">Student Name:</span>
                     <span className="font-bold text-[#0F172A]">{profile?.fullName || user?.displayName}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">Student ID:</span>
+                    <span className="text-slate-600 block">Student ID:</span>
                     <span className="font-bold font-mono text-[#0F172A]">JSTU2026001</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">Department:</span>
+                    <span className="text-slate-600 block">Department:</span>
                     <span className="font-bold text-[#0F172A]">Computer Science & Engineering</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">Session / Semester:</span>
+                    <span className="text-slate-600 block">Session / Semester:</span>
                     <span className="font-bold text-[#0F172A]">2023-2024 &bull; 6th Semester</span>
                   </div>
                 </div>

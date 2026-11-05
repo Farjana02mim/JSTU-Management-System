@@ -144,7 +144,7 @@ export const FacultiesPage: React.FC = () => {
         </div>
 
         <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+          <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-600" />
           <input
             type="text"
             placeholder={isBn ? 'অনুষদ বা বিভাগ খুঁজুন...' : 'Search faculties or codes...'}
@@ -232,7 +232,7 @@ export const FacultiesPage: React.FC = () => {
                       <span className="text-xs font-mono font-bold text-[#1E3A8A] bg-[#EFF6FF] px-2.5 py-0.5 rounded-md">
                         Faculty {fIndex + 1}
                       </span>
-                      <span className="text-xs text-slate-400">·</span>
+                      <span className="text-xs text-slate-600">·</span>
                       <span className="text-xs font-semibold text-slate-500">
                         {faculty.departmentCodes.join(', ')}
                       </span>
@@ -255,7 +255,7 @@ export const FacultiesPage: React.FC = () => {
                       className="w-12 h-12 rounded-xl object-cover bg-white border border-[#E2E8F0] shrink-0"
                     />
                     <div className="space-y-0.5 min-w-0">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                         {isBn ? 'অনুষদের ডিন' : 'Faculty Dean'}
                       </span>
                       <p className="text-xs font-bold text-[#0F172A] truncate">
@@ -274,7 +274,7 @@ export const FacultiesPage: React.FC = () => {
                     <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
                       {isBn ? 'অন্তর্ভুক্ত বিভাগসমূহ:' : 'Academic Departments in this Faculty:'}
                     </h3>
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-slate-600">
                       {facultyDepts.length} {isBn ? 'টি বিভাগ' : 'Departments'}
                     </span>
                   </div>
@@ -290,7 +290,7 @@ export const FacultiesPage: React.FC = () => {
                             <span className="font-mono text-xs font-bold text-[#1E3A8A] bg-[#EFF6FF] px-2 py-0.5 rounded">
                               {dept.code}
                             </span>
-                            <span className="text-[11px] text-slate-400">
+                            <span className="text-[11px] text-slate-600">
                               {isBn ? `প্রতিষ্ঠা: ${dept.established}` : `Est. ${dept.established}`}
                             </span>
                           </div>

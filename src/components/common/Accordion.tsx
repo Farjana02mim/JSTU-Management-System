@@ -16,22 +16,22 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border-b border-slate-200 dark:border-slate-800 last:border-b-0">
+    <div className="border-b border-slate-200 last:border-b-0">
       <button
         type="button"
         aria-expanded={isOpen}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between py-4 text-left font-semibold text-slate-800 dark:text-slate-200 hover:text-blue-900 dark:hover:text-blue-400 transition-colors cursor-pointer group"
+        className="w-full flex items-center justify-between py-4 text-left font-bold text-[#0F172A] hover:text-[#1E3A8A] transition-colors cursor-pointer group"
       >
         <span className="text-sm sm:text-base pr-4">{title}</span>
         <ChevronDown
-          className={`w-5 h-5 shrink-0 text-slate-400 group-hover:text-slate-600 transition-transform duration-200 ${
-            isOpen ? 'rotate-180 text-blue-600' : ''
+          className={`w-5 h-5 shrink-0 text-slate-600 group-hover:text-[#1E3A8A] transition-transform duration-200 ${
+            isOpen ? 'rotate-180 text-[#1E3A8A]' : ''
           }`}
         />
       </button>
       {isOpen && (
-        <div className="pb-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed animate-in fade-in-50 duration-150">
+        <div className="pb-4 text-sm text-[#334155] leading-relaxed">
           {children}
         </div>
       )}
@@ -44,7 +44,7 @@ export const Accordion: React.FC<{ children: React.ReactNode; className?: string
   className = ''
 }) => {
   return (
-    <div className={`divide-y divide-slate-200 dark:divide-slate-800 border-t border-slate-200 dark:border-slate-800 ${className}`}>
+    <div className={`divide-y divide-slate-200 border-t border-slate-200 ${className}`}>
       {children}
     </div>
   );

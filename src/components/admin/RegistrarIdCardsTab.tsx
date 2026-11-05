@@ -180,7 +180,7 @@ export const RegistrarIdCardsTab: React.FC<RegistrarIdCardsTabProps> = ({
       <Card className="p-4 bg-white border border-slate-200">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
             <input
               type="text"
               value={searchQuery}
@@ -191,7 +191,7 @@ export const RegistrarIdCardsTab: React.FC<RegistrarIdCardsTabProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            <Filter className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <Filter className="w-3.5 h-3.5 text-slate-600 shrink-0" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as any)}
@@ -226,7 +226,7 @@ export const RegistrarIdCardsTab: React.FC<RegistrarIdCardsTabProps> = ({
         </div>
 
         {filteredCards.length === 0 ? (
-          <div className="p-8 text-center text-slate-400 text-xs">
+          <div className="p-8 text-center text-slate-600 text-xs">
             {isBn ? 'কোনো আইডি কার্ডের তথ্য পাওয়া যায়নি।' : 'No ID cards found matching the filters.'}
           </div>
         ) : (

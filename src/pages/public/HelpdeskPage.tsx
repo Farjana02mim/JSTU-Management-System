@@ -189,7 +189,7 @@ export const HelpdeskPage: React.FC = () => {
           </button>
         </div>
 
-        <span className="text-[11px] text-slate-400 font-mono hidden sm:inline-block">
+        <span className="text-[11px] text-slate-600 font-mono hidden sm:inline-block">
           SLA MONITORED • DEMO MODE
         </span>
       </div>
@@ -212,7 +212,7 @@ export const HelpdeskPage: React.FC = () => {
 
             <form onSubmit={handleTrackSubmit} className="flex flex-col sm:flex-row gap-2 max-w-xl">
               <div className="relative flex-1">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
                 <input
                   type="text"
                   value={referenceQuery}
@@ -282,11 +282,11 @@ export const HelpdeskPage: React.FC = () => {
                     <span className="font-mono text-sm font-black text-[#1E3A8A]">
                       {activeTicket.referenceNumber}
                     </span>
-                    <span className="text-slate-300">•</span>
+                    <span className="text-slate-600">•</span>
                     <span className="text-xs font-bold text-slate-600 uppercase">
                       {activeTicket.category}
                     </span>
-                    <span className="text-slate-300">•</span>
+                    <span className="text-slate-600">•</span>
                     <span
                       className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${
                         activeTicket.priority === 'Urgent'
@@ -308,7 +308,7 @@ export const HelpdeskPage: React.FC = () => {
 
                 <div className="flex items-center gap-3 shrink-0">
                   <div className="text-right">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase block">Current Status</span>
+                    <span className="text-[10px] font-bold text-slate-600 uppercase block">Current Status</span>
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase mt-0.5 ${
                         activeTicket.status === 'Resolved'
@@ -325,7 +325,7 @@ export const HelpdeskPage: React.FC = () => {
                   </div>
 
                   <div className="p-2.5 rounded-lg border text-xs text-right">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase block">SLA Commitment</span>
+                    <span className="text-[10px] font-bold text-slate-600 uppercase block">SLA Commitment</span>
                     <span className={`text-[11px] font-semibold ${getSlaInfo(activeTicket).color} px-2 py-0.5 rounded border inline-block mt-0.5`}>
                       {getSlaInfo(activeTicket).label}
                     </span>
@@ -337,7 +337,7 @@ export const HelpdeskPage: React.FC = () => {
               <div className="p-5 border-b border-slate-100 bg-white grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 {/* Submitter */}
                 <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">
+                  <span className="text-[10px] font-bold text-slate-600 uppercase block mb-1">
                     Submitter Identity
                   </span>
                   {activeTicket.isAnonymous ? (
@@ -364,7 +364,7 @@ export const HelpdeskPage: React.FC = () => {
 
                 {/* Assigned Office */}
                 <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">
+                  <span className="text-[10px] font-bold text-slate-600 uppercase block mb-1">
                     Assigned University Office
                   </span>
                   <div className="flex items-center gap-2 text-slate-800">
@@ -404,7 +404,7 @@ export const HelpdeskPage: React.FC = () => {
                         >
                           <FileText className="w-4 h-4 text-[#1E3A8A]" />
                           <span className="font-medium text-slate-800">{att.name}</span>
-                          <span className="text-[10px] text-slate-400 font-mono">
+                          <span className="text-[10px] text-slate-600 font-mono">
                             ({(att.size / 1024).toFixed(1)} KB)
                           </span>
                           {att.dataUrl && (
@@ -433,7 +433,7 @@ export const HelpdeskPage: React.FC = () => {
 
                 {/* Filter out any internal notes for public tracking view */}
                 {activeTicket.replies.filter((r) => !r.isInternalNote).length === 0 ? (
-                  <p className="text-slate-400 text-xs py-3 text-center bg-slate-50 rounded-xl border border-dashed">
+                  <p className="text-slate-600 text-xs py-3 text-center bg-slate-50 rounded-xl border border-dashed">
                     No public messages yet. Office staff will post updates as your ticket progresses.
                   </p>
                 ) : (
@@ -460,12 +460,12 @@ export const HelpdeskPage: React.FC = () => {
                               )}
                               <span>{reply.authorName}</span>
                               {reply.authorRole && (
-                                <span className="text-[10px] text-slate-400 font-normal">
+                                <span className="text-[10px] text-slate-600 font-normal">
                                   ({reply.authorRole})
                                 </span>
                               )}
                             </div>
-                            <span className="text-[10px] text-slate-400">
+                            <span className="text-[10px] text-slate-600">
                               {new Date(reply.createdAt).toLocaleDateString()}{' '}
                               {new Date(reply.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </span>
@@ -546,7 +546,7 @@ export const HelpdeskPage: React.FC = () => {
                       >
                         {t.status}
                       </span>
-                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                      <ChevronRight className="w-4 h-4 text-slate-600" />
                     </div>
                   </div>
                 ))}

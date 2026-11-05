@@ -92,7 +92,7 @@ export const VerifyIDPage: React.FC = () => {
         <Card className="p-4 bg-white border border-slate-200 shadow-sm">
           <form onSubmit={handleSearch} className="flex gap-2">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
               <input
                 type="text"
                 value={inputToken}
@@ -110,7 +110,7 @@ export const VerifyIDPage: React.FC = () => {
         {/* VERIFICATION RESULT */}
         {queriedCard === undefined && !searchedToken && (
           <Card className="p-8 text-center bg-white border border-slate-200 text-slate-500 space-y-2">
-            <ShieldCheck className="w-10 h-10 text-slate-300 mx-auto" />
+            <ShieldCheck className="w-10 h-10 text-slate-600 mx-auto" />
             <h2 className="text-sm font-bold text-slate-700">
               {isBn ? 'কিউআর কোড স্ক্যান করুন বা টোকেন লিখুন' : 'Scan a QR Code or Enter Token'}
             </h2>
@@ -187,9 +187,9 @@ export const VerifyIDPage: React.FC = () => {
 
             {queriedCard.status === 'Expired' && (
               <div className="bg-slate-700 text-white p-4 flex items-center gap-3">
-                <Clock className="w-7 h-7 text-slate-300 shrink-0" />
+                <Clock className="w-7 h-7 text-slate-600 shrink-0" />
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-600">
                     Term Concluded
                   </div>
                   <div className="text-sm sm:text-base font-extrabold">
@@ -284,7 +284,7 @@ export const VerifyIDPage: React.FC = () => {
               )}
 
               {/* Timestamp */}
-              <div className="text-[11px] text-slate-400 text-center pt-2">
+              <div className="text-[11px] text-slate-600 text-center pt-2">
                 Verification performed on {verificationTime || new Date().toLocaleString()}
               </div>
             </div>
@@ -298,7 +298,7 @@ export const VerifyIDPage: React.FC = () => {
       </div>
 
       {/* Footer Branding */}
-      <footer className="text-center text-xs text-slate-400 pt-10 pb-4">
+      <footer className="text-center text-xs text-slate-600 pt-10 pb-4">
         &copy; {new Date().getFullYear()} Jamalpur Science &amp; Technology University • Prototype Evaluation Mode
       </footer>
     </div>

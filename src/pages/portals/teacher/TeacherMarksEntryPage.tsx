@@ -366,7 +366,7 @@ export const TeacherMarksEntryPage: React.FC = () => {
                       <tr key={studentId} className="hover:bg-slate-50/80 transition-colors">
                         <td className="py-3 px-4">
                           <div className="font-bold text-[#0F172A]">{studentId}</div>
-                          <div className="text-[10px] text-slate-400">Regular Student</div>
+                          <div className="text-[10px] text-slate-600">Regular Student</div>
                         </td>
 
                         {/* Attendance Input */}

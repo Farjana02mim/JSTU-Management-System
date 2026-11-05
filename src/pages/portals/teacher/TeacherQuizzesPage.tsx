@@ -409,7 +409,7 @@ export const TeacherQuizzesPage: React.FC = () => {
                         <div>
                           <span className="text-slate-500">Success Rate: </span>
                           <span className="font-mono font-bold text-slate-800">{stat.successRate}%</span>
-                          <span className="text-[11px] text-slate-400 ml-1">
+                          <span className="text-[11px] text-slate-600 ml-1">
                             ({stat.correctOrHighScoreCount}/{stat.totalAttempts})
                           </span>
                         </div>
@@ -487,7 +487,7 @@ export const TeacherQuizzesPage: React.FC = () => {
                             </td>
                             <td className="px-4 py-3 text-center">
                               {!hasShortAnswer ? (
-                                <span className="text-[11px] text-slate-400">—</span>
+                                <span className="text-[11px] text-slate-600">—</span>
                               ) : att.isFullyGraded ? (
                                 <span className="font-mono font-bold text-emerald-700">
                                   {att.manualScore}

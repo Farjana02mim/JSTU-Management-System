@@ -151,7 +151,7 @@ export const VerifyDocumentPage: React.FC = () => {
           </label>
           <div className="flex flex-col sm:flex-row gap-2">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={inputToken}
@@ -171,7 +171,7 @@ export const VerifyDocumentPage: React.FC = () => {
             </Button>
           </div>
           <p className="text-[11px] text-slate-500 flex items-center gap-1.5">
-            <Lock className="w-3 h-3 text-slate-400" />
+            <Lock className="w-3 h-3 text-slate-600" />
             <span>
               {isBn
                 ? 'অননুমোদিত স্ক্যান রোধে প্রতি মিনিটে সর্বোচ্চ ১০টি অনুসন্ধান অনুমোদিত।'
@@ -271,7 +271,7 @@ export const VerifyDocumentPage: React.FC = () => {
                 {result.message || 'No institutional academic credential found matching the provided verification identifier.'}
               </p>
               <div className="pt-2">
-                <span className="text-[11px] text-slate-400 font-mono">
+                <span className="text-[11px] text-slate-600 font-mono">
                   Token: {inputToken.slice(0, 16)}...
                 </span>
               </div>

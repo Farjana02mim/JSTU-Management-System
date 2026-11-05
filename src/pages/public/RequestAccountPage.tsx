@@ -224,7 +224,7 @@ export const RequestAccountPage: React.FC = () => {
       case 'PENDING':
         return {
           label: isBn ? 'অপেক্ষমাণ (যাচাই চলছে)' : 'PENDING VERIFICATION',
-          bg: 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950/50 dark:text-amber-300',
+          bg: 'bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]',
           desc: isBn
             ? 'আপনার আবেদনটি রেজিস্ট্রার দপ্তরে বিশ্ববিদ্যালয় রেকর্ডের সাথে যাচাইয়ের অপেক্ষায় রয়েছে।'
             : 'Your request is currently awaiting verification against university admission records.'
@@ -232,7 +232,7 @@ export const RequestAccountPage: React.FC = () => {
       case 'APPROVED':
         return {
           label: isBn ? 'অনুমোদিত' : 'APPROVED',
-          bg: 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950/50 dark:text-emerald-300',
+          bg: 'bg-[#DCFCE7] text-[#166534] border-[#BBF7D0]',
           desc: isBn
             ? 'আপনার আবেদনটি অনুমোদিত হয়েছে এবং অ্যাক্টিভেশন ও পাসওয়ার্ড নির্ধারণের লিংক ইমেইলে পাঠানো হয়েছে।'
             : 'Your request has been approved and the set-password activation step has been dispatched to your email.'
@@ -240,7 +240,7 @@ export const RequestAccountPage: React.FC = () => {
       case 'REJECTED':
         return {
           label: isBn ? 'প্রত্যাখ্যাত' : 'REJECTED',
-          bg: 'bg-red-100 text-red-800 border-red-300 dark:bg-red-950/50 dark:text-red-300',
+          bg: 'bg-[#FEE2E2] text-[#991B1B] border-[#FECACA]',
           desc: isBn
             ? 'আপনার তথ্যের সাথে বিশ্ববিদ্যালয় রেকর্ডের মিল পাওয়া যায়নি। বিস্তারিত জানতে রেজিস্ট্রার দপ্তরে যোগাযোগ করুন।'
             : 'Your request could not be verified against institutional records. Please contact the registrar office.'
@@ -248,7 +248,7 @@ export const RequestAccountPage: React.FC = () => {
       case 'MORE_INFO_REQUESTED':
         return {
           label: isBn ? 'অতিরিক্ত তথ্য প্রয়োজন' : 'MORE INFO REQUESTED',
-          bg: 'bg-sky-100 text-sky-800 border-sky-300 dark:bg-sky-950/50 dark:text-sky-300',
+          bg: 'bg-[#DBEAFE] text-[#1E40AF] border-[#BFDBFE]',
           desc: isBn
             ? 'রেজিস্ট্রার দপ্তর থেকে অতিরিক্ত তথ্য চাওয়া হয়েছে। বিস্তারিত জানতে আপনার ইমেইল চেক করুন।'
             : 'The registrar office has requested additional information. Please check your email for reviewer instructions.'
@@ -480,7 +480,7 @@ export const RequestAccountPage: React.FC = () => {
 
                   {/* Full Name */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       {isBn ? 'শিক্ষার্থীর পূর্ণ নাম *' : 'Student Full Name *'}
                     </label>
                     <Input
@@ -493,7 +493,7 @@ export const RequestAccountPage: React.FC = () => {
                       error={fieldErrors.fullName}
                       leftIcon={<UserCheck className="w-4 h-4" />}
                     />
-                    <span className="text-[10px] text-slate-400 mt-0.5 block">
+                    <span className="text-[10px] text-slate-600 mt-0.5 block">
                       {isBn ? 'বিশ্ববিদ্যালয় ভর্তি নথির হুবহু নাম লিখুন (৩-১০০ অক্ষর)' : 'Must match university admission records (3-100 characters)'}
                     </span>
                   </div>
@@ -501,7 +501,7 @@ export const RequestAccountPage: React.FC = () => {
                   {/* Academic Department (7 JSTU Departments) & Session */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         {isBn ? 'বিভাগ (জেএসটিইউ ৭টি বিভাগ) *' : 'Academic Department (7 JSTU Depts) *'}
                       </label>
                       <Select
@@ -515,7 +515,7 @@ export const RequestAccountPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         {isBn ? 'শিক্ষাবর্ষ / সেশন *' : 'Academic Session / Batch *'}
                       </label>
                       <Select
@@ -532,7 +532,7 @@ export const RequestAccountPage: React.FC = () => {
                   {/* Student ID / Roll & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         {isBn ? 'শিক্ষার্থী আইডি বা ভর্তি রোল *' : 'Student ID or Admission Roll *'}
                       </label>
                       <Input
@@ -548,7 +548,7 @@ export const RequestAccountPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         {isBn ? 'ইমেইল ঠিকানা *' : 'Institutional / Personal Email *'}
                       </label>
                       <Input
@@ -566,7 +566,7 @@ export const RequestAccountPage: React.FC = () => {
 
                   {/* Contact Phone (Optional) */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       {isBn ? 'মোবাইল নম্বর (ঐচ্ছিক)' : 'Contact Phone (Optional)'}
                     </label>
                     <Input
@@ -582,7 +582,7 @@ export const RequestAccountPage: React.FC = () => {
 
                   {/* Short Note */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       {isBn ? 'সংক্ষিপ্ত বিবরণ বা আবেদনের কারণ *' : 'Short Note / Purpose *'}
                     </label>
                     <textarea
@@ -596,9 +596,9 @@ export const RequestAccountPage: React.FC = () => {
                           ? 'যেমন: নবীন শিক্ষার্থী হিসেবে ক্লাস রুটিন, নোটিশ ও ফলাফল দেখার জন্য পোর্টাল অ্যাকাউন্ট প্রয়োজন।'
                           : 'e.g. Newly admitted student requesting student portal account to access class routine and notices.'
                       }
-                      className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition"
+                      className="w-full rounded-xl border border-slate-300 bg-white p-3 text-xs text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition"
                     />
-                    <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+                    <div className="flex justify-between text-[10px] text-slate-600 mt-1">
                       <span>{fieldErrors.note && <span className="text-red-500">{fieldErrors.note}</span>}</span>
                       <span>{note.length} / 500 characters</span>
                     </div>

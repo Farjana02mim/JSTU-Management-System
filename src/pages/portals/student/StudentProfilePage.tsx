@@ -118,7 +118,7 @@ export const StudentProfilePage: React.FC = () => {
 
                 <div className="flex items-center gap-3">
                   <div className="text-right">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">Academic Standing</span>
+                    <span className="text-[10px] text-slate-600 uppercase font-semibold block">Academic Standing</span>
                     <span className="text-xl font-extrabold font-mono text-[#1E3A8A]">
                       CGPA {profile.cgpa.toFixed(2)}
                     </span>
@@ -161,7 +161,7 @@ export const StudentProfilePage: React.FC = () => {
                     <span className="text-slate-500">{isBn ? 'অনুষদীয় শিক্ষক উপদেষ্টা' : 'Faculty Advisor'}</span>
                     <div className="text-right">
                       <span className="font-medium text-[#0F172A] block">{profile.advisorName}</span>
-                      <span className="text-[10px] text-slate-400 font-mono">{profile.advisorEmail}</span>
+                      <span className="text-[10px] text-slate-600 font-mono">{profile.advisorEmail}</span>
                     </div>
                   </div>
 

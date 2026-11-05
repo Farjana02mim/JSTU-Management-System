@@ -24,7 +24,7 @@ export const SkeletonLoader: React.FC<SkeletonProps> = ({
       {items.map((_, i) => (
         <div
           key={i}
-          className={`animate-pulse bg-slate-200 dark:bg-slate-800 ${variantClasses} ${className}`}
+          className={`animate-pulse bg-slate-200  ${variantClasses} ${className}`}
           aria-hidden="true"
         />
       ))}

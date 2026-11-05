@@ -17,7 +17,7 @@ export interface DemoAccount {
   targetDashboard: string;
 }
 
-export const DEMO_PASSWORD = 'JSTU#Smart2026!';
+export const DEMO_PASSWORD = import.meta.env.VITE_USE_MOCK === 'true' ? 'JSTU#Smart2026!' : '';
 
 export const DEMO_ACCOUNTS: DemoAccount[] = [
   {
@@ -121,6 +121,9 @@ export const DEMO_ACCOUNTS: DemoAccount[] = [
 ];
 
 export function initializeDemoSeed() {
+  if (import.meta.env.VITE_USE_MOCK !== 'true') {
+    return;
+  }
   DEMO_ACCOUNTS.forEach((acc) => {
     const profile: UserProfile = {
       uid: acc.uid,

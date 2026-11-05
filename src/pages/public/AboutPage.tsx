@@ -318,10 +318,10 @@ export const AboutPage: React.FC = () => {
                 <div className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-[#1E3A8A] border-4 border-white shadow-xs" />
                 <span className="text-xs font-bold text-[#1E3A8A] font-mono">2026</span>
                 <h4 className="text-base font-bold text-[#0F172A] mt-0.5">
-                  {isBn ? 'জেএসটিইউ স্মার্ট ক্যাম্পাস ও পেপারলেস গভর্ন্যান্স চালু' : 'Full Paperless Smart Campus Deployment'}
+                  {isBn ? 'জেএসটিইউ স্মার্ট ক্যাম্পাস ডিজিটাল প্রোটোটাইপ উন্মোচন' : 'Smart Campus Digital Workflow Prototype'}
                 </h4>
                 <p className="text-xs text-slate-600 mt-1">
-                  /* [REPLACE WITH REAL CONTENT] */ 100% digital clearance, online marks lifecycle, and public QR verification system launched.
+                  /* [REPLACE WITH REAL CONTENT] */ Digital clearance prototype, online marks lifecycle with audit trail, and QR verification system demonstrated.
                 </p>
               </div>
             </div>
@@ -382,7 +382,7 @@ export const AboutPage: React.FC = () => {
                   {isBn ? 'স্বচ্ছ প্রশাসন' : 'Digital Governance'}
                 </h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Automated paperless clearance, verifiable cryptographic certificates, and zero tolerance for administrative delay.
+                  Designed to support digital workflow clearances, structured audit trail verification, and institutional transparency in this prototype.
                 </p>
               </Card>
               <Card className="space-y-2 p-6">
@@ -459,8 +459,8 @@ export const AboutPage: React.FC = () => {
                   </p>
                   <p>
                     {isBn
-                      ? 'জেএসটিইউ স্মার্ট ক্যাম্পাস সিস্টেম বাস্তবায়নের মাধ্যমে আমরা শতভাগ পেপারলেস একাডেমিক পরিবেশ এবং স্বচ্ছ প্রশাসনিক সেবা নিশ্চিত করেছি।'
-                      : 'With the commissioning of the JSTU Smart Campus platform, we have instituted paperless clearances, rapid approvals, and public document validation.'}
+                      ? 'জেএসটিইউ স্মার্ট ক্যাম্পাস প্রোটোটাইপের মাধ্যমে আমরা ডিজিটাল ওয়ার্কফ্লো, অডিট ট্রেইল ও স্বচ্ছ একাডেমিক সেবা সমর্থনের ভিত্তি স্থাপন করেছি।'
+                      : 'With the development of the JSTU Smart Campus prototype, the platform is designed to support digital clearances, digital workflow approvals, and public document verification with an audit trail.'}
                   </p>
                 </>
               )}
@@ -770,7 +770,7 @@ export const AboutPage: React.FC = () => {
 
             {/* Filter Search */}
             <div className="relative w-full sm:w-64">
-              <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-3 text-slate-600" />
               <input
                 type="text"
                 placeholder={isBn ? 'সেবা বা দপ্তর খুঁজুন...' : 'Search service or office...'}

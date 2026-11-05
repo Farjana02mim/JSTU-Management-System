@@ -392,7 +392,7 @@ Central Library Repository — Jamalpur-2012, Bangladesh
 
             {/* Quick Demo Role Switcher Toolbar */}
             <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/20 text-xs space-y-2.5 shrink-0 self-start md:self-auto">
-              <div className="flex items-center justify-between gap-3 text-slate-200">
+              <div className="flex items-center justify-between gap-3 text-slate-600">
                 <span className="font-semibold">{isBn ? 'সক্রিয় অ্যাকাউন্ট মোড:' : 'Active Demo Persona:'}</span>
                 <Badge variant={canAccessOfficerDesk ? 'primary' : 'neutral'}>
                   {role ? role.toUpperCase() : 'PUBLIC VISITOR'}
@@ -472,7 +472,7 @@ Central Library Repository — Jamalpur-2012, Bangladesh
             </div>
             <button
               onClick={() => setFeedback(null)}
-              className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+              className="text-slate-600 hover:text-slate-600 p-1 cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -556,7 +556,7 @@ Central Library Repository — Jamalpur-2012, Bangladesh
             <Card padding="md" className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
                 <div className="md:col-span-6 relative">
-                  <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600" />
                   <input
                     type="text"
                     value={searchQuery}
@@ -566,12 +566,12 @@ Central Library Repository — Jamalpur-2012, Bangladesh
                         ? 'বইয়ের শিরোনাম, লেখক, আইএসবিএন বা কল নম্বর দিয়ে খুঁজুন...'
                         : 'Search by book title, author, ISBN (e.g. 978-0262046305) or call number...'
                     }
-                    className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1E3A8A] bg-white text-slate-800 placeholder-slate-400"
+                    className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1E3A8A] bg-white text-slate-800 placeholder-slate-500"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-600"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -706,7 +706,7 @@ Central Library Repository — Jamalpur-2012, Bangladesh
                           <span className="px-1.5 py-0.5 bg-slate-100 rounded text-slate-700 font-mono">
                             {book.edition}
                           </span>
-                          <span className="font-mono text-slate-400">
+                          <span className="font-mono text-slate-600">
                             ISBN: {book.isbn.slice(0, 13)}...
                           </span>
                           {book.eBookAvailable && (
@@ -724,8 +724,8 @@ Central Library Repository — Jamalpur-2012, Bangladesh
 
                     {/* Card Footer Actions */}
                     <div className="p-4 pt-0 border-t border-slate-100 flex items-center justify-between gap-2">
-                      <div className="text-[11px] text-slate-400 truncate">
-                        <Building2 className="w-3 h-3 inline mr-1 text-slate-400" />
+                      <div className="text-[11px] text-slate-600 truncate">
+                        <Building2 className="w-3 h-3 inline mr-1 text-slate-600" />
                         <span>{book.shelfLocation.split('(')[0]}</span>
                       </div>
 
@@ -770,7 +770,7 @@ Central Library Repository — Jamalpur-2012, Bangladesh
 
             {filteredBooks.length === 0 && (
               <div className="text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300 space-y-3">
-                <BookOpen className="w-12 h-12 text-slate-400 mx-auto" />
+                <BookOpen className="w-12 h-12 text-slate-600 mx-auto" />
                 <h3 className="text-base font-bold text-slate-700">
                   {isBn ? 'কোনো বই পাওয়া যায়নি' : 'No Books Matching Your Query'}
                 </h3>
@@ -876,27 +876,27 @@ Central Library Repository — Jamalpur-2012, Bangladesh
 
                           <div className="grid grid-cols-2 gap-2 text-xs bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                             <div>
-                              <span className="text-[10px] text-slate-400 block">{isBn ? 'ইস্যুর তারিখ' : 'Issued Date'}</span>
+                              <span className="text-[10px] text-slate-600 block">{isBn ? 'ইস্যুর তারিখ' : 'Issued Date'}</span>
                               <span className="font-medium text-slate-700">{bor.issueDate}</span>
                             </div>
                             <div>
-                              <span className="text-[10px] text-slate-400 block">{isBn ? 'ফেরতের শেষ তারিখ' : 'Due Date'}</span>
+                              <span className="text-[10px] text-slate-600 block">{isBn ? 'ফেরতের শেষ তারিখ' : 'Due Date'}</span>
                               <span className={`font-bold ${isOverdue ? 'text-rose-600' : 'text-slate-800'}`}>
                                 {bor.dueDate}
                               </span>
                             </div>
                             <div>
-                              <span className="text-[10px] text-slate-400 block">{isBn ? 'নবায়ন সংখ্যা' : 'Renewals'}</span>
+                              <span className="text-[10px] text-slate-600 block">{isBn ? 'নবায়ন সংখ্যা' : 'Renewals'}</span>
                               <span className="font-medium text-slate-700">{bor.renewalCount} / 2 used</span>
                             </div>
                             <div>
-                              <span className="text-[10px] text-slate-400 block">{isBn ? 'জরিমানা' : 'Fine Incurred'}</span>
+                              <span className="text-[10px] text-slate-600 block">{isBn ? 'জরিমানা' : 'Fine Incurred'}</span>
                               <span className="font-bold text-amber-600">৳{bor.fineAmount} BDT</span>
                             </div>
                           </div>
 
                           <div className="flex items-center justify-between pt-1">
-                            <span className="text-[10px] text-slate-400">
+                            <span className="text-[10px] text-slate-600">
                               Issued By: {bor.issuedBy}
                             </span>
                             <Button
@@ -995,7 +995,7 @@ Central Library Repository — Jamalpur-2012, Bangladesh
                       ))}
                     {studentBorrowings.filter((b) => b.status === 'returned').length === 0 && (
                       <tr>
-                        <td colSpan={5} className="p-4 text-center text-slate-400">
+                        <td colSpan={5} className="p-4 text-center text-slate-600">
                           No previous return history recorded.
                         </td>
                       </tr>
@@ -1079,11 +1079,11 @@ Central Library Repository — Jamalpur-2012, Bangladesh
                         <tr key={bor.id} className="hover:bg-slate-50">
                           <td className="p-3">
                             <span className="font-bold text-slate-900 block">{bor.studentName}</span>
-                            <span className="font-mono text-slate-400 text-[10px]">Roll: {bor.studentRoll}</span>
+                            <span className="font-mono text-slate-600 text-[10px]">Roll: {bor.studentRoll}</span>
                           </td>
                           <td className="p-3">
                             <span className="font-semibold text-slate-800 block line-clamp-1">{bor.bookTitle}</span>
-                            <span className="font-mono text-slate-400 text-[10px]">{bor.callNumber}</span>
+                            <span className="font-mono text-slate-600 text-[10px]">{bor.callNumber}</span>
                           </td>
                           <td className="p-3 font-mono">{bor.dueDate}</td>
                           <td className="p-3">
@@ -1157,7 +1157,7 @@ Central Library Repository — Jamalpur-2012, Bangladesh
 
                     <div>
                       <h3 className="font-bold text-slate-900 text-sm">{isBn ? res.titleBn : res.title}</h3>
-                      <p className="text-[11px] text-slate-400 font-medium">{res.provider}</p>
+                      <p className="text-[11px] text-slate-600 font-medium">{res.provider}</p>
                     </div>
 
                     <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
@@ -1355,19 +1355,19 @@ Central Library Repository — Jamalpur-2012, Bangladesh
 
                 <div className="grid grid-cols-2 gap-2 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200">
                   <div>
-                    <span className="text-[10px] text-slate-400 block">Call Number</span>
+                    <span className="text-[10px] text-slate-600 block">Call Number</span>
                     <span className="font-mono font-bold text-[#1E3A8A]">{selectedBook.callNumber}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">ISBN</span>
+                    <span className="text-[10px] text-slate-600 block">ISBN</span>
                     <span className="font-mono font-bold text-slate-800">{selectedBook.isbn}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">Edition & Publisher</span>
+                    <span className="text-[10px] text-slate-600 block">Edition & Publisher</span>
                     <span className="text-slate-700">{selectedBook.edition}, {selectedBook.publisher} ({selectedBook.publishedYear})</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">Shelf Location</span>
+                    <span className="text-[10px] text-slate-600 block">Shelf Location</span>
                     <span className="text-slate-700">{selectedBook.shelfLocation}</span>
                   </div>
                 </div>
@@ -1428,19 +1428,19 @@ Central Library Repository — Jamalpur-2012, Bangladesh
           <div className="space-y-4">
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs grid grid-cols-2 sm:grid-cols-4 gap-2">
               <div>
-                <span className="text-[10px] text-slate-400 block">Semester</span>
+                <span className="text-[10px] text-slate-600 block">Semester</span>
                 <span className="font-semibold text-slate-800">{selectedPq.semester}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 block">Examination</span>
+                <span className="text-[10px] text-slate-600 block">Examination</span>
                 <span className="font-semibold text-slate-800">{selectedPq.examType}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 block">Full Marks</span>
+                <span className="text-[10px] text-slate-600 block">Full Marks</span>
                 <span className="font-bold text-[#1E3A8A]">{selectedPq.fullMarks}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 block">Time Allowed</span>
+                <span className="text-[10px] text-slate-600 block">Time Allowed</span>
                 <span className="font-semibold text-slate-800">{selectedPq.timeAllowed}</span>
               </div>
             </div>

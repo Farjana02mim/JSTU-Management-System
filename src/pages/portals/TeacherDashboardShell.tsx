@@ -41,19 +41,19 @@ export const TeacherDashboardShell: React.FC = () => {
           <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-xs">
             <span className="text-xs text-slate-500 font-medium">Assigned Courses (Current)</span>
             <div className="text-2xl font-extrabold text-[#0F172A] tabular-nums">3</div>
-            <p className="text-[11px] text-slate-400">CSE-1101, CSE-2103, CSE-3205</p>
+            <p className="text-[11px] text-slate-600">CSE-1101, CSE-2103, CSE-3205</p>
           </Card>
 
           <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-xs">
             <span className="text-xs text-slate-500 font-medium">Enrolled Students</span>
             <div className="text-2xl font-extrabold text-[#0F172A] tabular-nums">142</div>
-            <p className="text-[11px] text-slate-400">Across 3 Course Sections</p>
+            <p className="text-[11px] text-slate-600">Across 3 Course Sections</p>
           </Card>
 
           <Card padding="md" className="space-y-1 bg-white border-[#E2E8F0] shadow-xs">
             <span className="text-xs text-slate-500 font-medium">Marks Status</span>
             <div className="text-2xl font-extrabold text-[#1E3A8A]">DRAFT</div>
-            <p className="text-[11px] text-slate-400">Continuous Assessment Pending</p>
+            <p className="text-[11px] text-slate-600">Continuous Assessment Pending</p>
           </Card>
         </div>
 

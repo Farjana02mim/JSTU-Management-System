@@ -93,14 +93,14 @@ export const StudentDocumentsPage: React.FC = () => {
               <span className="text-xs font-mono uppercase tracking-wider text-amber-300 font-bold bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-300/30">
                 Official Digital Credential Vault
               </span>
-              <span className="text-xs text-slate-300">
+              <span className="text-xs text-blue-100">
                 Student ID: {profile?.studentId || 'JSTU2026001'}
               </span>
             </div>
             <h1 className="text-2xl font-black tracking-tight">
               {isBn ? 'ডিজিটাল একাডেমিক সনদপত্র ও ট্রান্সক্রিপ্ট' : 'Digital Academic Documents & Vault'}
             </h1>
-            <p className="text-xs text-slate-300 max-w-xl">
+            <p className="text-xs text-blue-100 max-w-xl">
               {isBn
                 ? 'অনুমোদিত আবেদনের প্রেক্ষিতে ইস্যুকৃত অফিসিয়াল সনদ, ট্রান্সক্রিপ্ট ও প্রশংসাপত্র। প্রতিটি নথিতে ক্রিপ্টোগ্রাফিক কিউআর ও ইউনিক ভেরিফিকেশন আইডি সংযুক্ত।'
                 : 'Sealed academic credentials issued by JSTU administrative authorities. Each document includes cryptographic integrity hashes and a verification QR.'}
@@ -140,7 +140,7 @@ export const StudentDocumentsPage: React.FC = () => {
         {!loading && documents.length === 0 && (
           <Card padding="lg" className="text-center py-12">
             <EmptyState
-              icon={<Award className="w-10 h-10 text-slate-400" />}
+              icon={<Award className="w-10 h-10 text-slate-600" />}
               title={isBn ? 'কোনো ইস্যুকৃত সনদ পাওয়া যায়নি' : 'No Digital Documents Issued Yet'}
               description={
                 isBn
@@ -310,11 +310,11 @@ export const StudentDocumentsPage: React.FC = () => {
 
                 <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 pt-2 border-t border-slate-200">
                   <div>
-                    <span className="text-slate-400 block">Application No:</span>
+                    <span className="text-slate-600 block">Application No:</span>
                     <span className="font-mono font-bold text-slate-800">{selectedDoc.applicationNumber}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block">Date of Issue:</span>
+                    <span className="text-slate-600 block">Date of Issue:</span>
                     <span className="font-medium text-slate-800">
                       {new Date(selectedDoc.issueDate).toLocaleDateString('en-GB', {
                         day: 'numeric',
@@ -326,12 +326,12 @@ export const StudentDocumentsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <span className="text-slate-400 block text-[11px]">Verification Token (128-bit):</span>
+                  <span className="text-slate-600 block text-[11px]">Verification Token (128-bit):</span>
                   <span className="font-mono text-slate-800 break-all">{selectedDoc.verificationId}</span>
                 </div>
 
                 <div>
-                  <span className="text-slate-400 block text-[11px]">SHA-256 Content Digest:</span>
+                  <span className="text-slate-600 block text-[11px]">SHA-256 Content Digest:</span>
                   <span className="font-mono text-slate-600 break-all">{selectedDoc.canonicalHash}</span>
                 </div>
               </div>

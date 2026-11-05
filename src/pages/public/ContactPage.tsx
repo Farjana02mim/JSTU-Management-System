@@ -219,7 +219,7 @@ export const ContactPage: React.FC = () => {
                   <textarea
                     rows={4}
                     required
-                    className="w-full text-sm rounded-xl border border-[#E2E8F0] bg-white text-[#0F172A] p-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E3A8A] placeholder:text-slate-400"
+                    className="w-full text-sm rounded-xl border border-[#E2E8F0] bg-white text-[#0F172A] p-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E3A8A] placeholder:text-slate-600"
                     placeholder="Please specify your query or student/reference ID..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}

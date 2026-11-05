@@ -66,7 +66,7 @@ export const OfficeDashboardShell: React.FC = () => {
               <span>Officer MFA Verified &bull; Active</span>
             </div>
           </div>
-          <p className="text-xs text-slate-300">
+          <p className="text-xs text-blue-100">
             {isBn
               ? 'জেএসটিইউ কেন্দ্রীয় প্রশাসন ও অটোমেটেড দাপ্তরিক রেকর্ড।'
               : 'JSTU Central Administrative Office & Automated Digital Registry.'}
@@ -79,7 +79,7 @@ export const OfficeDashboardShell: React.FC = () => {
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>{feedback}</span>
             </div>
-            <button onClick={() => setFeedback(null)} className="text-slate-400 hover:text-slate-600">
+            <button onClick={() => setFeedback(null)} className="text-slate-600 hover:text-slate-600">
               &times;
             </button>
           </div>
@@ -93,7 +93,7 @@ export const OfficeDashboardShell: React.FC = () => {
                 <div className="text-2xl font-extrabold text-[#0A2540] tabular-nums">
                   {store.libraryBooks.length} Titles
                 </div>
-                <p className="text-[11px] text-slate-400">Total Volumes: 48,500+</p>
+                <p className="text-[11px] text-slate-600">Total Volumes: 48,500+</p>
               </Card>
 
               <Card padding="md" className="space-y-1">
@@ -101,7 +101,7 @@ export const OfficeDashboardShell: React.FC = () => {
                 <div className="text-2xl font-extrabold text-blue-600 tabular-nums">
                   {store.libraryBorrowings.filter((b) => b.status !== 'returned').length}
                 </div>
-                <p className="text-[11px] text-slate-400">On Loan to Students</p>
+                <p className="text-[11px] text-slate-600">On Loan to Students</p>
               </Card>
 
               <Card padding="md" className="space-y-1">
@@ -109,7 +109,7 @@ export const OfficeDashboardShell: React.FC = () => {
                 <div className="text-2xl font-extrabold text-rose-600 tabular-nums">
                   {store.libraryBorrowings.filter((b) => b.status === 'overdue').length}
                 </div>
-                <p className="text-[11px] text-slate-400">Requiring Notice</p>
+                <p className="text-[11px] text-slate-600">Requiring Notice</p>
               </Card>
 
               <Card padding="md" className="space-y-1">
@@ -117,7 +117,7 @@ export const OfficeDashboardShell: React.FC = () => {
                 <div className="text-2xl font-extrabold text-amber-600 tabular-nums">
                   {store.libraryReservations.filter((r) => r.status === 'pending').length}
                 </div>
-                <p className="text-[11px] text-slate-400">In Hold Queue</p>
+                <p className="text-[11px] text-slate-600">In Hold Queue</p>
               </Card>
             </div>
 
@@ -160,11 +160,11 @@ export const OfficeDashboardShell: React.FC = () => {
                         <tr key={bor.id} className="hover:bg-slate-50">
                           <td className="p-3">
                             <span className="font-bold text-slate-900 block">{bor.studentName}</span>
-                            <span className="font-mono text-slate-400 text-[10px]">Roll: {bor.studentRoll}</span>
+                            <span className="font-mono text-slate-600 text-[10px]">Roll: {bor.studentRoll}</span>
                           </td>
                           <td className="p-3">
                             <span className="font-semibold text-slate-800 block line-clamp-1">{bor.bookTitle}</span>
-                            <span className="font-mono text-slate-400 text-[10px]">{bor.callNumber}</span>
+                            <span className="font-mono text-slate-600 text-[10px]">{bor.callNumber}</span>
                           </td>
                           <td className="p-3 font-mono">{bor.dueDate}</td>
                           <td className="p-3">
@@ -207,19 +207,19 @@ export const OfficeDashboardShell: React.FC = () => {
               <Card padding="md" className="space-y-1">
                 <span className="text-xs text-slate-500 font-medium">Pending Clearances</span>
                 <div className="text-2xl font-extrabold text-[#0A2540] tabular-nums">7</div>
-                <p className="text-[11px] text-slate-400">Applications in Queue</p>
+                <p className="text-[11px] text-slate-600">Applications in Queue</p>
               </Card>
 
               <Card padding="md" className="space-y-1">
                 <span className="text-xs text-slate-500 font-medium">Office Registry</span>
                 <div className="text-2xl font-extrabold text-emerald-600 tabular-nums">ACTIVE</div>
-                <p className="text-[11px] text-slate-400">Central Ledger Synchronized</p>
+                <p className="text-[11px] text-slate-600">Central Ledger Synchronized</p>
               </Card>
 
               <Card padding="md" className="space-y-1">
                 <span className="text-xs text-slate-500 font-medium">Daily Transactions</span>
                 <div className="text-2xl font-extrabold text-blue-600 tabular-nums">18</div>
-                <p className="text-[11px] text-slate-400">Automated Sign-Offs</p>
+                <p className="text-[11px] text-slate-600">Automated Sign-Offs</p>
               </Card>
             </div>
 

@@ -266,7 +266,7 @@ export const HelpdeskQueueManagement: React.FC<HelpdeskQueueManagementProps> = (
       <Card className="p-4 bg-white border border-slate-200 space-y-3">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
             <input
               type="text"
               value={searchQuery}
@@ -337,7 +337,7 @@ export const HelpdeskQueueManagement: React.FC<HelpdeskQueueManagementProps> = (
         </div>
 
         {filteredTickets.length === 0 ? (
-          <div className="p-10 text-center text-slate-400 text-xs">
+          <div className="p-10 text-center text-slate-600 text-xs">
             No helpdesk tickets match the current search or filters.
           </div>
         ) : (
@@ -366,7 +366,7 @@ export const HelpdeskQueueManagement: React.FC<HelpdeskQueueManagementProps> = (
                         <div className="font-semibold text-slate-800 truncate" title={ticket.subject}>
                           {ticket.subject}
                         </div>
-                        <div className="text-[10px] text-slate-400 mt-0.5">
+                        <div className="text-[10px] text-slate-600 mt-0.5">
                           Logged: {new Date(ticket.createdAt).toLocaleDateString()}
                         </div>
                       </td>
@@ -525,15 +525,15 @@ export const HelpdeskQueueManagement: React.FC<HelpdeskQueueManagementProps> = (
                 ) : (
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-slate-700">
                     <div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase block">Submitter Name</span>
+                      <span className="text-[10px] text-slate-600 font-bold uppercase block">Submitter Name</span>
                       <span className="font-bold text-slate-900">{selectedTicket.submitterName}</span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase block">ID / Role</span>
+                      <span className="text-[10px] text-slate-600 font-bold uppercase block">ID / Role</span>
                       <span className="font-semibold text-slate-800">{selectedTicket.submitterStudentId || selectedTicket.submitterRole}</span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase block">Email</span>
+                      <span className="text-[10px] text-slate-600 font-bold uppercase block">Email</span>
                       <span className="text-slate-700 truncate block">{selectedTicket.submitterEmail || 'N/A'}</span>
                     </div>
                   </div>
@@ -564,7 +564,7 @@ export const HelpdeskQueueManagement: React.FC<HelpdeskQueueManagementProps> = (
                       >
                         <FileText className="w-4 h-4 text-[#1E3A8A]" />
                         <span className="font-medium text-slate-800">{att.name}</span>
-                        <span className="text-[10px] text-slate-400 font-mono">
+                        <span className="text-[10px] text-slate-600 font-mono">
                           ({(att.size / 1024).toFixed(1)} KB)
                         </span>
                         {att.dataUrl && (
@@ -675,7 +675,7 @@ export const HelpdeskQueueManagement: React.FC<HelpdeskQueueManagementProps> = (
               {/* Message List */}
               <div className="space-y-2 max-h-60 overflow-y-auto p-1">
                 {selectedTicket.replies.length === 0 ? (
-                  <p className="text-center text-slate-400 py-4 text-xs">
+                  <p className="text-center text-slate-600 py-4 text-xs">
                     No replies or notes recorded yet.
                   </p>
                 ) : (
@@ -702,12 +702,12 @@ export const HelpdeskQueueManagement: React.FC<HelpdeskQueueManagementProps> = (
                           )}
                           <span>{reply.authorName}</span>
                           {reply.authorRole && (
-                            <span className="text-[10px] text-slate-400 font-normal">
+                            <span className="text-[10px] text-slate-600 font-normal">
                               ({reply.authorRole})
                             </span>
                           )}
                         </div>
-                        <span className="text-[10px] text-slate-400">
+                        <span className="text-[10px] text-slate-600">
                           {new Date(reply.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </span>
                       </div>

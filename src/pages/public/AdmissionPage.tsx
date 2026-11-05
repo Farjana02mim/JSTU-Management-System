@@ -106,7 +106,7 @@ export const AdmissionPage: React.FC = () => {
               : 'JSTU Central Admissions & Online Application'}
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
             {isBn
               ? 'বিজ্ঞান, প্রকৌশল, ব্যবসায় প্রশাসন ও সমাজবিজ্ঞান অনুষদে আধুনিক বিশ্বমানের উচ্চশিক্ষায় অংশ নিন। অনলাইনে আবেদন ফরম পূরণ করুন এবং কিউআর কোড সংবলিত প্রবেশপত্র সংগ্রহ করুন।'
               : 'Explore undergraduate and postgraduate programs across 7 premier departments. Submit your online application, upload verified credentials, and generate your printable QR Admit Card.'}
@@ -187,7 +187,7 @@ export const AdmissionPage: React.FC = () => {
               <span className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] mt-1 block">
                 7 Departments
               </span>
-              <span className="text-[11px] text-slate-400 mt-1 block">CSE, EEE, MATH, FISH, GEOL, MGMT, SW</span>
+              <span className="text-[11px] text-slate-600 mt-1 block">CSE, EEE, MATH, FISH, GEOL, MGMT, SW</span>
             </Card>
 
             <Card className="p-5 border border-[#E2E8F0] bg-[#F8FAFC]">
@@ -197,7 +197,7 @@ export const AdmissionPage: React.FC = () => {
               <span className="text-2xl sm:text-3xl font-extrabold text-[#1E3A8A] mt-1 block">
                 340+ Seats
               </span>
-              <span className="text-[11px] text-slate-400 mt-1 block">Undergrad Regular + Quotas</span>
+              <span className="text-[11px] text-slate-600 mt-1 block">Undergrad Regular + Quotas</span>
             </Card>
 
             <Card className="p-5 border border-[#E2E8F0] bg-[#F8FAFC]">
@@ -207,7 +207,7 @@ export const AdmissionPage: React.FC = () => {
               <span className="text-2xl sm:text-3xl font-extrabold text-[#B45309] mt-1 block">
                 ৳ 1,200
               </span>
-              <span className="text-[11px] text-slate-400 mt-1 block">bKash, Nagad, Rocket, Cards</span>
+              <span className="text-[11px] text-slate-600 mt-1 block">bKash, Nagad, Rocket, Cards</span>
             </Card>
 
             <Card className="p-5 border border-[#E2E8F0] bg-[#F8FAFC]">
@@ -217,7 +217,7 @@ export const AdmissionPage: React.FC = () => {
               <span className="text-2xl sm:text-3xl font-extrabold text-red-700 mt-1 block">
                 Dec 10, 2026
               </span>
-              <span className="text-[11px] text-slate-400 mt-1 block">11:59 PM BST</span>
+              <span className="text-[11px] text-slate-600 mt-1 block">11:59 PM BST</span>
             </Card>
           </div>
 
@@ -340,7 +340,7 @@ export const AdmissionPage: React.FC = () => {
                   <span className="text-xs font-mono font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
                     UNIT A (SCIENCE)
                   </span>
-                  <span className="text-xs text-slate-400">Engineering & Science</span>
+                  <span className="text-xs text-slate-600">Engineering & Science</span>
                 </div>
                 <h3 className="text-base font-bold text-[#0F172A]">
                   Faculty of Engineering, Science & Bio-Technology
@@ -370,7 +370,7 @@ export const AdmissionPage: React.FC = () => {
                   <span className="text-xs font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">
                     UNIT B (HUMANITIES)
                   </span>
-                  <span className="text-xs text-slate-400">Social Sciences</span>
+                  <span className="text-xs text-slate-600">Social Sciences</span>
                 </div>
                 <h3 className="text-base font-bold text-[#0F172A]">
                   Faculty of Arts & Social Sciences
@@ -400,7 +400,7 @@ export const AdmissionPage: React.FC = () => {
                   <span className="text-xs font-mono font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">
                     UNIT C (COMMERCE)
                   </span>
-                  <span className="text-xs text-slate-400">Business Studies</span>
+                  <span className="text-xs text-slate-600">Business Studies</span>
                 </div>
                 <h3 className="text-base font-bold text-[#0F172A]">
                   Faculty of Business Studies
@@ -512,7 +512,7 @@ export const AdmissionPage: React.FC = () => {
                 }
               ].map((item) => (
                 <Card key={item.step} className="p-6 relative bg-white border border-[#E2E8F0] space-y-3">
-                  <span className="text-3xl font-black font-mono text-slate-200">
+                  <span className="text-3xl font-black font-mono text-blue-100">
                     {item.step}
                   </span>
                   <h3 className="text-base font-bold text-[#0F172A]">{item.title}</h3>
@@ -640,7 +640,7 @@ export const AdmissionPage: React.FC = () => {
                         <span>{isBn ? faq.questionBn : faq.question}</span>
                       </span>
                       <ChevronDown
-                        className={`w-4 h-4 text-slate-400 transition-transform ${
+                        className={`w-4 h-4 text-slate-600 transition-transform ${
                           isOpen ? 'rotate-180 text-[#1E3A8A]' : ''
                         }`}
                       />

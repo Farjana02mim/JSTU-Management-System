@@ -330,7 +330,7 @@ export const StudentIDCardPage: React.FC = () => {
                         </span>
                       )}
                       {card.status === 'Expired' && (
-                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-slate-500/30 text-slate-300 border border-slate-400/40 uppercase">
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-slate-500/30 text-slate-600 border border-slate-400/40 uppercase">
                           EXPIRED
                         </span>
                       )}
@@ -341,8 +341,8 @@ export const StudentIDCardPage: React.FC = () => {
                   <div className="p-3.5 flex-1 flex gap-3 relative z-10">
                     {/* Neutral Avatar */}
                     <div className="flex flex-col items-center">
-                      <div className="w-20 h-24 sm:w-24 sm:h-28 bg-slate-100 border border-slate-300 rounded-lg flex flex-col items-center justify-center p-2 text-slate-400 shadow-inner relative overflow-hidden">
-                        <svg className="w-14 h-14 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
+                      <div className="w-20 h-24 sm:w-24 sm:h-28 bg-slate-100 border border-slate-300 rounded-lg flex flex-col items-center justify-center p-2 text-slate-600 shadow-inner relative overflow-hidden">
+                        <svg className="w-14 h-14 text-slate-600" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                         </svg>
                         <span className="text-[8px] font-bold text-slate-500 tracking-wider mt-1 uppercase">
@@ -529,7 +529,7 @@ export const StudentIDCardPage: React.FC = () => {
                       className="w-full h-full object-contain"
                     />
                   ) : (
-                    <span className="text-xs text-slate-400">Loading QR...</span>
+                    <span className="text-xs text-slate-600">Loading QR...</span>
                   )}
                 </div>
 
@@ -618,7 +618,7 @@ export const StudentIDCardPage: React.FC = () => {
               </div>
 
               <div className="pt-2 border-t border-slate-100 flex items-center gap-1.5 text-[11px] text-slate-500">
-                <Info className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <Info className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                 <span>
                   {isBn
                     ? 'পিডিএফ ফাইলে সামনের ও পেছনের অংশসহ অফিসিয়াল ওয়াটারমার্ক অন্তর্ভুক্ত থাকে।'

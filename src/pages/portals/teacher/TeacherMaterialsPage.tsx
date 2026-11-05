@@ -230,11 +230,11 @@ export const TeacherMaterialsPage: React.FC = () => {
                     {group.courseCode}
                   </span>
                   <h3 className="text-sm font-bold text-[#0F172A]">{group.courseTitle}</h3>
-                  <span className="text-xs text-slate-400">({group.materials.length} files)</span>
+                  <span className="text-xs text-slate-600">({group.materials.length} files)</span>
                 </div>
 
                 {group.materials.length === 0 ? (
-                  <Card padding="md" className="text-center py-6 text-xs text-slate-400 border-[#E2E8F0] shadow-2xs">
+                  <Card padding="md" className="text-center py-6 text-xs text-slate-600 border-[#E2E8F0] shadow-2xs">
                     {isBn ? 'এই কোর্সে এখনও কোনো ফাইল আপলোড করা হয়নি।' : 'No files uploaded for this course yet.'}
                   </Card>
                 ) : (
@@ -250,7 +250,7 @@ export const TeacherMaterialsPage: React.FC = () => {
                               <h4 className="text-xs font-bold text-[#0F172A] line-clamp-2 leading-snug">
                                 {mat.title}
                               </h4>
-                              <p className="text-[10px] text-slate-400 flex items-center gap-2">
+                              <p className="text-[10px] text-slate-600 flex items-center gap-2">
                                 <span>{mat.fileSize}</span>
                                 <span>&bull;</span>
                                 <span>{mat.uploadDate}</span>
@@ -261,14 +261,14 @@ export const TeacherMaterialsPage: React.FC = () => {
                           <div className="flex items-center gap-1 shrink-0">
                             <button
                               onClick={() => alert(`Simulated download for: ${mat.title}`)}
-                              className="p-1 text-slate-400 hover:text-[#1E3A8A] rounded cursor-pointer"
+                              className="p-1 text-slate-600 hover:text-[#1E3A8A] rounded cursor-pointer"
                               title="Download"
                             >
                               <Download className="w-3.5 h-3.5" />
                             </button>
                             <button
                               onClick={() => handleDelete(group.courseCode, mat.id)}
-                              className="p-1 text-slate-400 hover:text-red-600 rounded cursor-pointer"
+                              className="p-1 text-slate-600 hover:text-red-600 rounded cursor-pointer"
                               title="Delete"
                             >
                               <Trash2 className="w-3.5 h-3.5" />

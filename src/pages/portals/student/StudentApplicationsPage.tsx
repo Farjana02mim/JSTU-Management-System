@@ -249,7 +249,7 @@ export const StudentApplicationsPage: React.FC = () => {
             <h1 className="text-2xl font-black tracking-tight">
               {isBn ? 'বিশ্ববিদ্যালয় আবেদনপত্র ও ছাড়পত্র হাব' : 'Student Applications & Clearances Hub'}
             </h1>
-            <p className="text-xs text-slate-300 max-w-xl">
+            <p className="text-xs text-blue-100 max-w-xl">
               {isBn
                 ? 'ট্রান্সক্রিপ্ট, সনদপত্র, প্রশংসাপত্র, ছুটির আবেদন ও বিভাগীয় ছাড়পত্রের ডিজিটাল কার্যপ্রণালী ট্র্যাকার।'
                 : 'Request transcripts, certificates, testimonials, leave, and clearances with multi-tiered institutional sign-offs.'}
@@ -279,7 +279,7 @@ export const StudentApplicationsPage: React.FC = () => {
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>{successMsg}</span>
             </div>
-            <button onClick={() => setSuccessMsg(null)} className="text-slate-400 hover:text-slate-600 text-xs">
+            <button onClick={() => setSuccessMsg(null)} className="text-slate-600 hover:text-slate-600 text-xs">
               &times;
             </button>
           </div>
@@ -291,7 +291,7 @@ export const StudentApplicationsPage: React.FC = () => {
               <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
               <span>{errorMsg}</span>
             </div>
-            <button onClick={() => setErrorMsg(null)} className="text-slate-400 hover:text-slate-600 text-xs">
+            <button onClick={() => setErrorMsg(null)} className="text-slate-600 hover:text-slate-600 text-xs">
               &times;
             </button>
           </div>
@@ -310,7 +310,7 @@ export const StudentApplicationsPage: React.FC = () => {
         {!loading && applications.length === 0 && (
           <Card padding="lg" className="text-center py-12">
             <EmptyState
-              icon={<FileText className="w-8 h-8 text-slate-400" />}
+              icon={<FileText className="w-8 h-8 text-slate-600" />}
               title={isBn ? 'কোনো আবেদন জমা দেওয়া হয়নি' : 'No Applications Submitted'}
               description={
                 isBn
@@ -367,7 +367,7 @@ export const StudentApplicationsPage: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-slate-400 font-mono">
+                      <span className="text-[11px] text-slate-600 font-mono">
                         Submitted: {new Date(app.createdAt).toLocaleDateString()}
                       </span>
                       {app.status === 'APPROVED' && (
@@ -469,7 +469,7 @@ export const StudentApplicationsPage: React.FC = () => {
 
             {/* Approval Chain Preview */}
             <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-wider block">
                 {isBn ? 'অনুমোদন কার্যপ্রণালী ধাপসমূহ:' : 'Designated Approval Chain:'}
               </span>
               <div className="flex items-center gap-2 flex-wrap font-mono text-[11px] text-slate-700">
@@ -539,7 +539,7 @@ export const StudentApplicationsPage: React.FC = () => {
                   {isBn ? 'সহায়ক সংযুক্তি (পিডিএফ নথি):' : 'Supporting Attachment (PDF Document):'}
                   {activeConfig.attachmentRequired && <span className="text-red-600"> *</span>}
                 </span>
-                <span className="text-[10px] text-slate-400 font-normal">Max: 5MB &bull; PDF only</span>
+                <span className="text-[10px] text-slate-600 font-normal">Max: 5MB &bull; PDF only</span>
               </label>
 
               <div className="flex items-center gap-3">
@@ -618,13 +618,13 @@ export const StudentApplicationsPage: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-white p-3.5 border border-slate-200 rounded-xl">
                   {Object.entries(selectedApp.formData).map(([k, v]) => (
                     <div key={k} className="space-y-0.5">
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold block">{k}</span>
+                      <span className="text-[10px] text-slate-600 uppercase font-semibold block">{k}</span>
                       <span className="font-medium text-slate-800">{String(v)}</span>
                     </div>
                   ))}
                   {selectedApp.attachment && (
                     <div className="col-span-2 pt-2 border-t border-slate-100 space-y-0.5">
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold block">Attachment</span>
+                      <span className="text-[10px] text-slate-600 uppercase font-semibold block">Attachment</span>
                       <span className="font-mono text-emerald-700 font-bold">{selectedApp.attachment.name}</span>
                     </div>
                   )}
@@ -642,7 +642,7 @@ export const StudentApplicationsPage: React.FC = () => {
                     <div key={audit.id} className="p-3 text-xs space-y-0.5">
                       <div className="flex items-center justify-between">
                         <span className="font-mono font-bold text-[#1E3A8A]">{audit.action}</span>
-                        <span className="text-[10px] text-slate-400 font-mono">
+                        <span className="text-[10px] text-slate-600 font-mono">
                           {new Date(audit.timestamp).toLocaleString()}
                         </span>
                       </div>

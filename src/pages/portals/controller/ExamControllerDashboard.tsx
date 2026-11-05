@@ -142,7 +142,7 @@ export const ExamControllerDashboard: React.FC = () => {
             <h1 className="text-2xl font-black tracking-tight">
               {isBn ? 'পরীক্ষা নিয়ন্ত্রকের দপ্তর — ফলাফল প্রকাশনা' : 'Controller of Examinations Portal'}
             </h1>
-            <p className="text-xs text-slate-300 max-w-xl">
+            <p className="text-xs text-blue-100 max-w-xl">
               {isBn
                 ? `কর্মকর্তা: ${profile?.fullNameBn || 'ড. মো. মোখলেসুর রহমান'} (পরীক্ষা নিয়ন্ত্রক)। বিভাগীয় চেয়ারম্যানদের অনুমোদিত মার্কস শিট প্রকাশ, প্রত্যাবর্তন এবং আনুষ্ঠানিক ফলাফল রেজিস্টার।`
                 : `Officer: ${profile?.fullName || 'Dr. Md. Mokhlesur Rahman'} (Controller of Examinations). Publish, return, and audit university results.`}
@@ -181,7 +181,7 @@ export const ExamControllerDashboard: React.FC = () => {
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span className="font-medium">{bulkResultMsg}</span>
             </div>
-            <button onClick={() => setBulkResultMsg(null)} className="text-slate-400 hover:text-slate-600 text-xs">
+            <button onClick={() => setBulkResultMsg(null)} className="text-slate-600 hover:text-slate-600 text-xs">
               &times;
             </button>
           </div>
@@ -240,7 +240,7 @@ export const ExamControllerDashboard: React.FC = () => {
               <div className="text-3xl font-black text-amber-600 font-mono">
                 {data.awaitingPublicationCount}
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-600">
                 {isBn ? 'চেয়ারম্যান কর্তৃক অনুমোদিত কোর্স' : 'Sheets verified by Chairman'}
               </p>
             </Card>
@@ -252,7 +252,7 @@ export const ExamControllerDashboard: React.FC = () => {
               <div className="text-3xl font-black text-emerald-600 font-mono">
                 {data.publishedCount}
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-600">
                 {isBn ? 'শিক্ষার্থীদের জন্য সক্রিয়' : 'Live & immutable on Student Portal'}
               </p>
             </Card>
@@ -264,7 +264,7 @@ export const ExamControllerDashboard: React.FC = () => {
               <div className="text-3xl font-black text-blue-600 font-mono">
                 {data.submittedCount}
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-600">
                 {isBn ? 'চেয়ারম্যানের কাছে জমা' : 'Submitted to Department Chairman'}
               </p>
             </Card>
@@ -276,7 +276,7 @@ export const ExamControllerDashboard: React.FC = () => {
               <div className="text-3xl font-black text-purple-600 font-mono">
                 {data.pendingCorrectionsCount}
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-600">
                 {isBn ? 'প্রকাশিত শিটের সংশোধন' : 'Requests on published versions'}
               </p>
             </Card>
@@ -288,7 +288,7 @@ export const ExamControllerDashboard: React.FC = () => {
           <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
@@ -359,7 +359,7 @@ export const ExamControllerDashboard: React.FC = () => {
           {sheets.length === 0 ? (
             <div className="p-8">
               <EmptyState
-                icon={<Award className="w-8 h-8 text-slate-400" />}
+                icon={<Award className="w-8 h-8 text-slate-600" />}
                 title={isBn ? 'কোনো ফলাফল পাওয়া যায়নি' : 'No result sheets matched'}
                 description={isBn ? 'আপনার সার্চ বা ফিল্টার শর্তাবলী পরিবর্তন করে চেষ্টা করুন।' : 'Try adjusting your search criteria or status filter.'}
               />
@@ -399,11 +399,11 @@ export const ExamControllerDashboard: React.FC = () => {
                         </td>
                         <td className="py-3 px-3">
                           <span className="font-semibold text-slate-800">{sheet.department}</span>
-                          <span className="text-[11px] text-slate-400 block">{sheet.semester}</span>
+                          <span className="text-[11px] text-slate-600 block">{sheet.semester}</span>
                         </td>
                         <td className="py-3 px-3">
                           <span className="text-slate-800 font-medium">{sheet.instructorName}</span>
-                          <span className="text-[10px] text-slate-400 block font-mono">{sheet.instructorEmail}</span>
+                          <span className="text-[10px] text-slate-600 block font-mono">{sheet.instructorEmail}</span>
                         </td>
                         <td className="py-3 px-3 text-center font-mono">
                           <span className="px-2 py-0.5 bg-slate-100 rounded text-[11px] font-bold">
@@ -438,7 +438,7 @@ export const ExamControllerDashboard: React.FC = () => {
                               {sheet.pendingCorrectionsCount} Pending
                             </span>
                           ) : (
-                            <span className="text-slate-400 text-[10px]">0</span>
+                            <span className="text-slate-600 text-[10px]">0</span>
                           )}
                         </td>
                         <td className="py-3 px-4 text-right">

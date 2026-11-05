@@ -192,7 +192,7 @@ export const RegistrarDashboard: React.FC = () => {
             <h1 className="text-2xl font-black tracking-tight">
               {isBn ? 'রেজিস্ট্রার দপ্তর — পেপারলেস ও ডিজিটাল সনদ পোর্টাল' : 'Office of Registrar Portal'}
             </h1>
-            <p className="text-xs text-slate-300 max-w-xl">
+            <p className="text-xs text-blue-100 max-w-xl">
               {isBn
                 ? `কর্মকর্তা: ${profile?.fullNameBn || 'মো. আবদুল মান্নান'} (রেজিস্ট্রার)। পেপারলেস আবেদন অনুমোদন এবং ডিজিটাল সনদ ও ট্রান্সক্রিপ্ট রেজিস্ট্রি নিয়ন্ত্রণ।`
                 : `Officer: ${profile?.fullName || 'Md. Abdul Mannan'} (Registrar). Process final institutional approvals and manage cryptographic document registry.`}
@@ -207,7 +207,7 @@ export const RegistrarDashboard: React.FC = () => {
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span className="font-medium">{feedbackSuccess}</span>
             </div>
-            <button onClick={() => setFeedbackSuccess(null)} className="text-slate-400 hover:text-slate-600 text-xs">
+            <button onClick={() => setFeedbackSuccess(null)} className="text-slate-600 hover:text-slate-600 text-xs">
               &times;
             </button>
           </div>
@@ -355,7 +355,7 @@ export const RegistrarDashboard: React.FC = () => {
                 <div className="text-3xl font-black text-blue-900 font-mono">
                   {documents.length}
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-600">
                   {isBn ? 'সকল বিভাগের নিবন্ধিত সনদপত্র' : 'All sealed university credentials'}
                 </p>
               </Card>
@@ -367,7 +367,7 @@ export const RegistrarDashboard: React.FC = () => {
                 <div className="text-3xl font-black text-emerald-600 font-mono">
                   {validCount}
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-600">
                   {isBn ? 'পাবলিক ভেরিফিকেশনে সক্রিয়' : 'Accessible on public ledger'}
                 </p>
               </Card>
@@ -379,7 +379,7 @@ export const RegistrarDashboard: React.FC = () => {
                 <div className="text-3xl font-black text-rose-600 font-mono">
                   {revokedCount}
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-600">
                   {isBn ? 'স্থায়ীভাবে বাতিল ঘোষিত' : 'Permanently invalidated by Registrar'}
                 </p>
               </Card>
@@ -389,7 +389,7 @@ export const RegistrarDashboard: React.FC = () => {
             <Card padding="md" className="bg-white border-[#E2E8F0] shadow-sm space-y-3">
               <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
                 <div className="relative flex-1">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Search className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     value={searchQuery}
@@ -464,7 +464,7 @@ export const RegistrarDashboard: React.FC = () => {
               ) : documents.length === 0 ? (
                 <div className="p-8">
                   <EmptyState
-                    icon={<Award className="w-8 h-8 text-slate-400" />}
+                    icon={<Award className="w-8 h-8 text-slate-600" />}
                     title={isBn ? 'কোনো সনদ রেকর্ড পাওয়া যায়নি' : 'No documents matched'}
                     description={isBn ? 'আপনার সার্চ বা ফিল্টার শর্তাবলী পরিবর্তন করে চেষ্টা করুন।' : 'Try adjusting search query or filters.'}
                   />
@@ -492,7 +492,7 @@ export const RegistrarDashboard: React.FC = () => {
                               <span className="font-bold text-slate-900 block">
                                 {isBn ? doc.titleBn : doc.title}
                               </span>
-                              <span className="text-[10px] text-slate-400 font-mono">
+                              <span className="text-[10px] text-slate-600 font-mono">
                                 App: {doc.applicationNumber}
                               </span>
                             </td>

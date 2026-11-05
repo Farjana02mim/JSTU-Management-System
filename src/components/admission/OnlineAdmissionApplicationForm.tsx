@@ -472,25 +472,25 @@ export const OnlineAdmissionApplicationForm: React.FC<{
           {/* Summary Details */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left border-y border-[#E2E8F0] py-4 text-xs text-slate-600">
             <div>
-              <span className="text-slate-400 block">{isBn ? 'ইউনিট:' : 'Unit:'}</span>
+              <span className="text-slate-600 block">{isBn ? 'ইউনিট:' : 'Unit:'}</span>
               <span className="font-bold text-[#0F172A]">
                 {submittedApp.programChoice.unit.replace('_', ' ')}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block">{isBn ? '১ম পছন্দ:' : '1st Choice:'}</span>
+              <span className="text-slate-600 block">{isBn ? '১ম পছন্দ:' : '1st Choice:'}</span>
               <span className="font-bold text-[#0F172A]">
                 {submittedApp.programChoice.firstChoiceDept}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block">{isBn ? 'এইচএসসি জিপিএ:' : 'HSC GPA:'}</span>
+              <span className="text-slate-600 block">{isBn ? 'এইচএসসি জিপিএ:' : 'HSC GPA:'}</span>
               <span className="font-bold text-[#0F172A]">
                 {submittedApp.academicInfo.hscGpa.toFixed(2)}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block">{isBn ? 'নিবন্ধিত ইমেইল:' : 'Email:'}</span>
+              <span className="text-slate-600 block">{isBn ? 'নিবন্ধিত ইমেইল:' : 'Email:'}</span>
               <span className="font-bold text-[#0F172A] truncate block">
                 {submittedApp.personalInfo.email}
               </span>
@@ -562,7 +562,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
           </div>
           <button
             onClick={() => setDraftSavedMessage(null)}
-            className="text-slate-400 hover:text-slate-600 font-bold"
+            className="text-slate-600 hover:text-slate-600 font-bold"
           >
             &times;
           </button>
@@ -591,7 +591,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                     ? 'bg-[#1E3A8A] text-white shadow-xs'
                     : isCompleted
                     ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                    : 'bg-slate-50 text-slate-400 border border-slate-100'
+                    : 'bg-slate-50 text-slate-600 border border-slate-100'
                 }`}
               >
                 <div
@@ -1322,7 +1322,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                       <span className="text-xs font-bold text-[#0F172A] block">
                         {isBn ? 'আবেদনকারীর ছবি *' : "Applicant's Passport Photo *"}
                       </span>
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-[11px] text-slate-600">
                         {isBn ? 'JPEG / PNG, সর্বোচ্চ ২ মেগাবাইট' : 'JPEG or PNG only, max 2MB'}
                       </span>
                     </div>
@@ -1342,7 +1342,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                           className="w-14 h-14 rounded-lg object-cover border border-slate-300"
                         />
                       ) : (
-                        <FileText className="w-10 h-10 text-slate-400" />
+                        <FileText className="w-10 h-10 text-slate-600" />
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-semibold text-slate-800 truncate">
@@ -1364,7 +1364,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                   ) : (
                     <div>
                       <label className="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 hover:border-[#1E3A8A] rounded-xl p-6 cursor-pointer bg-slate-50 hover:bg-blue-50/20 transition">
-                        <Upload className="w-6 h-6 text-slate-400 mb-2" />
+                        <Upload className="w-6 h-6 text-slate-600 mb-2" />
                         <span className="text-xs font-medium text-slate-600">
                           {isBn ? 'ছবি নির্বাচন করতে ক্লিক করুন' : 'Click to upload color portrait'}
                         </span>
@@ -1399,7 +1399,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                       <span className="text-xs font-bold text-[#0F172A] block">
                         {isBn ? 'আবেদনকারীর স্বাক্ষর *' : "Applicant's Signature *"}
                       </span>
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-[11px] text-slate-600">
                         {isBn ? 'সাদা কাগজে স্পষ্ট কালো কালিতে (JPEG/PNG, সর্বোচ্চ ১MB)' : 'Black ink on white paper (JPEG/PNG, max 1MB)'}
                       </span>
                     </div>
@@ -1419,7 +1419,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                           className="w-20 h-10 object-contain bg-white border border-slate-300 rounded p-1"
                         />
                       ) : (
-                        <FileText className="w-8 h-8 text-slate-400" />
+                        <FileText className="w-8 h-8 text-slate-600" />
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-semibold text-slate-800 truncate">
@@ -1441,7 +1441,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                   ) : (
                     <div>
                       <label className="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 hover:border-[#1E3A8A] rounded-xl p-6 cursor-pointer bg-slate-50 hover:bg-blue-50/20 transition">
-                        <Upload className="w-6 h-6 text-slate-400 mb-2" />
+                        <Upload className="w-6 h-6 text-slate-600 mb-2" />
                         <span className="text-xs font-medium text-slate-600">
                           {isBn ? 'স্বাক্ষর ফাইল নির্বাচন করুন' : 'Click to upload scanned signature'}
                         </span>
@@ -1476,7 +1476,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                       <span className="text-xs font-bold text-[#0F172A] block">
                         {isBn ? 'এসএসসি মার্কশিট / সনদপত্র *' : 'SSC Transcript / Certificate *'}
                       </span>
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-[11px] text-slate-600">
                         {isBn ? 'PDF অথবা স্পষ্ট JPEG/PNG ছবি, সর্বোচ্চ ৩MB' : 'PDF or clear JPEG/PNG, max 3MB'}
                       </span>
                     </div>
@@ -1510,7 +1510,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                   ) : (
                     <div>
                       <label className="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 hover:border-[#1E3A8A] rounded-xl p-6 cursor-pointer bg-slate-50 hover:bg-blue-50/20 transition">
-                        <Upload className="w-6 h-6 text-slate-400 mb-2" />
+                        <Upload className="w-6 h-6 text-slate-600 mb-2" />
                         <span className="text-xs font-medium text-slate-600">
                           {isBn ? 'এসএসসি সনদ/মার্কশিট ফাইল বেছে নিন' : 'Upload SSC transcript or marksheet'}
                         </span>
@@ -1545,7 +1545,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                       <span className="text-xs font-bold text-[#0F172A] block">
                         {isBn ? 'এইচএসসি মার্কশিট / সনদপত্র *' : 'HSC Transcript / Certificate *'}
                       </span>
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-[11px] text-slate-600">
                         {isBn ? 'PDF অথবা স্পষ্ট JPEG/PNG ছবি, সর্বোচ্চ ৩MB' : 'PDF or clear JPEG/PNG, max 3MB'}
                       </span>
                     </div>
@@ -1579,7 +1579,7 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                   ) : (
                     <div>
                       <label className="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 hover:border-[#1E3A8A] rounded-xl p-6 cursor-pointer bg-slate-50 hover:bg-blue-50/20 transition">
-                        <Upload className="w-6 h-6 text-slate-400 mb-2" />
+                        <Upload className="w-6 h-6 text-slate-600 mb-2" />
                         <span className="text-xs font-medium text-slate-600">
                           {isBn ? 'এইচএসসি সনদ/মার্কশিট ফাইল বেছে নিন' : 'Upload HSC transcript or marksheet'}
                         </span>
@@ -1716,35 +1716,35 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-700">
                     <div>
-                      <span className="text-slate-400 block">{isBn ? 'নাম:' : 'Name:'}</span>
+                      <span className="text-slate-600 block">{isBn ? 'নাম:' : 'Name:'}</span>
                       <span className="font-bold">{personalInfo.fullName}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? 'বাংলায় নাম:' : 'Name (Bn):'}</span>
+                      <span className="text-slate-600 block">{isBn ? 'বাংলায় নাম:' : 'Name (Bn):'}</span>
                       <span className="font-bold">{personalInfo.fullNameBn}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? 'মোবাইল:' : 'Phone:'}</span>
+                      <span className="text-slate-600 block">{isBn ? 'মোবাইল:' : 'Phone:'}</span>
                       <span className="font-bold">{personalInfo.phone}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? 'ইমেইল:' : 'Email:'}</span>
+                      <span className="text-slate-600 block">{isBn ? 'ইমেইল:' : 'Email:'}</span>
                       <span className="font-bold truncate block">{personalInfo.email}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? 'জন্ম তারিখ:' : 'DOB:'}</span>
+                      <span className="text-slate-600 block">{isBn ? 'জন্ম তারিখ:' : 'DOB:'}</span>
                       <span className="font-bold">{personalInfo.dateOfBirth}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? 'লিঙ্গ:' : 'Gender:'}</span>
+                      <span className="text-slate-600 block">{isBn ? 'লিঙ্গ:' : 'Gender:'}</span>
                       <span className="font-bold">{personalInfo.gender}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? 'রক্তের গ্রুপ:' : 'Blood Group:'}</span>
+                      <span className="text-slate-600 block">{isBn ? 'রক্তের গ্রুপ:' : 'Blood Group:'}</span>
                       <span className="font-bold">{personalInfo.bloodGroup}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? 'কোটা:' : 'Quota:'}</span>
+                      <span className="text-slate-600 block">{isBn ? 'কোটা:' : 'Quota:'}</span>
                       <span className="font-bold text-[#1E3A8A]">
                         {personalInfo.quota?.replace('_', ' ')}
                       </span>
@@ -1768,25 +1768,25 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-700">
                     <div>
-                      <span className="text-slate-400 block">SSC Board & Roll:</span>
+                      <span className="text-slate-600 block">SSC Board & Roll:</span>
                       <span className="font-bold">
                         {academicInfo.sscBoard} - {academicInfo.sscRoll}
                       </span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">SSC GPA & Year:</span>
+                      <span className="text-slate-600 block">SSC GPA & Year:</span>
                       <span className="font-bold text-emerald-700">
                         {academicInfo.sscGpa} ({academicInfo.sscPassingYear})
                       </span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">HSC Board & Roll:</span>
+                      <span className="text-slate-600 block">HSC Board & Roll:</span>
                       <span className="font-bold">
                         {academicInfo.hscBoard} - {academicInfo.hscRoll}
                       </span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">HSC GPA & Year:</span>
+                      <span className="text-slate-600 block">HSC GPA & Year:</span>
                       <span className="font-bold text-emerald-700">
                         {academicInfo.hscGpa} ({academicInfo.hscPassingYear})
                       </span>
@@ -1810,21 +1810,21 @@ export const OnlineAdmissionApplicationForm: React.FC<{
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-700">
                     <div>
-                      <span className="text-slate-400 block">{isBn ? 'ইউনিট:' : 'Unit:'}</span>
+                      <span className="text-slate-600 block">{isBn ? 'ইউনিট:' : 'Unit:'}</span>
                       <span className="font-bold text-[#1E3A8A]">
                         {programChoice.unit?.replace('_', ' ')}
                       </span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? '১ম পছন্দ:' : '1st Choice:'}</span>
+                      <span className="text-slate-600 block">{isBn ? '১ম পছন্দ:' : '1st Choice:'}</span>
                       <span className="font-bold">{programChoice.firstChoiceDept}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? '২য় পছন্দ:' : '2nd Choice:'}</span>
+                      <span className="text-slate-600 block">{isBn ? '২য় পছন্দ:' : '2nd Choice:'}</span>
                       <span className="font-bold">{programChoice.secondChoiceDept}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block">{isBn ? '৩য় পছন্দ:' : '3rd Choice:'}</span>
+                      <span className="text-slate-600 block">{isBn ? '৩য় পছন্দ:' : '3rd Choice:'}</span>
                       <span className="font-bold">{programChoice.thirdChoiceDept}</span>
                     </div>
                   </div>

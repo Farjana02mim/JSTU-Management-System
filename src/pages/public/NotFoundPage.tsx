@@ -60,7 +60,7 @@ export const NotFoundPage: React.FC = () => {
       {/* Quick Search on 404 */}
       <div className="max-w-md mx-auto">
         <form onSubmit={handleSearchSubmit} className="relative flex items-center">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5" />
+          <Search className="w-4 h-4 text-slate-600 absolute left-3.5" />
           <input
             type="text"
             value={searchQuery}
@@ -79,7 +79,7 @@ export const NotFoundPage: React.FC = () => {
 
       {/* Suggested Popular Hubs */}
       <div className="space-y-3 pt-4 border-t border-slate-100">
-        <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
+        <span className="text-xs font-semibold uppercase tracking-wider text-slate-600 block">
           {isBn ? 'জনপ্রিয় ও প্রয়োজনীয় বিভাগসমূহ' : 'Recommended University Destinations'}
         </span>
 

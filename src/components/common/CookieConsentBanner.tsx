@@ -59,7 +59,7 @@ export const CookieConsentBanner: React.FC = () => {
         </div>
         <button
           onClick={handleEssentialOnly}
-          className="text-slate-400 hover:text-slate-600 p-1"
+          className="text-slate-600 hover:text-slate-600 p-1"
           aria-label="Dismiss cookie banner"
         >
           <X className="w-4 h-4" />

@@ -239,7 +239,7 @@ export const StudentAssignmentsPage: React.FC = () => {
                             <FileCheck className="w-3.5 h-3.5 text-emerald-600" />
                             <span>Submitted file: <strong className="font-mono text-slate-800">{asg.fileName}</strong> ({asg.fileSize})</span>
                           </span>
-                          <span className="font-mono text-[10px] text-slate-400">
+                          <span className="font-mono text-[10px] text-slate-600">
                             Timestamp: {asg.submittedAt ? new Date(asg.submittedAt).toLocaleString() : 'Recorded'}
                           </span>
                         </div>
@@ -253,7 +253,7 @@ export const StudentAssignmentsPage: React.FC = () => {
 
                     {/* Action */}
                     <div className="pt-2 flex items-center justify-between">
-                      <span className="text-[11px] text-slate-400 font-mono">
+                      <span className="text-[11px] text-slate-600 font-mono">
                         Max Marks: {asg.maxMarks} &bull; PDF format strictly enforced
                       </span>
 
@@ -316,7 +316,7 @@ export const StudentAssignmentsPage: React.FC = () => {
                   onClick={() => fileInputRef.current?.click()}
                   className="border-2 border-dashed border-[#CBD5E1] hover:border-[#1E3A8A] rounded-xl p-6 text-center cursor-pointer bg-[#F8FAFC] transition-colors space-y-2"
                 >
-                  <FileText className="w-8 h-8 text-slate-400 mx-auto" />
+                  <FileText className="w-8 h-8 text-slate-600 mx-auto" />
                   {selectedFile ? (
                     <div>
                       <p className="font-bold text-[#0F172A]">{selectedFile.name}</p>
@@ -327,7 +327,7 @@ export const StudentAssignmentsPage: React.FC = () => {
                   ) : (
                     <div>
                       <p className="font-semibold text-slate-700">Click to select PDF document</p>
-                      <p className="text-[11px] text-slate-400">PDF documents only, up to 5 MB</p>
+                      <p className="text-[11px] text-slate-600">PDF documents only, up to 5 MB</p>
                     </div>
                   )}
                 </div>

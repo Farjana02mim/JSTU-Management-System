@@ -245,7 +245,7 @@ export const StudentQuizzesPage: React.FC = () => {
                     <span>{formatTimer(secondsRemaining)}</span>
                   </div>
 
-                  <span className="text-[11px] text-slate-400 hidden sm:inline-block">
+                  <span className="text-[11px] text-slate-600 hidden sm:inline-block">
                     {autoSaveStatus === 'saving' ? (
                       <span className="text-amber-400">Saving...</span>
                     ) : (

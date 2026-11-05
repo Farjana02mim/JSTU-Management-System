@@ -293,7 +293,7 @@ export const AIAssistantChat: React.FC = () => {
                       {/* Source attribution line */}
                       {!isUser && msg.sources && msg.sources.length > 0 && (
                         <div className="mt-2 pt-1.5 border-t border-gray-100 flex flex-wrap items-center gap-1 text-[10px] text-gray-500 font-medium">
-                          <span className="text-gray-400">
+                          <span className="text-slate-600">
                             {isBn ? 'উৎস ভিত্তি:' : 'Based on:'}
                           </span>
                           {msg.sources.map((src) => (
@@ -309,14 +309,14 @@ export const AIAssistantChat: React.FC = () => {
 
                       {/* Offline Fallback indicator */}
                       {!isUser && msg.isFallback && (
-                        <div className="mt-1 text-[9px] text-gray-400 flex items-center gap-1">
+                        <div className="mt-1 text-[9px] text-slate-600 flex items-center gap-1">
                           <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400" />
                           <span>{isBn ? 'অফলাইন নিয়মভিত্তিক উত্তর' : 'Verified Rule Engine'}</span>
                         </div>
                       )}
                     </div>
 
-                    <span className="text-[10px] text-gray-400 mt-1 px-1">
+                    <span className="text-[10px] text-slate-600 mt-1 px-1">
                       {msg.timestamp}
                     </span>
                   </div>
@@ -397,18 +397,18 @@ export const AIAssistantChat: React.FC = () => {
                 }
                 maxLength={MAX_USER_INPUT_LENGTH}
                 disabled={isLoading}
-                className="w-full pl-3.5 pr-20 py-2.5 text-xs sm:text-sm bg-gray-50 hover:bg-white focus:bg-white border border-gray-300 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors disabled:opacity-50"
+                className="w-full pl-3.5 pr-20 py-2.5 text-xs sm:text-sm bg-gray-50 hover:bg-white focus:bg-white border border-gray-300 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors disabled:bg-slate-100 disabled:text-slate-600"
               />
 
               <div className="absolute right-1.5 flex items-center gap-1.5">
-                <span className="text-[10px] text-gray-400 font-mono hidden sm:inline">
+                <span className="text-[10px] text-slate-600 font-mono hidden sm:inline">
                   {inputText.length}/{MAX_USER_INPUT_LENGTH}
                 </span>
 
                 <button
                   onClick={() => handleSendMessage()}
                   disabled={isLoading || !inputText.trim()}
-                  className="p-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-200 text-white disabled:text-gray-400 rounded-lg transition-colors cursor-pointer disabled:cursor-not-allowed shadow-xs"
+                  className="p-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-200 text-white disabled:text-slate-600 rounded-lg transition-colors cursor-pointer disabled:cursor-not-allowed shadow-xs"
                   aria-label="Send Message"
                 >
                   <Send className="w-3.5 h-3.5" />
@@ -416,7 +416,7 @@ export const AIAssistantChat: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-1.5 flex items-center justify-between text-[10px] text-gray-400 px-1">
+            <div className="mt-1.5 flex items-center justify-between text-[10px] text-slate-600 px-1">
               <span>
                 {isBn ? 'নিরাপদ সেশন · লগ সংরক্ষণ হয় না' : 'Read-only · Session isolated'}
               </span>

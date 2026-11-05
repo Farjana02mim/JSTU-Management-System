@@ -389,7 +389,7 @@ export const SubmitTicketModal: React.FC<SubmitTicketModalProps> = ({
                   <span className="font-semibold text-slate-700">
                     {isBn ? 'ফাইল নির্বাচন করুন বা ড্র্যাগ করুন' : 'Click to upload PDF or image'}
                   </span>
-                  <span className="text-[10px] text-slate-400">PDF, JPG, PNG, WEBP up to 5 MB</span>
+                  <span className="text-[10px] text-slate-600">PDF, JPG, PNG, WEBP up to 5 MB</span>
                 </div>
               </div>
             ) : (
@@ -404,7 +404,7 @@ export const SubmitTicketModal: React.FC<SubmitTicketModalProps> = ({
                 <button
                   type="button"
                   onClick={handleRemoveAttachment}
-                  className="text-slate-400 hover:text-red-600 p-1 rounded"
+                  className="text-slate-600 hover:text-red-600 p-1 rounded"
                   title="Remove attachment"
                 >
                   <X className="w-4 h-4" />

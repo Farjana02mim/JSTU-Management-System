@@ -9,6 +9,9 @@ interface DevDemoAccountsProps {
 }
 
 export const DevDemoAccounts: React.FC<DevDemoAccountsProps> = ({ currentEmail, onSelect }) => {
+  if (import.meta.env.VITE_USE_MOCK !== 'true') {
+    return null;
+  }
   const { language } = useLanguage();
   const isBn = language === 'bn';
 
@@ -88,7 +91,7 @@ export const DevDemoAccounts: React.FC<DevDemoAccountsProps> = ({ currentEmail, 
               </div>
 
               <div className="flex items-center justify-between text-[9px] pt-1 border-t border-slate-100 w-full mt-0.5">
-                <span className="text-slate-400 truncate max-w-[70%]">
+                <span className="text-slate-600 truncate max-w-[70%]">
                   {isBn ? acc.fullNameBn : acc.fullName}
                 </span>
                 <span className={`px-1 py-0.5 rounded font-medium ${
@@ -104,9 +107,9 @@ export const DevDemoAccounts: React.FC<DevDemoAccountsProps> = ({ currentEmail, 
         })}
       </div>
 
-      <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-400">
+      <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-600">
         <span className="flex items-center gap-1">
-          <KeyRound className="w-3 h-3 text-slate-400" />
+          <KeyRound className="w-3 h-3 text-slate-600" />
           <span>Password for all: <code className="font-mono text-slate-600 bg-slate-100 px-1 py-0.5 rounded">JSTU#Smart2026!</code></span>
         </span>
         <span className="italic">

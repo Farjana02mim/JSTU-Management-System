@@ -154,11 +154,16 @@ export const LoginPage: React.FC = () => {
           <h1 className="text-2xl font-extrabold text-[#0F172A] tracking-tight">
             {isBn ? 'জেএসটিইউ স্মার্ট ক্যাম্পাস পোর্টাল' : 'JSTU Smart Campus Portal'}
           </h1>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-600">
             {isBn
-              ? 'নিরাপদ সিঙ্গেল সাইন-অন (এসএসও) ও মাল্টি-ফ্যাক্টর অথেনটিকেশন।'
-              : 'Institutional Single Sign-On (SSO) with Multi-Factor Authentication.'}
+              ? 'প্রাতিষ্ঠানিক সিঙ্গেল সাইন-অন (এসএসও) ও মাল্টি-ফ্যাক্টর অথেনটিকেশন সমর্থনের জন্য পরিকল্পিত প্রোটোটাইপ।'
+              : 'Prototype designed to support institutional Single Sign-On (SSO) and Multi-Factor Authentication.'}
           </p>
+        </div>
+
+        {/* Prototype Disclaimer */}
+        <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-center text-xs font-semibold text-amber-900 shadow-2xs">
+          Student project / Prototype - not the official JSTU website
         </div>
 
         {/* Auth Box */}
@@ -250,7 +255,7 @@ export const LoginPage: React.FC = () => {
                 type="text"
                 maxLength={6}
                 required
-                placeholder="123456"
+                placeholder={import.meta.env.VITE_USE_MOCK === 'true' ? '123456' : '••••••'}
                 value={mfaCode}
                 onChange={(e) => setMfaCode(e.target.value)}
                 leftIcon={<KeyRound className="w-4 h-4" />}
@@ -286,8 +291,8 @@ export const LoginPage: React.FC = () => {
           </div>
         </Card>
 
-        {/* Demo accounts panel: Shown in demo mode (mock services), never when real Firebase is connected */}
-        {isMockMode && (
+        {/* Demo accounts panel: Shown strictly when VITE_USE_MOCK === "true" */}
+        {import.meta.env.VITE_USE_MOCK === 'true' && (
           <DevDemoAccounts
             currentEmail={email}
             onSelect={(selectedEmail, selectedPass) => {

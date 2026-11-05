@@ -31,11 +31,11 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
             {kicker}
           </span>
         )}
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A2540] dark:text-slate-100 tracking-tight text-balance">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A2540] tracking-tight text-balance">
           {title}
         </h2>
         {subtitle && (
-          <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed text-balance">
+          <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed text-balance">
             {subtitle}
           </p>
         )}

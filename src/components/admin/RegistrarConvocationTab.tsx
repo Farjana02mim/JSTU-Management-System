@@ -266,7 +266,7 @@ export const RegistrarConvocationTab: React.FC = () => {
           </div>
           <button
             onClick={() => setFeedback(null)}
-            className="text-slate-400 hover:text-slate-600 font-bold ml-4"
+            className="text-slate-600 hover:text-slate-600 font-bold ml-4"
           >
             ×
           </button>
@@ -277,7 +277,7 @@ export const RegistrarConvocationTab: React.FC = () => {
       <Card padding="md" className="bg-white border-slate-200 shadow-sm space-y-3">
         <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
@@ -333,7 +333,7 @@ export const RegistrarConvocationTab: React.FC = () => {
             <tbody className="divide-y divide-slate-100">
               {filteredRegs.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-slate-400">
+                  <td colSpan={7} className="py-8 text-center text-slate-600">
                     {isBn ? 'কোনো সমাবর্তন নিবন্ধন পাওয়া যায়নি।' : 'No convocation registrations match the filters.'}
                   </td>
                 </tr>
@@ -380,7 +380,7 @@ export const RegistrarConvocationTab: React.FC = () => {
                       >
                         {reg.paymentStatus}
                       </Badge>
-                      <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                      <div className="text-[10px] text-slate-600 font-mono mt-0.5">
                         ৳{reg.totalFee.toLocaleString()}
                       </div>
                     </td>
@@ -391,7 +391,7 @@ export const RegistrarConvocationTab: React.FC = () => {
                           <div className="text-[10px] text-slate-500 font-mono">{reg.assignedGownKitId}</div>
                         </div>
                       ) : (
-                        <span className="text-slate-400 italic text-[11px]">
+                        <span className="text-slate-600 italic text-[11px]">
                           {isBn ? 'বরাদ্দহীন' : 'Unassigned'}
                         </span>
                       )}
@@ -467,7 +467,7 @@ export const RegistrarConvocationTab: React.FC = () => {
               </h3>
               <button
                 onClick={() => setSelectedReg(null)}
-                className="text-slate-400 hover:text-slate-600 font-bold"
+                className="text-slate-600 hover:text-slate-600 font-bold"
               >
                 ✕
               </button>

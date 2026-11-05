@@ -296,16 +296,16 @@ export const SetPasswordPage: React.FC = () => {
                 {isBn ? 'প্রাতিষ্ঠানিক পাসওয়ার্ড নীতি (১২+ অক্ষর):' : 'Institutional Password Policy (12+ Chars):'}
               </span>
               <div className="grid grid-cols-2 gap-1 pt-1">
-                <span className={isLengthValid ? 'text-emerald-600 font-semibold' : 'text-slate-400'}>
+                <span className={isLengthValid ? 'text-emerald-600 font-semibold' : 'text-slate-600'}>
                   • 12+ Characters
                 </span>
-                <span className={hasUpper && hasLower ? 'text-emerald-600 font-semibold' : 'text-slate-400'}>
+                <span className={hasUpper && hasLower ? 'text-emerald-600 font-semibold' : 'text-slate-600'}>
                   • Uppercase & Lowercase
                 </span>
-                <span className={hasNumber ? 'text-emerald-600 font-semibold' : 'text-slate-400'}>
+                <span className={hasNumber ? 'text-emerald-600 font-semibold' : 'text-slate-600'}>
                   • At least 1 number
                 </span>
-                <span className={hasSpecial ? 'text-emerald-600 font-semibold' : 'text-slate-400'}>
+                <span className={hasSpecial ? 'text-emerald-600 font-semibold' : 'text-slate-600'}>
                   • At least 1 symbol
                 </span>
               </div>

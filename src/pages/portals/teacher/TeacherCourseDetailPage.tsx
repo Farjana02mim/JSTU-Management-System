@@ -341,7 +341,7 @@ export const TeacherCourseDetailPage: React.FC = () => {
           {/* Quick Metrics Strip */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-[#F1F5F9]">
             <div className="p-3 bg-slate-50 rounded-xl border border-[#E2E8F0]">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
+              <span className="text-[10px] text-slate-600 uppercase font-semibold block">
                 {isBn ? 'নিবন্ধিত শিক্ষার্থী' : 'Enrolled Students'}
               </span>
               <span className="text-lg font-bold text-[#0F172A] tabular-nums">
@@ -350,7 +350,7 @@ export const TeacherCourseDetailPage: React.FC = () => {
             </div>
 
             <div className="p-3 bg-slate-50 rounded-xl border border-[#E2E8F0]">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
+              <span className="text-[10px] text-slate-600 uppercase font-semibold block">
                 {isBn ? 'মোট ক্লাস অনুষ্ঠিত' : 'Total Sessions Held'}
               </span>
               <span className="text-lg font-bold text-[#0F172A] tabular-nums">
@@ -359,7 +359,7 @@ export const TeacherCourseDetailPage: React.FC = () => {
             </div>
 
             <div className="p-3 bg-slate-50 rounded-xl border border-[#E2E8F0]">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
+              <span className="text-[10px] text-slate-600 uppercase font-semibold block">
                 {isBn ? 'গড় ক্লাসের উপস্থিতি' : 'Class Avg. Attendance'}
               </span>
               <span className="text-lg font-bold text-[#0F172A] tabular-nums">
@@ -368,7 +368,7 @@ export const TeacherCourseDetailPage: React.FC = () => {
             </div>
 
             <div className="p-3 bg-slate-50 rounded-xl border border-[#E2E8F0]">
-              <span className="text-[10px] text-slate-400 uppercase font-semibold block">
+              <span className="text-[10px] text-slate-600 uppercase font-semibold block">
                 {isBn ? 'শেয়ারকৃত ম্যাটেরিয়ালস' : 'Lecture Materials'}
               </span>
               <span className="text-lg font-bold text-[#0F172A] tabular-nums">
@@ -431,7 +431,7 @@ export const TeacherCourseDetailPage: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between text-xs text-slate-500">
               <span>{isBn ? 'শিক্ষার্থীদের উপস্থিতি ও মার্কস সারাংশ' : 'Student Attendance and Evaluation Summary'}</span>
-              <span className="text-[11px] text-slate-400">
+              <span className="text-[11px] text-slate-600">
                 {isBn ? '৭৫% এর কম উপস্থিতি সতর্কীকরণ নির্দেশক' : '<75% attendance triggers institutional warning'}
               </span>
             </div>
@@ -455,7 +455,7 @@ export const TeacherCourseDetailPage: React.FC = () => {
                         <td className="py-3 px-4 font-mono font-bold text-slate-600">{st.rollNumber}</td>
                         <td className="py-3 px-4">
                           <div className="font-bold text-[#0F172A]">{isBn ? st.nameBn : st.name}</div>
-                          <div className="text-[10px] font-mono text-slate-400">{st.studentId}</div>
+                          <div className="text-[10px] font-mono text-slate-600">{st.studentId}</div>
                         </td>
                         <td className="py-3 px-4 text-center font-mono tabular-nums">
                           {st.attendedClasses} / {st.totalClasses}
@@ -496,7 +496,7 @@ export const TeacherCourseDetailPage: React.FC = () => {
                               {st.currentTotalMarks} / 100 ({st.letterGrade})
                             </span>
                           ) : (
-                            <span className="text-slate-400 font-normal">Pending</span>
+                            <span className="text-slate-600 font-normal">Pending</span>
                           )}
                         </td>
                       </tr>
@@ -544,7 +544,7 @@ export const TeacherCourseDetailPage: React.FC = () => {
                         </div>
                         <div className="space-y-1">
                           <h4 className="text-xs font-bold text-[#0F172A] leading-snug">{mat.title}</h4>
-                          <p className="text-[10px] text-slate-400 flex items-center gap-2">
+                          <p className="text-[10px] text-slate-600 flex items-center gap-2">
                             <span>{mat.fileSize}</span>
                             <span>&bull;</span>
                             <span>Uploaded {mat.uploadDate}</span>
@@ -562,7 +562,7 @@ export const TeacherCourseDetailPage: React.FC = () => {
                         </button>
                         <button
                           onClick={() => handleDeleteMaterial(mat.id)}
-                          className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                          className="p-1.5 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
                           title="Delete material"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -607,10 +607,10 @@ export const TeacherCourseDetailPage: React.FC = () => {
                   <Card key={ann.id} padding="md" className="border-[#E2E8F0] shadow-2xs space-y-2">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-[#0F172A] text-sm">{ann.title}</span>
-                      <span className="text-[10px] text-slate-400 font-mono">{ann.date}</span>
+                      <span className="text-[10px] text-slate-600 font-mono">{ann.date}</span>
                     </div>
                     <p className="text-xs text-slate-600 leading-relaxed">{ann.content}</p>
-                    <div className="text-[10px] text-slate-400 font-semibold pt-1">
+                    <div className="text-[10px] text-slate-600 font-semibold pt-1">
                       Posted by: {ann.author}
                     </div>
                   </Card>

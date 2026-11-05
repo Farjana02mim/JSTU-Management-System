@@ -68,11 +68,11 @@ export const NewsDetailPage: React.FC = () => {
           <span className="px-3 py-1 rounded-full bg-blue-100 text-[#1E3A8A] text-xs font-bold uppercase tracking-wider">
             {isBn ? article.categoryBn : article.category}
           </span>
-          <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
+          <span className="text-xs text-slate-600 font-mono flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5" />
             <span>{isBn ? article.dateBn : article.date}</span>
           </span>
-          <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
+          <span className="text-xs text-slate-600 font-mono flex items-center gap-1">
             <Clock className="w-3.5 h-3.5" />
             <span>{isBn ? article.readTimeBn : article.readTime}</span>
           </span>
@@ -176,7 +176,7 @@ export const NewsDetailPage: React.FC = () => {
                   {isBn ? rel.titleBn : rel.title}
                 </Link>
               </h4>
-              <span className="text-[10px] text-slate-400 block font-mono">
+              <span className="text-[10px] text-slate-600 block font-mono">
                 {isBn ? rel.dateBn : rel.date}
               </span>
             </Card>

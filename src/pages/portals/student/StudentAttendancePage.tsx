@@ -169,7 +169,7 @@ export const StudentAttendancePage: React.FC = () => {
 
                         <Link
                           to={`/student/courses/${c.code}`}
-                          className="p-1.5 text-slate-400 hover:text-[#1E3A8A] rounded-lg hover:bg-slate-50"
+                          className="p-1.5 text-slate-600 hover:text-[#1E3A8A] rounded-lg hover:bg-slate-50"
                           title="View course attendance breakdown"
                         >
                           <ArrowRight className="w-4 h-4" />

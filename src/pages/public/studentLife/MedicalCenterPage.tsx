@@ -164,7 +164,7 @@ export const MedicalCenterPage: React.FC = () => {
                 {issuedAppointment.preferredTimeSlot}). Please report to Medical Center counter with student ID.
               </div>
             </div>
-            <button onClick={() => setIssuedAppointment(null)} className="text-slate-400 hover:text-slate-600">
+            <button onClick={() => setIssuedAppointment(null)} className="text-slate-600 hover:text-slate-600">
               &times;
             </button>
           </div>
@@ -246,7 +246,7 @@ export const MedicalCenterPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Weekly Schedule</span>
+                    <span className="text-[10px] uppercase font-bold text-slate-600 block mb-1">Weekly Schedule</span>
                     <div className="flex flex-wrap gap-1">
                       {doc.dutyDays.map((day) => (
                         <span key={day} className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-semibold">

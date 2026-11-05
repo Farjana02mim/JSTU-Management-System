@@ -129,7 +129,7 @@ export const TeacherRoutinePage: React.FC = () => {
                         <Clock className="w-3.5 h-3.5 text-[#1E3A8A]" />
                         <span>{item.timeSlot}</span>
                       </span>
-                      <span className="text-xs text-slate-400">&bull;</span>
+                      <span className="text-xs text-slate-600">&bull;</span>
                       <span className="text-xs text-slate-500 flex items-center gap-1">
                         <Users className="w-3.5 h-3.5" />
                         <span>{item.enrolledCount} Students</span>
@@ -139,7 +139,7 @@ export const TeacherRoutinePage: React.FC = () => {
                     <h3 className="text-base font-bold text-[#0F172A]">{item.courseTitle}</h3>
 
                     <p className="text-xs text-slate-500 flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                      <MapPin className="w-3.5 h-3.5 text-slate-600" />
                       <span>{item.room}</span>
                     </p>
                   </div>

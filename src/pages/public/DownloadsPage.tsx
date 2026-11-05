@@ -112,7 +112,7 @@ export const DownloadsPage: React.FC = () => {
           </div>
           <button
             onClick={() => setDownloadSuccessItem(null)}
-            className="text-slate-400 hover:text-slate-600 font-bold"
+            className="text-slate-600 hover:text-slate-600 font-bold"
           >
             &times;
           </button>
@@ -161,7 +161,7 @@ export const DownloadsPage: React.FC = () => {
 
         {filteredDownloads.length === 0 ? (
           <div className="py-16 text-center space-y-3 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-            <FolderDown className="w-10 h-10 text-slate-400 mx-auto" />
+            <FolderDown className="w-10 h-10 text-slate-600 mx-auto" />
             <p className="text-sm font-semibold text-slate-700">
               {isBn ? 'কোনো নথি খুঁজে পাওয়া যায়নি' : 'No downloadable forms match your search'}
             </p>
@@ -221,8 +221,8 @@ export const DownloadsPage: React.FC = () => {
                       <span className="px-2 py-0.5 rounded font-mono font-bold text-[10px] bg-red-50 text-red-700 border border-red-200">
                         {item.fileType}
                       </span>
-                      <span className="text-slate-400 text-xs ml-2">{item.fileSize}</span>
-                      <span className="text-[10px] text-slate-400 block mt-0.5">
+                      <span className="text-slate-600 text-xs ml-2">{item.fileSize}</span>
+                      <span className="text-[10px] text-slate-600 block mt-0.5">
                         {isBn ? item.publishedDateBn : item.publishedDate}
                       </span>
                     </td>

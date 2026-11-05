@@ -21,11 +21,11 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
   return (
     <div className="py-16 px-4 text-center flex flex-col items-center justify-center max-w-md mx-auto">
-      <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center mb-4">
+      <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center mb-4">
         {icon || <Search className="w-7 h-7" />}
       </div>
-      <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 mb-1">{title}</h3>
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-sm">{description}</p>
+      <h3 className="text-base font-bold text-slate-800 mb-1">{title}</h3>
+      <p className="text-sm text-slate-500 mb-6 max-w-sm">{description}</p>
       {action ? (
         action
       ) : actionLabel && onAction ? (

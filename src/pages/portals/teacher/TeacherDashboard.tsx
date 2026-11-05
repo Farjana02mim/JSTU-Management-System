@@ -139,7 +139,7 @@ export const TeacherDashboard: React.FC = () => {
             <div className="text-2xl font-extrabold text-[#0F172A] tabular-nums">
               {stats.assignedCoursesCount}
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-600">
               {isBn ? 'CSE-3201, CSE-3205, CSE-1101' : 'CSE-3201, CSE-3205, CSE-1101'}
             </p>
           </Card>
@@ -152,7 +152,7 @@ export const TeacherDashboard: React.FC = () => {
             <div className="text-2xl font-extrabold text-[#0F172A] tabular-nums">
               {stats.totalEnrolledStudents}
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-600">
               {isBn ? '৩টি সেকশন জুড়ে শিক্ষার্থী' : 'Across 3 Course Sections'}
             </p>
           </Card>
@@ -165,7 +165,7 @@ export const TeacherDashboard: React.FC = () => {
             <div className="text-2xl font-extrabold text-amber-600 tabular-nums">
               {stats.pendingAssignmentsToGrade}
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-600">
               {isBn ? 'নতুন জমা হওয়া সমাধান' : 'Submissions awaiting review'}
             </p>
           </Card>
@@ -178,7 +178,7 @@ export const TeacherDashboard: React.FC = () => {
             <div className="text-2xl font-extrabold text-[#1E3A8A] tabular-nums">
               {stats.pendingMarksSheetsCount}
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-600">
               {isBn ? 'চেয়ারম্যানের কাছে দাখিল বাকি' : 'Awaiting final submission'}
             </p>
           </Card>
@@ -290,7 +290,7 @@ export const TeacherDashboard: React.FC = () => {
 
             <Card padding="md" className="border-[#E2E8F0] shadow-2xs divide-y divide-slate-100 p-0">
               {recentSubmissions.length === 0 ? (
-                <div className="p-6 text-center text-xs text-slate-400">
+                <div className="p-6 text-center text-xs text-slate-600">
                   {isBn ? 'কোনো নতুন অ্যাসাইনমেন্ট জমা বাকি নেই।' : 'No submissions currently awaiting grading.'}
                 </div>
               ) : (
@@ -298,7 +298,7 @@ export const TeacherDashboard: React.FC = () => {
                   <div key={sub.submissionId} className="p-3.5 space-y-1 hover:bg-slate-50 transition-colors">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-[#0F172A]">{sub.studentName}</span>
-                      <span className="font-mono text-[10px] text-slate-400">{sub.studentId}</span>
+                      <span className="font-mono text-[10px] text-slate-600">{sub.studentId}</span>
                     </div>
                     <p className="text-[11px] text-slate-600 truncate">{sub.assignmentTitle}</p>
                     <div className="flex items-center justify-between pt-1 text-[10px]">

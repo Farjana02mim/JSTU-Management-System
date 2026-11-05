@@ -241,7 +241,7 @@ export const SearchPage: React.FC = () => {
 
         <form onSubmit={handleSearchSubmit} className="max-w-3xl flex gap-2">
           <div className="relative flex-1">
-            <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-3.5" />
+            <Search className="w-5 h-5 text-slate-600 absolute left-3.5 top-3.5" />
             <input
               type="text"
               value={query}
@@ -256,7 +256,7 @@ export const SearchPage: React.FC = () => {
                   setQuery('');
                   setSearchParams({});
                 }}
-                className="absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-600"
+                className="absolute right-3.5 top-3.5 text-slate-600 hover:text-slate-600"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -343,7 +343,7 @@ export const SearchPage: React.FC = () => {
                         {isBn ? item.typeLabelBn : item.typeLabel}
                       </span>
                       {item.badge && (
-                        <span className="text-[11px] text-slate-400 font-mono truncate">
+                        <span className="text-[11px] text-slate-600 font-mono truncate">
                           {item.badge}
                         </span>
                       )}

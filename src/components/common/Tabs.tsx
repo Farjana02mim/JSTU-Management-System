@@ -41,8 +41,8 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onChange, className
               <span
                 className={`text-xs px-1.5 py-0.5 rounded-full ${
                   isActive
-                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
-                    : 'bg-slate-200 dark:bg-slate-700 text-slate-500'
+                    ? 'bg-slate-100  text-slate-700 '
+                    : 'bg-slate-200  text-slate-500'
                 }`}
               >
                 {tab.count}

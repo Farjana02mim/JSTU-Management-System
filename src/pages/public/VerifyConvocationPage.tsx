@@ -71,7 +71,7 @@ export const VerifyConvocationPage: React.FC = () => {
             <ArrowLeft className="w-4 h-4" />
             <span>{isBn ? 'সমাবর্তন পোর্টালে ফিরুন' : 'Back to Convocation Portal'}</span>
           </Link>
-          <span className="text-[10px] font-mono text-slate-400 bg-slate-200/60 px-2 py-0.5 rounded">
+          <span className="text-[10px] font-mono text-slate-600 bg-slate-200/60 px-2 py-0.5 rounded">
             QR VERIFICATION
           </span>
         </div>
@@ -83,7 +83,7 @@ export const VerifyConvocationPage: React.FC = () => {
               <Award className="w-6 h-6 text-amber-400" />
             </div>
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold block">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-600 font-bold block">
                 JAMALPUR SCIENCE & TECHNOLOGY UNIVERSITY
               </span>
               <h1 className="text-lg font-extrabold text-slate-900 tracking-tight">
@@ -111,7 +111,7 @@ export const VerifyConvocationPage: React.FC = () => {
 
           {/* Result view */}
           {queriedReg === undefined ? (
-            <p className="text-xs text-slate-400 text-center py-4">
+            <p className="text-xs text-slate-600 text-center py-4">
               Enter or scan a valid convocation pass token to verify its authenticity.
             </p>
           ) : queriedReg === null ? (
@@ -180,7 +180,7 @@ export const VerifyConvocationPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="text-[10px] text-center text-slate-400 font-mono">
+              <div className="text-[10px] text-center text-slate-600 font-mono">
                 Security Token: {queriedReg.passToken} &bull; Registration: {queriedReg.registrationNumber}
               </div>
             </div>
@@ -188,7 +188,7 @@ export const VerifyConvocationPage: React.FC = () => {
         </Card>
 
         {/* Footer Notice */}
-        <div className="text-center text-[11px] text-slate-400">
+        <div className="text-center text-[11px] text-slate-600">
           Jamalpur Science & Technology University &bull; Office of the Registrar
         </div>
       </div>

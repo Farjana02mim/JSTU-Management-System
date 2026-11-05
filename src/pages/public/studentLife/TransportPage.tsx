@@ -146,7 +146,7 @@ Emergency Break-down Support: +880 1712-556622
               <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
               <span>{feedback}</span>
             </div>
-            <button onClick={() => setFeedback(null)} className="text-slate-400 hover:text-slate-600">
+            <button onClick={() => setFeedback(null)} className="text-slate-600 hover:text-slate-600">
               &times;
             </button>
           </div>
@@ -218,7 +218,7 @@ Emergency Break-down Support: +880 1712-556622
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="font-mono text-xs font-bold text-amber-300">{r.routeCode}</span>
-                      <span className="text-slate-300 text-xs">&bull; {r.busNumber}</span>
+                      <span className="text-slate-600 text-xs">&bull; {r.busNumber}</span>
                     </div>
                     <h3 className="font-bold text-white text-base mt-0.5">{isBn ? r.routeNameBn : r.routeName}</h3>
                   </div>
@@ -226,7 +226,7 @@ Emergency Break-down Support: +880 1712-556622
 
                 <div className="flex items-center gap-3 text-xs">
                   <div className="text-right">
-                    <span className="text-slate-400 block text-[10px]">Driver Contact</span>
+                    <span className="text-slate-600 block text-[10px]">Driver Contact</span>
                     <span className="font-mono text-white font-bold">{r.driverName} ({r.driverPhone})</span>
                   </div>
                   <Badge variant="success">ON SCHEDULE</Badge>
@@ -271,7 +271,7 @@ Emergency Break-down Support: +880 1712-556622
                             <td className="p-3 font-mono text-slate-600">{stop.eveningDown}</td>
                           </>
                         )}
-                        <td className="p-3 text-right text-[11px] text-slate-400">
+                        <td className="p-3 text-right text-[11px] text-slate-600">
                           {i === 0 ? 'Starting Terminal' : i === r.stoppages.length - 1 ? 'Campus Final Stop' : 'Standard Boarding'}
                         </td>
                       </tr>

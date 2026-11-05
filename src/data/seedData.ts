@@ -47,8 +47,8 @@ export const bannerSlidesData: BannerSlide[] = [
     badgeBn: 'সরকারি পাবলিক বিশ্ববিদ্যালয় · প্রতিষ্ঠা ২০১২',
     title: 'Building a Smarter, Digital & Paperless University',
     titleBn: 'স্মার্ট, ডিজিটাল ও কাগজবিহীন বিশ্ববিদ্যালয় বিনির্মাণে',
-    subtitle: 'Jamalpur Science & Technology University (JSTU) is pioneering paperless academic administration, tamper-proof examinations, and cryptographic verification.',
-    subtitleBn: 'জামালপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয় (জেএসটিইউ) উচ্চশিক্ষায় পেপারলেস প্রশাসন, সম্পূর্ণ সুরক্ষিত ডিজিটাল ফলাফল এবং স্বয়ংক্রিয় সেবা নিশ্চিত করছে।',
+    subtitle: 'Jamalpur Science & Technology University (JSTU) prototype is designed to support digital academic administration, digital workflows with audit trail for examinations, and online verification.',
+    subtitleBn: 'জামালপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয় (জেএসটিইউ) প্রোটোটাইপ ডিজিটাল প্রশাসন, অডিট ট্রেইলযুক্ত ফলাফল এবং স্বয়ংক্রিয় সেবা সমর্থনের জন্য পরিকল্পিত।',
     tag: 'Academic & Administrative Complex',
     tagBn: 'একাডেমিক ও প্রশাসনিক ভবন'
   },
@@ -555,8 +555,8 @@ export const faqItemsData: FAQItem[] = [
   {
     question: 'How does JSTU Smart Campus ensure paperless university governance?',
     questionBn: 'জেএসটিইউ স্মার্ট ক্যাম্পাস কীভাবে কাগজবিহীন বিশ্ববিদ্যালয় প্রশাসন নিশ্চিত করে?',
-    answer: 'All routine administrative workflows—including semester course registration, continuous marks entry, departmental scrutiny, graduation clearances, and degree requests—are executed digitally with immutable server-authoritative audit logs and state machines.',
-    answerBn: 'সেমিস্টার কোর্স নিবন্ধন, পরীক্ষা মার্কস এন্ট্রি, ফলাফল যাচাই, চার স্তরের ছাড়পত্র এবং সনদপত্র অনুমোদন সম্পূর্ণ অনলাইনে সংরক্ষিত ও সার্ভার-সাইড ভ্যালিডেশনে পরিচালিত হয়।',
+    answer: 'This prototype is designed to support administrative workflows—including semester course registration, continuous marks entry, departmental scrutiny, graduation clearances, and degree requests—executed through a digital workflow with audit trail tracking.',
+    answerBn: 'এই প্রোটোটাইপটি সেমিস্টার কোর্স নিবন্ধন, পরীক্ষা মার্কস এন্ট্রি, ফলাফল নিরীক্ষণ ও চার স্তরের ছাড়পত্র ডিজিটাল ওয়ার্কফ্লো এবং অডিট ট্রেইল ট্র্যাকিংয়ের মাধ্যমে সমর্থনের জন্য পরিকল্পিত।',
     category: 'General'
   },
   {

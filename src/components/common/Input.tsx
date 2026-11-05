@@ -22,14 +22,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
         <div className="relative flex items-center">
           {leftIcon && (
-            <div className="absolute left-3 text-slate-400 pointer-events-none flex items-center">
+            <div className="absolute left-3 text-slate-600 pointer-events-none flex items-center">
               {leftIcon}
             </div>
           )}
           <input
             ref={ref}
             id={inputId}
-            className={`w-full text-sm rounded-xl border bg-white text-[#0F172A] placeholder:text-slate-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E3A8A] ${
+            className={`w-full text-sm rounded-xl border bg-white text-[#0F172A] placeholder:text-slate-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E3A8A] ${
               error
                 ? 'border-red-500 focus-visible:ring-red-500'
                 : 'border-[#E2E8F0] hover:border-slate-300'
@@ -37,7 +37,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {rightIcon && (
-            <div className="absolute right-3 text-slate-400 pointer-events-none flex items-center">
+            <div className="absolute right-3 text-slate-600 pointer-events-none flex items-center">
               {rightIcon}
             </div>
           )}

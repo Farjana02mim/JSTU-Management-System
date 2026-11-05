@@ -101,7 +101,7 @@ export const NewsPage: React.FC = () => {
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 font-bold text-[11px] uppercase tracking-wider">
                   Featured
                 </span>
-                <span className="text-xs text-slate-300 font-mono">
+                <span className="text-xs text-blue-100 font-mono">
                   {isBn ? featuredArticle.dateBn : featuredArticle.date}
                 </span>
               </div>
@@ -110,11 +110,11 @@ export const NewsPage: React.FC = () => {
                   {isBn ? featuredArticle.titleBn : featuredArticle.title}
                 </Link>
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed">
+              <p className="text-xs sm:text-sm text-blue-100 line-clamp-3 leading-relaxed">
                 {isBn ? featuredArticle.summaryBn : featuredArticle.summary}
               </p>
               <div className="pt-2 flex items-center justify-between">
-                <span className="text-xs text-slate-400 flex items-center gap-1.5">
+                <span className="text-xs text-slate-600 flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5" />
                   <span>{isBn ? featuredArticle.readTimeBn : featuredArticle.readTime}</span>
                 </span>
@@ -175,7 +175,7 @@ export const NewsPage: React.FC = () => {
 
         {filteredNews.length === 0 ? (
           <div className="py-16 text-center space-y-3 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-            <Newspaper className="w-10 h-10 text-slate-400 mx-auto" />
+            <Newspaper className="w-10 h-10 text-slate-600 mx-auto" />
             <p className="text-sm font-semibold text-slate-700">
               {isBn ? 'কোনো সংবাদ খুঁজে পাওয়া যায়নি' : 'No news articles match your search criteria'}
             </p>
@@ -217,13 +217,13 @@ export const NewsPage: React.FC = () => {
                   </div>
 
                   <div className="p-5 space-y-3">
-                    <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                    <div className="flex items-center justify-between text-[11px] text-slate-600 font-mono">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                        <Calendar className="w-3.5 h-3.5 text-slate-600" />
                         <span>{isBn ? article.dateBn : article.date}</span>
                       </span>
                       <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-slate-400" />
+                        <Clock className="w-3.5 h-3.5 text-slate-600" />
                         <span>{isBn ? article.readTimeBn : article.readTime}</span>
                       </span>
                     </div>

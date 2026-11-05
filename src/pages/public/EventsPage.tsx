@@ -207,7 +207,7 @@ export const EventsPage: React.FC = () => {
 
           {filteredEvents.length === 0 ? (
             <div className="py-16 text-center space-y-3 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-              <Calendar className="w-10 h-10 text-slate-400 mx-auto" />
+              <Calendar className="w-10 h-10 text-slate-600 mx-auto" />
               <p className="text-sm font-semibold text-slate-700">
                 {isBn ? 'কোনো অনুষ্ঠান খুঁজে পাওয়া যায়নি' : 'No events match your selected criteria'}
               </p>
@@ -323,7 +323,7 @@ export const EventsPage: React.FC = () => {
                   <h3 className="text-xl font-bold text-[#0F172A]">
                     {isBn ? monthNamesBn[calendarMonth] : monthNames[calendarMonth]} {calendarYear}
                   </h3>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-slate-600">
                     {isBn ? 'ইভেন্ট দেখতে যেকোনো তারিখে ক্লিক করুন' : 'Click any highlighted day to inspect scheduled events'}
                   </span>
                 </div>
@@ -423,7 +423,7 @@ export const EventsPage: React.FC = () => {
                 </div>
 
                 {selectedDateEvents.length === 0 ? (
-                  <div className="py-8 text-center text-slate-400 text-xs">
+                  <div className="py-8 text-center text-slate-600 text-xs">
                     {isBn
                       ? 'এই তারিখে কোনো নির্ধারিত অনুষ্ঠান নেই।'
                       : 'No institutional events scheduled on this selected date.'}
@@ -485,19 +485,19 @@ export const EventsPage: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-200">
               <div>
-                <span className="text-slate-400 block">Category:</span>
+                <span className="text-slate-600 block">Category:</span>
                 <strong className="text-[#1E3A8A]">{selectedEvent.category}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block">Status:</span>
+                <span className="text-slate-600 block">Status:</span>
                 <strong className="text-emerald-700">{selectedEvent.status.toUpperCase()}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block">Venue:</span>
+                <span className="text-slate-600 block">Venue:</span>
                 <span className="text-slate-800 font-semibold">{selectedEvent.venue}</span>
               </div>
               <div>
-                <span className="text-slate-400 block">Organizer:</span>
+                <span className="text-slate-600 block">Organizer:</span>
                 <span className="text-slate-800 font-semibold">{selectedEvent.organizer}</span>
               </div>
             </div>

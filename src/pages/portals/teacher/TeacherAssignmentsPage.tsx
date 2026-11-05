@@ -273,7 +273,7 @@ export const TeacherAssignmentsPage: React.FC = () => {
                         <span className="text-xs text-slate-500 font-semibold font-mono">
                           Max Marks: {asg.maxMarks}
                         </span>
-                        <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                        <span className="text-[11px] text-slate-600 flex items-center gap-1">
                           <Calendar className="w-3.5 h-3.5" />
                           <span>Due: {new Date(asg.dueDate).toLocaleDateString()}</span>
                         </span>
@@ -287,13 +287,13 @@ export const TeacherAssignmentsPage: React.FC = () => {
                         <div className="font-bold text-[#0F172A]">
                           {asg.submissions.length} {isBn ? 'জমা পড়েছে' : 'Submissions'}
                         </div>
-                        <div className="text-[11px] text-slate-400">
+                        <div className="text-[11px] text-slate-600">
                           <span className="text-amber-600 font-bold">{pendingCount} pending</span> &bull; {gradedCount} graded
                         </div>
                       </div>
 
                       <ChevronDown
-                        className={`w-5 h-5 text-slate-400 transition-transform ${
+                        className={`w-5 h-5 text-slate-600 transition-transform ${
                           isExpanded ? 'rotate-180' : ''
                         }`}
                       />
@@ -307,13 +307,13 @@ export const TeacherAssignmentsPage: React.FC = () => {
                         <span className="font-bold text-slate-700">
                           {isBn ? 'শিক্ষার্থীদের জমা দেওয়া খাতার তালিকা' : 'Student Submissions'}
                         </span>
-                        <span className="text-slate-400 text-[11px]">
+                        <span className="text-slate-600 text-[11px]">
                           {isBn ? 'নম্বর প্রদান সাথে সাথে শিক্ষার্থীর গ্রেডবুকে যুক্ত হবে' : 'Grades reflect immediately in student portal'}
                         </span>
                       </div>
 
                       {asg.submissions.length === 0 ? (
-                        <div className="p-6 text-center text-xs text-slate-400 bg-white rounded-lg border border-[#E2E8F0]">
+                        <div className="p-6 text-center text-xs text-slate-600 bg-white rounded-lg border border-[#E2E8F0]">
                           {isBn ? 'এখনও কোনো শিক্ষার্থী এই অ্যাসাইনমেন্ট জমা দেয়নি।' : 'No submissions received yet.'}
                         </div>
                       ) : (
@@ -334,7 +334,7 @@ export const TeacherAssignmentsPage: React.FC = () => {
                                 <tr key={sub.id} className="hover:bg-slate-50 transition-colors">
                                   <td className="py-2.5 px-3">
                                     <div className="font-bold text-[#0F172A]">{sub.studentName}</div>
-                                    <div className="text-[10px] font-mono text-slate-400">{sub.studentId}</div>
+                                    <div className="text-[10px] font-mono text-slate-600">{sub.studentId}</div>
                                   </td>
                                   <td className="py-2.5 px-3 text-slate-500 font-mono text-[11px]">
                                     {new Date(sub.submittedAt).toLocaleString()}
@@ -343,7 +343,7 @@ export const TeacherAssignmentsPage: React.FC = () => {
                                     <div className="flex items-center gap-1.5 text-slate-700">
                                       <FileText className="w-3.5 h-3.5 text-red-500" />
                                       <span className="truncate max-w-[140px] text-[11px]">{sub.fileName}</span>
-                                      <span className="text-[10px] text-slate-400">({sub.fileSize})</span>
+                                      <span className="text-[10px] text-slate-600">({sub.fileSize})</span>
                                     </div>
                                   </td>
                                   <td className="py-2.5 px-3 text-center">
@@ -363,7 +363,7 @@ export const TeacherAssignmentsPage: React.FC = () => {
                                         {sub.score} / {asg.maxMarks}
                                       </span>
                                     ) : (
-                                      <span className="text-slate-400">-</span>
+                                      <span className="text-slate-600">-</span>
                                     )}
                                   </td>
                                   <td className="py-2.5 px-3 text-right">

@@ -82,7 +82,7 @@ export const TeacherCoursesPage: React.FC = () => {
 
           <div className="flex items-center gap-3">
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
               <input
                 type="text"
                 placeholder={isBn ? 'কোর্স খুঁজুন...' : 'Search courses...'}
@@ -146,7 +146,7 @@ export const TeacherCoursesPage: React.FC = () => {
                     {isBn ? course.titleBn : course.title}
                   </h3>
                   <div className="flex items-center gap-2 text-xs text-slate-500">
-                    <Layers className="w-3.5 h-3.5 text-slate-400" />
+                    <Layers className="w-3.5 h-3.5 text-slate-600" />
                     <span>{isBn ? course.semesterBn : course.semester}</span>
                   </div>
                 </div>
@@ -155,7 +155,7 @@ export const TeacherCoursesPage: React.FC = () => {
                 <div className="p-5 space-y-3">
                   <div className="grid grid-cols-2 gap-3 text-xs">
                     <div className="p-2.5 bg-slate-50 rounded-lg border border-[#E2E8F0]">
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold block">
+                      <span className="text-[10px] text-slate-600 uppercase font-semibold block">
                         {isBn ? 'নিবন্ধিত শিক্ষার্থী' : 'Enrolled'}
                       </span>
                       <span className="text-base font-bold text-[#0F172A] tabular-nums">
@@ -164,7 +164,7 @@ export const TeacherCoursesPage: React.FC = () => {
                     </div>
 
                     <div className="p-2.5 bg-slate-50 rounded-lg border border-[#E2E8F0]">
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold block">
+                      <span className="text-[10px] text-slate-600 uppercase font-semibold block">
                         {isBn ? 'গড় উপস্থিতি' : 'Avg. Attendance'}
                       </span>
                       <span className="text-base font-bold text-[#0F172A] tabular-nums">

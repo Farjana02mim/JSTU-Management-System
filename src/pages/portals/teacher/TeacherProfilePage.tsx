@@ -112,29 +112,29 @@ export const TeacherProfilePage: React.FC = () => {
 
             <div className="space-y-3 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 font-medium">{isBn ? 'ইমেইল' : 'Email Address'}</span>
+                <span className="text-slate-600 font-medium">{isBn ? 'ইমেইল' : 'Email Address'}</span>
                 <span className="font-mono text-slate-800 font-semibold">{profile.email}</span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 font-medium">{isBn ? 'মোবাইল ফোন' : 'Contact Phone'}</span>
+                <span className="text-slate-600 font-medium">{isBn ? 'মোবাইল ফোন' : 'Contact Phone'}</span>
                 <span className="font-mono text-slate-800 font-semibold">{profile.phone}</span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 font-medium">{isBn ? 'অনুষদ কক্ষ' : 'Faculty Office'}</span>
+                <span className="text-slate-600 font-medium">{isBn ? 'অনুষদ কক্ষ' : 'Faculty Office'}</span>
                 <span className="text-slate-800 font-semibold">{profile.room}</span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 font-medium">{isBn ? 'রক্তের গ্রুপ' : 'Blood Group'}</span>
+                <span className="text-slate-600 font-medium">{isBn ? 'রক্তের গ্রুপ' : 'Blood Group'}</span>
                 <span className="font-mono font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-200">
                   {profile.bloodGroup}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 font-medium">{isBn ? 'নিরাপত্তা রোল' : 'Institutional Role'}</span>
+                <span className="text-slate-600 font-medium">{isBn ? 'নিরাপত্তা রোল' : 'Institutional Role'}</span>
                 <span className="font-mono font-bold text-slate-700 uppercase">TEACHER</span>
               </div>
             </div>
@@ -150,7 +150,7 @@ export const TeacherProfilePage: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <span className="text-[11px] font-semibold text-slate-400 block uppercase">
+              <span className="text-[11px] font-semibold text-slate-600 block uppercase">
                 {isBn ? 'নির্ধারিত কোর্স কোডসমূহ' : 'Current Active Courses'}
               </span>
               <div className="flex flex-wrap gap-2">
@@ -166,7 +166,7 @@ export const TeacherProfilePage: React.FC = () => {
             </div>
 
             <div className="space-y-2 pt-2 border-t border-slate-100">
-              <span className="text-[11px] font-semibold text-slate-400 block uppercase">
+              <span className="text-[11px] font-semibold text-slate-600 block uppercase">
                 {isBn ? 'গবেষণার ক্ষেত্র' : 'Research Interests & Specialization'}
               </span>
               <div className="flex flex-wrap gap-1.5">

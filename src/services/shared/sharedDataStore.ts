@@ -559,7 +559,89 @@ const DEMO_ENROLLED_STUDENTS: EnrolledStudentRef[] = [
   { studentId: 'JSTU2026012', rollNumber: '12', name: 'Tasnim Zara', nameBn: 'তাসনিম যারা', email: 'tasnim.2026012@jstu.ac.bd' }
 ];
 
+export function getEmptyStoreData(): SharedStoreData {
+  return {
+    students: {},
+    teacherProfile: {
+      uid: '',
+      email: '',
+      fullName: '',
+      fullNameBn: '',
+      designation: '',
+      designationBn: '',
+      department: '',
+      departmentBn: '',
+      employeeId: '',
+      phone: '',
+      room: '',
+      bloodGroup: '',
+      assignedCourseCodes: [],
+      researchAreas: []
+    },
+    courses: [],
+    assignments: [],
+    routine: {},
+    teacherRoutine: {},
+    results: [],
+    feeBreakdown: {
+      studentId: '',
+      currentSemester: '',
+      totalPayable: 0,
+      totalPaid: 0,
+      totalDue: 0,
+      invoices: []
+    },
+    studentNotifications: [],
+    applications: [],
+    digitalDocuments: [],
+    accountRequests: [],
+    simulatedEmailLogs: [],
+    activationTokens: [],
+    teacherNotifications: [],
+    libraryBooks: [],
+    libraryBorrowings: [],
+    libraryReservations: [],
+    hallApplications: [],
+    clubApplications: [],
+    sportsBookings: [],
+    medicalAppointments: [],
+    alumniRegistrations: [],
+    managedNotices: [],
+    managedNews: [],
+    managedEvents: [],
+    managedGallery: [],
+    managedDownloads: [],
+    managedDepartments: [],
+    managedFaculty: [],
+    managedVcMessage: {} as any,
+    managedStaticPages: [],
+    contentAuditTrail: [],
+    studentIdCards: [],
+    helpdeskTickets: [],
+    evaluationWindows: [],
+    anonymousCourseEvaluations: [],
+    evaluationSubmissionLedger: [],
+    quizzes: [],
+    quizAttempts: [],
+    scholarships: [],
+    alumniProfiles: [],
+    alumniRegRequests: [],
+    alumniJobs: [],
+    alumniDonations: [],
+    convocationEvents: [],
+    convocationRegistrations: [],
+    staffLeaveBalances: [],
+    staffLeaveApplications: [],
+    staffNotices: [],
+    staffServiceRequests: [],
+    staffDirectory: []
+  };
+}
+
 export function getInitialSharedStoreData(): SharedStoreData {
+  if (import.meta.env.VITE_USE_MOCK !== 'true') {
+    return getEmptyStoreData();
+  }
   const teacherEmail = 'teacher.demo@jstu.ac.bd';
   const teacherUid = 'demo_teacher_01';
   const teacherName = 'Dr. Shahadat Hossain';
@@ -1434,6 +1516,9 @@ export class SharedDataStoreManager {
   }
 
   public getStore(): SharedStoreData {
+    if (import.meta.env.VITE_USE_MOCK !== 'true') {
+      return getEmptyStoreData();
+    }
     if (typeof window === 'undefined') {
       if (!this.inMemoryStore) {
         this.inMemoryStore = getInitialSharedStoreData();

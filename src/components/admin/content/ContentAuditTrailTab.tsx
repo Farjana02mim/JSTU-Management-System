@@ -97,7 +97,7 @@ export const ContentAuditTrailTab: React.FC<ContentAuditTrailTabProps> = ({ entr
           <div>
             <label className="block text-xs font-semibold text-slate-600 mb-1">Search Audit Logs</label>
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-2.5 top-2.5 w-4 h-4 text-slate-600" />
               <input
                 type="text"
                 value={searchTerm}
@@ -181,7 +181,7 @@ export const ContentAuditTrailTab: React.FC<ContentAuditTrailTabProps> = ({ entr
                     {entry.changesSummary}
                   </p>
                   {(entry.previousStatus || entry.newStatus) && (
-                    <div className="flex items-center gap-2 text-[11px] text-slate-400">
+                    <div className="flex items-center gap-2 text-[11px] text-slate-600">
                       <span>Status transition:</span>
                       <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-mono">
                         {entry.previousStatus || 'none'}
@@ -197,7 +197,7 @@ export const ContentAuditTrailTab: React.FC<ContentAuditTrailTabProps> = ({ entr
                 {/* Right: Actor & Timestamp */}
                 <div className="flex flex-col md:items-end gap-1 text-slate-500 shrink-0 border-t md:border-t-0 pt-2 md:pt-0 border-slate-100">
                   <div className="flex items-center gap-1.5 font-medium text-slate-800">
-                    <User className="w-3.5 h-3.5 text-slate-400" />
+                    <User className="w-3.5 h-3.5 text-slate-600" />
                     <span>{entry.actorName}</span>
                     <span className="text-[10px] px-1.5 py-0.2 bg-emerald-100 text-emerald-800 rounded font-semibold">
                       {entry.actorRole}
@@ -208,7 +208,7 @@ export const ContentAuditTrailTab: React.FC<ContentAuditTrailTabProps> = ({ entr
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-1 text-[11px] text-slate-400">
+                  <div className="flex items-center gap-1 text-[11px] text-slate-600">
                     <Clock className="w-3 h-3" />
                     <span>{new Date(entry.timestamp).toLocaleString()}</span>
                   </div>

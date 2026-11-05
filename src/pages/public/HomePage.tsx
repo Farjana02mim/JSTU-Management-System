@@ -102,6 +102,11 @@ export const HomePage: React.FC = () => {
         description={t('home.heroSubtitle')}
       />
 
+      {/* Student project disclaimer banner */}
+      <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-center text-xs font-semibold text-amber-900">
+        Student project / Prototype - not the official JSTU website
+      </div>
+
       {/* 1. Hero Banner Slider with Clean Frame & Neutral Imagery */}
       <BannerSlider onOpenPortalModal={(type) => setActivePortalModal(type)} />
 

@@ -73,7 +73,7 @@ export const StudentResultsPage: React.FC = () => {
             <h1 className="text-2xl font-extrabold tracking-tight">
               {isBn ? 'সেমিস্টারভিত্তিক ফলাফল বিবরণী' : 'Cumulative Semester Grade Ledger'}
             </h1>
-            <p className="text-xs text-slate-300">
+            <p className="text-xs text-blue-100">
               {isBn
                 ? `শিক্ষার্থী: ${profile?.fullNameBn || user?.displayName} (আইডি: JSTU2026001)`
                 : `Student: ${profile?.fullName || user?.displayName} (Student ID: JSTU2026001)`}
@@ -82,7 +82,7 @@ export const StudentResultsPage: React.FC = () => {
 
           <div className="flex items-center gap-4">
             <div className="bg-white/10 backdrop-blur-xs px-4 py-2 rounded-xl text-center border border-white/20">
-              <span className="text-[10px] text-slate-300 uppercase block font-semibold">
+              <span className="text-[10px] text-slate-600 uppercase block font-semibold">
                 {isBn ? 'অর্জিত ক্রেডিট' : 'Earned Credits'}
               </span>
               <span className="text-2xl font-extrabold font-mono">{totalEarnedCredits.toFixed(1)}</span>
@@ -150,7 +150,7 @@ export const StudentResultsPage: React.FC = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="border-b border-[#E2E8F0] text-slate-400 font-bold uppercase tracking-wider text-[10px]">
+                      <tr className="border-b border-[#E2E8F0] text-slate-600 font-bold uppercase tracking-wider text-[10px]">
                         <th className="py-2.5 px-3">Course Code</th>
                         <th className="py-2.5 px-3">Course Title</th>
                         <th className="py-2.5 px-3 text-center">Credits</th>
@@ -176,7 +176,7 @@ export const StudentResultsPage: React.FC = () => {
                             </td>
                             <td className="py-2.5 px-3 text-center font-mono">
                               {isPending ? (
-                                <span className="text-slate-400 italic font-sans text-[11px]">—</span>
+                                <span className="text-slate-600 italic font-sans text-[11px]">—</span>
                               ) : (
                                 course.marks
                               )}
@@ -202,7 +202,7 @@ export const StudentResultsPage: React.FC = () => {
                             </td>
                             <td className="py-2.5 px-3 text-right font-mono font-bold text-[#0F172A]">
                               {isPending ? (
-                                <span className="text-slate-400 italic font-sans text-[11px]">—</span>
+                                <span className="text-slate-600 italic font-sans text-[11px]">—</span>
                               ) : (
                                 (course.gradePoint ?? 0).toFixed(2)
                               )}

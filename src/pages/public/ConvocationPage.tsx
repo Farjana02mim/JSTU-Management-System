@@ -194,7 +194,7 @@ export const ConvocationPage: React.FC = () => {
               <span>{isBn ? 'জেএসটিইউ প্রাতিষ্ঠানিক সমাবর্তন ২০২৬' : 'JSTU 2nd Grand Convocation 2026'}</span>
             </div>
 
-            <span className="text-[11px] font-mono bg-white/10 px-2.5 py-1 rounded text-slate-300">
+            <span className="text-[11px] font-mono bg-white/10 px-2.5 py-1 rounded text-slate-600">
               REGISTRATION PORTAL &bull; SESSIONS {event.eligibleSessions.join(', ')}
             </span>
           </div>
@@ -238,7 +238,7 @@ export const ConvocationPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-amber-400 shrink-0" />
               <div>
-                <span className="text-[10px] text-slate-400 block uppercase font-mono">Convocation Date</span>
+                <span className="text-[10px] text-slate-600 block uppercase font-mono">Convocation Date</span>
                 <span className="font-bold">{event.dateFormatted.split('(')[0]}</span>
               </div>
             </div>
@@ -246,7 +246,7 @@ export const ConvocationPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-emerald-400 shrink-0" />
               <div>
-                <span className="text-[10px] text-slate-400 block uppercase font-mono">Arena Venue</span>
+                <span className="text-[10px] text-slate-600 block uppercase font-mono">Arena Venue</span>
                 <span className="font-semibold truncate block max-w-xs">Permanent Campus Grounds</span>
               </div>
             </div>
@@ -254,7 +254,7 @@ export const ConvocationPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-blue-300 shrink-0" />
               <div>
-                <span className="text-[10px] text-slate-400 block uppercase font-mono">Registration Cutoff</span>
+                <span className="text-[10px] text-slate-600 block uppercase font-mono">Registration Cutoff</span>
                 <span className="font-semibold">Nov 15, 2026 (11:59 PM)</span>
               </div>
             </div>
@@ -262,7 +262,7 @@ export const ConvocationPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <Users className="w-4 h-4 text-purple-300 shrink-0" />
               <div>
-                <span className="text-[10px] text-slate-400 block uppercase font-mono">Eligible Batches</span>
+                <span className="text-[10px] text-slate-600 block uppercase font-mono">Eligible Batches</span>
                 <span className="font-semibold">{event.eligibleSessions.length} Academic Sessions</span>
               </div>
             </div>
@@ -332,7 +332,7 @@ export const ConvocationPage: React.FC = () => {
             </div>
             <button
               onClick={() => setRegistrationFeedback(null)}
-              className="text-slate-400 hover:text-slate-600 font-bold"
+              className="text-slate-600 hover:text-slate-600 font-bold"
             >
               &times;
             </button>
@@ -367,11 +367,11 @@ export const ConvocationPage: React.FC = () => {
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         <div>
-                          <span className="text-slate-400 block text-[10px] font-semibold uppercase">Presided by (Chancellor)</span>
+                          <span className="text-slate-600 block text-[10px] font-semibold uppercase">Presided by (Chancellor)</span>
                           <span className="font-bold text-slate-800">{event.chancellor}</span>
                         </div>
                         <div>
-                          <span className="text-slate-400 block text-[10px] font-semibold uppercase">Convocation Speaker</span>
+                          <span className="text-slate-600 block text-[10px] font-semibold uppercase">Convocation Speaker</span>
                           <span className="font-bold text-slate-800">{event.chiefGuest}</span>
                         </div>
                       </div>
@@ -462,7 +462,7 @@ export const ConvocationPage: React.FC = () => {
                     <div className="p-2.5 bg-slate-50 rounded-lg flex justify-between items-center">
                       <div>
                         <div className="font-semibold text-slate-800">Single Graduate Fee</div>
-                        <span className="text-[10px] text-slate-400">Includes Gown Kit, Hood, Crest & Lunch</span>
+                        <span className="text-[10px] text-slate-600">Includes Gown Kit, Hood, Crest & Lunch</span>
                       </div>
                       <span className="font-mono font-bold text-blue-700">৳3,500</span>
                     </div>
@@ -470,13 +470,13 @@ export const ConvocationPage: React.FC = () => {
                     <div className="p-2.5 bg-slate-50 rounded-lg flex justify-between items-center">
                       <div>
                         <div className="font-semibold text-slate-800">Accompanying Guest Fee</div>
-                        <span className="text-[10px] text-slate-400">Per Guest (Max 2 Guests per Graduate)</span>
+                        <span className="text-[10px] text-slate-600">Per Guest (Max 2 Guests per Graduate)</span>
                       </div>
                       <span className="font-mono font-bold text-blue-700">৳1,000 / guest</span>
                     </div>
                   </div>
 
-                  <p className="text-[11px] text-slate-400 italic">
+                  <p className="text-[11px] text-slate-600 italic">
                     Fee payments are processed only after graduation clearance is verified by the Registrar.
                   </p>
                 </Card>
@@ -829,7 +829,7 @@ export const ConvocationPage: React.FC = () => {
                   </div>
 
                   <div className="text-right shrink-0">
-                    <span className="text-[10px] text-slate-400 block font-mono">Total Fee</span>
+                    <span className="text-[10px] text-slate-600 block font-mono">Total Fee</span>
                     <span className="text-xl font-bold font-mono text-slate-900">
                       ৳{searchedReg.totalFee.toLocaleString('en-US')}
                     </span>
@@ -907,25 +907,25 @@ export const ConvocationPage: React.FC = () => {
                 {/* Breakdown details */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-3 rounded-xl text-xs">
                   <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">Degree</span>
+                    <span className="text-slate-600 block text-[10px] uppercase font-semibold">Degree</span>
                     <span className="font-bold text-slate-800">{searchedReg.degree}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">Gown Size</span>
+                    <span className="text-slate-600 block text-[10px] uppercase font-semibold">Gown Size</span>
                     <span className="font-mono font-bold text-slate-800">{searchedReg.gownSize}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">Guest Passes</span>
+                    <span className="text-slate-600 block text-[10px] uppercase font-semibold">Guest Passes</span>
                     <span className="font-bold text-slate-800">{searchedReg.guestCount} Guest(s)</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-semibold">Assigned Seat</span>
+                    <span className="text-slate-600 block text-[10px] uppercase font-semibold">Assigned Seat</span>
                     <span className="font-semibold text-blue-700">{searchedReg.assignedSeat || 'Pending'}</span>
                   </div>
                 </div>
               </Card>
             ) : (
-              <div className="p-8 text-center text-slate-400 bg-white border border-slate-200 rounded-2xl">
+              <div className="p-8 text-center text-slate-600 bg-white border border-slate-200 rounded-2xl">
                 No registration found for &ldquo;{statusSearchId}&rdquo;.
               </div>
             )}
@@ -954,7 +954,7 @@ export const ConvocationPage: React.FC = () => {
                             J
                           </div>
                           <div>
-                            <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-bold block">
+                            <span className="text-[10px] font-mono uppercase tracking-widest text-slate-600 font-bold block">
                               OFFICIAL CONVOCATION ENTRY PASS &bull; JSTU
                             </span>
                             <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
@@ -967,7 +967,7 @@ export const ConvocationPage: React.FC = () => {
                         </div>
 
                         <div className="text-left sm:text-right">
-                          <span className="text-[10px] font-mono text-slate-400 uppercase block">PASS TOKEN</span>
+                          <span className="text-[10px] font-mono text-slate-600 uppercase block">PASS TOKEN</span>
                           <span className="font-mono text-xs font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded">
                             {pass.passToken}
                           </span>
@@ -978,7 +978,7 @@ export const ConvocationPage: React.FC = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
                         <div className="sm:col-span-8 space-y-3 text-xs">
                           <div>
-                            <span className="text-[10px] text-slate-400 uppercase font-mono block">GRADUATE NAME</span>
+                            <span className="text-[10px] text-slate-600 uppercase font-mono block">GRADUATE NAME</span>
                             <h3 className="text-lg font-black text-slate-900">{pass.graduateName}</h3>
                             <span className="text-xs text-slate-500 font-mono">
                               Student ID: <strong>{pass.studentId}</strong> &bull; Registration: <strong>{pass.registrationNumber}</strong>
@@ -987,11 +987,11 @@ export const ConvocationPage: React.FC = () => {
 
                           <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100">
                             <div>
-                              <span className="text-[10px] text-slate-400 uppercase font-semibold">Degree Conferred</span>
+                              <span className="text-[10px] text-slate-600 uppercase font-semibold">Degree Conferred</span>
                               <span className="font-bold text-slate-800 block text-xs">{pass.degree}</span>
                             </div>
                             <div>
-                              <span className="text-[10px] text-slate-400 uppercase font-semibold">Department & Session</span>
+                              <span className="text-[10px] text-slate-600 uppercase font-semibold">Department & Session</span>
                               <span className="text-slate-700 block text-xs">{pass.department} ({pass.passingSession})</span>
                             </div>
                           </div>
@@ -1041,7 +1041,7 @@ export const ConvocationPage: React.FC = () => {
                       </div>
 
                       {/* Pass Footer Security Instructions */}
-                      <div className="pt-4 border-t-2 border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-slate-400 gap-2">
+                      <div className="pt-4 border-t-2 border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-slate-600 gap-2">
                         <div className="flex items-center gap-2">
                           <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                           <span>
@@ -1050,7 +1050,7 @@ export const ConvocationPage: React.FC = () => {
                               : 'Fee Payment Pending — Present with Payment Receipt'}
                           </span>
                         </div>
-                        <span className="font-mono text-slate-400">DEMO — NOT OFFICIAL JSTU DOCUMENT</span>
+                        <span className="font-mono text-slate-600">DEMO — NOT OFFICIAL JSTU DOCUMENT</span>
                       </div>
                     </div>
 
@@ -1080,10 +1080,10 @@ export const ConvocationPage: React.FC = () => {
                 );
               })()
             ) : (
-              <div className="p-8 text-center text-slate-400 bg-white border border-slate-200 rounded-2xl space-y-3">
-                <QrCode className="w-8 h-8 mx-auto text-slate-300" />
+              <div className="p-8 text-center text-slate-600 bg-white border border-slate-200 rounded-2xl space-y-3">
+                <QrCode className="w-8 h-8 mx-auto text-slate-600" />
                 <p className="text-sm font-semibold text-slate-600">No active convocation pass ready</p>
-                <p className="text-xs text-slate-400 max-w-md mx-auto">
+                <p className="text-xs text-slate-600 max-w-md mx-auto">
                   Please search for your Student ID in the &ldquo;Status & Fee Payment&rdquo; tab or complete online registration.
                 </p>
                 <Button variant="outline" size="sm" onClick={() => setActiveTab('status')}>
@@ -1106,7 +1106,7 @@ export const ConvocationPage: React.FC = () => {
           <div className="space-y-4 text-xs">
             <div className="p-3 bg-slate-900 text-white rounded-xl flex items-center justify-between">
               <div>
-                <span className="text-[10px] text-slate-400 font-mono block">Payable Convocation Fee</span>
+                <span className="text-[10px] text-slate-600 font-mono block">Payable Convocation Fee</span>
                 <span className="text-xl font-bold font-mono text-emerald-400">
                   ৳{targetPaymentReg.totalFee.toLocaleString('en-US')} BDT
                 </span>

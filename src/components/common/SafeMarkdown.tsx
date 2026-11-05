@@ -93,7 +93,7 @@ function parseInline(text: string): React.ReactNode[] {
       // Strikethrough
       const strikeText = match[11] || '';
       nodes.push(
-        <del key={`del-${keyIndex++}`} className="line-through text-slate-400">
+        <del key={`del-${keyIndex++}`} className="line-through text-slate-600">
           {strikeText}
         </del>
       );
@@ -202,7 +202,7 @@ export const SafeMarkdown: React.FC<SafeMarkdownProps> = ({ content, className =
         elements.push(
           <pre
             key={`code-block-${index++}`}
-            className="my-3 p-4 bg-slate-900 text-slate-100 font-mono text-xs rounded-lg overflow-x-auto border border-slate-800"
+            className="my-3 p-4 bg-slate-900 text-slate-600 font-mono text-xs rounded-lg overflow-x-auto border border-slate-800"
           >
             <code>{codeBlockLines.join('\n')}</code>
           </pre>

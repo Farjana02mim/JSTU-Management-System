@@ -122,7 +122,7 @@ export const ClubsPage: React.FC = () => {
 
             <div className="p-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-xs text-center shrink-0">
               <span className="text-amber-300 font-extrabold text-xl block">8+ Active Clubs</span>
-              <span className="text-slate-200">2,500+ Registered Student Members</span>
+              <span className="text-blue-100">2,500+ Registered Student Members</span>
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@ export const ClubsPage: React.FC = () => {
               <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
               <span>{feedback}</span>
             </div>
-            <button onClick={() => setFeedback(null)} className="text-slate-400 hover:text-slate-600">
+            <button onClick={() => setFeedback(null)} className="text-slate-600 hover:text-slate-600">
               &times;
             </button>
           </div>
@@ -146,7 +146,7 @@ export const ClubsPage: React.FC = () => {
         <Card padding="md" className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
               <input
                 type="text"
                 value={searchQuery}
@@ -210,7 +210,7 @@ export const ClubsPage: React.FC = () => {
 
                 {/* Key Activities */}
                 <div>
-                  <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                  <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1.5">
                     Core Activities & Focus
                   </h4>
                   <ul className="space-y-1">
@@ -257,7 +257,7 @@ export const ClubsPage: React.FC = () => {
               {/* Action Buttons */}
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                  <Users className="w-3.5 h-3.5 text-slate-400" />
+                  <Users className="w-3.5 h-3.5 text-slate-600" />
                   <span className="font-bold text-slate-700">{club.memberCount}</span>
                   <span>Registered Members</span>
                 </div>

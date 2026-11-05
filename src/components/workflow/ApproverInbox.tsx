@@ -205,7 +205,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
           <div className="text-3xl font-black text-amber-600 font-mono">
             {counts.pendingCount}
           </div>
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-slate-600">
             {isBn ? 'আপনার সিদ্ধান্তের অপেক্ষায়' : 'Action required by your office'}
           </p>
         </Card>
@@ -217,7 +217,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
           <div className="text-3xl font-black text-emerald-600 font-mono">
             {counts.approvedCount}
           </div>
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-slate-600">
             {isBn ? 'চূড়ান্ত অনুমোদিত' : 'Completed chain'}
           </p>
         </Card>
@@ -229,7 +229,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
           <div className="text-3xl font-black text-purple-600 font-mono">
             {counts.returnedCount}
           </div>
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-slate-600">
             {isBn ? 'শিক্ষার্থী পর্যায়ে সংশোধন' : 'Pending revision'}
           </p>
         </Card>
@@ -241,7 +241,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
           <div className="text-3xl font-black text-red-600 font-mono">
             {counts.rejectedCount}
           </div>
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-slate-600">
             {isBn ? 'অনুমোদন অযোগ্য' : 'Terminated'}
           </p>
         </Card>
@@ -254,7 +254,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>{feedbackSuccess}</span>
           </div>
-          <button onClick={() => setFeedbackSuccess(null)} className="text-slate-400 hover:text-slate-600 text-xs">
+          <button onClick={() => setFeedbackSuccess(null)} className="text-slate-600 hover:text-slate-600 text-xs">
             &times;
           </button>
         </div>
@@ -266,7 +266,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
             <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
             <span>{feedbackError}</span>
           </div>
-          <button onClick={() => setFeedbackError(null)} className="text-slate-400 hover:text-slate-600 text-xs">
+          <button onClick={() => setFeedbackError(null)} className="text-slate-600 hover:text-slate-600 text-xs">
             &times;
           </button>
         </div>
@@ -276,7 +276,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
       <Card padding="md" className="bg-white border-[#E2E8F0] shadow-2xs space-y-3">
         <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
@@ -320,7 +320,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
         {filteredItems.length === 0 ? (
           <div className="p-8">
             <EmptyState
-              icon={<Inbox className="w-8 h-8 text-slate-400" />}
+              icon={<Inbox className="w-8 h-8 text-slate-600" />}
               title={isBn ? 'ইনবক্স ফাঁকা' : 'No Applications In Queue'}
               description={
                 isBn
@@ -361,11 +361,11 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
                       </td>
                       <td className="py-3 px-3">
                         <span className="font-bold text-slate-900 block">{app.title}</span>
-                        <span className="text-[10px] text-slate-400 uppercase font-mono">{app.type}</span>
+                        <span className="text-[10px] text-slate-600 uppercase font-mono">{app.type}</span>
                       </td>
                       <td className="py-3 px-3">
                         <span className="font-bold text-slate-800">{app.studentName}</span>
-                        <span className="text-[11px] text-slate-400 block font-mono">
+                        <span className="text-[11px] text-slate-600 block font-mono">
                           {app.studentId} &bull; {app.studentDepartment}
                         </span>
                       </td>
@@ -389,7 +389,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
                           {app.status}
                         </span>
                       </td>
-                      <td className="py-3 px-3 text-slate-400 text-[11px] font-mono">
+                      <td className="py-3 px-3 text-slate-600 text-[11px] font-mono">
                         {new Date(app.createdAt).toLocaleDateString()}
                       </td>
                       <td className="py-3 px-4 text-right">
@@ -439,19 +439,19 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
             {/* Applicant Summary */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Student</span>
+                <span className="text-[10px] text-slate-600 uppercase font-semibold block">Student</span>
                 <span className="font-bold text-slate-800">{selectedApp.studentName}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-semibold block">ID & Dept</span>
+                <span className="text-[10px] text-slate-600 uppercase font-semibold block">ID & Dept</span>
                 <span className="font-mono font-bold text-slate-800">{selectedApp.studentId} ({selectedApp.studentDepartment})</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Email</span>
+                <span className="text-[10px] text-slate-600 uppercase font-semibold block">Email</span>
                 <span className="font-mono text-slate-700">{selectedApp.studentEmail}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-400 uppercase font-semibold block">Submitted Date</span>
+                <span className="text-[10px] text-slate-600 uppercase font-semibold block">Submitted Date</span>
                 <span className="font-mono text-slate-700">{new Date(selectedApp.createdAt).toLocaleDateString()}</span>
               </div>
             </div>
@@ -464,13 +464,13 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-white p-3.5 border border-slate-200 rounded-xl">
                 {Object.entries(selectedApp.formData).map(([k, v]) => (
                   <div key={k} className="space-y-0.5">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">{k}</span>
+                    <span className="text-[10px] text-slate-600 uppercase font-semibold block">{k}</span>
                     <span className="font-medium text-slate-800">{String(v)}</span>
                   </div>
                 ))}
                 {selectedApp.attachment && (
                   <div className="col-span-2 pt-2 border-t border-slate-100 space-y-0.5">
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">Attached PDF Document</span>
+                    <span className="text-[10px] text-slate-600 uppercase font-semibold block">Attached PDF Document</span>
                     <span className="font-mono text-emerald-700 font-bold">{selectedApp.attachment.name}</span>
                   </div>
                 )}
@@ -488,7 +488,7 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
                   <div key={audit.id} className="p-3 text-xs space-y-0.5">
                     <div className="flex items-center justify-between">
                       <span className="font-mono font-bold text-[#1E3A8A]">{audit.action}</span>
-                      <span className="text-[10px] text-slate-400 font-mono">
+                      <span className="text-[10px] text-slate-600 font-mono">
                         {new Date(audit.timestamp).toLocaleString()}
                       </span>
                     </div>

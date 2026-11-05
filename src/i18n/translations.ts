@@ -56,7 +56,7 @@ export const translations = {
     // Home Page
     home: {
       heroTitle: 'Building a Smarter, Digital & Paperless University',
-      heroSubtitle: 'Jamalpur Science & Technology University is transforming higher education in Bangladesh through end-to-end digital governance, tamper-proof academic credentials, and automated campus services.',
+      heroSubtitle: 'Prototype designed to support digital governance, structured audit trail credentials, and automated campus digital workflows for Jamalpur Science & Technology University.',
       quickLinksTitle: 'Direct University Gateways',
       latestNoticesTitle: 'Official University Notices',
       latestNoticesSubtitle: 'Published circulars, exam schedules, and administrative orders directly from the Registrar and Examination Controller.',
@@ -67,17 +67,17 @@ export const translations = {
       statsTitle: 'JSTU by the Numbers',
       statsDisclaimer: 'The statistics shown below are demo metrics for demonstration purposes.',
       digitalServicesTitle: 'Paperless Digital Ecosystem',
-      digitalServicesSubtitle: 'Replace physical file queues, paper signature books, and manual verification with instant, auditable digital workflows.',
+      digitalServicesSubtitle: 'Prototype designed to support digital workflows, structured audit trails, and online verification.',
       faqTitle: 'Frequently Asked Questions',
       ctaTitle: 'Ready to Experience JSTU Smart Campus?',
-      ctaSubtitle: 'Access institutional portals or verify university-issued academic credentials with cryptographic certainty.'
+      ctaSubtitle: 'Access prototype institutional portals or verify academic credentials with audit trail validation.'
     },
     // Digital Services
     digitalServices: {
       s1Title: 'Paperless Academic Applications',
       s1Desc: 'Apply for semester registration, course retakes, hall accommodations, and degree clearances with zero paperwork.',
-      s2Title: 'Tamper-Proof E-Documents',
-      s2Desc: 'Digitally verified mark sheets and provisional certificates protected by state-machine immutability and institutional cryptography.',
+      s2Title: 'Audit Trail E-Documents',
+      s2Desc: 'Digitally verified mark sheets and provisional certificates designed to support an audit trail and digital workflow tracking.',
       s3Title: 'Instant QR Verification',
       s3Desc: 'Employers and institutions can verify transcripts and degrees in real time via public verification endpoints without manual courier delays.',
       s4Title: 'Server-Side Intelligence',
