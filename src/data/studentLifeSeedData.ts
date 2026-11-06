@@ -9,9 +9,15 @@ import {
   MedicalDoctor,
   MedicalService,
   MedicalAppointment,
+  MedicalDutyShift,
+  MedicalHealthTip,
+  EmergencyContact,
   TransportRoute,
   Alumnus,
-  AlumniRegistrationRequest
+  AlumniRegistrationRequest,
+  MedicalVisitRecord,
+  PatientRecordAccessLog,
+  MedicalRestCertificate
 } from '../types/studentLife';
 
 export const initialHallsData: ResidentialHall[] = [
@@ -669,62 +675,62 @@ export const initialSportsTournamentsData: SportsTournament[] = [
 export const initialMedicalDoctorsData: MedicalDoctor[] = [
   {
     id: 'doc-01',
-    name: 'Dr. Md. Rezaul Karim',
-    nameBn: 'ড. মো. রেজাউল করিম',
+    name: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    nameBn: 'প্রধান চিকিৎসা কর্মকর্তা [REPLACE WITH REAL CONTENT]',
     designation: 'Chief Medical Officer',
     designationBn: 'প্রধান চিকিৎসা কর্মকর্তা',
-    degrees: 'MBBS (DMC), BCS (Health), FCPS (Internal Medicine, Part 1)',
+    degrees: 'MBBS, BCS (Health) [REPLACE WITH REAL CONTENT]',
     specialty: 'Internal Medicine & Emergency Critical Care',
     roomNumber: 'Room 101, Medical Center',
     dutyDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
     dutyDaysBn: ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার'],
-    dutyTime: '8:30 AM - 2:30 PM',
-    phone: '+880 1711-234567',
+    dutyTime: '8:30 AM - 2:30 PM [REPLACE WITH REAL CONTENT]',
+    phone: '+880 1700-000001 [REPLACE WITH REAL CONTENT]',
     availableToday: true
   },
   {
     id: 'doc-02',
-    name: 'Dr. Shireen Akhtar',
-    nameBn: 'ডা. শিরীন আক্তার',
+    name: 'Senior Medical Officer [REPLACE WITH REAL CONTENT]',
+    nameBn: 'সিনিয়র চিকিৎসা কর্মকর্তা [REPLACE WITH REAL CONTENT]',
     designation: 'Senior Medical Officer',
     designationBn: 'সিনিয়র চিকিৎসা কর্মকর্তা',
-    degrees: 'MBBS (SSMC), DGO (Obs & Gynae), CCD (BIRDEM)',
+    degrees: 'MBBS, DGO, CCD [REPLACE WITH REAL CONTENT]',
     specialty: 'Women’s Health, Diabetology & Family Medicine',
     roomNumber: 'Room 103, Medical Center',
     dutyDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday'],
     dutyDaysBn: ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার'],
-    dutyTime: '9:00 AM - 3:00 PM',
-    phone: '+880 1712-345678',
+    dutyTime: '9:00 AM - 3:00 PM [REPLACE WITH REAL CONTENT]',
+    phone: '+880 1700-000002 [REPLACE WITH REAL CONTENT]',
     availableToday: true
   },
   {
     id: 'doc-03',
-    name: 'Dr. Tariq Hassan',
-    nameBn: 'ডা. তারিক হাসান',
+    name: 'Duty Dental Surgeon [REPLACE WITH REAL CONTENT]',
+    nameBn: 'কর্তব্যরত ডেন্টাল সার্জন [REPLACE WITH REAL CONTENT]',
     designation: 'Medical Officer (Dental)',
     designationBn: 'চিকিৎসা কর্মকর্তা (ডেন্টাল)',
-    degrees: 'BDS (Dhaka Dental College), PGT (Oral Surgery)',
+    degrees: 'BDS, PGT [REPLACE WITH REAL CONTENT]',
     specialty: 'Dental Surgery & Oral Health Care',
     roomNumber: 'Dental Clinic, Room 105',
     dutyDays: ['Monday', 'Wednesday', 'Thursday'],
     dutyDaysBn: ['সোমবার', 'বুধবার', 'বৃহস্পতিবার'],
-    dutyTime: '9:00 AM - 2:00 PM',
-    phone: '+880 1713-456789',
+    dutyTime: '9:00 AM - 2:00 PM [REPLACE WITH REAL CONTENT]',
+    phone: '+880 1700-000003 [REPLACE WITH REAL CONTENT]',
     availableToday: false
   },
   {
     id: 'doc-04',
-    name: 'Ms. Nusrat Sharmin',
-    nameBn: 'নুসরাত শারমিন',
+    name: 'Clinical Counselor [REPLACE WITH REAL CONTENT]',
+    nameBn: 'ক্লিনিক্যাল কাউন্সিলর [REPLACE WITH REAL CONTENT]',
     designation: 'Student Mental Health & Clinical Counselor',
     designationBn: 'ক্লিনিক্যাল সাইকোলজিস্ট ও কাউন্সিলর',
-    degrees: 'B.Sc (Hons), M.Sc in Clinical Psychology (DU)',
+    degrees: 'B.Sc (Hons), M.Sc in Clinical Psychology [REPLACE WITH REAL CONTENT]',
     specialty: 'Mental Well-being, Exam Anxiety & Psychotherapy',
     roomNumber: 'Counseling Cell, Room 202',
     dutyDays: ['Sunday', 'Tuesday', 'Thursday'],
     dutyDaysBn: ['রবিবার', 'মঙ্গলবার', 'বৃহস্পতিবার'],
-    dutyTime: '10:00 AM - 4:00 PM',
-    phone: '+880 1714-567890',
+    dutyTime: '10:00 AM - 4:00 PM [REPLACE WITH REAL CONTENT]',
+    phone: '+880 1700-000004 [REPLACE WITH REAL CONTENT]',
     availableToday: true
   }
 ];
@@ -744,7 +750,7 @@ export const initialMedicalServicesData: MedicalService[] = [
     id: 'med-srv-02',
     title: '24/7 Emergency Ambulance Service',
     titleBn: '২৪/৭ জরুরি অ্যাম্বুলেন্স সেবা',
-    description: 'Two fully-equipped university life-support ambulances with oxygen cylinders and stretcher dispatch to Jamalpur General Hospital.',
+    description: 'Two university life-support ambulances with oxygen cylinders and stretcher dispatch for emergency hospital transfers.',
     descriptionBn: 'অক্সিজেন ও প্রাথমিক জরুরি সুবিধাযুক্ত ২টি অ্যাম্বুলেন্স ২৪ ঘণ্টা প্রস্তুত।',
     fee: 'Campus Free | Hospital Transfer Subsidized',
     availability: '24 Hours / 7 Days a Week',
@@ -754,8 +760,8 @@ export const initialMedicalServicesData: MedicalService[] = [
     id: 'med-srv-03',
     title: 'Free Essential Medicine Dispensary',
     titleBn: 'বিনামূল্যে প্রয়োজনীয় ওষুধ বিতরণ',
-    description: 'Official pharmacy provides over 85 essential medicines including antibiotics, analgesics, antacids, ORS, and first-aid dressings on prescription.',
-    descriptionBn: 'প্রেসক্রিপশন অনুযায়ী প্রয়োজনীয় অ্যান্টিবায়োটিক, ব্যথানাশক ও জরুরি ওষুধ বিনামূল্যে প্রদান।',
+    description: 'Official dispensary provides essential basic medicines and first-aid supplies on presentation of digital prescription.',
+    descriptionBn: 'প্রেসক্রিপশন অনুযায়ী প্রয়োজনীয় জরুরি ও প্রাথমিক ওষুধ বিনামূল্যে প্রদান।',
     fee: '100% Free for Students',
     availability: 'Daily 9:00 AM - 4:00 PM',
     iconName: 'Pill'
@@ -764,9 +770,9 @@ export const initialMedicalServicesData: MedicalService[] = [
     id: 'med-srv-04',
     title: 'Pathology & Diagnostic Screening',
     titleBn: 'প্যাথলজি ও রোগনির্ণয় স্ক্রিনিং',
-    description: 'Automated blood sugar tests, CBC, lipid profile, urine routine microscopy, and malaria/dengue rapid screening.',
+    description: 'Blood sugar test, CBC, rapid dengue / malaria screen, and basic screening for university community members.',
     descriptionBn: 'রক্তের সিবিসি, ব্লাড সুগার, ডেঙ্গু ও ইউরিন পরীক্ষার স্বয়ংক্রিয় ল্যাব।',
-    fee: 'Highly Subsidized / Free',
+    fee: 'Subsidized / Free for Enrolled Students',
     availability: 'Morning 9:00 AM - 1:00 PM',
     iconName: 'Activity'
   },
@@ -774,11 +780,407 @@ export const initialMedicalServicesData: MedicalService[] = [
     id: 'med-srv-05',
     title: 'Mental Health & Stress Counseling',
     titleBn: 'মানসিক স্বাস্থ্য ও স্ট্রেস কাউন্সিলিং',
-    description: 'Strictly confidential, empathetic psychotherapy sessions for academic stress, depression, anxiety, and interpersonal wellness.',
+    description: 'Strictly confidential, empathetic psychotherapy sessions for academic stress, depression, anxiety, and wellness.',
     descriptionBn: 'পড়াশোনার চাপ, বিষণ্ণতা ও ব্যক্তিগত সংকট দূরীকরণে গোপনীয় মানসিক স্বাস্থ্য পরামর্শ।',
     fee: '100% Free & Confidential',
     availability: 'Sun, Tue, Thu by Appointment',
     iconName: 'HeartHandshake'
+  }
+];
+
+export const initialMedicalDutyRoster: MedicalDutyShift[] = [
+  {
+    id: 'shift-01',
+    doctorId: 'doc-01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Internal Medicine & Emergency Critical Care',
+    dayOfWeek: 'Sunday',
+    timeSlot: '09:00 AM - 09:30 AM',
+    roomNumber: 'Room 101',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-02',
+    doctorId: 'doc-01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Internal Medicine & Emergency Critical Care',
+    dayOfWeek: 'Sunday',
+    timeSlot: '09:30 AM - 10:00 AM',
+    roomNumber: 'Room 101',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-03',
+    doctorId: 'doc-01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Internal Medicine & Emergency Critical Care',
+    dayOfWeek: 'Sunday',
+    timeSlot: '10:00 AM - 10:30 AM',
+    roomNumber: 'Room 101',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-04',
+    doctorId: 'doc-02',
+    doctorName: 'Senior Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Women’s Health, Diabetology & Family Medicine',
+    dayOfWeek: 'Sunday',
+    timeSlot: '11:00 AM - 11:30 AM',
+    roomNumber: 'Room 103',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-05',
+    doctorId: 'doc-02',
+    doctorName: 'Senior Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Women’s Health, Diabetology & Family Medicine',
+    dayOfWeek: 'Monday',
+    timeSlot: '09:30 AM - 10:00 AM',
+    roomNumber: 'Room 103',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-06',
+    doctorId: 'doc-03',
+    doctorName: 'Duty Dental Surgeon [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Dental Surgery & Oral Health Care',
+    dayOfWeek: 'Monday',
+    timeSlot: '10:00 AM - 10:30 AM',
+    roomNumber: 'Room 105',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-07',
+    doctorId: 'doc-01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Internal Medicine & Emergency Critical Care',
+    dayOfWeek: 'Tuesday',
+    timeSlot: '09:00 AM - 09:30 AM',
+    roomNumber: 'Room 101',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-08',
+    doctorId: 'doc-04',
+    doctorName: 'Clinical Counselor [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Mental Well-being, Exam Anxiety & Psychotherapy',
+    dayOfWeek: 'Tuesday',
+    timeSlot: '10:30 AM - 11:30 AM',
+    roomNumber: 'Room 202',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-09',
+    doctorId: 'doc-01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Internal Medicine & Emergency Critical Care',
+    dayOfWeek: 'Wednesday',
+    timeSlot: '11:30 AM - 12:00 PM',
+    roomNumber: 'Room 101',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-10',
+    doctorId: 'doc-03',
+    doctorName: 'Duty Dental Surgeon [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Dental Surgery & Oral Health Care',
+    dayOfWeek: 'Wednesday',
+    timeSlot: '10:30 AM - 11:00 AM',
+    roomNumber: 'Room 105',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-11',
+    doctorId: 'doc-01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Internal Medicine & Emergency Critical Care',
+    dayOfWeek: 'Thursday',
+    timeSlot: '09:30 AM - 10:00 AM',
+    roomNumber: 'Room 101',
+    maxPatients: 1,
+    isActive: true
+  },
+  {
+    id: 'shift-12',
+    doctorId: 'doc-04',
+    doctorName: 'Clinical Counselor [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Mental Well-being, Exam Anxiety & Psychotherapy',
+    dayOfWeek: 'Thursday',
+    timeSlot: '11:00 AM - 12:00 PM',
+    roomNumber: 'Room 202',
+    maxPatients: 1,
+    isActive: true
+  }
+];
+
+export const initialEmergencyContacts: EmergencyContact[] = [
+  {
+    id: 'emg-01',
+    title: 'University Ambulance Duty [REPLACE WITH REAL CONTENT]',
+    titleBn: 'বিশ্ববিদ্যালয় অ্যাম্বুলেন্স জরুরি ডিউটি [REPLACE WITH REAL CONTENT]',
+    number: '+880 1700-000010 [REPLACE WITH REAL CONTENT]',
+    availableHours: '24 Hours / 7 Days [REPLACE WITH REAL CONTENT]',
+    availableHoursBn: '২৪ ঘণ্টা / ৭ দিন [REPLACE WITH REAL CONTENT]',
+    description: 'On-campus emergency patient transfer and critical paramedic dispatch.',
+    descriptionBn: 'ক্যাম্পাস অভ্যন্তরে জরুরি রোগী পরিবহন ও দ্রুত সাড়াদান।',
+    iconName: 'Ambulance',
+    isAmbulance: true
+  },
+  {
+    id: 'emg-02',
+    title: 'Medical Center Emergency Desk [REPLACE WITH REAL CONTENT]',
+    titleBn: 'মেডিকেল সেন্টার জরুরি ডেস্ক [REPLACE WITH REAL CONTENT]',
+    number: '+880 1700-000011 [REPLACE WITH REAL CONTENT]',
+    availableHours: '24/7 Hotline [REPLACE WITH REAL CONTENT]',
+    availableHoursBn: '২৪/৭ হটলাইন [REPLACE WITH REAL CONTENT]',
+    description: 'Duty medical officer on-call room and triage coordination desk.',
+    descriptionBn: 'অন-কল ডিউটি ডাক্তার ও প্রাথমিক চিকিৎসা সমন্বয় কেন্দ্র।',
+    iconName: 'PhoneCall'
+  },
+  {
+    id: 'emg-03',
+    title: 'Jamalpur 250-Bed General Hospital [REPLACE WITH REAL CONTENT]',
+    titleBn: 'জামালপুর ২৫০ শয্যা জেনারেল হাসপাতাল [REPLACE WITH REAL CONTENT]',
+    number: '+880 1700-000012 [REPLACE WITH REAL CONTENT]',
+    availableHours: '24 Hours Emergency Ward [REPLACE WITH REAL CONTENT]',
+    availableHoursBn: '২৪ ঘণ্টা জরুরি বিভাগ [REPLACE WITH REAL CONTENT]',
+    description: 'District referral hospital located 4.5 km from JSTU permanent campus.',
+    descriptionBn: 'জেএসটিইউ স্থায়ী ক্যাম্পাস থেকে ৪.৫ কিমি দূরে অবস্থিত জেলা রেফারাল হাসপাতাল।',
+    iconName: 'ShieldCheck'
+  },
+  {
+    id: 'emg-04',
+    title: 'National Emergency Service (Bangladesh)',
+    titleBn: 'জাতীয় জরুরি সেবা (বাংলাদেশ)',
+    number: '999',
+    availableHours: '24/7 Toll-Free',
+    availableHoursBn: '২৪/৭ টোল-ফ্রি',
+    description: 'Police, Fire Service, and Government Ambulance dispatch center.',
+    descriptionBn: 'পুলিশ, ফায়ার সার্ভিস ও সরকারি অ্যাম্বুলেন্স প্রেরণ কেন্দ্র।',
+    iconName: 'AlertCircle'
+  }
+];
+
+export const initialMedicalHealthTips: MedicalHealthTip[] = [
+  {
+    id: 'tip-01',
+    title: 'Dengue & Seasonal Viral Fever Prevention on Campus',
+    titleBn: 'ক্যাম্পাসে ডেঙ্গু ও মৌসুমী ভাইরাস জ্বর প্রতিরোধ',
+    category: 'Preventive Health',
+    categoryBn: 'প্রতিরোধমূলক স্বাস্থ্য',
+    readTime: '2 min read',
+    summary: 'Essential environmental hygiene steps to prevent mosquito breeding in dormitories and academic halls.',
+    summaryBn: 'আবাসিক হল ও একাডেমিক প্রাঙ্গণে মশার বিস্তার রোধে প্রয়োজনীয় সতর্কতা।',
+    content: [
+      'Inspect dorm rooms and balconies twice weekly to ensure no standing water accumulates in plastic containers or potted plants.',
+      'Use bed nets (mosquito nets) while sleeping during daytime and evening hours.',
+      'Maintain adequate hydration with clean water, coconut water, and oral rehydration solution (ORS).',
+      'Report any persistent fever to the Medical Center promptly for screening rather than self-medicating with over-the-counter painkillers.'
+    ],
+    contentBn: [
+      'হল ও মেসের রুম বা বারান্দায় কোনো পাত্রে যাতে পানি জমে না থাকে তা নিয়মিত পরীক্ষা করুন।',
+      'দিনের বেলা বা রাতে ঘুমানোর সময় সর্বদা মশারি ব্যবহার করুন।',
+      'পর্যাপ্ত পরিমাণে বিশুদ্ধ পানি, ওরস্যালাইন ও তরল খাবার গ্রহণ করুন।',
+      'জ্বর হলে ফার্মেসি থেকে নিজের ইচ্ছামতো ব্যথানাশক ওষুধ না খেয়ে মেডিকেল সেন্টারে পরামর্শ নিন।'
+    ]
+  },
+  {
+    id: 'tip-02',
+    title: 'Ergonomics & Eye Strain Management for Programmers',
+    titleBn: 'কম্পিউটার স্ক্রিন ক্লান্তি ও চোখের যত্ন',
+    category: 'Student Wellness',
+    categoryBn: 'শিক্ষার্থী সুস্থতা',
+    readTime: '3 min read',
+    summary: 'Guidelines to mitigate neck stiffness, repetitive strain, and digital eye strain during continuous coding or study sessions.',
+    summaryBn: 'দীর্ঘ সময় কম্পিউটারে কোডিং বা পড়াশোনায় চোখের চাপ ও পিঠের ব্যথা প্রতিরোধের কৌশল।',
+    content: [
+      'Follow the 20-20-20 rule: Every 20 minutes, look at an object 20 feet away for at least 20 seconds.',
+      'Position the top of your monitor at or slightly below eye level to maintain a neutral neck posture.',
+      'Take regular micro-breaks to stretch shoulders, wrists, and lower back.',
+      'Ensure ambient room lighting matches display brightness to minimize pupillary fatigue.'
+    ],
+    contentBn: [
+      '২০-২০-২০ নিয়ম মেনে চলুন: প্রতি ২০ মিনিট পর পর ২০ ফুট দূরের বস্তুর দিকে ২০ সেকেন্ড তাকান।',
+      'মনিটরের ওপরের অংশ চোখের সমান বা কিছুটা নিচে রাখুন যেন ঘাড় সোজা থাকে।',
+      'পড়া বা কোডিংয়ের মাঝে মাঝে উঠে হাঁটাচলা ও কব্জির হালকা ব্যায়াম করুন।',
+      'অন্ধকার ঘরে উজ্জ্বল স্ক্রিন ব্যবহার পরিহার করুন।'
+    ]
+  },
+  {
+    id: 'tip-03',
+    title: 'Managing Academic Stress and Sleep Hygiene During Exams',
+    titleBn: 'পরীক্ষার সময় মানসিক চাপ ও স্বাস্থ্যকর ঘুমের অভ্যাস',
+    category: 'Mental Wellness',
+    categoryBn: 'মানসিক সুস্থতা',
+    readTime: '3 min read',
+    summary: 'Non-pharmacological sleep hygiene techniques to enhance cognitive consolidation during midterm and final assessments.',
+    summaryBn: 'পরীক্ষার প্রস্তুতিতে মস্তিষ্কের কার্যক্ষমতা ও সুস্থ ঘুমের জন্য প্রয়োজনীয় পরামর্শ।',
+    content: [
+      'Aim for 7 to 8 hours of consistent nocturnal sleep; all-night cramming reduces information retention and reaction times.',
+      'Avoid high-dose caffeine or energy drinks within 6 hours of bedtime.',
+      'Practice 5 minutes of deep diaphragmatic breathing if feeling acute panic or overwhelmed.',
+      'University clinical counselors are available for confidential sessions at Counseling Cell Room 202.'
+    ],
+    contentBn: [
+      'পরীক্ষার আগের রাতে কমপক্ষে ৭-৮ ঘণ্টা ঘুমান; রাত জাগলে স্মৃতিশক্তি হ্রাস পায়।',
+      'ঘুমানোর ৬ ঘণ্টা পূর্বে চা, কফি বা এনার্জি ড্রিংক গ্রহণ করা থেকে বিরত থাকুন।',
+      'উদ্বেগ কমাতে দিনে কয়েকবার গভীর শ্বাস-প্রশ্বাসের ব্যায়াম করুন।',
+      'প্রয়োজনে বিশ্ববিদ্যালয়ের কাউন্সিলিং সেলে অভিজ্ঞ কাউন্সিলরের সাথে কথা বলুন।'
+    ]
+  }
+];
+
+export const initialMedicalFaqs = [
+  {
+    qEn: 'Who is eligible to receive free treatment at the JSTU Medical Center?',
+    qBn: 'জেএসটিইউ মেডিকেল সেন্টারে কারা বিনামূল্যে চিকিৎসা সেবা পাওয়ার যোগ্য?',
+    aEn: 'All regularly enrolled undergraduate and postgraduate students, registered teachers, administrative officers, and staff members of Jamalpur Science & Technology University are entitled to consultations and dispensary services upon presenting their institutional digital ID.',
+    aBn: 'জামালপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের সকল নিয়মিত শিক্ষার্থী, শিক্ষক, কর্মকর্তা ও কর্মচারীবৃন্দ তাদের প্রাতিষ্ঠানিক ডিজিটাল আইডি প্রদর্শন করে বিনামূল্যে পরামর্শ ও ডিসপেনসারি সেবা গ্রহণ করতে পারেন।'
+  },
+  {
+    qEn: 'What are the regular opening hours and emergency duty schedules?',
+    qBn: 'মেডিকেল সেন্টারের নিয়মিত সেবা ও জরুরি ডিউটির সময়সূচি কী?',
+    aEn: 'Regular outpatient consultation runs from 8:30 AM to 5:00 PM on university workdays. An on-call medical officer and ambulance crew remain on emergency standby 24 hours daily, 7 days a week [REPLACE WITH REAL CONTENT].',
+    aBn: 'কর্মদিবসে সকাল ৮:৩০ থেকে বিকাল ৫:০০ পর্যন্ত সাধারণ সেবা চালু থাকে। এছাড়া জরুরি প্রয়োজনে ২৪/৭ অন-কল ডাক্তার ও অ্যাম্বুলেন্স সেবা সার্বক্ষণিক প্রস্তুত থাকে [REPLACE WITH REAL CONTENT]।'
+  },
+  {
+    qEn: 'How can I book an appointment online?',
+    qBn: 'অনলাইনে কীভাবে ডাক্তারের অ্যাপয়েন্টমেন্ট নেওয়া যায়?',
+    aEn: 'Log in to your Student or Staff portal and navigate to Medical Center -> Book Appointment. Choose your preferred doctor or "Any Available", pick an open slot from the duty roster, write a brief reason (max 300 characters), and submit. You will instantly receive a reference number.',
+    aBn: 'স্টুডেন্ট বা স্টাফ পোর্টালে লগইন করে মেডিকেল সেন্টার -> অ্যাপয়েন্টমেন্ট পেজে যান। আপনার পছন্দের ডাক্তার বা "যেকোনো ডাক্তার" নির্বাচন করে ডিউটি রোস্টার থেকে ফাঁকা স্লট বেছে নিন এবং কারণ লিখে আবেদন জমা দিন।'
+  },
+  {
+    qEn: 'What medications are available in the dispensary?',
+    qBn: 'ডিসপেনসারিতে কী ধরনের ওষুধ পাওয়া যায়?',
+    aEn: 'The dispensary stocks essential oral rehydration salts, fever and pain relievers, antibiotics, antihistamines, antacids, inhalers, eye/ear drops, and emergency wound dressing kits supplied under government university grants.',
+    aBn: 'ডিসপেনসারিতে ওরস্যালাইন, প্যারাসিটামল, অ্যান্টিহিস্টামিন, গ্যাস্ট্রিকের ওষুধ, অ্যান্টিবায়োটিক এবং জরুরি ড্রেসিং সরঞ্জাম বিনামূল্যে সরবরাহ করা হয়।'
+  }
+];
+
+export const initialMedicalAppointments: MedicalAppointment[] = [
+  {
+    id: 'med-apt-00',
+    referenceNumber: 'JSTU-MED-2026-1040',
+    tokenNumber: 1,
+    patientUid: 'demo_student_01',
+    patientName: 'Tanvir Ahmed',
+    patientRole: 'student',
+    patientId: 'JSTU2026001',
+    department: 'Computer Science & Engineering',
+    phone: '+880 1711-234567',
+    doctorId: 'doc-01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Internal Medicine & Emergency Critical Care',
+    appointmentDate: new Date(Date.now() - 86400000 * 5).toISOString().split('T')[0],
+    timeSlot: '09:00 AM - 09:30 AM',
+    reason: 'Initial consultation for seasonal rhinitis and eye irritation.',
+    status: 'Completed',
+    bookedAt: new Date(Date.now() - 86400000 * 7).toISOString(),
+    updatedAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+    auditTrail: [
+      {
+        id: 'aud-00a',
+        actorUid: 'demo_student_01',
+        actorRole: 'student',
+        action: 'REQUESTED',
+        timestamp: new Date(Date.now() - 86400000 * 7).toISOString(),
+        note: 'Appointment booked online'
+      },
+      {
+        id: 'aud-00b',
+        actorUid: 'demo_medical_01',
+        actorRole: 'medical_officer',
+        action: 'CONFIRMED',
+        timestamp: new Date(Date.now() - 86400000 * 6).toISOString(),
+        note: 'Duty doctor confirmed slot'
+      },
+      {
+        id: 'aud-00c',
+        actorUid: 'demo_medical_01',
+        actorRole: 'medical_officer',
+        action: 'COMPLETED',
+        timestamp: new Date(Date.now() - 86400000 * 5).toISOString(),
+        note: 'Consultation completed and visit record finalized'
+      }
+    ]
+  },
+  {
+    id: 'med-apt-01',
+    referenceNumber: 'JSTU-MED-2026-1041',
+    tokenNumber: 2,
+    patientUid: 'demo_student_01',
+    patientName: 'Tanvir Ahmed',
+    patientRole: 'student',
+    patientId: 'JSTU2026001',
+    department: 'Computer Science & Engineering',
+    phone: '+880 1711-234567',
+    doctorId: 'doc-01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Internal Medicine & Emergency Critical Care',
+    appointmentDate: new Date().toISOString().split('T')[0],
+    timeSlot: '09:00 AM - 09:30 AM',
+    reason: 'Follow-up consultation for mild seasonal allergy and routine blood pressure checkup.',
+    status: 'Confirmed',
+    bookedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
+    updatedAt: new Date(Date.now() - 86400000).toISOString(),
+    auditTrail: [
+      {
+        id: 'aud-01',
+        actorUid: 'demo_student_01',
+        actorRole: 'student',
+        action: 'REQUESTED',
+        timestamp: new Date(Date.now() - 86400000 * 2).toISOString(),
+        note: 'Appointment booked online'
+      },
+      {
+        id: 'aud-02',
+        actorUid: 'demo_medical_01',
+        actorRole: 'medical_officer',
+        action: 'CONFIRMED',
+        timestamp: new Date(Date.now() - 86400000).toISOString(),
+        note: 'Duty doctor confirmed slot'
+      }
+    ]
+  },
+  {
+    id: 'med-apt-02',
+    referenceNumber: 'JSTU-MED-2026-1042',
+    tokenNumber: 2,
+    patientUid: 'demo_student_01',
+    patientName: 'Tanvir Ahmed',
+    patientRole: 'student',
+    patientId: 'JSTU2026001',
+    department: 'Computer Science & Engineering',
+    phone: '+880 1711-234567',
+    doctorId: 'doc-04',
+    doctorName: 'Clinical Counselor [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Mental Well-being, Exam Anxiety & Psychotherapy',
+    appointmentDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+    timeSlot: '10:30 AM - 11:30 AM',
+    reason: 'Discussion regarding semester project stress and academic concentration strategies.',
+    status: 'Requested',
+    bookedAt: new Date(Date.now() - 3600000 * 5).toISOString(),
+    updatedAt: new Date(Date.now() - 3600000 * 5).toISOString(),
+    auditTrail: [
+      {
+        id: 'aud-03',
+        actorUid: 'demo_student_01',
+        actorRole: 'student',
+        action: 'REQUESTED',
+        timestamp: new Date(Date.now() - 3600000 * 5).toISOString(),
+        note: 'Appointment requested'
+      }
+    ]
   }
 ];
 
@@ -1042,5 +1444,104 @@ export const initialAlumniRegistrationsData: AlumniRegistrationRequest[] = [
     linkedinUrl: 'https://linkedin.com/in/demo-jahirul',
     status: 'verified',
     appliedAt: '2026-09-10T12:00:00Z'
+  }
+];
+
+// M2 Initial Visit Records (Demo mode only - visibly marked DEMO)
+// Real enforcement must move to Firestore rules / Cloud Functions.
+// Real health data needs encryption, strict access rules, a legal basis and university approval, and must not be stored in a browser-only demo.
+export const initialMedicalVisitRecords: MedicalVisitRecord[] = [
+  {
+    id: 'med-rec-01',
+    appointmentId: 'med-apt-00',
+    appointmentRef: 'JSTU-MED-2026-1040',
+    verificationToken: 'med_tok_demo_882914',
+    verificationStatus: 'VALID',
+    patientUid: 'demo_student_01',
+    patientName: 'Tanvir Ahmed',
+    patientId: 'JSTU2026001',
+    patientRole: 'student',
+    patientDepartment: 'Computer Science & Engineering',
+    doctorId: 'doc-01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    doctorSpecialty: 'Internal Medicine & Emergency Critical Care',
+    visitDate: new Date(Date.now() - 86400000 * 5).toISOString().split('T')[0],
+    complaint: 'Sneezing, nasal congestion, and mild eye itching for 3 days.',
+    observation: 'Mild nasal mucosal edema, clear discharge. Throat clear. BP 118/76 mmHg, Pulse 74 bpm.',
+    advice: 'Avoid cold beverages and dusty environments. Practice steam inhalation twice daily.',
+    followUpDate: new Date(Date.now() + 86400000 * 9).toISOString().split('T')[0],
+    sickRestDays: 2,
+    prescriptionItems: [
+      {
+        id: 'rx-01',
+        medicine: 'Tab. Fexofenadine Hydrochloride 120mg',
+        dose: '1 tablet once daily (at bedtime)',
+        duration: '5 days',
+        instructions: 'After dinner with water'
+      },
+      {
+        id: 'rx-02',
+        medicine: 'Normal Saline 0.9% Nasal Drops',
+        dose: '2 drops in each nostril',
+        duration: '5 days',
+        instructions: 'Three times daily before meals'
+      }
+    ],
+    status: 'FINALIZED',
+    createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+    finalizedAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+    updatedAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+    addenda: []
+  }
+];
+
+export const initialPatientRecordAccessLogs: PatientRecordAccessLog[] = [
+  {
+    id: 'med-acc-01',
+    patientUid: 'demo_student_01',
+    accessedByUid: 'demo_medical_01',
+    accessedByName: 'Duty Medical Officer [REPLACE WITH REAL CONTENT]',
+    accessedByRole: 'medical_officer',
+    accessedAt: new Date(Date.now() - 86400000 * 5).toISOString()
+  }
+];
+
+// M3: Initial Medical Rest Certificates (Fictional demo data - NO diagnosis or health details)
+// Real enforcement must move to Firestore rules / Cloud Functions.
+// Real signing must happen server-side with a key in a secret manager.
+// The registry must live in a database with rules exposing only the minimal verification fields publicly.
+export const initialMedicalRestCertificates: MedicalRestCertificate[] = [
+  {
+    id: 'cert-med-2026-001',
+    verificationId: 'a1b2c3d4e5f60718293a4b5c6d7e8f90',
+    canonicalHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    visitRecordId: 'med-rec-01',
+    appointmentId: 'med-apt-00',
+    appointmentRef: 'JSTU-MED-2026-1040',
+    patientUid: 'demo_student_01',
+    patientName: 'Tanvir Ahmed',
+    patientId: 'JSTU2026001',
+    patientDepartment: 'Computer Science & Engineering',
+    centerName: 'JSTU Medical Center',
+    doctorRole: 'Medical Officer',
+    doctorUid: 'demo_medical_01',
+    doctorName: 'Chief Medical Officer [REPLACE WITH REAL CONTENT]',
+    restStartDate: new Date(Date.now() - 86400000 * 5).toISOString().split('T')[0],
+    restEndDate: new Date(Date.now() - 86400000 * 3).toISOString().split('T')[0],
+    restDays: 2,
+    status: 'VALID',
+    version: 1,
+    issuedAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+    updatedAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+    auditTrail: [
+      {
+        id: 'aud-cert-01',
+        actorUid: 'demo_medical_01',
+        actorRole: 'medical_officer',
+        action: 'ISSUED',
+        timestamp: new Date(Date.now() - 86400000 * 5).toISOString(),
+        reason: 'Rest certificate issued following consultation'
+      }
+    ]
   }
 ];

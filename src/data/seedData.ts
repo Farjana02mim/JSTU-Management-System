@@ -47,8 +47,8 @@ export const bannerSlidesData: BannerSlide[] = [
     badgeBn: 'সরকারি পাবলিক বিশ্ববিদ্যালয় · প্রতিষ্ঠা ২০১২',
     title: 'Building a Smarter, Digital & Paperless University',
     titleBn: 'স্মার্ট, ডিজিটাল ও কাগজবিহীন বিশ্ববিদ্যালয় বিনির্মাণে',
-    subtitle: 'Jamalpur Science & Technology University (JSTU) prototype is designed to support digital academic administration, digital workflows with audit trail for examinations, and online verification.',
-    subtitleBn: 'জামালপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয় (জেএসটিইউ) প্রোটোটাইপ ডিজিটাল প্রশাসন, অডিট ট্রেইলযুক্ত ফলাফল এবং স্বয়ংক্রিয় সেবা সমর্থনের জন্য পরিকল্পিত।',
+    subtitle: 'A prototype of a digital campus: online applications, marks workflows with audit trails, and verifiable documents for Jamalpur Science & Technology University.',
+    subtitleBn: 'অনলাইন আবেদন, অডিট ট্রেইলযুক্ত ফলাফল প্রণয়ন এবং যাচাইযোগ্য সনদের জন্য জামালপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের একটি ডিজিটাল ক্যাম্পাস প্রোটোটাইপ।',
     tag: 'Academic & Administrative Complex',
     tagBn: 'একাডেমিক ও প্রশাসনিক ভবন'
   },

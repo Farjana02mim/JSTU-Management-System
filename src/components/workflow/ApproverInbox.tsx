@@ -23,8 +23,12 @@ import {
   History,
   Search,
   Filter,
-  FileCheck
+  FileCheck,
+  Award,
+  ExternalLink,
+  ShieldCheck
 } from 'lucide-react';
+import { SharedDataStoreManager } from '../../services/shared/sharedDataStore';
 
 const reasonSchema = z.object({
   comment: z
@@ -476,6 +480,105 @@ export const ApproverInbox: React.FC<ApproverInboxProps> = ({ actor, portalTitle
                 )}
               </div>
             </div>
+
+            {/* M3: Attached Medical Rest Certificate Card & Approver Warnings */}
+            {/* Real enforcement must move to Firestore rules / Cloud Functions. */}
+            {/* Real signing must happen server-side with a key in a secret manager. */}
+            {/* The registry must live in a database with rules exposing only the minimal verification fields publicly. */}
+            {(() => {
+              const certId = selectedApp.formData.attachedCertificateId || selectedApp.formData.attachedCertificateRef;
+              if (!certId) return null;
+              const cert = SharedDataStoreManager.getInstance().getMedicalRestCertificateById(String(certId));
+              if (!cert) return null;
+
+              const isInvalidStatus = cert.status === 'REVOKED' || cert.status === 'SUPERSEDED';
+
+              return (
+                <div className="space-y-3">
+                  {isInvalidStatus && (
+                    <div className="p-3.5 bg-red-50 border border-red-300 rounded-xl text-xs text-red-900 flex items-start gap-2.5">
+                      <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-bold block text-sm">
+                          APPROVER WARNING: Attached Medical Certificate is {cert.status}!
+                        </span>
+                        <p className="mt-0.5 leading-relaxed text-red-800">
+                          {cert.status === 'REVOKED'
+                            ? `This medical certificate was revoked by the medical officer (${cert.revocationReason || 'Invalidated'}). Approving this application is not recommended.`
+                            : `This medical certificate was SUPERSEDED by an updated version (${cert.supersededReason || 'Correction issued'}). Verify that the rest period has not changed.`}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="p-4 bg-white border border-[#E2E8F0] rounded-xl space-y-3 shadow-2xs">
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                      <div className="flex items-center gap-2">
+                        <Award className="w-4 h-4 text-[#1E3A8A]" />
+                        <span className="font-bold text-[#0F172A]">
+                          Attached Medical Rest Certificate
+                        </span>
+                        <span className="font-mono text-[10px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">
+                          v{cert.version}
+                        </span>
+                      </div>
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          cert.status === 'VALID'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : cert.status === 'SUPERSEDED'
+                            ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                            : 'bg-red-50 text-red-700 border border-red-200'
+                        }`}
+                      >
+                        {cert.status}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                      <div>
+                        <span className="text-[10px] uppercase font-bold text-slate-500 block">Rest Period</span>
+                        <span className="font-bold text-[#0F172A] font-mono">
+                          {cert.restStartDate} &rarr; {cert.restEndDate}
+                        </span>
+                        <span className="text-[11px] text-slate-600 block">
+                          Total {cert.restDays} Day(s) Leave
+                        </span>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] uppercase font-bold text-slate-500 block">Issuing Center</span>
+                        <span className="font-medium text-slate-800">{cert.centerName}</span>
+                        <span className="text-[11px] text-slate-500 block">{cert.doctorRole}</span>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] uppercase font-bold text-slate-500 block">Public Verification</span>
+                        <a
+                          href={`/verify-medical/${cert.verificationId}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-mono text-[11px] text-[#1E3A8A] hover:underline flex items-center gap-1 font-semibold"
+                        >
+                          <span>#{cert.verificationId.slice(0, 8)}</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                        <span className="text-[10px] font-mono text-slate-500">
+                          Hash: {cert.canonicalHash.slice(0, 12)}...
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-2 bg-blue-50/60 border border-blue-100 rounded-lg text-[10px] text-blue-900 flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-blue-700 shrink-0" />
+                      <span>
+                        Privacy notice: Strictly states only patient ID, rest dates, and medical officer role. No clinical diagnosis or medical observations are exposed.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Audit History */}
             <div className="space-y-2">

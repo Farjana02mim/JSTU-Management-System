@@ -193,21 +193,180 @@ export interface MedicalService {
   iconName: string;
 }
 
-export interface MedicalAppointment {
+export type MedicalAppointmentStatus = 'Requested' | 'Confirmed' | 'Completed' | 'Cancelled' | 'No-show';
+
+export interface MedicalDutyShift {
   id: string;
-  tokenNumber: number;
   doctorId: string;
   doctorName: string;
   doctorSpecialty: string;
-  studentId: string;
-  studentName: string;
-  studentRoll: string;
+  dayOfWeek: string; // 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday'
+  timeSlot: string; // e.g. "09:00 AM - 09:30 AM"
+  roomNumber: string;
+  maxPatients: number;
+  isActive: boolean;
+}
+
+export interface MedicalAppointmentAuditEntry {
+  id: string;
+  actorUid: string;
+  actorRole: string;
+  action: 'REQUESTED' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED' | 'NOSHOW' | 'RESCHEDULED';
+  timestamp: string;
+  note?: string; // Administrative only, strictly no health details
+}
+
+export interface MedicalAppointment {
+  id: string;
+  referenceNumber: string; // e.g. "JSTU-MED-2026-1042"
+  tokenNumber: number;
+  patientUid: string;
+  patientName: string;
+  patientRole: string; // 'student' | 'teacher' | 'staff'
+  patientId: string; // Student ID or Employee ID
+  department: string;
   phone: string;
-  appointmentDate: string;
-  preferredTimeSlot: string;
-  symptoms: string;
-  status: 'confirmed' | 'completed' | 'cancelled';
+  doctorId: string; // 'doc-01' or 'any'
+  doctorName: string;
+  doctorSpecialty: string;
+  appointmentDate: string; // YYYY-MM-DD
+  timeSlot: string; // e.g. "09:00 AM - 09:30 AM"
+  reason: string; // Short reason with 300 character limit
+  status: MedicalAppointmentStatus;
   bookedAt: string;
+  updatedAt: string;
+  cancelledAt?: string;
+  cancellationReason?: string;
+  auditTrail: MedicalAppointmentAuditEntry[];
+}
+
+export interface MedicalHealthTip {
+  id: string;
+  title: string;
+  titleBn: string;
+  category: string;
+  categoryBn: string;
+  readTime: string;
+  summary: string;
+  summaryBn: string;
+  content: string[];
+  contentBn: string[];
+}
+
+export interface PrescriptionItem {
+  id: string;
+  medicine: string;
+  dose: string;
+  duration: string;
+  instructions: string;
+}
+
+export type VisitNoteStatus = 'DRAFT' | 'FINALIZED';
+
+export interface MedicalVisitAddendum {
+  id: string;
+  createdAt: string;
+  createdByUid: string;
+  createdByName: string;
+  reason: string;
+  correctionNotes: string;
+}
+
+export interface MedicalVisitRecord {
+  id: string;
+  appointmentId: string;
+  appointmentRef: string;
+  verificationToken: string;
+  verificationStatus: 'VALID' | 'REVOKED';
+  patientUid: string;
+  patientName: string;
+  patientId: string;
+  patientRole: string;
+  patientDepartment: string;
+  doctorId: string;
+  doctorName: string;
+  doctorSpecialty: string;
+  visitDate: string;
+  complaint: string;
+  observation: string;
+  advice: string;
+  followUpDate?: string;
+  sickRestDays?: number;
+  prescriptionItems: PrescriptionItem[];
+  status: VisitNoteStatus;
+  createdAt: string;
+  finalizedAt?: string;
+  updatedAt: string;
+  addenda: MedicalVisitAddendum[];
+}
+
+export interface PatientRecordAccessLog {
+  id: string;
+  patientUid: string;
+  accessedByUid: string;
+  accessedByName: string;
+  accessedByRole: string;
+  accessedAt: string;
+}
+
+// M3: Medical Rest Certificate
+// Real enforcement must move to Firestore rules / Cloud Functions.
+// Real signing must happen server-side with a key in a secret manager.
+// The registry must live in a database with rules exposing only the minimal verification fields publicly.
+export type MedicalCertificateStatus = 'VALID' | 'SUPERSEDED' | 'REVOKED';
+
+export interface MedicalCertificateAuditEntry {
+  id: string;
+  actorUid: string;
+  actorRole: string;
+  action: 'ISSUED' | 'SUPERSEDED' | 'REVOKED';
+  timestamp: string;
+  reason?: string; // Administrative only, strictly no health details
+}
+
+export interface MedicalRestCertificate {
+  id: string; // e.g. "cert-med-2026-001"
+  verificationId: string; // 128-bit random hex string (crypto.getRandomValues)
+  canonicalHash: string; // SHA-256 hash of canonical content
+  visitRecordId: string; // Linked finalized visit note
+  appointmentId: string;
+  appointmentRef: string;
+  patientUid: string;
+  patientName: string;
+  patientId: string; // studentId or roll
+  patientDepartment: string;
+  centerName: string; // "JSTU Medical Center"
+  doctorRole: string; // "Medical Officer"
+  doctorUid: string;
+  doctorName: string;
+  restStartDate: string; // YYYY-MM-DD
+  restEndDate: string; // YYYY-MM-DD
+  restDays: number;
+  status: MedicalCertificateStatus;
+  version: number;
+  previousVersionId?: string;
+  supersededById?: string;
+  supersededReason?: string;
+  revokedAt?: string;
+  revocationReason?: string;
+  revokedByUid?: string;
+  revokedByRole?: string;
+  issuedAt: string;
+  updatedAt: string;
+  auditTrail: MedicalCertificateAuditEntry[];
+}
+
+export interface EmergencyContact {
+  id: string;
+  title: string;
+  titleBn: string;
+  number: string;
+  availableHours: string;
+  availableHoursBn: string;
+  description: string;
+  descriptionBn: string;
+  iconName: string;
+  isAmbulance?: boolean;
 }
 
 export interface TransportStop {

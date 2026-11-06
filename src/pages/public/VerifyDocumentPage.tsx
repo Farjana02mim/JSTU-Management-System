@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   ShieldCheck,
   Search,
@@ -179,6 +179,38 @@ export const VerifyDocumentPage: React.FC = () => {
             </span>
           </p>
         </form>
+
+        {/* Specialized Registries Links */}
+        <div className="pt-3 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+          <Link
+            to="/verify-medical"
+            className="p-2.5 rounded-xl bg-white border border-[#E2E8F0] hover:border-[#1E3A8A] text-slate-700 hover:text-[#1E3A8A] transition-colors flex items-center justify-between font-semibold"
+          >
+            <span>{isBn ? 'মেডিকেল রেস্ট সার্টিফিকেট যাচাই' : 'Verify Medical Certificate'}</span>
+            <span className="font-mono text-[10px] text-[#1E3A8A] bg-blue-50 px-2 py-0.5 rounded">&rarr;</span>
+          </Link>
+          <Link
+            to="/verify-prescription"
+            className="p-2.5 rounded-xl bg-white border border-[#E2E8F0] hover:border-[#1E3A8A] text-slate-700 hover:text-[#1E3A8A] transition-colors flex items-center justify-between font-semibold"
+          >
+            <span>{isBn ? 'প্রেসক্রিপশন রেজিস্ট্রি যাচাই' : 'Verify Prescription'}</span>
+            <span className="font-mono text-[10px] text-[#1E3A8A] bg-blue-50 px-2 py-0.5 rounded">&rarr;</span>
+          </Link>
+          <Link
+            to="/verify-id"
+            className="p-2.5 rounded-xl bg-white border border-[#E2E8F0] hover:border-[#1E3A8A] text-slate-700 hover:text-[#1E3A8A] transition-colors flex items-center justify-between font-semibold"
+          >
+            <span>{isBn ? 'ডিজিটাল আইডি কার্ড যাচাই' : 'Verify Student ID Card'}</span>
+            <span className="font-mono text-[10px] text-[#1E3A8A] bg-blue-50 px-2 py-0.5 rounded">&rarr;</span>
+          </Link>
+          <Link
+            to="/verify-convocation"
+            className="p-2.5 rounded-xl bg-white border border-[#E2E8F0] hover:border-[#1E3A8A] text-slate-700 hover:text-[#1E3A8A] transition-colors flex items-center justify-between font-semibold"
+          >
+            <span>{isBn ? 'সমাবর্তন সার্টিফিকেট যাচাই' : 'Verify Convocation Token'}</span>
+            <span className="font-mono text-[10px] text-[#1E3A8A] bg-blue-50 px-2 py-0.5 rounded">&rarr;</span>
+          </Link>
+        </div>
       </Card>
 
       {/* Rate Limit Alert */}

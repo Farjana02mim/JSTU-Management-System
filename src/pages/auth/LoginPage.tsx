@@ -72,6 +72,9 @@ export const LoginPage: React.FC = () => {
       case 'library_officer':
         navigate('/office/library_officer', { replace: true });
         break;
+      case 'medical_officer':
+        navigate('/office/medical', { replace: true });
+        break;
       case 'admin':
       case 'super_admin':
         navigate('/admin', { replace: true });

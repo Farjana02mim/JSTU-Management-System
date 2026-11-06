@@ -90,6 +90,12 @@ const SportsPage = lazy(() =>
 const MedicalCenterPage = lazy(() =>
   import('./pages/public/studentLife/MedicalCenterPage').then((m) => ({ default: m.MedicalCenterPage }))
 );
+const MedicalAppointmentPage = lazy(() =>
+  import('./pages/student/MedicalAppointmentPage').then((m) => ({ default: m.MedicalAppointmentPage }))
+);
+const MedicalOfficerDashboard = lazy(() =>
+  import('./pages/portals/MedicalOfficerDashboard').then((m) => ({ default: m.MedicalOfficerDashboard }))
+);
 const TransportPage = lazy(() =>
   import('./pages/public/studentLife/TransportPage').then((m) => ({ default: m.TransportPage }))
 );
@@ -110,6 +116,12 @@ const ConvocationPage = lazy(() =>
 );
 const VerifyConvocationPage = lazy(() =>
   import('./pages/public/VerifyConvocationPage').then((m) => ({ default: m.VerifyConvocationPage }))
+);
+const VerifyPrescriptionPage = lazy(() =>
+  import('./pages/public/VerifyPrescriptionPage').then((m) => ({ default: m.VerifyPrescriptionPage }))
+);
+const VerifyMedicalPage = lazy(() =>
+  import('./pages/public/VerifyMedicalPage').then((m) => ({ default: m.VerifyMedicalPage }))
 );
 const StaffPortalPage = lazy(() =>
   import('./pages/public/StaffPortalPage').then((m) => ({ default: m.StaffPortalPage }))
@@ -317,6 +329,7 @@ export default function App() {
                   <Route path="/student-life/sports" element={<SportsPage />} />
                   <Route path="/sports" element={<SportsPage />} />
                   <Route path="/student-life/medical" element={<MedicalCenterPage />} />
+                  <Route path="/medical-center" element={<MedicalCenterPage />} />
                   <Route path="/medical" element={<MedicalCenterPage />} />
                   <Route path="/student-life/transport" element={<TransportPage />} />
                   <Route path="/transport" element={<TransportPage />} />
@@ -336,6 +349,10 @@ export default function App() {
                   <Route path="/convocation" element={<ConvocationPage />} />
                   <Route path="/verify-convocation" element={<VerifyConvocationPage />} />
                   <Route path="/verify-convocation/:token" element={<VerifyConvocationPage />} />
+                  <Route path="/verify-prescription" element={<VerifyPrescriptionPage />} />
+                  <Route path="/verify-prescription/:token" element={<VerifyPrescriptionPage />} />
+                  <Route path="/verify-medical" element={<VerifyMedicalPage />} />
+                  <Route path="/verify-medical/:id" element={<VerifyMedicalPage />} />
                   <Route path="/helpdesk" element={<HelpdeskPage />} />
                   <Route path="/helpdesk/track" element={<HelpdeskPage />} />
                   <Route path="/staff" element={<StaffPortalPage />} />
@@ -498,6 +515,14 @@ export default function App() {
                       <RoleGuard allowedRoles={['student']}>
                         <StudentProfilePage />
                       </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/student/medical"
+                  element={
+                    <ProtectedRoute>
+                      <MedicalAppointmentPage />
                     </ProtectedRoute>
                   }
                 />
@@ -730,10 +755,21 @@ export default function App() {
                 />
 
                 <Route
+                  path="/office/medical"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['medical_officer', 'super_admin']}>
+                        <MedicalOfficerDashboard />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route
                   path="/office/:roleKey"
                   element={
                     <ProtectedRoute>
-                      <RoleGuard allowedRoles={['registrar', 'exam_controller', 'account_officer', 'library_officer']}>
+                      <RoleGuard allowedRoles={['registrar', 'exam_controller', 'account_officer', 'library_officer', 'medical_officer']}>
                         <OfficeDashboardShell />
                       </RoleGuard>
                     </ProtectedRoute>

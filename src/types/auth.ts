@@ -7,7 +7,8 @@ export type UserRole =
   | 'teacher'
   | 'student'
   | 'account_officer'
-  | 'library_officer';
+  | 'library_officer'
+  | 'medical_officer';
 
 export interface UserCustomClaims {
   role: UserRole;
@@ -74,6 +75,7 @@ export const ROLE_HIERARCHY: Record<UserRole, number> = {
   teacher: 40,
   account_officer: 40,
   library_officer: 40,
+  medical_officer: 40,
   student: 10
 };
 
@@ -85,7 +87,8 @@ export const STAFF_ROLES: UserRole[] = [
   'dept_chairman',
   'teacher',
   'account_officer',
-  'library_officer'
+  'library_officer',
+  'medical_officer'
 ];
 
 export function isStaffRole(role: UserRole): boolean {

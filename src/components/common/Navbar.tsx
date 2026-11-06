@@ -126,6 +126,8 @@ export const Navbar: React.FC = () => {
         return '/office/library';
       case 'account_officer':
         return '/office/accounts';
+      case 'medical_officer':
+        return '/office/medical';
       default:
         return '/student';
     }
@@ -271,7 +273,7 @@ export const Navbar: React.FC = () => {
           Logo (Left), Top-Level Mega Menu Items (Middle), Search & Login (Right)
           Everything fits on ONE row at 1366px (white-space: nowrap)
          ------------------------------------------------------------- */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 xl:px-10 h-16 flex items-center justify-between gap-3 min-[1200px]:gap-4">
         {/* Left: Brand Wordmark (Home via Logo) */}
         <Link
           to="/"
@@ -417,7 +419,7 @@ export const Navbar: React.FC = () => {
         </nav>
 
         {/* Right: Search Icon + Portal / Login Button */}
-        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0 pr-3 sm:pr-4 min-[1366px]:pr-6">
           {/* Universal Search Button */}
           <button
             type="button"
@@ -435,22 +437,22 @@ export const Navbar: React.FC = () => {
 
           {/* Login or My Portal CTA Button */}
           {user ? (
-            <Link to={getDashboardUrl()}>
+            <Link to={getDashboardUrl()} className="shrink-0">
               <Button
                 variant="primary"
                 size="sm"
-                className="whitespace-nowrap font-bold"
+                className="whitespace-nowrap font-bold shrink-0"
                 rightIcon={<ArrowRight className="w-3.5 h-3.5" />}
               >
                 {isBn ? 'আমার পোর্টাল' : 'My Portal'}
               </Button>
             </Link>
           ) : (
-            <Link to="/login">
+            <Link to="/login" className="shrink-0">
               <Button
                 variant="primary"
                 size="sm"
-                className="whitespace-nowrap font-bold"
+                className="whitespace-nowrap font-bold shrink-0"
                 leftIcon={<Lock className="w-3.5 h-3.5 text-amber-300" />}
               >
                 {isBn ? 'পোর্টাল সাইন ইন' : 'Portal Login'}
@@ -802,12 +804,12 @@ export const Navbar: React.FC = () => {
                       {isBn ? 'ভর্তি কার্যক্রম' : 'Undergraduate 2026'}
                     </span>
                     <h5 className="text-xs font-bold text-[#0F172A] leading-snug">
-                      {isBn ? 'স্নাতক ভর্তি সার্কুলার ২০২৬' : 'GST Cluster Admission 2026'}
+                      {isBn ? 'স্নাতক ভর্তি ২০২৬ (ডেমো)' : 'Undergraduate Admission 2026 (demo)'}
                     </h5>
                     <p className="text-[11px] text-slate-600 leading-relaxed">
                       {isBn
-                        ? 'গুচ্ছভুক্ত বিশ্ববিদ্যালয়সমূহের ভর্তি নির্দেশিকা ও বিভাগভিত্তিক শর্তাবলী দেখুন।'
-                        : 'Review department subject criteria, quota documentation, and online application portal.'}
+                        ? '/* [REPLACE WITH REAL CONTENT] */ গুচ্ছভুক্ত বিশ্ববিদ্যালয়সমূহের ভর্তি নির্দেশিকা ও বিভাগভিত্তিক শর্তাবলী দেখুন।'
+                        : '[REPLACE WITH REAL CONTENT] Review department subject criteria, quota documentation, and online application portal.'}
                     </p>
                   </div>
                   <Link
@@ -837,7 +839,7 @@ export const Navbar: React.FC = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/student-life/medical" className="group flex items-center gap-2 text-[#334155] hover:text-[#1E3A8A] py-1 transition-colors font-medium">
+                      <Link to="/medical-center" className="group flex items-center gap-2 text-[#334155] hover:text-[#1E3A8A] py-1 transition-colors font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-[#1E3A8A] transition-colors shrink-0" />
                         <span>{isBn ? 'মেডিকেল সেন্টার' : 'Medical Center'}</span>
                       </Link>
@@ -1164,7 +1166,7 @@ export const Navbar: React.FC = () => {
                       <Link to="/student-life/halls" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'আবাসিক হল' : 'Residential Halls'}</Link>
                       <Link to="/student-life/clubs" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'ক্লাব ও সমিতি' : 'Clubs & Societies'}</Link>
                       <Link to="/student-life/sports" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'খেলাধুলা' : 'Sports'}</Link>
-                      <Link to="/student-life/medical" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'মেডিকেল সেন্টার' : 'Medical Center'}</Link>
+                      <Link to="/medical-center" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'মেডিকেল সেন্টার' : 'Medical Center'}</Link>
                       <Link to="/student-life/transport" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'পরিবহন শিডিউল' : 'Campus Transport'}</Link>
                       <Link to="/student-life/alumni" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'অ্যালামনাই' : 'Alumni Association'}</Link>
                       <Link to="/convocation" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'সমাবর্তন' : 'Convocation'}</Link>

@@ -99,6 +99,17 @@ export const DEMO_ACCOUNTS: DemoAccount[] = [
     targetDashboard: '/office/library_officer'
   },
   {
+    uid: 'demo_medical_01',
+    email: 'medical.demo@jstu.ac.bd',
+    password: DEMO_PASSWORD,
+    fullName: 'Dr. Duty Medical Officer [REPLACE WITH REAL CONTENT]',
+    fullNameBn: 'ডা. কর্তব্যরত চিকিৎসা কর্মকর্তা [REPLACE WITH REAL CONTENT]',
+    role: 'medical_officer',
+    officeId: 'MEDICAL',
+    isMfaEnforced: true,
+    targetDashboard: '/office/medical'
+  },
+  {
     uid: 'demo_admin_01',
     email: 'admin.demo@jstu.ac.bd',
     password: DEMO_PASSWORD,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { DashboardLayout } from '../../../layouts/DashboardLayout';
 import { Card } from '../../../components/common/Card';
@@ -8,10 +8,11 @@ import { EmptyState } from '../../../components/common/EmptyState';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { getStudentDataService, AttendanceCourse } from '../../../services/student';
+import { SharedDataStoreManager } from '../../../services/shared/sharedDataStore';
 import { CheckCircle2, AlertTriangle, AlertCircle, RefreshCw, ArrowRight } from 'lucide-react';
 
 export const StudentAttendancePage: React.FC = () => {
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const { language } = useLanguage();
   const isBn = language === 'bn';
 
@@ -42,6 +43,21 @@ export const StudentAttendancePage: React.FC = () => {
   // Check if any course is < 75%
   const lowAttendanceCourses = records.filter((r) => r.percentage < 75);
 
+  // M3: Approved Excused Medical Leaves
+  // Real enforcement must move to Firestore rules / Cloud Functions.
+  const approvedMedicalLeaves = useMemo(() => {
+    const store = SharedDataStoreManager.getInstance().getStore();
+    const studentUid = user?.uid || 'demo_student_01';
+    const studentId = profile?.studentId || 'JSTU2026001';
+    return (store.applications || []).filter(
+      (app) =>
+        app.type === 'leave' &&
+        app.status === 'APPROVED' &&
+        (app.applicantUid === studentUid || app.studentId === studentId) &&
+        app.formData?.leaveType === 'medical'
+    );
+  }, [user, profile]);
+
   return (
     <DashboardLayout portalTitle={isBn ? 'ক্লাস উপস্থিতি' : 'Class Attendance'}>
       <div className="space-y-6">
@@ -61,6 +77,29 @@ export const StudentAttendancePage: React.FC = () => {
             {isBn ? 'বর্তমান টার্ম: ফল ২০২৬' : 'Current Term: Fall 2026'}
           </span>
         </div>
+
+        {/* Excused Medical Leaves Notice */}
+        {!loading && approvedMedicalLeaves.length > 0 && (
+          <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl space-y-1.5 text-xs text-blue-900">
+            <div className="flex items-center gap-2 font-bold">
+              <CheckCircle2 className="w-4 h-4 text-blue-700 shrink-0" />
+              <span>{isBn ? 'অনুমোদিত মেডিকেল ছুটি (মার্জিত উপস্থিতি)' : 'Excused Medical Absence Recorded'}</span>
+            </div>
+            <div className="text-[11px] text-blue-800 space-y-0.5">
+              {approvedMedicalLeaves.map((l) => (
+                <div key={l.id} className="flex items-center gap-2">
+                  <span className="font-bold text-[#1E3A8A]">Excused (medical):</span>
+                  <span>
+                    {String(l.formData.startDate)} to {String(l.formData.endDate)} ({String(l.formData.durationDays || 'N/A')} days) &bull; Verified under Certificate #{String(l.formData.attachedCertificateId || '').slice(0, 8)}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="text-[10px] text-blue-700 italic">
+              Attendance during approved medical rest dates is recognized as Excused without academic penalty.
+            </p>
+          </div>
+        )}
 
         {/* Low Attendance Warning Alert */}
         {!loading && lowAttendanceCourses.length > 0 && (

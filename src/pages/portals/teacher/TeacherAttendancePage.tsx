@@ -27,6 +27,7 @@ import {
   TeacherCourseSummary,
   CourseAttendanceReport
 } from '../../../services/teacher';
+import { SharedDataStoreManager } from '../../../services/shared/sharedDataStore';
 
 export const TeacherAttendancePage: React.FC = () => {
   const { courseCode: routeCourseCode } = useParams<{ courseCode?: string }>();
@@ -404,48 +405,76 @@ export const TeacherAttendancePage: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#F1F5F9]">
-                    {studentRecords.map((st) => (
-                      <tr
-                        key={st.studentId}
-                        onClick={() => toggleStudentStatus(st.studentId)}
-                        className={`cursor-pointer transition-colors ${
-                          st.status === 'present' ? 'hover:bg-emerald-50/40' : 'bg-red-50/20 hover:bg-red-50/40'
-                        }`}
-                      >
-                        <td className="py-3 px-4 text-center">
-                          <button
-                            type="button"
-                            className="p-1 rounded hover:bg-slate-200 transition-colors"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleStudentStatus(st.studentId);
-                            }}
-                          >
-                            {st.status === 'present' ? (
-                              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                            ) : (
-                              <XCircle className="w-5 h-5 text-red-600" />
+                    {studentRecords.map((st) => {
+                      // Real enforcement must move to Firestore rules / Cloud Functions.
+                      // Real signing must happen server-side with a key in a secret manager.
+                      // The registry must live in a database with rules exposing only the minimal verification fields publicly.
+                      const excusedLeave = SharedDataStoreManager.getInstance().getApprovedMedicalLeaveForStudent(
+                        st.studentId,
+                        selectedDate
+                      );
+
+                      return (
+                        <tr
+                          key={st.studentId}
+                          onClick={() => toggleStudentStatus(st.studentId)}
+                          className={`cursor-pointer transition-colors ${
+                            excusedLeave
+                              ? 'bg-blue-50/30 hover:bg-blue-50/50'
+                              : st.status === 'present'
+                              ? 'hover:bg-emerald-50/40'
+                              : 'bg-red-50/20 hover:bg-red-50/40'
+                          }`}
+                        >
+                          <td className="py-3 px-4 text-center">
+                            <button
+                              type="button"
+                              className="p-1 rounded hover:bg-slate-200 transition-colors"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleStudentStatus(st.studentId);
+                              }}
+                            >
+                              {st.status === 'present' ? (
+                                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                              ) : (
+                                <XCircle className="w-5 h-5 text-red-600" />
+                              )}
+                            </button>
+                          </td>
+                          <td className="py-3 px-4 font-mono font-bold text-slate-600">{st.rollNumber}</td>
+                          <td className="py-3 px-4">
+                            <span className="font-bold text-[#0F172A]">{isBn ? st.nameBn : st.name}</span>
+                            {excusedLeave && (
+                              <span className="text-[10px] text-blue-700 block font-mono">
+                                Excused: {excusedLeave.startDate} to {excusedLeave.endDate}
+                              </span>
                             )}
-                          </button>
-                        </td>
-                        <td className="py-3 px-4 font-mono font-bold text-slate-600">{st.rollNumber}</td>
-                        <td className="py-3 px-4">
-                          <span className="font-bold text-[#0F172A]">{isBn ? st.nameBn : st.name}</span>
-                        </td>
-                        <td className="py-3 px-4 font-mono text-slate-500">{st.studentId}</td>
-                        <td className="py-3 px-4 text-right">
-                          <span
-                            className={`inline-flex px-2 py-0.5 text-[10px] font-bold rounded-md uppercase font-mono ${
-                              st.status === 'present'
-                                ? 'bg-emerald-100 text-emerald-800'
-                                : 'bg-red-100 text-red-800'
-                            }`}
-                          >
-                            {st.status}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
+                          </td>
+                          <td className="py-3 px-4 font-mono text-slate-500">{st.studentId}</td>
+                          <td className="py-3 px-4 text-right">
+                            {excusedLeave ? (
+                              <span
+                                className="inline-flex px-2 py-0.5 text-[10px] font-bold rounded-md uppercase font-mono bg-blue-100 text-[#1E3A8A] border border-blue-200"
+                                title={`Excused leave: ${excusedLeave.startDate} to ${excusedLeave.endDate}`}
+                              >
+                                {isBn ? 'মার্জিত (মেডিকেল)' : 'Excused (medical)'}
+                              </span>
+                            ) : (
+                              <span
+                                className={`inline-flex px-2 py-0.5 text-[10px] font-bold rounded-md uppercase font-mono ${
+                                  st.status === 'present'
+                                    ? 'bg-emerald-100 text-emerald-800'
+                                    : 'bg-red-100 text-red-800'
+                                }`}
+                              >
+                                {st.status}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </Card>

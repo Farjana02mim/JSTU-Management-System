@@ -22,7 +22,9 @@ import {
   CheckSquare,
   Inbox,
   HelpCircle,
-  Star
+  Star,
+  HeartPulse,
+  Stethoscope
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -72,6 +74,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
           { label: 'Course Evaluation', labelBn: 'কোর্স মূল্যায়ন', to: '/student/evaluations', icon: <Star className="w-4 h-4" /> },
           { label: 'Assignments', labelBn: 'অ্যাসাইনমেন্ট', to: '/student/assignments', icon: <FileText className="w-4 h-4" /> },
           { label: 'Fees & Payments', labelBn: 'ফি ও পেমেন্ট', to: '/student/fees', icon: <CreditCard className="w-4 h-4" /> },
+          { label: 'Medical Center', labelBn: 'মেডিকেল সেন্টার', to: '/student/medical', icon: <HeartPulse className="w-4 h-4" /> },
           { label: 'Notifications', labelBn: 'বিজ্ঞপ্তি', to: '/student/notifications', icon: <Bell className="w-4 h-4" /> },
           { label: 'Profile', labelBn: 'প্রোফাইল', to: '/student/profile', icon: <User className="w-4 h-4" /> },
           { label: 'Helpdesk & Grievance', labelBn: 'হেল্পডেস্ক ও অভিযোগ', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> }
@@ -88,6 +91,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
           { label: 'Announcements', labelBn: 'বিজ্ঞপ্তি প্রকাশ', to: '/teacher/announcements', icon: <Megaphone className="w-4 h-4" /> },
           { label: 'Marks Entry', labelBn: 'মার্কস এন্ট্রি', to: '/teacher/marks', icon: <Award className="w-4 h-4" /> },
           { label: 'Class Routine', labelBn: 'ক্লাস রুটিন', to: '/teacher/routine', icon: <Calendar className="w-4 h-4" /> },
+          { label: 'Medical Center', labelBn: 'মেডিকেল সেন্টার', to: '/student/medical', icon: <HeartPulse className="w-4 h-4" /> },
           { label: 'Helpdesk Support', labelBn: 'হেল্পডেস্ক সহায়তা', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> },
           { label: 'Profile', labelBn: 'প্রোফাইল', to: '/teacher/profile', icon: <User className="w-4 h-4" /> }
         ];
@@ -125,6 +129,12 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
         return [
           { label: 'Circulation Desk', labelBn: 'সার্কুলেশন ডেস্ক', to: '/office/library_officer', icon: <LayoutDashboard className="w-4 h-4" /> },
           { label: 'Central Catalog', labelBn: 'কেন্দ্রীয় ক্যাটালগ', to: '/library', icon: <BookOpen className="w-4 h-4" /> }
+        ];
+      case 'medical_officer':
+        return [
+          { label: 'Patient Queue', labelBn: 'রোগী কিউ ও অ্যাপয়েন্টমেন্ট', to: '/office/medical', icon: <HeartPulse className="w-4 h-4" /> },
+          { label: 'Duty Roster', labelBn: 'ডিউটি রোস্টার', to: '/office/medical#roster', icon: <Calendar className="w-4 h-4" /> },
+          { label: 'Public Medical Portal', labelBn: 'পাবলিক মেডিকেল পোর্টাল', to: '/medical-center', icon: <Stethoscope className="w-4 h-4" /> }
         ];
       default:
         return [

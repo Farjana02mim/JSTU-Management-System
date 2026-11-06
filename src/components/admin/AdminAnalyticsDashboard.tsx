@@ -61,7 +61,8 @@ import {
   ArrowRight,
   ExternalLink,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  HeartPulse
 } from 'lucide-react';
 
 interface AdminAnalyticsDashboardProps {
@@ -790,7 +791,112 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
         </div>
       </div>
 
-      {/* 5. Recent Activity Feed from the Audit Trail (Role, Action, Time; NO PERSONAL DATA) */}
+      {/* 5. Medical Center Anonymous Aggregate Overview (Strictly Anonymous Counts Only) */}
+      {(() => {
+        const storeMgr = SharedDataStoreManager.getInstance();
+        const medStats = storeMgr.getMedicalCenterAnonymousStats();
+        const certStats = storeMgr.getMedicalCertificatesAnonymousStats();
+
+        return (
+          <div className="p-4 sm:p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs space-y-4">
+            <div className="flex flex-wrap items-center justify-between border-b border-slate-100 pb-2.5 gap-2">
+              <div>
+                <h3 className="text-sm font-bold text-[#0F172A] flex items-center gap-2">
+                  <HeartPulse className="w-4 h-4 text-rose-600" />
+                  <span>{isBn ? 'মেডিকেল সেন্টার ও রেস্ট সনদ অ্যানোনিমাস পরিসংখ্যান' : 'Medical Center & Rest Certificate Metrics'}</span>
+                </h3>
+                <p className="text-[11px] text-slate-600">
+                  {isBn
+                    ? 'ক্লিনিক্যাল গোপনীয়তার স্বার্থে প্রশাসন শুধুমাত্র সামগ্রিক সংখ্যা ও স্ট্যাটাস দেখতে পারেন (কোনো প্রেসক্রিপশন বা ক্লিনিক্যাল নোট নেই)।'
+                    : 'Admin views strictly counts and statuses only, never clinical visit notes or diagnostic data.'}
+                </p>
+              </div>
+              <Badge variant="neutral">
+                {isBn ? 'পরিদর্শন এই মাসে: ' : 'Visits this month: '}
+                <span className="font-bold ml-1">{medStats.visitsThisMonth}</span>
+              </Badge>
+            </div>
+
+            {/* Row 1: Appointments Counts */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                <span className="text-[11px] text-slate-600 font-medium block">
+                  {isBn ? 'মোট সম্পন্ন পরামর্শ' : 'Completed Consultations'}
+                </span>
+                <span className="text-lg font-bold text-[#0F172A] tabular-nums">
+                  {medStats.completedVisits}
+                </span>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-blue-50/60 border border-blue-100">
+                <span className="text-[11px] text-blue-800 font-medium block">
+                  {isBn ? 'নিশ্চিত অ্যাপয়েন্টমেন্ট' : 'Confirmed Slots'}
+                </span>
+                <span className="text-lg font-bold text-blue-900 tabular-nums">
+                  {medStats.appointmentsByStatus.Confirmed || 0}
+                </span>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-amber-50/60 border border-amber-100">
+                <span className="text-[11px] text-amber-800 font-medium block">
+                  {isBn ? 'অপেক্ষমাণ অনুরোধ' : 'Pending Requests'}
+                </span>
+                <span className="text-lg font-bold text-amber-900 tabular-nums">
+                  {medStats.appointmentsByStatus.Requested || 0}
+                </span>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                <span className="text-[11px] text-slate-600 font-medium block">
+                  {isBn ? 'মোট রেকর্ডকৃত বুকিং' : 'Total Registered'}
+                </span>
+                <span className="text-lg font-bold text-[#0F172A] tabular-nums">
+                  {medStats.totalVisits}
+                </span>
+              </div>
+            </div>
+
+            {/* Row 2: Medical Rest Certificate Counts & Status Breakdown */}
+            <div className="pt-2 border-t border-slate-100 space-y-2">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                {isBn ? 'মেডিকেল রেস্ট সনদ রেজিস্ট্রি অবস্থা (Anonymous Counts)' : 'Medical Rest Certificates Registry'}
+              </span>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                  <span className="text-[11px] text-slate-600 font-medium block">Total Issued</span>
+                  <span className="text-lg font-bold text-[#0F172A] tabular-nums">
+                    {certStats.totalCertificates}
+                  </span>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-emerald-50/60 border border-emerald-100">
+                  <span className="text-[11px] text-emerald-800 font-medium block">Valid Active</span>
+                  <span className="text-lg font-bold text-emerald-900 tabular-nums">
+                    {certStats.valid}
+                  </span>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-amber-50/60 border border-amber-100">
+                  <span className="text-[11px] text-amber-800 font-medium block">Superseded</span>
+                  <span className="text-lg font-bold text-amber-900 tabular-nums">
+                    {certStats.superseded}
+                  </span>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-red-50/60 border border-red-100">
+                  <span className="text-[11px] text-red-800 font-medium block">Revoked</span>
+                  <span className="text-lg font-bold text-red-900 tabular-nums">
+                    {certStats.revoked}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* 6. Recent Activity Feed from the Audit Trail (Role, Action, Time; NO PERSONAL DATA) */}
       <div className="p-5 bg-white border border-[#E2E8F0] rounded-2xl shadow-2xs space-y-4">
         <div className="flex flex-wrap items-center justify-between border-b border-slate-100 pb-3 gap-2">
           <div>

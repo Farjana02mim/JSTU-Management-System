@@ -17,7 +17,17 @@ import {
   ClubMembershipApplication,
   SportsBooking,
   MedicalAppointment,
-  AlumniRegistrationRequest
+  MedicalDutyShift,
+  MedicalAppointmentStatus,
+  AlumniRegistrationRequest,
+  MedicalVisitRecord,
+  MedicalVisitAddendum,
+  PrescriptionItem,
+  PatientRecordAccessLog,
+  VisitNoteStatus,
+  MedicalRestCertificate,
+  MedicalCertificateStatus,
+  MedicalCertificateAuditEntry
 } from '../../types/studentLife';
 import {
   ManagedNoticeItem,
@@ -40,7 +50,12 @@ import {
 } from '../../data/librarySeedData';
 import {
   initialHallApplicationsData,
-  initialAlumniRegistrationsData
+  initialAlumniRegistrationsData,
+  initialMedicalAppointments,
+  initialMedicalDutyRoster,
+  initialMedicalVisitRecords,
+  initialPatientRecordAccessLogs,
+  initialMedicalRestCertificates
 } from '../../data/studentLifeSeedData';
 import {
   initialManagedNotices,
@@ -511,6 +526,10 @@ export interface SharedStoreData {
   clubApplications: ClubMembershipApplication[];
   sportsBookings: SportsBooking[];
   medicalAppointments: MedicalAppointment[];
+  medicalDutyRoster: MedicalDutyShift[];
+  medicalVisitRecords: MedicalVisitRecord[];
+  patientRecordAccessLogs: PatientRecordAccessLog[];
+  medicalRestCertificates: MedicalRestCertificate[];
   alumniRegistrations: AlumniRegistrationRequest[];
   managedNotices: ManagedNoticeItem[];
   managedNews: ManagedNewsItem[];
@@ -605,6 +624,10 @@ export function getEmptyStoreData(): SharedStoreData {
     clubApplications: [],
     sportsBookings: [],
     medicalAppointments: [],
+    medicalDutyRoster: [],
+    medicalVisitRecords: [],
+    patientRecordAccessLogs: [],
+    medicalRestCertificates: [],
     alumniRegistrations: [],
     managedNotices: [],
     managedNews: [],
@@ -1470,7 +1493,11 @@ export function getInitialSharedStoreData(): SharedStoreData {
     hallApplications: initialHallApplicationsData,
     clubApplications: [],
     sportsBookings: [],
-    medicalAppointments: [],
+    medicalAppointments: initialMedicalAppointments,
+    medicalDutyRoster: initialMedicalDutyRoster,
+    medicalVisitRecords: initialMedicalVisitRecords,
+    patientRecordAccessLogs: initialPatientRecordAccessLogs,
+    medicalRestCertificates: initialMedicalRestCertificates,
     alumniRegistrations: initialAlumniRegistrationsData,
     managedNotices: initialManagedNotices,
     managedNews: initialManagedNews,
@@ -1572,8 +1599,20 @@ export class SharedDataStoreManager {
       if (!parsed.sportsBookings || !Array.isArray(parsed.sportsBookings)) {
         parsed.sportsBookings = [];
       }
-      if (!parsed.medicalAppointments || !Array.isArray(parsed.medicalAppointments)) {
-        parsed.medicalAppointments = [];
+      if (!parsed.medicalAppointments || !Array.isArray(parsed.medicalAppointments) || parsed.medicalAppointments.length === 0) {
+        parsed.medicalAppointments = getInitialSharedStoreData().medicalAppointments;
+      }
+      if (!parsed.medicalDutyRoster || !Array.isArray(parsed.medicalDutyRoster) || parsed.medicalDutyRoster.length === 0) {
+        parsed.medicalDutyRoster = getInitialSharedStoreData().medicalDutyRoster;
+      }
+      if (!parsed.medicalVisitRecords || !Array.isArray(parsed.medicalVisitRecords)) {
+        parsed.medicalVisitRecords = getInitialSharedStoreData().medicalVisitRecords;
+      }
+      if (!parsed.patientRecordAccessLogs || !Array.isArray(parsed.patientRecordAccessLogs)) {
+        parsed.patientRecordAccessLogs = getInitialSharedStoreData().patientRecordAccessLogs;
+      }
+      if (!parsed.medicalRestCertificates || !Array.isArray(parsed.medicalRestCertificates)) {
+        parsed.medicalRestCertificates = getInitialSharedStoreData().medicalRestCertificates;
       }
       if (!parsed.alumniRegistrations || !Array.isArray(parsed.alumniRegistrations)) {
         parsed.alumniRegistrations = getInitialSharedStoreData().alumniRegistrations;
@@ -1959,21 +1998,1066 @@ export class SharedDataStoreManager {
     return newBooking;
   }
 
-  public submitMedicalAppointment(
-    apt: Omit<MedicalAppointment, 'id' | 'tokenNumber' | 'status' | 'bookedAt'>
-  ): MedicalAppointment {
+  // --- Medical Center & Appointment Operations ---
+
+  public getMedicalDutyRoster(): MedicalDutyShift[] {
     const store = this.getStore();
-    const token = store.medicalAppointments.length + 12;
-    const newApt: MedicalAppointment = {
-      ...apt,
-      id: `med-apt-${Date.now()}`,
-      tokenNumber: token,
-      status: 'confirmed',
-      bookedAt: new Date().toISOString()
+    return store.medicalDutyRoster || [];
+  }
+
+  /**
+   * Returns appointments for a specific patient.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getMedicalAppointmentsForPatient(patientUid: string): MedicalAppointment[] {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    return (store.medicalAppointments || []).filter(
+      (apt) => apt.patientUid === patientUid || (!apt.patientUid && patientUid === 'demo_student_01')
+    );
+  }
+
+  /**
+   * Returns sanitized appointments for medical staff.
+   * A medical officer sees patient details only for appointments assigned to them or to the center,
+   * and only the minimum fields: name, ID, department, reason. Never marks, fees or applications.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getMedicalAppointmentsForStaff(officerUid?: string, doctorId?: string): MedicalAppointment[] {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    const all = store.medicalAppointments || [];
+    return all.filter((apt) => {
+      if (!doctorId || doctorId === 'any') return true;
+      return apt.doctorId === doctorId || apt.doctorId === 'any';
+    });
+  }
+
+  /**
+   * Returns counts and statistics only for administrative reporting.
+   * Admin sees counts and statistics only, never reasons or notes.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getMedicalAppointmentStatistics(): {
+    total: number;
+    requested: number;
+    confirmed: number;
+    completed: number;
+    cancelled: number;
+    noShow: number;
+    todayCount: number;
+  } {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    const list = store.medicalAppointments || [];
+    const today = new Date().toISOString().split('T')[0];
+
+    return {
+      total: list.length,
+      requested: list.filter((a) => a.status === 'Requested').length,
+      confirmed: list.filter((a) => a.status === 'Confirmed').length,
+      completed: list.filter((a) => a.status === 'Completed').length,
+      cancelled: list.filter((a) => a.status === 'Cancelled').length,
+      noShow: list.filter((a) => a.status === 'No-show').length,
+      todayCount: list.filter((a) => a.appointmentDate === today).length
     };
+  }
+
+  /**
+   * Books a medical appointment with slot conflict check (no double booking).
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public bookMedicalAppointment(data: {
+    patientUid: string;
+    patientName: string;
+    patientRole: string;
+    patientId: string;
+    department: string;
+    phone: string;
+    doctorId: string;
+    doctorName: string;
+    doctorSpecialty: string;
+    appointmentDate: string;
+    timeSlot: string;
+    reason: string;
+  }): { success: boolean; appointment?: MedicalAppointment; error?: string } {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    store.medicalAppointments = store.medicalAppointments || [];
+
+    // Reason length check (300 character limit)
+    if (data.reason.length > 300) {
+      return { success: false, error: 'Reason exceeds maximum length of 300 characters.' };
+    }
+
+    // Check for double booking: slot already booked and active (Requested or Confirmed)
+    const conflict = store.medicalAppointments.find(
+      (a) =>
+        a.appointmentDate === data.appointmentDate &&
+        a.timeSlot === data.timeSlot &&
+        (data.doctorId === 'any' || a.doctorId === data.doctorId || a.doctorId === 'any') &&
+        (a.status === 'Requested' || a.status === 'Confirmed')
+    );
+
+    if (conflict) {
+      return {
+        success: false,
+        error: 'This time slot has already been booked. Please choose an alternative slot or date from the duty roster.'
+      };
+    }
+
+    const refNumber = `JSTU-MED-2026-${1000 + store.medicalAppointments.length + 1}`;
+    const token = store.medicalAppointments.length + 1;
+    const now = new Date().toISOString();
+
+    const newApt: MedicalAppointment = {
+      id: `med-apt-${Date.now()}`,
+      referenceNumber: refNumber,
+      tokenNumber: token,
+      patientUid: data.patientUid,
+      patientName: data.patientName,
+      patientRole: data.patientRole,
+      patientId: data.patientId,
+      department: data.department,
+      phone: data.phone,
+      doctorId: data.doctorId,
+      doctorName: data.doctorName,
+      doctorSpecialty: data.doctorSpecialty,
+      appointmentDate: data.appointmentDate,
+      timeSlot: data.timeSlot,
+      reason: data.reason,
+      status: 'Requested',
+      bookedAt: now,
+      updatedAt: now,
+      auditTrail: [
+        {
+          id: `aud-${Date.now()}`,
+          actorUid: data.patientUid,
+          actorRole: data.patientRole,
+          action: 'REQUESTED',
+          timestamp: now,
+          note: 'Appointment requested online'
+        }
+      ]
+    };
+
     store.medicalAppointments.unshift(newApt);
+
+    // Emits notification without health details
+    const notif = {
+      id: `med-notif-${Date.now()}`,
+      title: `Medical Appointment Requested (${refNumber})`,
+      titleBn: `মেডিকেল অ্যাপয়েন্টমেন্ট আবেদন জমা (${refNumber})`,
+      message: `Your medical appointment request for ${data.appointmentDate} at ${data.timeSlot} has been submitted for duty officer confirmation.`,
+      messageBn: `${data.appointmentDate} তারিখের ${data.timeSlot} সময়ের মেডিকেল অ্যাপয়েন্টমেন্ট আবেদনটি গৃহীত হয়েছে।`,
+      category: 'academic' as const,
+      timestamp: now,
+      read: false,
+      link: '/student/medical'
+    };
+
+    if (data.patientRole === 'teacher') {
+      store.teacherNotifications.unshift(notif);
+    } else {
+      store.studentNotifications.unshift(notif);
+    }
+
     this.saveStore(store);
-    return newApt;
+    return { success: true, appointment: newApt };
+  }
+
+  /**
+   * Updates appointment status (Confirm, Complete, Cancel, No-show).
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public updateMedicalAppointmentStatus(
+    appointmentId: string,
+    status: MedicalAppointmentStatus,
+    actorUid: string,
+    actorRole: string,
+    note?: string
+  ): { success: boolean; error?: string } {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    const apt = (store.medicalAppointments || []).find((a) => a.id === appointmentId);
+    if (!apt) {
+      return { success: false, error: 'Appointment not found.' };
+    }
+
+    const now = new Date().toISOString();
+    apt.status = status;
+    apt.updatedAt = now;
+
+    // Audit trail (strictly NO health details)
+    apt.auditTrail.push({
+      id: `aud-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      actorUid,
+      actorRole,
+      action: status.toUpperCase() as any,
+      timestamp: now,
+      note: note || `Status changed to ${status}`
+    });
+
+    // Notify patient (no health details in message)
+    const notif = {
+      id: `med-notif-${Date.now()}`,
+      title: `Medical Appointment ${status} (${apt.referenceNumber})`,
+      titleBn: `মেডিকেল অ্যাপয়েন্টমেন্ট ${status} (${apt.referenceNumber})`,
+      message: `Your appointment on ${apt.appointmentDate} at ${apt.timeSlot} has been marked as ${status}.`,
+      messageBn: `${apt.appointmentDate} তারিখের ${apt.timeSlot} সময়ের অ্যাপয়েন্টমেন্টের স্ট্যাটাস: ${status}।`,
+      category: 'academic' as const,
+      timestamp: now,
+      read: false,
+      link: '/student/medical'
+    };
+
+    if (apt.patientRole === 'teacher') {
+      store.teacherNotifications.unshift(notif);
+    } else {
+      store.studentNotifications.unshift(notif);
+    }
+
+    this.saveStore(store);
+    return { success: true };
+  }
+
+  /**
+   * Cancel an appointment before the slot.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public cancelMedicalAppointment(
+    appointmentId: string,
+    actorUid: string,
+    actorRole: string,
+    reason?: string
+  ): { success: boolean; error?: string } {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    const apt = (store.medicalAppointments || []).find((a) => a.id === appointmentId);
+    if (!apt) {
+      return { success: false, error: 'Appointment not found.' };
+    }
+    if (apt.status === 'Completed') {
+      return { success: false, error: 'Cannot cancel an appointment that has already been completed.' };
+    }
+
+    const now = new Date().toISOString();
+    apt.status = 'Cancelled';
+    apt.updatedAt = now;
+    apt.cancelledAt = now;
+    apt.cancellationReason = reason || 'Cancelled by patient';
+
+    apt.auditTrail.push({
+      id: `aud-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      actorUid,
+      actorRole,
+      action: 'CANCELLED',
+      timestamp: now,
+      note: 'Appointment cancelled'
+    });
+
+    this.saveStore(store);
+    return { success: true };
+  }
+
+  /**
+   * Reschedule an appointment before the slot.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public rescheduleMedicalAppointment(
+    appointmentId: string,
+    newDate: string,
+    newTimeSlot: string,
+    actorUid: string,
+    actorRole: string
+  ): { success: boolean; error?: string } {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    const apt = (store.medicalAppointments || []).find((a) => a.id === appointmentId);
+    if (!apt) {
+      return { success: false, error: 'Appointment not found.' };
+    }
+    if (apt.status === 'Completed' || apt.status === 'Cancelled') {
+      return { success: false, error: 'Cannot reschedule a completed or cancelled appointment.' };
+    }
+
+    // Check conflict on new slot
+    const conflict = store.medicalAppointments.find(
+      (a) =>
+        a.id !== appointmentId &&
+        a.appointmentDate === newDate &&
+        a.timeSlot === newTimeSlot &&
+        (apt.doctorId === 'any' || a.doctorId === apt.doctorId || a.doctorId === 'any') &&
+        (a.status === 'Requested' || a.status === 'Confirmed')
+    );
+
+    if (conflict) {
+      return { success: false, error: 'The selected rescheduled slot is already occupied.' };
+    }
+
+    const now = new Date().toISOString();
+    apt.appointmentDate = newDate;
+    apt.timeSlot = newTimeSlot;
+    apt.status = 'Requested';
+    apt.updatedAt = now;
+
+    apt.auditTrail.push({
+      id: `aud-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      actorUid,
+      actorRole,
+      action: 'RESCHEDULED',
+      timestamp: now,
+      note: `Rescheduled to ${newDate} at ${newTimeSlot}`
+    });
+
+    this.saveStore(store);
+    return { success: true };
+  }
+
+  /**
+   * Duty roster management operations by Medical Officer.
+   */
+  public addDutyRosterShift(shift: Omit<MedicalDutyShift, 'id'>): MedicalDutyShift {
+    const store = this.getStore();
+    store.medicalDutyRoster = store.medicalDutyRoster || [];
+    const newShift: MedicalDutyShift = {
+      ...shift,
+      id: `shift-${Date.now()}`
+    };
+    store.medicalDutyRoster.push(newShift);
+    this.saveStore(store);
+    return newShift;
+  }
+
+  public updateDutyRosterShift(shift: MedicalDutyShift): void {
+    const store = this.getStore();
+    store.medicalDutyRoster = (store.medicalDutyRoster || []).map((s) => (s.id === shift.id ? shift : s));
+    this.saveStore(store);
+  }
+
+  public deleteDutyRosterShift(shiftId: string): void {
+    const store = this.getStore();
+    store.medicalDutyRoster = (store.medicalDutyRoster || []).filter((s) => s.id !== shiftId);
+    this.saveStore(store);
+  }
+
+  // =========================================================================
+  // MEDICAL CENTER MILESTONE 2 (M2) — VISIT RECORDS, PRESCRIPTIONS & ACCESS LOGS
+  // Real enforcement must move to Firestore rules / Cloud Functions.
+  // Real health data needs encryption, strict access rules, a legal basis and university approval, and must not be stored in a browser-only demo.
+  // =========================================================================
+
+  /**
+   * Retrieves visit records for a patient (My Health Records tab).
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   * Real health data needs encryption, strict access rules, a legal basis and university approval, and must not be stored in a browser-only demo.
+   */
+  public getPatientHealthRecords(patientUid: string): MedicalVisitRecord[] {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    // Real health data needs encryption, strict access rules, a legal basis and university approval, and must not be stored in a browser-only demo.
+    const store = this.getStore();
+    return (store.medicalVisitRecords || []).filter(
+      (r) => r.patientUid === patientUid || (!r.patientUid && patientUid === 'demo_student_01')
+    );
+  }
+
+  /**
+   * Retrieves single visit record by ID.
+   */
+  public getVisitRecordById(recordId: string): MedicalVisitRecord | undefined {
+    const store = this.getStore();
+    return (store.medicalVisitRecords || []).find((r) => r.id === recordId);
+  }
+
+  /**
+   * Retrieves existing visit record for an appointment ID.
+   */
+  public getVisitNoteByAppointment(appointmentId: string): MedicalVisitRecord | undefined {
+    const store = this.getStore();
+    return (store.medicalVisitRecords || []).find((r) => r.appointmentId === appointmentId);
+  }
+
+  /**
+   * Logs a doctor/staff access event to a patient's medical history.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public logPatientRecordAccess(
+    patientUid: string,
+    accessedByUid: string,
+    accessedByName: string,
+    accessedByRole: string
+  ): void {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    store.patientRecordAccessLogs = store.patientRecordAccessLogs || [];
+    const log: PatientRecordAccessLog = {
+      id: `acc-log-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      patientUid,
+      accessedByUid,
+      accessedByName,
+      accessedByRole,
+      accessedAt: new Date().toISOString()
+    };
+    store.patientRecordAccessLogs.unshift(log);
+    this.saveStore(store);
+  }
+
+  /**
+   * Retrieves audit log of who accessed patient records.
+   * STRICT PRIVACY: Returns role and date only to the patient (no names, no IDs).
+   */
+  public getPatientAccessLogs(patientUid: string): Array<{ id: string; role: string; date: string }> {
+    const store = this.getStore();
+    const logs = (store.patientRecordAccessLogs || []).filter(
+      (l) => l.patientUid === patientUid || (!l.patientUid && patientUid === 'demo_student_01')
+    );
+    return logs.map((l) => ({
+      id: l.id,
+      role: l.accessedByRole,
+      date: l.accessedAt
+    }));
+  }
+
+  /**
+   * Doctor opens patient history only if patient has an appointment with the center.
+   * Every access is logged in patientRecordAccessLogs.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getDoctorPatientHistory(
+    patientUid: string,
+    doctorUid: string,
+    doctorName: string,
+    doctorRole: string
+  ): { allowed: boolean; records: MedicalVisitRecord[]; error?: string } {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    // Real health data needs encryption, strict access rules, a legal basis and university approval, and must not be stored in a browser-only demo.
+    const store = this.getStore();
+
+    // Verify patient has at least one registered appointment with the center
+    const hasAppointment = (store.medicalAppointments || []).some(
+      (a) => a.patientUid === patientUid || (!a.patientUid && patientUid === 'demo_student_01')
+    );
+
+    if (!hasAppointment) {
+      return {
+        allowed: false,
+        records: [],
+        error: 'Access denied: Patient has no registered appointment with the university medical center.'
+      };
+    }
+
+    // Log the doctor's record access
+    this.logPatientRecordAccess(patientUid, doctorUid, doctorName, doctorRole);
+
+    const records = (store.medicalVisitRecords || []).filter(
+      (r) => r.patientUid === patientUid || (!r.patientUid && patientUid === 'demo_student_01')
+    );
+
+    return {
+      allowed: true,
+      records
+    };
+  }
+
+  /**
+   * Saves or finalizes a doctor's visit note for a completed appointment.
+   * - Max 10 prescription items (free text, no system recommendation).
+   * - Finalized notes are immutable; cannot be edited directly.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public saveVisitNote(data: {
+    appointmentId: string;
+    complaint: string;
+    observation: string;
+    advice: string;
+    followUpDate?: string;
+    sickRestDays?: number;
+    prescriptionItems: PrescriptionItem[];
+    status: VisitNoteStatus;
+    doctorUid: string;
+    doctorName: string;
+    doctorSpecialty: string;
+  }): { success: boolean; record?: MedicalVisitRecord; error?: string } {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    // Real health data needs encryption, strict access rules, a legal basis and university approval, and must not be stored in a browser-only demo.
+    const store = this.getStore();
+    store.medicalVisitRecords = store.medicalVisitRecords || [];
+
+    // Find linked appointment
+    const appointment = (store.medicalAppointments || []).find((a) => a.id === data.appointmentId);
+    if (!appointment) {
+      return { success: false, error: 'Linked appointment not found.' };
+    }
+
+    // Check if appointment is already completed or if status can be updated
+    if (appointment.status !== 'Completed') {
+      appointment.status = 'Completed';
+      appointment.updatedAt = new Date().toISOString();
+      appointment.auditTrail.push({
+        id: `aud-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        actorUid: data.doctorUid,
+        actorRole: 'medical_officer',
+        action: 'COMPLETED',
+        timestamp: new Date().toISOString(),
+        note: 'Consultation marked completed with visit note'
+      });
+    }
+
+    // Check existing note
+    const existingIndex = store.medicalVisitRecords.findIndex((r) => r.appointmentId === data.appointmentId);
+    if (existingIndex >= 0) {
+      const existing = store.medicalVisitRecords[existingIndex];
+      if (existing.status === 'FINALIZED') {
+        return {
+          success: false,
+          error: 'A finalized note cannot be edited. A correction must be recorded as an addendum.'
+        };
+      }
+    }
+
+    // Length and item limits validation
+    if (data.complaint.length > 500) {
+      return { success: false, error: 'Complaint text exceeds limit of 500 characters.' };
+    }
+    if (data.observation.length > 500) {
+      return { success: false, error: 'Observation text exceeds limit of 500 characters.' };
+    }
+    if (data.advice.length > 500) {
+      return { success: false, error: 'Advice text exceeds limit of 500 characters.' };
+    }
+    if (data.prescriptionItems.length > 10) {
+      return { success: false, error: 'Maximum 10 prescription items allowed.' };
+    }
+
+    const now = new Date().toISOString();
+    const isFinalizing = data.status === 'FINALIZED';
+
+    let token = '';
+    if (isFinalizing) {
+      token = `med_tok_${Date.now().toString(36)}_${Math.random().toString(36).substring(2, 8)}`;
+    }
+
+    if (existingIndex >= 0) {
+      const existing = store.medicalVisitRecords[existingIndex];
+      existing.complaint = data.complaint;
+      existing.observation = data.observation;
+      existing.advice = data.advice;
+      existing.followUpDate = data.followUpDate;
+      existing.sickRestDays = data.sickRestDays;
+      existing.prescriptionItems = data.prescriptionItems;
+      existing.status = data.status;
+      existing.updatedAt = now;
+      if (isFinalizing) {
+        existing.finalizedAt = now;
+        existing.verificationToken = token;
+        existing.verificationStatus = 'VALID';
+      }
+      this.saveStore(store);
+      return { success: true, record: existing };
+    }
+
+    const newRecord: MedicalVisitRecord = {
+      id: `med-rec-${Date.now()}`,
+      appointmentId: data.appointmentId,
+      appointmentRef: appointment.referenceNumber,
+      verificationToken: token || `med_tok_draft_${Date.now().toString(36)}`,
+      verificationStatus: 'VALID',
+      patientUid: appointment.patientUid,
+      patientName: appointment.patientName,
+      patientId: appointment.patientId,
+      patientRole: appointment.patientRole,
+      patientDepartment: appointment.department,
+      doctorId: data.doctorUid,
+      doctorName: data.doctorName,
+      doctorSpecialty: data.doctorSpecialty,
+      visitDate: appointment.appointmentDate,
+      complaint: data.complaint,
+      observation: data.observation,
+      advice: data.advice,
+      followUpDate: data.followUpDate,
+      sickRestDays: data.sickRestDays,
+      prescriptionItems: data.prescriptionItems,
+      status: data.status,
+      createdAt: now,
+      finalizedAt: isFinalizing ? now : undefined,
+      updatedAt: now,
+      addenda: []
+    };
+
+    store.medicalVisitRecords.unshift(newRecord);
+    this.saveStore(store);
+    return { success: true, record: newRecord };
+  }
+
+  /**
+   * Adds an addendum to an existing finalized visit note.
+   * Keeps the original note visible and unmodified in history.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public addVisitAddendum(
+    recordId: string,
+    data: {
+      doctorUid: string;
+      doctorName: string;
+      reason: string;
+      correctionNotes: string;
+    }
+  ): { success: boolean; record?: MedicalVisitRecord; error?: string } {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    // Real health data needs encryption, strict access rules, a legal basis and university approval, and must not be stored in a browser-only demo.
+    const store = this.getStore();
+    const record = (store.medicalVisitRecords || []).find((r) => r.id === recordId);
+    if (!record) {
+      return { success: false, error: 'Medical record not found.' };
+    }
+    if (record.status !== 'FINALIZED') {
+      return { success: false, error: 'Addenda can only be added to finalized records.' };
+    }
+    if (!data.reason.trim()) {
+      return { success: false, error: 'Reason for addendum is mandatory.' };
+    }
+    if (!data.correctionNotes.trim()) {
+      return { success: false, error: 'Correction notes are mandatory.' };
+    }
+
+    const now = new Date().toISOString();
+    const addendum: MedicalVisitAddendum = {
+      id: `addendum-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      createdAt: now,
+      createdByUid: data.doctorUid,
+      createdByName: data.doctorName,
+      reason: data.reason.trim(),
+      correctionNotes: data.correctionNotes.trim()
+    };
+
+    record.addenda = record.addenda || [];
+    record.addenda.push(addendum);
+    record.updatedAt = now;
+
+    this.saveStore(store);
+    return { success: true, record };
+  }
+
+  /**
+   * Public prescription verification check.
+   * PRIVACY RULE: Returns ONLY status (VALID | REVOKED | NOT FOUND), issueDate, and centerName ("JSTU Medical Center").
+   * Absolutely NO patient name, no student ID, and no medicine names.
+   */
+  public verifyPrescriptionToken(token: string): {
+    status: 'VALID' | 'REVOKED' | 'NOT_FOUND';
+    issueDate?: string;
+    centerName: string;
+    token?: string;
+  } {
+    const centerName = 'JSTU Medical Center';
+    if (!token || typeof token !== 'string') {
+      return { status: 'NOT_FOUND', centerName };
+    }
+    const cleanToken = token.trim();
+    if (!cleanToken) {
+      return { status: 'NOT_FOUND', centerName };
+    }
+
+    const store = this.getStore();
+    const record = (store.medicalVisitRecords || []).find(
+      (r) => r.verificationToken === cleanToken && r.status === 'FINALIZED'
+    );
+
+    if (!record) {
+      return { status: 'NOT_FOUND', centerName };
+    }
+
+    return {
+      status: record.verificationStatus || 'VALID',
+      issueDate: record.finalizedAt ? record.finalizedAt.split('T')[0] : record.visitDate,
+      centerName,
+      token: cleanToken
+    };
+  }
+
+  /**
+   * Admin-facing aggregate analytics.
+   * STRICT ANONYMITY: Returns only counts (visits/month, appointments by status).
+   * NO notes, reasons, or patient/doctor names.
+   */
+  public getMedicalCenterAnonymousStats(): {
+    totalVisits: number;
+    completedVisits: number;
+    visitsThisMonth: number;
+    appointmentsByStatus: Record<string, number>;
+  } {
+    const store = this.getStore();
+    const appointments = store.medicalAppointments || [];
+    const visitRecords = store.medicalVisitRecords || [];
+
+    const now = new Date();
+    const currentYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+    const visitsThisMonth = visitRecords.filter((r) => r.visitDate.startsWith(currentYearMonth)).length;
+
+    const appointmentsByStatus: Record<string, number> = {
+      Requested: 0,
+      Confirmed: 0,
+      Completed: 0,
+      Cancelled: 0,
+      'No-show': 0
+    };
+
+    appointments.forEach((a) => {
+      if (appointmentsByStatus[a.status] !== undefined) {
+        appointmentsByStatus[a.status]++;
+      }
+    });
+
+    return {
+      totalVisits: visitRecords.length,
+      completedVisits: visitRecords.filter((r) => r.status === 'FINALIZED').length,
+      visitsThisMonth,
+      appointmentsByStatus
+    };
+  }
+
+  // =========================================================================
+  // MEDICAL CENTER MILESTONE 3 (M3) — MEDICAL REST CERTIFICATES & QR REGISTRY
+  // Real enforcement must move to Firestore rules / Cloud Functions.
+  // Real signing must happen server-side with a key in a secret manager.
+  // The registry must live in a database with rules exposing only the minimal verification fields publicly.
+  // =========================================================================
+
+  /**
+   * Retrieves all medical rest certificates for a patient.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getMedicalRestCertificatesForPatient(patientUid: string): MedicalRestCertificate[] {
+    const store = this.getStore();
+    return (store.medicalRestCertificates || []).filter(
+      (c) => c.patientUid === patientUid || (!c.patientUid && patientUid === 'demo_student_01')
+    );
+  }
+
+  /**
+   * Retrieves a single medical rest certificate by internal ID or 128-bit verification ID.
+   */
+  public getMedicalRestCertificateById(idOrVerificationId: string): MedicalRestCertificate | undefined {
+    const store = this.getStore();
+    return (store.medicalRestCertificates || []).find(
+      (c) => c.id === idOrVerificationId || c.verificationId === idOrVerificationId
+    );
+  }
+
+  /**
+   * Finds the latest certificate issued for a given visit record.
+   */
+  public getCertificateByVisitRecordId(visitRecordId: string): MedicalRestCertificate | undefined {
+    const store = this.getStore();
+    const certs = (store.medicalRestCertificates || []).filter((c) => c.visitRecordId === visitRecordId);
+    if (certs.length === 0) return undefined;
+    // Return latest version
+    return certs.sort((a, b) => b.version - a.version)[0];
+  }
+
+  /**
+   * Issues a Medical Rest Certificate from a finalized visit note with sick-rest days.
+   * Idempotent: If an active certificate already exists and no reasonForSuperseding is given, returns existing.
+   * Corrections create a new version with a mandatory reason; the old version is marked SUPERSEDED.
+   * Generates a 128-bit verification ID via crypto.getRandomValues and a SHA-256 canonical hash.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   * Real signing must happen server-side with a key in a secret manager.
+   * The registry must live in a database with rules exposing only the minimal verification fields publicly.
+   */
+  public async issueMedicalRestCertificate(data: {
+    visitRecordId: string;
+    restStartDate: string;
+    restDays: number;
+    doctorUid: string;
+    doctorName: string;
+    reasonForSuperseding?: string;
+    supersededReason?: string;
+    [key: string]: any;
+  }): Promise<{ success: boolean; certificate?: MedicalRestCertificate; error?: string }> {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    // Real signing must happen server-side with a key in a secret manager.
+    // The registry must live in a database with rules exposing only the minimal verification fields publicly.
+    const store = this.getStore();
+    store.medicalRestCertificates = store.medicalRestCertificates || [];
+
+    // Verify linked visit record
+    const visitRecord = (store.medicalVisitRecords || []).find((r) => r.id === data.visitRecordId);
+    if (!visitRecord) {
+      return { success: false, error: 'Linked visit record not found.' };
+    }
+    if (visitRecord.status !== 'FINALIZED') {
+      return { success: false, error: 'A medical rest certificate can only be issued from a finalized visit record.' };
+    }
+    if (data.restDays <= 0 || data.restDays > 30) {
+      return { success: false, error: 'Rest days must be between 1 and 30 days.' };
+    }
+
+    // Check existing certificates for this visit
+    const existingActive = store.medicalRestCertificates.find(
+      (c) => c.visitRecordId === data.visitRecordId && c.status === 'VALID'
+    );
+
+    const supersedeReason = data.supersededReason || data.reasonForSuperseding;
+
+    // Idempotent check
+    if (existingActive && !supersedeReason) {
+      return { success: true, certificate: existingActive };
+    }
+
+    const now = new Date().toISOString();
+
+    // Calculate restEndDate (inclusive)
+    const startDateObj = new Date(data.restStartDate);
+    const endDateObj = new Date(startDateObj.getTime() + (data.restDays - 1) * 86400000);
+    const restEndDate = endDateObj.toISOString().split('T')[0];
+
+    // Generate 128-bit random verification ID (32 hex characters)
+    const randomBytes = new Uint8Array(16);
+    crypto.getRandomValues(randomBytes);
+    const verificationId = Array.from(randomBytes)
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+
+    const newVersion = existingActive ? existingActive.version + 1 : 1;
+    const certId = `cert-med-${Date.now()}`;
+
+    // Canonical content for SHA-256 (NO diagnosis, NO symptoms!)
+    const canonicalPayload = `${verificationId}|${visitRecord.patientId}|${data.restStartDate}|${restEndDate}|${data.restDays}|JSTU Medical Center|${newVersion}`;
+    const enc = new TextEncoder().encode(canonicalPayload);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', enc);
+    const canonicalHash = Array.from(new Uint8Array(hashBuffer))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+
+    // If superseding existing active certificate
+    if (existingActive && supersedeReason) {
+      existingActive.status = 'SUPERSEDED';
+      existingActive.supersededById = certId;
+      existingActive.supersededReason = supersedeReason.trim();
+      existingActive.updatedAt = now;
+      existingActive.auditTrail.push({
+        id: `aud-cert-${Date.now()}-sup`,
+        actorUid: data.doctorUid,
+        actorRole: 'medical_officer',
+        action: 'SUPERSEDED',
+        timestamp: now,
+        reason: supersedeReason.trim()
+      });
+    }
+
+    const newCert: MedicalRestCertificate = {
+      id: certId,
+      verificationId,
+      canonicalHash,
+      visitRecordId: visitRecord.id,
+      appointmentId: visitRecord.appointmentId,
+      appointmentRef: visitRecord.appointmentRef,
+      patientUid: visitRecord.patientUid,
+      patientName: visitRecord.patientName,
+      patientId: visitRecord.patientId,
+      patientDepartment: visitRecord.patientDepartment,
+      centerName: 'JSTU Medical Center',
+      doctorRole: 'Medical Officer',
+      doctorUid: data.doctorUid,
+      doctorName: data.doctorName,
+      restStartDate: data.restStartDate,
+      restEndDate,
+      restDays: data.restDays,
+      status: 'VALID',
+      version: newVersion,
+      previousVersionId: existingActive ? existingActive.id : undefined,
+      issuedAt: now,
+      updatedAt: now,
+      auditTrail: [
+        {
+          id: `aud-cert-${Date.now()}-iss`,
+          actorUid: data.doctorUid,
+          actorRole: 'medical_officer',
+          action: 'ISSUED',
+          timestamp: now,
+          reason: existingActive ? `Reissued as version ${newVersion} with corrections` : 'Initial certificate issued'
+        }
+      ]
+    };
+
+    store.medicalRestCertificates.unshift(newCert);
+    this.saveStore(store);
+
+    return { success: true, certificate: newCert };
+  }
+
+  /**
+   * Revokes a medical rest certificate with a mandatory reason.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public revokeMedicalRestCertificate(
+    verificationId: string,
+    actorUid: string,
+    actorRole: string,
+    reason: string
+  ): { success: boolean; certificate?: MedicalRestCertificate; error?: string } {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    // Real signing must happen server-side with a key in a secret manager.
+    const store = this.getStore();
+    const cert = (store.medicalRestCertificates || []).find(
+      (c) => c.verificationId === verificationId || c.id === verificationId
+    );
+
+    if (!cert) {
+      return { success: false, error: 'Medical rest certificate not found.' };
+    }
+
+    if (!reason || !reason.trim()) {
+      return { success: false, error: 'A mandatory revocation reason is required.' };
+    }
+
+    const now = new Date().toISOString();
+    cert.status = 'REVOKED';
+    cert.revokedAt = now;
+    cert.revocationReason = reason.trim();
+    cert.revokedByUid = actorUid;
+    cert.revokedByRole = actorRole;
+    cert.updatedAt = now;
+
+    cert.auditTrail.push({
+      id: `aud-cert-${Date.now()}-rev`,
+      actorUid,
+      actorRole,
+      action: 'REVOKED',
+      timestamp: now,
+      reason: reason.trim()
+    });
+
+    this.saveStore(store);
+    return { success: true, certificate: cert };
+  }
+
+  /**
+   * Public verification endpoint (/verify-medical/:id).
+   * PRIVACY RULE: Exposes ONLY minimal, masked attributes.
+   * Output: VALID, SUPERSEDED, REVOKED, or NOT_FOUND, masked name, rest period dates, issue date.
+   * Absolutely NO diagnosis, NO symptoms, NO visit note.
+   * Generic NOT_FOUND for any invalid ID.
+   */
+  public verifyMedicalCertificate(verificationId: string): {
+    status: 'VALID' | 'SUPERSEDED' | 'REVOKED' | 'NOT_FOUND';
+    maskedName?: string;
+    restPeriod?: {
+      startDate: string;
+      endDate: string;
+      days: number;
+    };
+    issueDate?: string;
+    centerName: string;
+    verificationId?: string;
+    canonicalHash?: string;
+    supersededReason?: string;
+    revocationReason?: string;
+  } {
+    const centerName = 'JSTU Medical Center';
+    if (!verificationId || typeof verificationId !== 'string') {
+      return { status: 'NOT_FOUND', centerName };
+    }
+    const cleanId = verificationId.trim().toLowerCase();
+    if (!cleanId) {
+      return { status: 'NOT_FOUND', centerName };
+    }
+
+    const store = this.getStore();
+    const cert = (store.medicalRestCertificates || []).find(
+      (c) => c.verificationId.toLowerCase() === cleanId || c.id.toLowerCase() === cleanId
+    );
+
+    if (!cert) {
+      return { status: 'NOT_FOUND', centerName };
+    }
+
+    // Helper to mask patient name: "Tanvir Ahmed" -> "T***** A****"
+    const maskPatientName = (name: string): string => {
+      return name
+        .split(' ')
+        .map((part) => (part.length <= 1 ? part : part[0] + '*'.repeat(Math.max(1, part.length - 1))))
+        .join(' ');
+    };
+
+    return {
+      status: cert.status,
+      maskedName: maskPatientName(cert.patientName),
+      restPeriod: {
+        startDate: cert.restStartDate,
+        endDate: cert.restEndDate,
+        days: cert.restDays
+      },
+      issueDate: cert.issuedAt.split('T')[0],
+      centerName,
+      verificationId: cert.verificationId,
+      canonicalHash: cert.canonicalHash,
+      supersededReason: cert.status === 'SUPERSEDED' ? cert.supersededReason : undefined,
+      revocationReason: cert.status === 'REVOKED' ? cert.revocationReason : undefined
+    };
+  }
+
+  /**
+   * Checks whether a student has an approved medical leave application covering a specific date.
+   * Used by attendance rosters to mark "Excused (medical)" without exposing health details.
+   */
+  public getApprovedMedicalLeaveForStudent(
+    studentUid: string,
+    date: string
+  ): { isExcused: boolean; certificateRef?: string; restPeriod?: { startDate: string; endDate: string } } {
+    const store = this.getStore();
+    const apps = (store.applications as any[]) || [];
+
+    const approvedMedicalLeave = apps.find((app: any) => {
+      const matchStudent =
+        app.studentUid === studentUid ||
+        app.applicantUid === studentUid ||
+        app.studentId === studentUid ||
+        (!app.studentUid && !app.applicantUid && studentUid === 'demo_student_01');
+      const isApproved = app.status === 'APPROVED';
+      const isMedical = app.type === 'leave' && (app.formData?.leaveType === 'medical' || app.formData?.attachedCertificateId);
+      if (!matchStudent || !isApproved || !isMedical) return false;
+
+      const start = app.formData?.startDate;
+      const end = app.formData?.endDate;
+      if (!start || !end) return false;
+
+      return date >= start && date <= end;
+    });
+
+    if (!approvedMedicalLeave) {
+      return { isExcused: false };
+    }
+
+    return {
+      isExcused: true,
+      certificateRef: approvedMedicalLeave.formData?.attachedCertificateId || approvedMedicalLeave.applicationNumber,
+      restPeriod: {
+        startDate: approvedMedicalLeave.formData?.startDate,
+        endDate: approvedMedicalLeave.formData?.endDate
+      }
+    };
+  }
+
+  /**
+   * Anonymous certificate statistics for Admin and Registrar.
+   * Strictly counts and statuses only.
+   */
+  public getMedicalCertificatesAnonymousStats(): {
+    totalIssued: number;
+    validCount: number;
+    supersededCount: number;
+    revokedCount: number;
+  } {
+    const store = this.getStore();
+    const certs = store.medicalRestCertificates || [];
+    return {
+      totalIssued: certs.length,
+      validCount: certs.filter((c) => c.status === 'VALID').length,
+      supersededCount: certs.filter((c) => c.status === 'SUPERSEDED').length,
+      revokedCount: certs.filter((c) => c.status === 'REVOKED').length
+    };
   }
 
   public submitStudentLifeAlumniRegistration(

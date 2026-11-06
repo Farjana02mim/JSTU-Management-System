@@ -98,8 +98,8 @@ export const BannerSlider: React.FC<BannerSliderProps> = ({ onOpenPortalModal })
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
               {isBn
-                ? 'অনলাইন ফলাফল প্রণয়ন, ডিজিটাল বিভাগীয় ছাড়পত্র ও অডিট ট্রেইলযুক্ত সনদ যাচাইয়ের জন্য পরিকল্পিত স্মার্ট ক্যাম্পাস প্রোটোটাইপ।'
-                : 'Prototype designed to support automated administrative workflows, digital workflow with audit trail for semester grading, online clearance, and verifiable credentials.'}
+                ? 'অনলাইন আবেদন, অডিট ট্রেইলযুক্ত ফলাফল প্রণয়ন এবং যাচাইযোগ্য সনদের জন্য জামালপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের একটি ডিজিটাল ক্যাম্পাস প্রোটোটাইপ।'
+                : 'A prototype of a digital campus: online applications, marks workflows with audit trails, and verifiable documents for Jamalpur Science & Technology University.'}
             </p>
 
             {/* CTAs: 4 requested buttons */}
