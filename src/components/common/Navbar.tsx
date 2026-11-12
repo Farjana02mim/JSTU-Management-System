@@ -839,6 +839,12 @@ export const Navbar: React.FC = () => {
                       </Link>
                     </li>
                     <li>
+                      <Link to="/halls/dining" className="group flex items-center gap-2 text-[#334155] hover:text-[#1E3A8A] py-1 transition-colors font-medium">
+                        <span className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-[#1E3A8A] transition-colors shrink-0" />
+                        <span>{isBn ? 'হল ডাইনিং ও খাবার' : 'Hall Dining & Mess'}</span>
+                      </Link>
+                    </li>
+                    <li>
                       <Link to="/medical-center" className="group flex items-center gap-2 text-[#334155] hover:text-[#1E3A8A] py-1 transition-colors font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-[#1E3A8A] transition-colors shrink-0" />
                         <span>{isBn ? 'মেডিকেল সেন্টার' : 'Medical Center'}</span>
@@ -1164,6 +1170,7 @@ export const Navbar: React.FC = () => {
                     <div className="pl-3 pb-2 space-y-2 text-xs text-[#334155]">
                       <Link to="/library" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'সেন্ট্রাল লাইব্রেরি' : 'Central Library'}</Link>
                       <Link to="/student-life/halls" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'আবাসিক হল' : 'Residential Halls'}</Link>
+                      <Link to="/halls/dining" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'হল ডাইনিং ও খাবার' : 'Hall Dining & Mess'}</Link>
                       <Link to="/student-life/clubs" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'ক্লাব ও সমিতি' : 'Clubs & Societies'}</Link>
                       <Link to="/student-life/sports" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'খেলাধুলা' : 'Sports'}</Link>
                       <Link to="/medical-center" className="block py-1 hover:text-[#1E3A8A]">{isBn ? 'মেডিকেল সেন্টার' : 'Medical Center'}</Link>

@@ -17,7 +17,9 @@ import {
   AlumniRegistrationRequest,
   MedicalVisitRecord,
   PatientRecordAccessLog,
-  MedicalRestCertificate
+  MedicalRestCertificate,
+  MedicalStockItem,
+  MedicalStockLedgerEntry
 } from '../types/studentLife';
 
 export const initialHallsData: ResidentialHall[] = [
@@ -1545,3 +1547,271 @@ export const initialMedicalRestCertificates: MedicalRestCertificate[] = [
     ]
   }
 ];
+
+// ==========================================
+// M4: Pharmacy & Medical Center Stock Demo Seed Data
+// Fictional / generic placeholders marked "[REPLACE WITH REAL CONTENT]"
+// Real enforcement must move to Firestore rules / Cloud Functions.
+// Real stock changes must be done by server-side transactions so quantities cannot be altered from the browser.
+// ==========================================
+const nowMs = Date.now();
+const oneDayMs = 86400000;
+
+export const initialMedicalStockItems: MedicalStockItem[] = [
+  {
+    id: 'med-item-01',
+    name: 'Tab. Fexofenadine Hydrochloride 120mg [REPLACE WITH REAL CONTENT]',
+    nameBn: 'ট্যাব. ফেক্সোফেনাডিন হাইড্রোক্লোরাইড ১২০মিগ্রা [REPLACE WITH REAL CONTENT]',
+    category: 'tablet',
+    unit: 'strips',
+    reorderLevel: 40,
+    storageNote: 'Store below 25°C in a dry cabinet. Room 104, Shelf A1.',
+    batches: [
+      {
+        id: 'batch-fex-01',
+        batchNumber: 'FEX-2026-B1',
+        expiryDate: new Date(nowMs + oneDayMs * 270).toISOString().split('T')[0],
+        quantity: 100,
+        receivedDate: new Date(nowMs - oneDayMs * 60).toISOString().split('T')[0],
+        storageNote: 'Shelf A1'
+      },
+      {
+        id: 'batch-fex-02',
+        batchNumber: 'FEX-2025-E4',
+        // Expiring in 20 days -> triggers Expiring Soon (<30 days) alert
+        expiryDate: new Date(nowMs + oneDayMs * 20).toISOString().split('T')[0],
+        quantity: 45,
+        receivedDate: new Date(nowMs - oneDayMs * 180).toISOString().split('T')[0],
+        storageNote: 'Shelf A1 Front'
+      }
+    ]
+  },
+  {
+    id: 'med-item-02',
+    name: 'Normal Saline 0.9% Nasal Drops [REPLACE WITH REAL CONTENT]',
+    nameBn: 'নরমাল স্যালাইন ০.৯% ড্রপ [REPLACE WITH REAL CONTENT]',
+    category: 'syrup',
+    unit: 'bottles',
+    reorderLevel: 25,
+    storageNote: 'Protect from direct light. Room 104, Shelf B2.',
+    batches: [
+      {
+        id: 'batch-ns-01',
+        batchNumber: 'NS-2026-08',
+        expiryDate: new Date(nowMs + oneDayMs * 240).toISOString().split('T')[0],
+        quantity: 38,
+        receivedDate: new Date(nowMs - oneDayMs * 45).toISOString().split('T')[0],
+        storageNote: 'Shelf B2'
+      }
+    ]
+  },
+  {
+    id: 'med-item-03',
+    name: 'Tab. Paracetamol 500mg [REPLACE WITH REAL CONTENT]',
+    nameBn: 'ট্যাব. প্যারাসিটামল ৫০০মিগ্রা [REPLACE WITH REAL CONTENT]',
+    category: 'tablet',
+    unit: 'strips',
+    reorderLevel: 50,
+    storageNote: 'Cool and dry place away from heat. Room 104, Shelf A2.',
+    batches: [
+      {
+        id: 'batch-pcm-01',
+        batchNumber: 'PCM-2026-X1',
+        expiryDate: new Date(nowMs + oneDayMs * 365).toISOString().split('T')[0],
+        quantity: 210,
+        receivedDate: new Date(nowMs - oneDayMs * 30).toISOString().split('T')[0],
+        storageNote: 'Shelf A2 Main'
+      },
+      {
+        id: 'batch-pcm-02',
+        batchNumber: 'PCM-2026-X2',
+        expiryDate: new Date(nowMs + oneDayMs * 150).toISOString().split('T')[0],
+        quantity: 40,
+        receivedDate: new Date(nowMs - oneDayMs * 90).toISOString().split('T')[0],
+        storageNote: 'Shelf A2 Secondary'
+      }
+    ]
+  },
+  {
+    id: 'med-item-04',
+    name: 'Oral Rehydration Salts (ORS) Sachet [REPLACE WITH REAL CONTENT]',
+    nameBn: 'ওরাল রিহাইড্রেশন স্যালাইন (ওআরএস) [REPLACE WITH REAL CONTENT]',
+    category: 'consumable',
+    unit: 'sachets',
+    reorderLevel: 50,
+    storageNote: 'Moisture-proof container. Room 104, Box C.',
+    batches: [
+      {
+        id: 'batch-ors-01',
+        batchNumber: 'ORS-2026-M5',
+        expiryDate: new Date(nowMs + oneDayMs * 400).toISOString().split('T')[0],
+        quantity: 180,
+        receivedDate: new Date(nowMs - oneDayMs * 20).toISOString().split('T')[0],
+        storageNote: 'Bin C1'
+      }
+    ]
+  },
+  {
+    id: 'med-item-05',
+    name: 'Sterile Gauze Bandage 4-inch [REPLACE WITH REAL CONTENT]',
+    nameBn: 'জীবাণুমুক্ত গজ ব্যান্ডেজ ৪-ইঞ্চি [REPLACE WITH REAL CONTENT]',
+    category: 'first_aid',
+    unit: 'rolls',
+    reorderLevel: 25, // Current quantity 7 -> Triggers Low Stock Alert!
+    storageNote: 'Dressing cabinet, Emergency Room 101.',
+    batches: [
+      {
+        id: 'batch-gb-01',
+        batchNumber: 'GB-2026-S1',
+        expiryDate: new Date(nowMs + oneDayMs * 300).toISOString().split('T')[0],
+        quantity: 7,
+        receivedDate: new Date(nowMs - oneDayMs * 100).toISOString().split('T')[0],
+        storageNote: 'Dressing Tray'
+      }
+    ]
+  },
+  {
+    id: 'med-item-06',
+    name: 'Inj. Hydrocortisone 100mg [REPLACE WITH REAL CONTENT]',
+    nameBn: 'ইনজ. হাইড্রোকর্টিসোন ১০০মিগ্রা [REPLACE WITH REAL CONTENT]',
+    category: 'injection',
+    unit: 'ampoules',
+    reorderLevel: 10,
+    storageNote: 'Emergency crash cart, Room 101. Protect from light.',
+    batches: [
+      {
+        id: 'batch-hyd-01',
+        batchNumber: 'HYD-2026-C9',
+        expiryDate: new Date(nowMs + oneDayMs * 180).toISOString().split('T')[0],
+        quantity: 14,
+        receivedDate: new Date(nowMs - oneDayMs * 40).toISOString().split('T')[0],
+        storageNote: 'Crash Cart Drawer 1'
+      }
+    ]
+  },
+  {
+    id: 'med-item-07',
+    name: 'Antacid Suspension 200ml [REPLACE WITH REAL CONTENT]',
+    nameBn: 'অ্যান্টাসিড সাসপেনশন ২০০মিলি [REPLACE WITH REAL CONTENT]',
+    category: 'syrup',
+    unit: 'bottles',
+    reorderLevel: 20, // Current quantity 12 -> Triggers Low Stock Alert!
+    storageNote: 'Store at room temperature. Room 104, Shelf B1.',
+    batches: [
+      {
+        id: 'batch-ant-01',
+        batchNumber: 'ANT-2026-T2',
+        expiryDate: new Date(nowMs + oneDayMs * 220).toISOString().split('T')[0],
+        quantity: 12,
+        receivedDate: new Date(nowMs - oneDayMs * 50).toISOString().split('T')[0],
+        storageNote: 'Shelf B1'
+      }
+    ]
+  },
+  {
+    id: 'med-item-08',
+    name: 'Povidone Iodine 10% Solution 100ml [REPLACE WITH REAL CONTENT]',
+    nameBn: 'পোভিডোন আয়োডিন ১০% দ্রবণ ১০০মিলি [REPLACE WITH REAL CONTENT]',
+    category: 'first_aid',
+    unit: 'bottles',
+    reorderLevel: 10,
+    storageNote: 'Emergency triage cabinet. Keep tightly capped.',
+    batches: [
+      {
+        id: 'batch-pvi-01',
+        batchNumber: 'PVI-2026-04',
+        expiryDate: new Date(nowMs + oneDayMs * 330).toISOString().split('T')[0],
+        quantity: 22,
+        receivedDate: new Date(nowMs - oneDayMs * 30).toISOString().split('T')[0],
+        storageNote: 'Cabinet 2'
+      },
+      {
+        id: 'batch-pvi-02',
+        batchNumber: 'PVI-2025-EX',
+        // Expired 12 days ago -> Triggers Expired Alert & cannot be dispensed!
+        expiryDate: new Date(nowMs - oneDayMs * 12).toISOString().split('T')[0],
+        quantity: 4,
+        receivedDate: new Date(nowMs - oneDayMs * 210).toISOString().split('T')[0],
+        storageNote: 'Quarantine Tray'
+      }
+    ]
+  },
+  {
+    id: 'med-item-09',
+    name: 'Tab. Omeprazole 20mg [REPLACE WITH REAL CONTENT]',
+    nameBn: 'ট্যাব. ওমিপ্রাজল ২০মিগ্রা [REPLACE WITH REAL CONTENT]',
+    category: 'tablet',
+    unit: 'strips',
+    reorderLevel: 30,
+    storageNote: 'Moisture resistant strip blister. Room 104, Shelf A3.',
+    batches: [
+      {
+        id: 'batch-omp-01',
+        batchNumber: 'OMP-2026-R4',
+        expiryDate: new Date(nowMs + oneDayMs * 310).toISOString().split('T')[0],
+        quantity: 110,
+        receivedDate: new Date(nowMs - oneDayMs * 35).toISOString().split('T')[0],
+        storageNote: 'Shelf A3'
+      }
+    ]
+  }
+];
+
+// Append-only stock ledger entries (demonstrating previous movements with anonymous visit reference)
+export const initialMedicalStockLedger: MedicalStockLedgerEntry[] = [
+  {
+    id: 'stk-led-01',
+    timestamp: new Date(nowMs - oneDayMs * 30).toISOString(),
+    actorUid: 'demo_medical_01',
+    actorRole: 'medical_officer',
+    action: 'RECEIVE',
+    itemId: 'med-item-03',
+    itemName: 'Tab. Paracetamol 500mg [REPLACE WITH REAL CONTENT]',
+    batchNumber: 'PCM-2026-X1',
+    quantityChange: 210,
+    balanceAfter: 250,
+    reason: 'Central university medical procurement quarterly consignment batch'
+  },
+  {
+    id: 'stk-led-02',
+    timestamp: new Date(nowMs - oneDayMs * 5).toISOString(),
+    actorUid: 'demo_medical_01',
+    actorRole: 'medical_officer',
+    action: 'DISPENSE',
+    itemId: 'med-item-01',
+    itemName: 'Tab. Fexofenadine Hydrochloride 120mg [REPLACE WITH REAL CONTENT]',
+    batchNumber: 'FEX-2025-E4',
+    quantityChange: -5,
+    balanceAfter: 145,
+    reason: 'Dispensed per finalized prescription (FEFO earliest batch)',
+    anonymousVisitRef: 'JSTU-MED-2026-1040'
+  },
+  {
+    id: 'stk-led-03',
+    timestamp: new Date(nowMs - oneDayMs * 5).toISOString(),
+    actorUid: 'demo_medical_01',
+    actorRole: 'medical_officer',
+    action: 'DISPENSE',
+    itemId: 'med-item-02',
+    itemName: 'Normal Saline 0.9% Nasal Drops [REPLACE WITH REAL CONTENT]',
+    batchNumber: 'NS-2026-08',
+    quantityChange: -2,
+    balanceAfter: 38,
+    reason: 'Dispensed per finalized prescription',
+    anonymousVisitRef: 'JSTU-MED-2026-1040'
+  },
+  {
+    id: 'stk-led-04',
+    timestamp: new Date(nowMs - oneDayMs * 3).toISOString(),
+    actorUid: 'demo_medical_01',
+    actorRole: 'medical_officer',
+    action: 'ADJUSTMENT',
+    itemId: 'med-item-05',
+    itemName: 'Sterile Gauze Bandage 4-inch [REPLACE WITH REAL CONTENT]',
+    batchNumber: 'GB-2026-S1',
+    quantityChange: -1,
+    balanceAfter: 7,
+    reason: 'Routine emergency room physical count reconciliation audit'
+  }
+];
+

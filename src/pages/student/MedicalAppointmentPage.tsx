@@ -34,7 +34,7 @@ import { Badge } from '../../components/common/Badge';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { SharedDataStoreManager } from '../../services/shared/sharedDataStore';
-import { getApplicationWorkflowService } from '../../services/workflow';
+import { getApplicationWorkflowService, WorkflowActor } from '../../services/workflow';
 import {
   MedicalAppointment,
   MedicalDutyShift,
@@ -43,6 +43,7 @@ import {
   MedicalRestCertificate
 } from '../../types/studentLife';
 import { initialMedicalDoctorsData } from '../../data/studentLifeSeedData';
+import { MedicalAIAssistantModal, MedicalAIAssistantFloatingButton } from '../../components/medical/MedicalAIAssistantModal';
 
 // Zod validation schema with 300 character limit on reason
 const appointmentBookingSchema = z.object({
@@ -63,6 +64,7 @@ export const MedicalAppointmentPage: React.FC = () => {
   const storeManager = SharedDataStoreManager.getInstance();
 
   const [activeTab, setActiveTab] = useState<'book' | 'my-appointments' | 'my-records' | 'my-certificates'>('book');
+  const [isAIOpen, setIsAIOpen] = useState(false);
   const [appointments, setAppointments] = useState<MedicalAppointment[]>([]);
   const [dutyRoster, setDutyRoster] = useState<MedicalDutyShift[]>([]);
   const [healthRecords, setHealthRecords] = useState<MedicalVisitRecord[]>([]);
@@ -720,22 +722,18 @@ export const MedicalAppointmentPage: React.FC = () => {
 
     try {
       const workflowService = getApplicationWorkflowService();
-      const applicantUid = user.uid || 'demo_student_01';
-      const studentName = user.displayName || profile?.fullName || 'Tanvir Ahmed';
-      const studentId = profile?.studentId || 'JSTU2026001';
-      const studentEmail = user.email || 'student.demo@jstu.ac.bd';
-      const studentDepartment = profile?.departmentId || 'CSE';
+      const actor: WorkflowActor = {
+        uid: user.uid || 'demo_student_01',
+        email: user.email || 'student.demo@jstu.ac.bd',
+        fullName: user.displayName || profile?.fullName || 'Tanvir Ahmed',
+        role: profile?.role || 'student',
+        departmentId: profile?.departmentId || 'CSE',
+        studentId: profile?.studentId || 'JSTU2026001'
+      };
 
-      const app = await workflowService.submitApplication({
-        type: 'leave',
-        title: `Medical Rest Leave (${selectedCertForLeave.restStartDate} to ${selectedCertForLeave.restEndDate})`,
-        titleBn: `চিকিৎসাজনিত ছুটির আবেদন (${selectedCertForLeave.restStartDate} হতে ${selectedCertForLeave.restEndDate})`,
-        applicantUid,
-        studentName,
-        studentId,
-        studentEmail,
-        studentDepartment,
-        formData: {
+      const app = await workflowService.submitApplication(
+        'leave',
+        {
           leaveType: 'medical',
           startDate: selectedCertForLeave.restStartDate,
           endDate: selectedCertForLeave.restEndDate,
@@ -745,8 +743,9 @@ export const MedicalAppointmentPage: React.FC = () => {
           attachedCertificateStatus: selectedCertForLeave.status,
           doctorRole: selectedCertForLeave.doctorRole,
           reason: leaveReason.trim()
-        }
-      });
+        },
+        actor
+      );
 
       setLeaveSuccessMsg(
         isBn
@@ -876,6 +875,15 @@ export const MedicalAppointmentPage: React.FC = () => {
             }`}
           >
             {isBn ? 'আমার রেস্ট সনদ' : 'My Certificates'} ({certificates.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsAIOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer bg-blue-50 text-[#1E3A8A] hover:bg-blue-100 border border-blue-200"
+          >
+            <HeartPulse className="w-3.5 h-3.5 text-rose-600" />
+            <span>{isBn ? 'স্বাস্থ্য এআই' : 'Health AI'}</span>
+            <span className="px-1 py-0.2 bg-amber-400 text-gray-950 text-[9px] font-extrabold rounded-full uppercase">Demo</span>
           </button>
         </div>
       </div>
@@ -1685,29 +1693,46 @@ export const MedicalAppointmentPage: React.FC = () => {
                 {isBn ? 'প্রেসক্রিপশন তালিকা (Rx)' : 'Prescribed Medications (Rx)'}
               </h4>
               <div className="space-y-2">
-                {selectedHealthRecord.prescriptionItems.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] text-xs space-y-1"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-[#0F172A]">
-                        {index + 1}. {item.medicine}
-                      </span>
-                      <span className="font-mono text-[10px] text-[#1E3A8A] bg-blue-50 px-2 py-0.5 rounded">
-                        {item.duration}
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-slate-700">
-                      <strong>{isBn ? 'মাত্রা: ' : 'Dose: '}</strong>{item.dose}
-                    </div>
-                    {item.instructions && (
-                      <div className="text-[11px] text-slate-600">
-                        <strong>{isBn ? 'নির্দেশনা: ' : 'Instructions: '}</strong>{item.instructions}
+                {selectedHealthRecord.prescriptionItems.map((item, index) => {
+                  const isAvailable = storeManager.isMedicineAvailableInStock(item.medicine);
+                  return (
+                    <div
+                      key={item.id}
+                      className="p-2.5 rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] text-xs space-y-1.5"
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                        <span className="font-bold text-[#0F172A]">
+                          {index + 1}. {item.medicine}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          {/* M4 Patient Side Availability (No quantities shown) */}
+                          {isAvailable ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                              <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                              <span>{isBn ? 'মেডিকেল সেন্টারে মজুদ আছে' : 'Available at the center'}</span>
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                              <AlertCircle className="w-3 h-3 text-slate-500" />
+                              <span>{isBn ? 'মেডিকেল সেন্টারে মজুদ নেই' : 'Not available'}</span>
+                            </span>
+                          )}
+                          <span className="font-mono text-[10px] text-[#1E3A8A] bg-blue-50 px-2 py-0.5 rounded">
+                            {item.duration}
+                          </span>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                ))}
+                      <div className="text-[11px] text-slate-700">
+                        <strong>{isBn ? 'মাত্রা: ' : 'Dose: '}</strong>{item.dose}
+                      </div>
+                      {item.instructions && (
+                        <div className="text-[11px] text-slate-600">
+                          <strong>{isBn ? 'নির্দেশনা: ' : 'Instructions: '}</strong>{item.instructions}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -2126,6 +2151,10 @@ export const MedicalAppointmentPage: React.FC = () => {
           </form>
         </Modal>
       )}
+
+      {/* Floating launcher & AI Assistant Modal */}
+      <MedicalAIAssistantFloatingButton onClick={() => setIsAIOpen(true)} />
+      <MedicalAIAssistantModal isOpen={isAIOpen} onClose={() => setIsAIOpen(false)} />
     </div>
   );
 };

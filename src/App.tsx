@@ -96,6 +96,30 @@ const MedicalAppointmentPage = lazy(() =>
 const MedicalOfficerDashboard = lazy(() =>
   import('./pages/portals/MedicalOfficerDashboard').then((m) => ({ default: m.MedicalOfficerDashboard }))
 );
+const MedicalStockPage = lazy(() =>
+  import('./pages/portals/MedicalStockPage').then((m) => ({ default: m.MedicalStockPage }))
+);
+const MedicalReportsPage = lazy(() =>
+  import('./pages/portals/MedicalReportsPage').then((m) => ({ default: m.MedicalReportsPage }))
+);
+const HallDiningPublicPage = lazy(() =>
+  import('./pages/public/HallDiningPublicPage').then((m) => ({ default: m.HallDiningPublicPage }))
+);
+const StudentDiningPage = lazy(() =>
+  import('./pages/student/StudentDiningPage').then((m) => ({ default: m.StudentDiningPage }))
+);
+const StudentDiningTokenPage = lazy(() =>
+  import('./pages/student/StudentDiningTokenPage').then((m) => ({ default: m.StudentDiningTokenPage }))
+);
+const DiningOfficeDashboard = lazy(() =>
+  import('./pages/portals/DiningOfficeDashboard').then((m) => ({ default: m.DiningOfficeDashboard }))
+);
+const DiningStaffScanPage = lazy(() =>
+  import('./pages/portals/DiningStaffScanPage').then((m) => ({ default: m.DiningStaffScanPage }))
+);
+const DiningAuditReportsPage = lazy(() =>
+  import('./pages/portals/DiningAuditReportsPage').then((m) => ({ default: m.DiningAuditReportsPage }))
+);
 const TransportPage = lazy(() =>
   import('./pages/public/studentLife/TransportPage').then((m) => ({ default: m.TransportPage }))
 );
@@ -331,6 +355,9 @@ export default function App() {
                   <Route path="/student-life/medical" element={<MedicalCenterPage />} />
                   <Route path="/medical-center" element={<MedicalCenterPage />} />
                   <Route path="/medical" element={<MedicalCenterPage />} />
+                  <Route path="/halls/dining" element={<HallDiningPublicPage />} />
+                  <Route path="/student-life/dining" element={<HallDiningPublicPage />} />
+                  <Route path="/dining" element={<HallDiningPublicPage />} />
                   <Route path="/student-life/transport" element={<TransportPage />} />
                   <Route path="/transport" element={<TransportPage />} />
                   <Route path="/student-life/alumni" element={<AlumniPage />} />
@@ -523,6 +550,26 @@ export default function App() {
                   element={
                     <ProtectedRoute>
                       <MedicalAppointmentPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/student/dining"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['student']}>
+                        <StudentDiningPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/student/dining/token"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['student']}>
+                        <StudentDiningTokenPage />
+                      </RoleGuard>
                     </ProtectedRoute>
                   }
                 />
@@ -766,10 +813,63 @@ export default function App() {
                 />
 
                 <Route
+                  path="/office/medical/stock"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['medical_officer', 'super_admin', 'admin']}>
+                        <MedicalStockPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route
+                  path="/office/medical/reports"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['medical_officer', 'super_admin', 'admin']}>
+                        <MedicalReportsPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route
+                  path="/office/dining"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['dining_manager', 'super_admin', 'admin']}>
+                        <DiningOfficeDashboard />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/office/dining/scan"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['dining_manager', 'super_admin', 'admin']}>
+                        <DiningStaffScanPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/office/dining/reports"
+                  element={
+                    <ProtectedRoute>
+                      <RoleGuard allowedRoles={['dining_manager', 'super_admin', 'admin']}>
+                        <DiningAuditReportsPage />
+                      </RoleGuard>
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route
                   path="/office/:roleKey"
                   element={
                     <ProtectedRoute>
-                      <RoleGuard allowedRoles={['registrar', 'exam_controller', 'account_officer', 'library_officer', 'medical_officer']}>
+                      <RoleGuard allowedRoles={['registrar', 'exam_controller', 'account_officer', 'library_officer', 'medical_officer', 'dining_manager']}>
                         <OfficeDashboardShell />
                       </RoleGuard>
                     </ProtectedRoute>

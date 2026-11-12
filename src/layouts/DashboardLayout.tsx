@@ -24,7 +24,8 @@ import {
   HelpCircle,
   Star,
   HeartPulse,
-  Stethoscope
+  Stethoscope,
+  Utensils
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -75,6 +76,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
           { label: 'Assignments', labelBn: 'অ্যাসাইনমেন্ট', to: '/student/assignments', icon: <FileText className="w-4 h-4" /> },
           { label: 'Fees & Payments', labelBn: 'ফি ও পেমেন্ট', to: '/student/fees', icon: <CreditCard className="w-4 h-4" /> },
           { label: 'Medical Center', labelBn: 'মেডিকেল সেন্টার', to: '/student/medical', icon: <HeartPulse className="w-4 h-4" /> },
+          { label: 'Hall Dining', labelBn: 'হল ডাইনিং', to: '/student/dining', icon: <Utensils className="w-4 h-4" /> },
           { label: 'Notifications', labelBn: 'বিজ্ঞপ্তি', to: '/student/notifications', icon: <Bell className="w-4 h-4" /> },
           { label: 'Profile', labelBn: 'প্রোফাইল', to: '/student/profile', icon: <User className="w-4 h-4" /> },
           { label: 'Helpdesk & Grievance', labelBn: 'হেল্পডেস্ক ও অভিযোগ', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> }
@@ -122,6 +124,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
           { label: 'Admin Hub', labelBn: 'অ্যাডমিন হাব', to: '/admin', icon: <LayoutDashboard className="w-4 h-4" /> },
           { label: 'Content Management', labelBn: 'ওয়েবসাইট কন্টেন্ট', to: '/admin/content', icon: <FileText className="w-4 h-4" /> },
           { label: 'Helpdesk Queue', labelBn: 'হেল্পডেস্ক কিউ', to: '/helpdesk', icon: <HelpCircle className="w-4 h-4" /> },
+          { label: 'Hall Dining Overview', labelBn: 'হল ডাইনিং ওভারভিউ', to: '/office/dining', icon: <Utensils className="w-4 h-4" /> },
           { label: 'User Directory', labelBn: 'ব্যবহারকারী তালিকা', to: '/admin#users', icon: <BookOpen className="w-4 h-4" /> },
           { label: 'Security & Audit Logs', labelBn: 'নিরাপত্তা অডিট লগ', to: '/admin#audit-logs', icon: <BookOpen className="w-4 h-4" /> }
         ];
@@ -135,6 +138,13 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode; portalTitle?
           { label: 'Patient Queue', labelBn: 'রোগী কিউ ও অ্যাপয়েন্টমেন্ট', to: '/office/medical', icon: <HeartPulse className="w-4 h-4" /> },
           { label: 'Duty Roster', labelBn: 'ডিউটি রোস্টার', to: '/office/medical#roster', icon: <Calendar className="w-4 h-4" /> },
           { label: 'Public Medical Portal', labelBn: 'পাবলিক মেডিকেল পোর্টাল', to: '/medical-center', icon: <Stethoscope className="w-4 h-4" /> }
+        ];
+      case 'dining_manager':
+        return [
+          { label: 'Dining Hub', labelBn: 'ডাইনিং হাব', to: '/office/dining', icon: <LayoutDashboard className="w-4 h-4" /> },
+          { label: 'Weekly Menu', labelBn: 'সাপ্তাহিক মেনু', to: '/office/dining#menu', icon: <Calendar className="w-4 h-4" /> },
+          { label: 'Bazar & Costs', labelBn: 'বাজার ও খরচ', to: '/office/dining#bazar', icon: <CreditCard className="w-4 h-4" /> },
+          { label: 'Public Dining', labelBn: 'পাবলিক ডাইনিং', to: '/halls/dining', icon: <Utensils className="w-4 h-4" /> }
         ];
       default:
         return [

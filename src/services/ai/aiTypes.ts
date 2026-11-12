@@ -8,7 +8,7 @@ import { UserRole } from '../../types/auth';
  */
 export interface AuthSessionContext {
   uid: string;
-  role: UserRole;
+  role: UserRole | 'public';
   departmentId?: string;
   deptId?: string;
   studentId?: string;

@@ -75,6 +75,9 @@ export const LoginPage: React.FC = () => {
       case 'medical_officer':
         navigate('/office/medical', { replace: true });
         break;
+      case 'dining_manager':
+        navigate('/office/dining', { replace: true });
+        break;
       case 'admin':
       case 'super_admin':
         navigate('/admin', { replace: true });

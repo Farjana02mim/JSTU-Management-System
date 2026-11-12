@@ -53,7 +53,7 @@ export const StudentAttendancePage: React.FC = () => {
       (app) =>
         app.type === 'leave' &&
         app.status === 'APPROVED' &&
-        (app.applicantUid === studentUid || app.studentId === studentId) &&
+        ((app as any).applicantUid === studentUid || app.studentId === studentId) &&
         app.formData?.leaveType === 'medical'
     );
   }, [user, profile]);

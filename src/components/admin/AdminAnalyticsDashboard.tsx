@@ -866,28 +866,28 @@ export const AdminAnalyticsDashboard: React.FC<AdminAnalyticsDashboardProps> = (
                 <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
                   <span className="text-[11px] text-slate-600 font-medium block">Total Issued</span>
                   <span className="text-lg font-bold text-[#0F172A] tabular-nums">
-                    {certStats.totalCertificates}
+                    {certStats.totalIssued}
                   </span>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-emerald-50/60 border border-emerald-100">
                   <span className="text-[11px] text-emerald-800 font-medium block">Valid Active</span>
                   <span className="text-lg font-bold text-emerald-900 tabular-nums">
-                    {certStats.valid}
+                    {certStats.validCount}
                   </span>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-amber-50/60 border border-amber-100">
                   <span className="text-[11px] text-amber-800 font-medium block">Superseded</span>
                   <span className="text-lg font-bold text-amber-900 tabular-nums">
-                    {certStats.superseded}
+                    {certStats.supersededCount}
                   </span>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-red-50/60 border border-red-100">
                   <span className="text-[11px] text-red-800 font-medium block">Revoked</span>
                   <span className="text-lg font-bold text-red-900 tabular-nums">
-                    {certStats.revoked}
+                    {certStats.revokedCount}
                   </span>
                 </div>
               </div>

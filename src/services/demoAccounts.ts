@@ -110,6 +110,40 @@ export const DEMO_ACCOUNTS: DemoAccount[] = [
     targetDashboard: '/office/medical'
   },
   {
+    uid: 'demo_student_02',
+    email: 'student2.demo@jstu.ac.bd',
+    password: DEMO_PASSWORD,
+    fullName: 'Mohammad Rahim',
+    fullNameBn: 'মোহাম্মদ রহিম',
+    role: 'student',
+    departmentId: 'CSE',
+    studentId: 'JSTU2026002',
+    isMfaEnforced: false,
+    targetDashboard: '/student'
+  },
+  {
+    uid: 'demo_dining_01',
+    email: 'dining.oporajita.demo@jstu.ac.bd',
+    password: DEMO_PASSWORD,
+    fullName: 'Dining Manager (Oporajita Hall) [REPLACE WITH REAL CONTENT]',
+    fullNameBn: 'ডাইনিং ম্যানেজার (অপরাজিতা হল) [REPLACE WITH REAL CONTENT]',
+    role: 'dining_manager',
+    officeId: 'DINING_OPORAJITA',
+    isMfaEnforced: true,
+    targetDashboard: '/office/dining'
+  },
+  {
+    uid: 'demo_dining_02',
+    email: 'dining.bijoy24.demo@jstu.ac.bd',
+    password: DEMO_PASSWORD,
+    fullName: 'Dining Manager (Bijoy 24 Hall) [REPLACE WITH REAL CONTENT]',
+    fullNameBn: 'ডাইনিং ম্যানেজার (বিজয় ২৪ হল) [REPLACE WITH REAL CONTENT]',
+    role: 'dining_manager',
+    officeId: 'DINING_BIJOY24',
+    isMfaEnforced: true,
+    targetDashboard: '/office/dining'
+  },
+  {
     uid: 'demo_admin_01',
     email: 'admin.demo@jstu.ac.bd',
     password: DEMO_PASSWORD,

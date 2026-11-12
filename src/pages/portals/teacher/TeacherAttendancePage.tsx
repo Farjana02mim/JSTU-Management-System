@@ -445,18 +445,22 @@ export const TeacherAttendancePage: React.FC = () => {
                           <td className="py-3 px-4 font-mono font-bold text-slate-600">{st.rollNumber}</td>
                           <td className="py-3 px-4">
                             <span className="font-bold text-[#0F172A]">{isBn ? st.nameBn : st.name}</span>
-                            {excusedLeave && (
+                            {excusedLeave.isExcused && excusedLeave.restPeriod && (
                               <span className="text-[10px] text-blue-700 block font-mono">
-                                Excused: {excusedLeave.startDate} to {excusedLeave.endDate}
+                                Excused: {excusedLeave.restPeriod.startDate} to {excusedLeave.restPeriod.endDate}
                               </span>
                             )}
                           </td>
                           <td className="py-3 px-4 font-mono text-slate-500">{st.studentId}</td>
                           <td className="py-3 px-4 text-right">
-                            {excusedLeave ? (
+                            {excusedLeave.isExcused ? (
                               <span
                                 className="inline-flex px-2 py-0.5 text-[10px] font-bold rounded-md uppercase font-mono bg-blue-100 text-[#1E3A8A] border border-blue-200"
-                                title={`Excused leave: ${excusedLeave.startDate} to ${excusedLeave.endDate}`}
+                                title={
+                                  excusedLeave.restPeriod
+                                    ? `Excused leave: ${excusedLeave.restPeriod.startDate} to ${excusedLeave.restPeriod.endDate}`
+                                    : 'Excused medical absence'
+                                }
                               >
                                 {isBn ? 'মার্জিত (মেডিকেল)' : 'Excused (medical)'}
                               </span>

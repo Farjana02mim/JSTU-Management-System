@@ -27,7 +27,14 @@ import {
   VisitNoteStatus,
   MedicalRestCertificate,
   MedicalCertificateStatus,
-  MedicalCertificateAuditEntry
+  MedicalCertificateAuditEntry,
+  MedicalStockCategory,
+  MedicalStockBatch,
+  MedicalStockItem,
+  MedicalStockLedgerAction,
+  MedicalStockLedgerEntry,
+  MedicalStockAlertSummary,
+  MedicalReportsData
 } from '../../types/studentLife';
 import {
   ManagedNoticeItem,
@@ -55,8 +62,45 @@ import {
   initialMedicalDutyRoster,
   initialMedicalVisitRecords,
   initialPatientRecordAccessLogs,
-  initialMedicalRestCertificates
+  initialMedicalRestCertificates,
+  initialMedicalStockItems,
+  initialMedicalStockLedger
 } from '../../data/studentLifeSeedData';
+import {
+  HallDiningOverview,
+  DailyMealMenu,
+  MealOnOffSetting,
+  GuestMealRequest,
+  MealRatingFeedback,
+  DishSuggestion,
+  DiningComplaint,
+  BazarCostEntry,
+  StudentDiningBilling,
+  DiningAuditTrailEntry,
+  HallId,
+  DiningProvostReportData,
+  MealToken,
+  SpecialMealEvent,
+  MonthlyAuditStatus,
+  MonthlyAuditReportRecord,
+  TokenVerificationResult,
+  MealType
+} from '../../types/hallDining';
+import {
+  initialHallOverviews,
+  initialWeeklyMenus,
+  initialMealOnOffSettings,
+  initialGuestMealRequests,
+  initialMealRatings,
+  initialDishSuggestions,
+  initialDiningComplaints,
+  initialBazarCostEntries,
+  initialStudentBillings,
+  initialDiningAuditTrail,
+  initialSpecialMealEvents,
+  initialMealTokens,
+  initialMonthlyAuditStatuses
+} from '../../data/hallDiningSeedData';
 import {
   initialManagedNotices,
   initialManagedNews,
@@ -160,8 +204,8 @@ export const initialStudentIdCards: StudentIDCard[] = [
     validUntil: '2027-06-30',
     status: 'Active',
     verificationToken: 'tok_tanvir_jstu_7a8f9b',
-    hallName: 'Shahid Rafiq Hall',
-    hallNameBn: 'শহীদ রফিক হল',
+    hallName: 'Oporajita Hall',
+    hallNameBn: 'অপরাজিতা হল',
     emergencyContact: '+880 1812-987654',
     gender: 'male',
     avatarSeed: 'tanvir_ahmed',
@@ -205,8 +249,8 @@ export const initialStudentIdCards: StudentIDCard[] = [
     status: 'Lost',
     statusReason: 'Student reported card lost on campus quadrangle on Sep 12, 2026. Flagged by Registrar.',
     verificationToken: 'tok_mahmud_jstu_5e1f8a',
-    hallName: 'Shahid Rafiq Hall',
-    hallNameBn: 'শহীদ রফিক হল',
+    hallName: 'Bijoy 24 Hall',
+    hallNameBn: 'বিজয় ২৪ হল',
     emergencyContact: '+880 1911-332211',
     gender: 'male',
     avatarSeed: 'mahmud_rahman',
@@ -228,8 +272,8 @@ export const initialStudentIdCards: StudentIDCard[] = [
     status: 'Revoked',
     statusReason: 'Administrative hold: ID card revoked by Registrar following disciplinary board resolution #42.',
     verificationToken: 'tok_nusrat_jstu_9b4c7d',
-    hallName: 'Begum Rokeya Hall',
-    hallNameBn: 'বেগম রোকেয়া হল',
+    hallName: 'Oporajita Hall',
+    hallNameBn: 'অপরাজিতা হল',
     emergencyContact: '+880 1718-887766',
     gender: 'female',
     avatarSeed: 'nusrat_jahan',
@@ -251,8 +295,8 @@ export const initialStudentIdCards: StudentIDCard[] = [
     status: 'Expired',
     statusReason: 'Card reached end of academic validity on June 30, 2024 upon graduation.',
     verificationToken: 'tok_arif_jstu_2a6b4e',
-    hallName: 'Shahid Rafiq Hall',
-    hallNameBn: 'শহীদ রফিক হল',
+    hallName: 'Bijoy 24 Hall',
+    hallNameBn: 'বিজয় ২৪ হল',
     emergencyContact: '+880 1512-334455',
     gender: 'male',
     avatarSeed: 'arif_faisal',
@@ -273,8 +317,8 @@ export const initialStudentIdCards: StudentIDCard[] = [
     validUntil: '2028-06-30',
     status: 'Active',
     verificationToken: 'tok_fahmida_jstu_8e3c1d',
-    hallName: 'Begum Rokeya Hall',
-    hallNameBn: 'বেগম রোকেয়া হল',
+    hallName: 'Oporajita Hall',
+    hallNameBn: 'অপরাজিতা হল',
     emergencyContact: '+880 1612-445566',
     gender: 'female',
     avatarSeed: 'fahmida_haque',
@@ -295,8 +339,8 @@ export const initialStudentIdCards: StudentIDCard[] = [
     validUntil: '2028-06-30',
     status: 'Active',
     verificationToken: 'tok_rashed_jstu_4f7a2c',
-    hallName: 'Shahid Rafiq Hall',
-    hallNameBn: 'শহীদ রফিক হল',
+    hallName: 'Bijoy 24 Hall',
+    hallNameBn: 'বিজয় ২৪ হল',
     emergencyContact: '+880 1719-223344',
     gender: 'male',
     avatarSeed: 'rashed_islam',
@@ -530,6 +574,8 @@ export interface SharedStoreData {
   medicalVisitRecords: MedicalVisitRecord[];
   patientRecordAccessLogs: PatientRecordAccessLog[];
   medicalRestCertificates: MedicalRestCertificate[];
+  medicalStockItems: MedicalStockItem[];
+  medicalStockLedger: MedicalStockLedgerEntry[];
   alumniRegistrations: AlumniRegistrationRequest[];
   managedNotices: ManagedNoticeItem[];
   managedNews: ManagedNewsItem[];
@@ -560,6 +606,20 @@ export interface SharedStoreData {
   staffNotices: StaffNotice[];
   staffServiceRequests: StaffServiceRequest[];
   staffDirectory: StaffDirectoryMember[];
+  // Hall Dining Management
+  hallDiningOverviews: Record<HallId, HallDiningOverview>;
+  diningWeeklyMenus: DailyMealMenu[];
+  diningMealOnOffSettings: MealOnOffSetting[];
+  diningGuestMealRequests: GuestMealRequest[];
+  diningMealRatings: MealRatingFeedback[];
+  diningDishSuggestions: DishSuggestion[];
+  diningComplaints: DiningComplaint[];
+  diningBazarCostEntries: BazarCostEntry[];
+  diningStudentBillings: StudentDiningBilling[];
+  diningAuditTrail: DiningAuditTrailEntry[];
+  diningMealTokens: MealToken[];
+  diningSpecialMealEvents: SpecialMealEvent[];
+  diningMonthlyAuditStatuses: MonthlyAuditStatus[];
 }
 
 // 12 Realistic Students for CSE 6th Semester
@@ -628,6 +688,8 @@ export function getEmptyStoreData(): SharedStoreData {
     medicalVisitRecords: [],
     patientRecordAccessLogs: [],
     medicalRestCertificates: [],
+    medicalStockItems: [],
+    medicalStockLedger: [],
     alumniRegistrations: [],
     managedNotices: [],
     managedNews: [],
@@ -657,7 +719,21 @@ export function getEmptyStoreData(): SharedStoreData {
     staffLeaveApplications: [],
     staffNotices: [],
     staffServiceRequests: [],
-    staffDirectory: []
+    staffDirectory: [],
+    // Hall Dining Management
+    hallDiningOverviews: {} as Record<HallId, HallDiningOverview>,
+    diningWeeklyMenus: [],
+    diningMealOnOffSettings: [],
+    diningGuestMealRequests: [],
+    diningMealRatings: [],
+    diningDishSuggestions: [],
+    diningComplaints: [],
+    diningBazarCostEntries: [],
+    diningStudentBillings: [],
+    diningAuditTrail: [],
+    diningMealTokens: [],
+    diningSpecialMealEvents: [],
+    diningMonthlyAuditStatuses: []
   };
 }
 
@@ -699,8 +775,8 @@ export function getInitialSharedStoreData(): SharedStoreData {
     semester: '6th Semester (3rd Year 2nd Term)',
     semesterBn: '৬ষ্ঠ সেমিস্টার (৩য় বর্ষ ২য় টার্ম)',
     academicSession: '2023-2024',
-    hallName: 'Shahid Rafiq Hall',
-    hallNameBn: 'শহীদ রফিক হল',
+    hallName: 'Oporajita Hall',
+    hallNameBn: 'অপরাজিতা হল',
     advisorName: 'Dr. Shahadat Hossain',
     advisorEmail: teacherEmail,
     bloodGroup: 'B+',
@@ -1498,6 +1574,8 @@ export function getInitialSharedStoreData(): SharedStoreData {
     medicalVisitRecords: initialMedicalVisitRecords,
     patientRecordAccessLogs: initialPatientRecordAccessLogs,
     medicalRestCertificates: initialMedicalRestCertificates,
+    medicalStockItems: initialMedicalStockItems,
+    medicalStockLedger: initialMedicalStockLedger,
     alumniRegistrations: initialAlumniRegistrationsData,
     managedNotices: initialManagedNotices,
     managedNews: initialManagedNews,
@@ -1527,7 +1605,21 @@ export function getInitialSharedStoreData(): SharedStoreData {
     staffLeaveApplications: INITIAL_STAFF_LEAVE_APPLICATIONS,
     staffNotices: INITIAL_STAFF_NOTICES,
     staffServiceRequests: INITIAL_STAFF_SERVICE_REQUESTS,
-    staffDirectory: INITIAL_STAFF_DIRECTORY
+    staffDirectory: INITIAL_STAFF_DIRECTORY,
+    // Hall Dining Management
+    hallDiningOverviews: initialHallOverviews,
+    diningWeeklyMenus: initialWeeklyMenus,
+    diningMealOnOffSettings: initialMealOnOffSettings,
+    diningGuestMealRequests: initialGuestMealRequests,
+    diningMealRatings: initialMealRatings,
+    diningDishSuggestions: initialDishSuggestions,
+    diningComplaints: initialDiningComplaints,
+    diningBazarCostEntries: initialBazarCostEntries,
+    diningStudentBillings: initialStudentBillings,
+    diningAuditTrail: initialDiningAuditTrail,
+    diningMealTokens: initialMealTokens,
+    diningSpecialMealEvents: initialSpecialMealEvents,
+    diningMonthlyAuditStatuses: initialMonthlyAuditStatuses
   };
 }
 
@@ -1720,6 +1812,45 @@ export class SharedDataStoreManager {
       }
       if (!parsed.staffDirectory || !Array.isArray(parsed.staffDirectory) || parsed.staffDirectory.length === 0) {
         parsed.staffDirectory = getInitialSharedStoreData().staffDirectory;
+      }
+      if (!parsed.hallDiningOverviews || Object.keys(parsed.hallDiningOverviews).length === 0) {
+        parsed.hallDiningOverviews = getInitialSharedStoreData().hallDiningOverviews;
+      }
+      if (!parsed.diningWeeklyMenus || !Array.isArray(parsed.diningWeeklyMenus) || parsed.diningWeeklyMenus.length === 0) {
+        parsed.diningWeeklyMenus = getInitialSharedStoreData().diningWeeklyMenus;
+      }
+      if (!parsed.diningMealOnOffSettings || !Array.isArray(parsed.diningMealOnOffSettings)) {
+        parsed.diningMealOnOffSettings = getInitialSharedStoreData().diningMealOnOffSettings;
+      }
+      if (!parsed.diningGuestMealRequests || !Array.isArray(parsed.diningGuestMealRequests)) {
+        parsed.diningGuestMealRequests = getInitialSharedStoreData().diningGuestMealRequests;
+      }
+      if (!parsed.diningMealRatings || !Array.isArray(parsed.diningMealRatings)) {
+        parsed.diningMealRatings = getInitialSharedStoreData().diningMealRatings;
+      }
+      if (!parsed.diningDishSuggestions || !Array.isArray(parsed.diningDishSuggestions)) {
+        parsed.diningDishSuggestions = getInitialSharedStoreData().diningDishSuggestions;
+      }
+      if (!parsed.diningComplaints || !Array.isArray(parsed.diningComplaints)) {
+        parsed.diningComplaints = getInitialSharedStoreData().diningComplaints;
+      }
+      if (!parsed.diningBazarCostEntries || !Array.isArray(parsed.diningBazarCostEntries)) {
+        parsed.diningBazarCostEntries = getInitialSharedStoreData().diningBazarCostEntries;
+      }
+      if (!parsed.diningStudentBillings || !Array.isArray(parsed.diningStudentBillings)) {
+        parsed.diningStudentBillings = getInitialSharedStoreData().diningStudentBillings;
+      }
+      if (!parsed.diningAuditTrail || !Array.isArray(parsed.diningAuditTrail)) {
+        parsed.diningAuditTrail = getInitialSharedStoreData().diningAuditTrail;
+      }
+      if (!parsed.diningMealTokens || !Array.isArray(parsed.diningMealTokens)) {
+        parsed.diningMealTokens = getInitialSharedStoreData().diningMealTokens;
+      }
+      if (!parsed.diningSpecialMealEvents || !Array.isArray(parsed.diningSpecialMealEvents)) {
+        parsed.diningSpecialMealEvents = getInitialSharedStoreData().diningSpecialMealEvents;
+      }
+      if (!parsed.diningMonthlyAuditStatuses || !Array.isArray(parsed.diningMonthlyAuditStatuses)) {
+        parsed.diningMonthlyAuditStatuses = getInitialSharedStoreData().diningMonthlyAuditStatuses;
       }
       this.inMemoryStore = parsed;
       return parsed;
@@ -3057,6 +3188,689 @@ export class SharedDataStoreManager {
       validCount: certs.filter((c) => c.status === 'VALID').length,
       supersededCount: certs.filter((c) => c.status === 'SUPERSEDED').length,
       revokedCount: certs.filter((c) => c.status === 'REVOKED').length
+    };
+  }
+
+  // ==========================================
+  // M4: PHARMACY, STOCK & REPORTS
+  // Real enforcement must move to Firestore rules / Cloud Functions.
+  // Real stock changes must be done by server-side transactions so quantities cannot be altered from the browser.
+  // ==========================================
+
+  /**
+   * Retrieves all medical center stock items.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getMedicalStockItems(): MedicalStockItem[] {
+    const store = this.getStore();
+    return store.medicalStockItems || [];
+  }
+
+  /**
+   * Retrieves a single stock item by ID.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getMedicalStockItemById(itemId: string): MedicalStockItem | undefined {
+    const store = this.getStore();
+    return (store.medicalStockItems || []).find((item) => item.id === itemId);
+  }
+
+  /**
+   * Retrieves the append-only stock movement ledger.
+   * Strict auditability: No editing or deletion of ledger entries.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getMedicalStockLedger(): MedicalStockLedgerEntry[] {
+    const store = this.getStore();
+    return [...(store.medicalStockLedger || [])].sort(
+      (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    );
+  }
+
+  /**
+   * Patient-side medicine availability check.
+   * Evaluates if there is unexpired stock > 0 for a given medicine.
+   * CRITICAL PRIVACY RULE: Returns boolean only; NO quantities are exposed to the patient.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public isMedicineAvailableInStock(medicineQuery: string): boolean {
+    if (!medicineQuery || !medicineQuery.trim()) return false;
+    const store = this.getStore();
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    const cleanQuery = medicineQuery
+      .toLowerCase()
+      .replace(/\[.*?\]/g, '')
+      .replace(/\b(tab\.|inj\.|syr\.|suspension|drops|capsule|tablets?)\b/g, '')
+      .trim();
+
+    const items = store.medicalStockItems || [];
+    for (const item of items) {
+      const cleanItemName = item.name
+        .toLowerCase()
+        .replace(/\[.*?\]/g, '')
+        .replace(/\b(tab\.|inj\.|syr\.|suspension|drops|capsule|tablets?)\b/g, '')
+        .trim();
+
+      const isMatch =
+        cleanItemName.includes(cleanQuery) ||
+        cleanQuery.includes(cleanItemName) ||
+        item.name.toLowerCase().includes(medicineQuery.toLowerCase().trim());
+
+      if (isMatch) {
+        const unexpiredTotal = (item.batches || []).reduce((sum, b) => {
+          if (b.expiryDate >= todayStr && b.quantity > 0) {
+            return sum + b.quantity;
+          }
+          return sum;
+        }, 0);
+
+        if (unexpiredTotal > 0) return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Evaluates stock alerts (low stock, expiring soon within 30 days, expired).
+   * Notifications contain only item names and counts (no patient data).
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getMedicalStockAlerts(): MedicalStockAlertSummary {
+    const store = this.getStore();
+    const items = store.medicalStockItems || [];
+    const todayStr = new Date().toISOString().split('T')[0];
+    const thirtyDaysLater = new Date(Date.now() + 86400000 * 30).toISOString().split('T')[0];
+
+    let lowStockCount = 0;
+    let expiringCount = 0;
+    let expiredCount = 0;
+    const alerts: MedicalStockAlertSummary['alerts'] = [];
+
+    for (const item of items) {
+      const batches = item.batches || [];
+      const unexpiredQty = batches.reduce((sum, b) => {
+        if (b.expiryDate >= todayStr && b.quantity > 0) {
+          return sum + b.quantity;
+        }
+        return sum;
+      }, 0);
+
+      // Low stock check
+      if (unexpiredQty <= item.reorderLevel) {
+        lowStockCount++;
+        alerts.push({
+          type: 'LOW_STOCK',
+          itemId: item.id,
+          itemName: item.name,
+          details: `Current unexpired stock (${unexpiredQty} ${item.unit}) is at or below reorder level (${item.reorderLevel} ${item.unit}).`
+        });
+      }
+
+      // Batch level checks
+      for (const batch of batches) {
+        if (batch.quantity > 0) {
+          if (batch.expiryDate < todayStr) {
+            expiredCount++;
+            alerts.push({
+              type: 'EXPIRED',
+              itemId: item.id,
+              itemName: item.name,
+              batchNumber: batch.batchNumber,
+              details: `Batch ${batch.batchNumber} (${batch.quantity} ${item.unit}) expired on ${batch.expiryDate}. Dispensing blocked.`
+            });
+          } else if (batch.expiryDate <= thirtyDaysLater) {
+            expiringCount++;
+            const daysLeft = Math.max(
+              0,
+              Math.ceil((new Date(batch.expiryDate).getTime() - Date.now()) / 86400000)
+            );
+            alerts.push({
+              type: 'EXPIRING_SOON',
+              itemId: item.id,
+              itemName: item.name,
+              batchNumber: batch.batchNumber,
+              details: `Batch ${batch.batchNumber} (${batch.quantity} ${item.unit}) expires in ${daysLeft} days (${batch.expiryDate}).`
+            });
+          }
+        }
+      }
+    }
+
+    return {
+      lowStockCount,
+      expiringCount,
+      expiredCount,
+      alerts
+    };
+  }
+
+  /**
+   * Adds or receives new stock into inventory.
+   * Appends to append-only ledger.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   * Real stock changes must be done by server-side transactions so quantities cannot be altered from the browser.
+   */
+  public addMedicalStock(
+    data: {
+      itemId?: string;
+      name?: string;
+      nameBn?: string;
+      category?: MedicalStockCategory;
+      unit?: string;
+      reorderLevel?: number;
+      batchNumber: string;
+      expiryDate: string;
+      quantity: number;
+      storageNote?: string;
+      reason: string;
+    },
+    actorUid: string,
+    actorRole: string
+  ): { success: boolean; item?: MedicalStockItem; ledgerEntry?: MedicalStockLedgerEntry; error?: string } {
+    if (!data.batchNumber || !data.batchNumber.trim()) {
+      return { success: false, error: 'A valid batch number is required.' };
+    }
+    if (!data.expiryDate || !data.expiryDate.trim()) {
+      return { success: false, error: 'A valid expiry date is required.' };
+    }
+    if (typeof data.quantity !== 'number' || data.quantity <= 0 || !Number.isInteger(data.quantity)) {
+      return { success: false, error: 'Quantity must be a positive integer.' };
+    }
+    if (!data.reason || !data.reason.trim()) {
+      return { success: false, error: 'A mandatory reason or receipt reference is required.' };
+    }
+
+    const store = this.getStore();
+    store.medicalStockItems = store.medicalStockItems || [];
+    store.medicalStockLedger = store.medicalStockLedger || [];
+
+    let targetItem: MedicalStockItem | undefined;
+
+    if (data.itemId) {
+      targetItem = store.medicalStockItems.find((it) => it.id === data.itemId);
+    }
+
+    if (!targetItem) {
+      if (!data.name || !data.name.trim()) {
+        return { success: false, error: 'Item name is required for new items.' };
+      }
+      targetItem = {
+        id: `med-item-${Date.now()}`,
+        name: data.name.trim().endsWith('[REPLACE WITH REAL CONTENT]')
+          ? data.name.trim()
+          : `${data.name.trim()} [REPLACE WITH REAL CONTENT]`,
+        nameBn: data.nameBn || data.name.trim(),
+        category: data.category || 'tablet',
+        unit: data.unit || 'strips',
+        reorderLevel: data.reorderLevel && data.reorderLevel > 0 ? data.reorderLevel : 20,
+        storageNote: data.storageNote || 'Central Dispensary Cabinet',
+        batches: []
+      };
+      store.medicalStockItems.push(targetItem);
+    }
+
+    // Check if batch already exists on this item
+    const existingBatch = targetItem.batches.find((b) => b.batchNumber === data.batchNumber.trim());
+    if (existingBatch) {
+      existingBatch.quantity += data.quantity;
+      if (data.storageNote) existingBatch.storageNote = data.storageNote;
+    } else {
+      targetItem.batches.push({
+        id: `batch-${Date.now()}`,
+        batchNumber: data.batchNumber.trim(),
+        expiryDate: data.expiryDate.trim(),
+        quantity: data.quantity,
+        receivedDate: new Date().toISOString().split('T')[0],
+        storageNote: data.storageNote || targetItem.storageNote
+      });
+    }
+
+    const totalQtyAfter = targetItem.batches.reduce((sum, b) => sum + b.quantity, 0);
+
+    const ledgerEntry: MedicalStockLedgerEntry = {
+      id: `stk-led-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorUid,
+      actorRole,
+      action: 'RECEIVE',
+      itemId: targetItem.id,
+      itemName: targetItem.name,
+      batchNumber: data.batchNumber.trim(),
+      quantityChange: data.quantity,
+      balanceAfter: totalQtyAfter,
+      reason: data.reason.trim()
+    };
+
+    store.medicalStockLedger.push(ledgerEntry);
+    this.saveStore(store);
+
+    return { success: true, item: targetItem, ledgerEntry };
+  }
+
+  /**
+   * Dispenses medicine against a finalized prescription item.
+   * FEFO (First Expired First Out) enforcement:
+   * - Deducts from the earliest expiry batch first.
+   * - Expired batches CANNOT be dispensed.
+   * - Quantity can never drop below zero.
+   * - Links only to anonymous visit reference, NEVER patient identity.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   * Real stock changes must be done by server-side transactions so quantities cannot be altered from the browser.
+   */
+  public dispenseMedicalStock(
+    data: {
+      itemId: string;
+      quantity: number;
+      anonymousVisitRef: string;
+      reason?: string;
+    },
+    actorUid: string,
+    actorRole: string
+  ): {
+    success: boolean;
+    dispensedBatches?: Array<{ batchNumber: string; quantity: number }>;
+    ledgerEntries?: MedicalStockLedgerEntry[];
+    error?: string;
+  } {
+    if (typeof data.quantity !== 'number' || data.quantity <= 0 || !Number.isInteger(data.quantity)) {
+      return { success: false, error: 'Dispensing quantity must be a positive integer.' };
+    }
+    if (!data.anonymousVisitRef || !data.anonymousVisitRef.trim()) {
+      return { success: false, error: 'An anonymous visit reference is required for dispensing.' };
+    }
+
+    const store = this.getStore();
+    const item = (store.medicalStockItems || []).find((it) => it.id === data.itemId);
+    if (!item) {
+      return { success: false, error: 'Stock item not found.' };
+    }
+
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    // Filter to unexpired batches with quantity > 0
+    const unexpiredBatches = (item.batches || []).filter(
+      (b) => b.expiryDate >= todayStr && b.quantity > 0
+    );
+
+    // Calculate total available unexpired stock
+    const totalAvailable = unexpiredBatches.reduce((sum, b) => sum + b.quantity, 0);
+    if (totalAvailable < data.quantity) {
+      return {
+        success: false,
+        error: `Insufficient unexpired stock available. (Requested: ${data.quantity} ${item.unit}, Available: ${totalAvailable} ${item.unit}). Expired batches cannot be dispensed.`
+      };
+    }
+
+    // FEFO Sort: Earliest expiry date first
+    unexpiredBatches.sort((a, b) => a.expiryDate.localeCompare(b.expiryDate));
+
+    let remainingToDispense = data.quantity;
+    const dispensedBatches: Array<{ batchNumber: string; quantity: number }> = [];
+    const newLedgerEntries: MedicalStockLedgerEntry[] = [];
+    const now = new Date().toISOString();
+
+    for (const batch of unexpiredBatches) {
+      if (remainingToDispense <= 0) break;
+
+      const take = Math.min(batch.quantity, remainingToDispense);
+      batch.quantity -= take;
+      remainingToDispense -= take;
+
+      dispensedBatches.push({ batchNumber: batch.batchNumber, quantity: take });
+
+      const totalItemQtyAfter = item.batches.reduce((sum, b) => sum + b.quantity, 0);
+
+      const entry: MedicalStockLedgerEntry = {
+        id: `stk-led-${Date.now()}-${batch.batchNumber}`,
+        timestamp: now,
+        actorUid,
+        actorRole,
+        action: 'DISPENSE',
+        itemId: item.id,
+        itemName: item.name,
+        batchNumber: batch.batchNumber,
+        quantityChange: -take,
+        balanceAfter: totalItemQtyAfter,
+        reason: data.reason || 'Dispensed per finalized clinical prescription (FEFO)',
+        anonymousVisitRef: data.anonymousVisitRef.trim()
+      };
+
+      newLedgerEntries.push(entry);
+      store.medicalStockLedger.push(entry);
+    }
+
+    this.saveStore(store);
+
+    return {
+      success: true,
+      dispensedBatches,
+      ledgerEntries: newLedgerEntries
+    };
+  }
+
+  /**
+   * Adjusts stock quantity on physical recount or reconciliation audit.
+   * Requires mandatory reason. Appends to append-only ledger.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   * Real stock changes must be done by server-side transactions so quantities cannot be altered from the browser.
+   */
+  public adjustMedicalStock(
+    data: {
+      itemId: string;
+      batchNumber: string;
+      newQuantity: number;
+      reason: string;
+    },
+    actorUid: string,
+    actorRole: string
+  ): { success: boolean; item?: MedicalStockItem; error?: string } {
+    if (!data.reason || !data.reason.trim()) {
+      return { success: false, error: 'A mandatory adjustment reason is required.' };
+    }
+    if (typeof data.newQuantity !== 'number' || data.newQuantity < 0 || !Number.isInteger(data.newQuantity)) {
+      return { success: false, error: 'New quantity must be a non-negative integer (quantity cannot go below zero).' };
+    }
+
+    const store = this.getStore();
+    const item = (store.medicalStockItems || []).find((it) => it.id === data.itemId);
+    if (!item) {
+      return { success: false, error: 'Stock item not found.' };
+    }
+
+    const batch = item.batches.find((b) => b.batchNumber === data.batchNumber);
+    if (!batch) {
+      return { success: false, error: 'Batch not found on item.' };
+    }
+
+    const oldQty = batch.quantity;
+    const diff = data.newQuantity - oldQty;
+    batch.quantity = data.newQuantity;
+
+    const totalQtyAfter = item.batches.reduce((sum, b) => sum + b.quantity, 0);
+
+    const ledgerEntry: MedicalStockLedgerEntry = {
+      id: `stk-led-${Date.now()}-adj`,
+      timestamp: new Date().toISOString(),
+      actorUid,
+      actorRole,
+      action: 'ADJUSTMENT',
+      itemId: item.id,
+      itemName: item.name,
+      batchNumber: batch.batchNumber,
+      quantityChange: diff,
+      balanceAfter: totalQtyAfter,
+      reason: data.reason.trim()
+    };
+
+    store.medicalStockLedger = store.medicalStockLedger || [];
+    store.medicalStockLedger.push(ledgerEntry);
+    this.saveStore(store);
+
+    return { success: true, item };
+  }
+
+  /**
+   * Marks stock expired or damaged.
+   * Mandatory reason required. Appends to append-only ledger.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   * Real stock changes must be done by server-side transactions so quantities cannot be altered from the browser.
+   */
+  public markStockExpiredOrDamaged(
+    data: {
+      itemId: string;
+      batchNumber: string;
+      quantity: number;
+      type: 'EXPIRED' | 'DAMAGED';
+      reason: string;
+    },
+    actorUid: string,
+    actorRole: string
+  ): { success: boolean; item?: MedicalStockItem; error?: string } {
+    if (!data.reason || !data.reason.trim()) {
+      return { success: false, error: 'A mandatory reason is required when marking expired or damaged stock.' };
+    }
+    if (typeof data.quantity !== 'number' || data.quantity <= 0 || !Number.isInteger(data.quantity)) {
+      return { success: false, error: 'Quantity must be a positive integer.' };
+    }
+
+    const store = this.getStore();
+    const item = (store.medicalStockItems || []).find((it) => it.id === data.itemId);
+    if (!item) {
+      return { success: false, error: 'Stock item not found.' };
+    }
+
+    const batch = item.batches.find((b) => b.batchNumber === data.batchNumber);
+    if (!batch) {
+      return { success: false, error: 'Batch not found.' };
+    }
+
+    if (batch.quantity < data.quantity) {
+      return {
+        success: false,
+        error: `Cannot write off ${data.quantity} units; batch only contains ${batch.quantity} units.`
+      };
+    }
+
+    batch.quantity -= data.quantity;
+    const totalQtyAfter = item.batches.reduce((sum, b) => sum + b.quantity, 0);
+
+    const ledgerEntry: MedicalStockLedgerEntry = {
+      id: `stk-led-${Date.now()}-${data.type.toLowerCase()}`,
+      timestamp: new Date().toISOString(),
+      actorUid,
+      actorRole,
+      action: data.type,
+      itemId: item.id,
+      itemName: item.name,
+      batchNumber: batch.batchNumber,
+      quantityChange: -data.quantity,
+      balanceAfter: totalQtyAfter,
+      reason: data.reason.trim()
+    };
+
+    store.medicalStockLedger = store.medicalStockLedger || [];
+    store.medicalStockLedger.push(ledgerEntry);
+    this.saveStore(store);
+
+    return { success: true, item };
+  }
+
+  /**
+   * Generates anonymous Medical Center Reports with Small-Count Protection (<5).
+   * Calculates:
+   * - Visits per day and month
+   * - Appointments by status
+   * - No-show rate
+   * - Average visits per doctor
+   * - Top categories of items dispensed
+   * - Stock value-free summary (low and expiring items)
+   * Small-count protection: Any count < 5 is masked with displayCount: "<5" to prevent re-identification.
+   * Real enforcement must move to Firestore rules / Cloud Functions.
+   */
+  public getMedicalCenterReports(filterRange: '7d' | '30d' | 'month' | 'all' = '30d'): MedicalReportsData {
+    const store = this.getStore();
+    const appointments = store.medicalAppointments || [];
+    const visits = store.medicalVisitRecords || [];
+    const ledger = store.medicalStockLedger || [];
+    const items = store.medicalStockItems || [];
+
+    const now = Date.now();
+    const oneDay = 86400000;
+    const filterLimitMs =
+      filterRange === '7d'
+        ? now - oneDay * 7
+        : filterRange === '30d'
+        ? now - oneDay * 30
+        : filterRange === 'month'
+        ? now - oneDay * 31
+        : 0;
+
+    // Filter appointments within range
+    const filteredApts = appointments.filter((a) => {
+      if (filterLimitMs === 0) return true;
+      const aptTime = new Date(a.appointmentDate).getTime();
+      return aptTime >= filterLimitMs;
+    });
+
+    // Filter finalized visits
+    const filteredVisits = visits.filter((v) => {
+      if (filterLimitMs === 0) return true;
+      const vTime = new Date(v.visitDate).getTime();
+      return vTime >= filterLimitMs;
+    });
+
+    const totalAppointments = filteredApts.length;
+    const totalVisits = filteredVisits.length;
+    const completedApts = filteredApts.filter((a) => a.status === 'Completed').length;
+    const cancelledApts = filteredApts.filter((a) => a.status === 'Cancelled').length;
+
+    const noShowRatePercent =
+      totalAppointments > 0 ? Math.round((cancelledApts / totalAppointments) * 100) : 0;
+
+    // Small-count helper
+    const protectCount = (count: number): { count: number; displayCount: string } => ({
+      count,
+      displayCount: count < 5 ? '<5' : String(count)
+    });
+
+    // 1. Visits per day (last 7 or 14 days sorted)
+    const dayMap = new Map<string, number>();
+    for (const v of filteredVisits) {
+      dayMap.set(v.visitDate, (dayMap.get(v.visitDate) || 0) + 1);
+    }
+    const visitsByDay = Array.from(dayMap.entries())
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .slice(-14)
+      .map(([date, count]) => {
+        const protectedVal = protectCount(count);
+        return {
+          date,
+          displayDate: date.substring(5), // MM-DD
+          count: protectedVal.count,
+          displayCount: protectedVal.displayCount
+        };
+      });
+
+    // 2. Visits per month
+    const monthMap = new Map<string, number>();
+    for (const v of visits) {
+      const ym = v.visitDate.substring(0, 7); // YYYY-MM
+      monthMap.set(ym, (monthMap.get(ym) || 0) + 1);
+    }
+    const visitsByMonth = Array.from(monthMap.entries())
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .slice(-6)
+      .map(([month, count]) => {
+        const protectedVal = protectCount(count);
+        return {
+          month,
+          displayMonth: month,
+          count: protectedVal.count,
+          displayCount: protectedVal.displayCount
+        };
+      });
+
+    // 3. Appointments by status
+    const statusMap = new Map<string, number>();
+    for (const a of filteredApts) {
+      statusMap.set(a.status, (statusMap.get(a.status) || 0) + 1);
+    }
+    const appointmentsByStatus = Array.from(statusMap.entries()).map(([status, count]) => {
+      const protectedVal = protectCount(count);
+      return {
+        status,
+        count: protectedVal.count,
+        displayCount: protectedVal.displayCount
+      };
+    });
+
+    // 4. Visits per doctor (anonymous doctor name)
+    const doctorMap = new Map<string, { doctorId: string; doctorName: string; count: number }>();
+    for (const v of filteredVisits) {
+      const existing = doctorMap.get(v.doctorId) || {
+        doctorId: v.doctorId,
+        doctorName: v.doctorName.replace(/\[.*?\]/g, '').trim(),
+        count: 0
+      };
+      existing.count++;
+      doctorMap.set(v.doctorId, existing);
+    }
+    const visitsByDoctor = Array.from(doctorMap.values()).map((doc) => {
+      const protectedVal = protectCount(doc.count);
+      return {
+        doctorId: doc.doctorId,
+        doctorName: doc.doctorName,
+        count: protectedVal.count,
+        displayCount: protectedVal.displayCount
+      };
+    });
+
+    // 5. Top categories of items dispensed
+    const itemCategoryMap = new Map<string, string>();
+    for (const it of items) {
+      itemCategoryMap.set(it.id, it.category);
+    }
+
+    const categoryDispensedMap = new Map<string, number>();
+    for (const l of ledger) {
+      if (l.action === 'DISPENSE') {
+        const category = itemCategoryMap.get(l.itemId) || 'tablet';
+        const qty = Math.abs(l.quantityChange);
+        categoryDispensedMap.set(category, (categoryDispensedMap.get(category) || 0) + qty);
+      }
+    }
+    const dispensedByCategory = Array.from(categoryDispensedMap.entries()).map(([cat, count]) => {
+      const protectedVal = protectCount(count);
+      return {
+        category: cat.replace('_', ' ').toUpperCase(),
+        count: protectedVal.count,
+        displayCount: protectedVal.displayCount
+      };
+    });
+
+    // 6. Stock summary
+    const todayStr = new Date().toISOString().split('T')[0];
+    const thirtyDaysLater = new Date(Date.now() + 86400000 * 30).toISOString().split('T')[0];
+
+    let lowStockCount = 0;
+    let expiringWithin30DaysCount = 0;
+    let expiredBatchCount = 0;
+
+    for (const it of items) {
+      const batches = it.batches || [];
+      const unexpiredQty = batches.reduce((sum, b) => {
+        if (b.expiryDate >= todayStr && b.quantity > 0) return sum + b.quantity;
+        return sum;
+      }, 0);
+
+      if (unexpiredQty <= it.reorderLevel) lowStockCount++;
+
+      for (const b of batches) {
+        if (b.quantity > 0) {
+          if (b.expiryDate < todayStr) expiredBatchCount++;
+          else if (b.expiryDate <= thirtyDaysLater) expiringWithin30DaysCount++;
+        }
+      }
+    }
+
+    return {
+      totalVisits,
+      totalAppointments,
+      noShowRatePercent,
+      completedVisitsCount: completedApts,
+      cancelledVisitsCount: cancelledApts,
+      visitsByDay,
+      visitsByMonth,
+      appointmentsByStatus,
+      visitsByDoctor,
+      dispensedByCategory,
+      stockSummary: {
+        totalItems: items.length,
+        lowStockCount,
+        expiringWithin30DaysCount,
+        expiredBatchCount
+      }
     };
   }
 
@@ -5163,5 +5977,1241 @@ export class SharedDataStoreManager {
 
     return list;
   }
+
+  // ==========================================
+  // HALL DINING MANAGEMENT METHODS (DEMO MODE)
+  // // Real enforcement must move to Firestore rules / Cloud Functions.
+  // // Real stock and dining financial changes must be done by server-side transactions.
+  // ==========================================
+
+  public getHallDiningOverviews(): Record<HallId, HallDiningOverview> {
+    const store = this.getStore();
+    return store.hallDiningOverviews || initialHallOverviews;
+  }
+
+  public getHallDiningOverview(hallId: HallId): HallDiningOverview {
+    const overviews = this.getHallDiningOverviews();
+    return overviews[hallId] || initialHallOverviews['hall-a'];
+  }
+
+  public getDiningWeeklyMenus(hallId?: HallId): DailyMealMenu[] {
+    const store = this.getStore();
+    const menus = store.diningWeeklyMenus || [];
+    if (hallId) {
+      return menus.filter((m) => m.hallId === hallId);
+    }
+    return menus;
+  }
+
+  public getTodayMealMenu(hallId: HallId): DailyMealMenu | undefined {
+    const days: Array<'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday'> = [
+      'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+    ];
+    const todayIndex = new Date().getDay();
+    const currentDayName = days[todayIndex];
+    const menus = this.getDiningWeeklyMenus(hallId);
+    return menus.find((m) => m.dayOfWeek === currentDayName) || menus[0];
+  }
+
+  public getStudentDiningProfile(studentId: string): {
+    hallId: HallId;
+    hallName: string;
+    hallNameBn: string;
+    diningRoomId: string;
+    diningRoomName: string;
+    diningRoomNameBn: string;
+  } {
+    // Hall assignment per user request:
+    // student.demo / JSTU2026001 -> Oporajita Hall (female hall)
+    // student2.demo / JSTU2026002 -> Bijoy 24 Hall (male hall)
+    // UI never shows gender, only the hall.
+    const isStudent2 =
+      studentId === 'JSTU2026002' ||
+      studentId === 'student2.demo@jstu.ac.bd' ||
+      studentId === 'demo_student_02';
+
+    if (isStudent2) {
+      return {
+        hallId: 'hall-b',
+        hallName: 'Bijoy 24 Hall',
+        hallNameBn: 'বিজয় ২৪ হল',
+        diningRoomId: 'hall-b-room-1',
+        diningRoomName: 'Dining Hall 1 (Main Hall)',
+        diningRoomNameBn: 'ডাইনিং হল ১ (প্রধান হল)'
+      };
+    }
+
+    return {
+      hallId: 'hall-a',
+      hallName: 'Oporajita Hall',
+      hallNameBn: 'অপরাজিতা হল',
+      diningRoomId: 'hall-a-room-1',
+      diningRoomName: 'Dining Hall 1 (Ground Floor)',
+      diningRoomNameBn: 'ডাইনিং হল ১ (নিচতলা)'
+    };
+  }
+
+  public getStudentMealOnOff(studentId: string, hallId: HallId): MealOnOffSetting[] {
+    const store = this.getStore();
+    return (store.diningMealOnOffSettings || []).filter(
+      (s) => s.studentId === studentId && s.hallId === hallId
+    );
+  }
+
+  public setStudentMealOnOff(params: {
+    studentId: string;
+    studentName: string;
+    hallId: HallId;
+    dateStr: string; // YYYY-MM-DD
+    breakfast: boolean;
+    lunch: boolean;
+    dinner: boolean;
+  }): { success: boolean; message?: string; setting?: MealOnOffSetting } {
+    const store = this.getStore();
+    if (!store.diningMealOnOffSettings) store.diningMealOnOffSettings = [];
+
+    // Cutoff check: 8:00 PM (20:00) the day before
+    const hallOverview = this.getHallDiningOverview(params.hallId);
+    const cutoffHour = hallOverview.cutoffHour || 20;
+
+    const now = new Date();
+    const targetDate = new Date(`${params.dateStr}T00:00:00`);
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const diffDays = Math.round((targetDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (diffDays <= 0) {
+      return {
+        success: false,
+        message: 'Cannot modify meal status for today or past dates.'
+      };
+    }
+
+    if (diffDays === 1 && now.getHours() >= cutoffHour) {
+      return {
+        success: false,
+        message: `Cutoff passed! Changes for tomorrow must be submitted before ${cutoffHour % 12 || 12}:00 PM today.`
+      };
+    }
+
+    let existing = store.diningMealOnOffSettings.find(
+      (s) => s.studentId === params.studentId && s.hallId === params.hallId && s.dateStr === params.dateStr
+    );
+
+    if (existing) {
+      existing.breakfast = params.breakfast;
+      existing.lunch = params.lunch;
+      existing.dinner = params.dinner;
+      existing.updatedAt = new Date().toISOString();
+    } else {
+      existing = {
+        id: `onoff-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        studentId: params.studentId,
+        studentName: params.studentName,
+        hallId: params.hallId,
+        dateStr: params.dateStr,
+        breakfast: params.breakfast,
+        lunch: params.lunch,
+        dinner: params.dinner,
+        updatedAt: new Date().toISOString()
+      };
+      store.diningMealOnOffSettings.push(existing);
+    }
+
+    this.saveStore(store);
+    return { success: true, setting: existing };
+  }
+
+  public getStudentDiningBillings(studentId: string): StudentDiningBilling[] {
+    // // Real enforcement must move to Firestore rules / Cloud Functions.
+    // Students see only their own billing.
+    const store = this.getStore();
+    return (store.diningStudentBillings || []).filter((b) => b.studentId === studentId);
+  }
+
+  public payStudentDiningBill(
+    studentId: string,
+    billId: string,
+    paymentMethod: string
+  ): { success: boolean; bill?: StudentDiningBilling; message?: string } {
+    // // Real stock and dining financial changes must be done by server-side transactions.
+    const store = this.getStore();
+    const bill = store.diningStudentBillings?.find((b) => b.id === billId && b.studentId === studentId);
+    if (!bill) {
+      return { success: false, message: 'Billing record not found.' };
+    }
+
+    bill.paymentStatus = 'PAID';
+    bill.paidAt = new Date().toISOString();
+    bill.receiptNumber = `RCPT-HA-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`;
+    bill.paymentMethod = paymentMethod;
+
+    if (store.studentNotifications) {
+      store.studentNotifications.unshift({
+        id: `notif-bill-${Date.now()}`,
+        title: `Mess Bill Paid (${bill.receiptNumber})`,
+        titleBn: `মেস বিল পরিশোধ সম্পন্ন (${bill.receiptNumber})`,
+        message: `Your payment of BDT ${bill.totalDue} for ${bill.month} has been successfully verified (Mock).`,
+        messageBn: `${bill.month} মাসের মেস বিল ৳${bill.totalDue} সফলভাবে পরিশোধ হয়েছে (মক)।`,
+        category: 'academic',
+        timestamp: new Date().toISOString(),
+        read: false,
+        link: '/student/dining'
+      });
+    }
+
+    this.saveStore(store);
+    return { success: true, bill };
+  }
+
+  public submitGuestMealRequest(
+    data: Omit<GuestMealRequest, 'id' | 'status' | 'requestedAt'>
+  ): GuestMealRequest {
+    const store = this.getStore();
+    if (!store.diningGuestMealRequests) store.diningGuestMealRequests = [];
+
+    const newReq: GuestMealRequest = {
+      ...data,
+      id: `gmeal-req-${Date.now()}`,
+      status: 'PENDING',
+      requestedAt: new Date().toISOString()
+    };
+
+    store.diningGuestMealRequests.unshift(newReq);
+    this.saveStore(store);
+    return newReq;
+  }
+
+  public submitMealRating(data: Omit<MealRatingFeedback, 'id' | 'createdAt'>): {
+    success: boolean;
+    rating?: MealRatingFeedback;
+    message?: string;
+  } {
+    const store = this.getStore();
+    if (!store.diningMealRatings) store.diningMealRatings = [];
+
+    // Check duplicate rating for this student, meal, and date
+    const existing = store.diningMealRatings.find(
+      (r) =>
+        r.studentId === data.studentId &&
+        r.hallId === data.hallId &&
+        r.date === data.date &&
+        r.mealType === data.mealType
+    );
+
+    if (existing) {
+      return { success: false, message: 'You have already submitted a rating for this meal.' };
+    }
+
+    const newRating: MealRatingFeedback = {
+      ...data,
+      id: `rating-${Date.now()}`,
+      createdAt: new Date().toISOString()
+    };
+
+    store.diningMealRatings.unshift(newRating);
+    this.saveStore(store);
+    return { success: true, rating: newRating };
+  }
+
+  public getDishSuggestions(hallId: HallId): DishSuggestion[] {
+    const store = this.getStore();
+    // Return suggestions ranked by voteCount descending, author's identity hidden
+    return (store.diningDishSuggestions || [])
+      .filter((s) => s.hallId === hallId)
+      .sort((a, b) => b.voteCount - a.voteCount);
+  }
+
+  public submitDishSuggestion(data: {
+    studentId: string;
+    hallId: HallId;
+    dishName: string;
+    description?: string;
+  }): { success: boolean; suggestion?: DishSuggestion; message?: string } {
+    if (!data.dishName || data.dishName.trim().length === 0) {
+      return { success: false, message: 'Dish name is required.' };
+    }
+    if (data.dishName.length > 200) {
+      return { success: false, message: 'Dish name must be 200 characters or fewer.' };
+    }
+
+    const store = this.getStore();
+    if (!store.diningDishSuggestions) store.diningDishSuggestions = [];
+
+    // Max 3 suggestions per week per student
+    const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    const recentCount = store.diningDishSuggestions.filter(
+      (s) => s.studentId === data.studentId && new Date(s.createdAt).getTime() > oneWeekAgo
+    ).length;
+
+    if (recentCount >= 3) {
+      return {
+        success: false,
+        message: 'You have reached the maximum limit of 3 suggestions per week.'
+      };
+    }
+
+    const newSuggestion: DishSuggestion = {
+      id: `sugg-${Date.now()}`,
+      studentId: data.studentId, // Stored internally, never shown in UI
+      hallId: data.hallId,
+      dishName: data.dishName.trim(),
+      description: data.description?.trim(),
+      voteCount: 1,
+      votedStudentIds: [data.studentId],
+      status: 'PENDING',
+      createdAt: new Date().toISOString()
+    };
+
+    store.diningDishSuggestions.unshift(newSuggestion);
+    this.saveStore(store);
+    return { success: true, suggestion: newSuggestion };
+  }
+
+  public voteDishSuggestion(
+    studentId: string,
+    suggestionId: string
+  ): { success: boolean; voteCount: number; message?: string } {
+    const store = this.getStore();
+    const sugg = store.diningDishSuggestions?.find((s) => s.id === suggestionId);
+    if (!sugg) return { success: false, voteCount: 0, message: 'Suggestion not found.' };
+
+    if (!sugg.votedStudentIds) sugg.votedStudentIds = [];
+
+    if (sugg.votedStudentIds.includes(studentId)) {
+      // Toggle off / remove vote
+      sugg.votedStudentIds = sugg.votedStudentIds.filter((id) => id !== studentId);
+      sugg.voteCount = Math.max(0, sugg.voteCount - 1);
+    } else {
+      // Add vote
+      sugg.votedStudentIds.push(studentId);
+      sugg.voteCount += 1;
+    }
+
+    this.saveStore(store);
+    return { success: true, voteCount: sugg.voteCount };
+  }
+
+  public submitDiningComplaint(data: {
+    hallId: HallId;
+    category: import('../../types/hallDining').ComplaintCategory;
+    description: string;
+    photoUrl?: string;
+    isAnonymous: boolean;
+    studentId?: string;
+    studentName?: string;
+  }): DiningComplaint {
+    const store = this.getStore();
+    if (!store.diningComplaints) store.diningComplaints = [];
+
+    const refNumber = `DC-2026-${String(Math.floor(1000 + Math.random() * 9000))}`;
+    const newComplaint: DiningComplaint = {
+      id: `comp-${Date.now()}`,
+      referenceNumber: refNumber,
+      hallId: data.hallId,
+      category: data.category,
+      description: data.description,
+      photoUrl: data.photoUrl,
+      isAnonymous: data.isAnonymous,
+      studentId: data.isAnonymous ? undefined : data.studentId,
+      studentName: data.isAnonymous ? undefined : data.studentName,
+      status: 'SUBMITTED',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    store.diningComplaints.unshift(newComplaint);
+    this.saveStore(store);
+    return newComplaint;
+  }
+
+  public checkDiningComplaintStatus(referenceNumber: string): DiningComplaint | undefined {
+    const store = this.getStore();
+    return store.diningComplaints?.find(
+      (c) => c.referenceNumber.toLowerCase() === referenceNumber.toLowerCase().trim()
+    );
+  }
+
+  public getDiningComplaints(hallId?: HallId): DiningComplaint[] {
+    const store = this.getStore();
+    const list = store.diningComplaints || [];
+    if (hallId) return list.filter((c) => c.hallId === hallId);
+    return list;
+  }
+
+  public updateDiningComplaintStatus(
+    complaintId: string,
+    status: import('../../types/hallDining').ComplaintStatus,
+    resolutionNotes: string,
+    actorRole: string,
+    actorUid: string
+  ): boolean {
+    const store = this.getStore();
+    const complaint = store.diningComplaints?.find((c) => c.id === complaintId);
+    if (!complaint) return false;
+
+    complaint.status = status;
+    complaint.resolutionNotes = resolutionNotes;
+    complaint.updatedAt = new Date().toISOString();
+
+    // Audit log
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-comp-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorRole,
+      actorUid,
+      hallId: complaint.hallId,
+      action: 'COMPLAINT_STATUS',
+      details: `Complaint ${complaint.referenceNumber} updated to ${status}. Notes: ${resolutionNotes}`
+    });
+
+    // Notify student if not anonymous
+    if (complaint.studentId && store.studentNotifications) {
+      store.studentNotifications.unshift({
+        id: `notif-comp-${Date.now()}`,
+        title: `Dining Complaint Status Updated (${complaint.referenceNumber})`,
+        titleBn: `ডাইনিং অভিযোগের অগ্রগতি হালনাগাদ (${complaint.referenceNumber})`,
+        message: `Your complaint has been marked as ${status}. ${resolutionNotes ? `Notes: ${resolutionNotes}` : ''}`,
+        messageBn: `আপনার অভিযোগটির বর্তমান স্ট্যাটাস: ${status}।`,
+        category: 'academic',
+        timestamp: new Date().toISOString(),
+        read: false,
+        link: '/student/dining'
+      });
+    }
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public getTodayMealCounts(hallId: HallId): {
+    breakfast: number;
+    lunch: number;
+    dinner: number;
+    totalExpected: number;
+  } {
+    const store = this.getStore();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dateStr = tomorrow.toISOString().split('T')[0];
+
+    const settings = (store.diningMealOnOffSettings || []).filter(
+      (s) => s.hallId === hallId && s.dateStr === dateStr
+    );
+
+    // Baseline active residents (demo count 320 for Hall A, 280 for Hall B)
+    const baseCount = hallId === 'hall-a' ? 320 : 280;
+
+    let bOff = 0;
+    let lOff = 0;
+    let dOff = 0;
+
+    settings.forEach((s) => {
+      if (!s.breakfast) bOff++;
+      if (!s.lunch) lOff++;
+      if (!s.dinner) dOff++;
+    });
+
+    return {
+      breakfast: Math.max(0, baseCount - 45 - bOff),
+      lunch: Math.max(0, baseCount - 12 - lOff),
+      dinner: Math.max(0, baseCount - 18 - dOff),
+      totalExpected: baseCount
+    };
+  }
+
+  public updateDiningRoomStatus(
+    hallId: HallId,
+    roomId: string,
+    status: import('../../types/hallDining').DiningRoomStatus,
+    actorRole: string,
+    actorUid: string
+  ): boolean {
+    const store = this.getStore();
+    const hall = store.hallDiningOverviews?.[hallId];
+    if (!hall) return false;
+
+    const room = hall.diningRooms.find((r) => r.id === roomId);
+    if (!room) return false;
+
+    room.status = status;
+
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-room-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorRole,
+      actorUid,
+      hallId,
+      action: 'ROOM_STATUS_CHANGE',
+      details: `${room.name} status updated to ${status}.`
+    });
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public updateWeeklyMenu(
+    menu: DailyMealMenu,
+    actorRole: string,
+    actorUid: string,
+    reason?: string
+  ): DailyMealMenu {
+    // // Real enforcement must move to Firestore rules / Cloud Functions.
+    // Published menus are append-only with corrections as new entries with a reason.
+    const store = this.getStore();
+    if (!store.diningWeeklyMenus) store.diningWeeklyMenus = [];
+
+    const existingIndex = store.diningWeeklyMenus.findIndex(
+      (m) => m.id === menu.id || (m.hallId === menu.hallId && m.dayOfWeek === menu.dayOfWeek)
+    );
+
+    const updatedMenu: DailyMealMenu = {
+      ...menu,
+      version: existingIndex >= 0 ? (store.diningWeeklyMenus[existingIndex].version || 1) + 1 : 1,
+      status: 'PUBLISHED',
+      publishedAt: new Date().toISOString(),
+      publishedBy: actorUid,
+      changeReason: reason || 'Scheduled weekly menu update'
+    };
+
+    if (existingIndex >= 0) {
+      store.diningWeeklyMenus[existingIndex] = updatedMenu;
+    } else {
+      store.diningWeeklyMenus.push(updatedMenu);
+    }
+
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-menu-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorRole,
+      actorUid,
+      hallId: menu.hallId,
+      action: 'MENU_PUBLISH',
+      details: `Menu for ${menu.dayOfWeek} (v${updatedMenu.version}) published. ${reason ? `Reason: ${reason}` : ''}`
+    });
+
+    // Notify hall students of menu update
+    if (store.studentNotifications) {
+      store.studentNotifications.unshift({
+        id: `notif-menu-${Date.now()}`,
+        title: `Dining Menu Updated (${menu.dayOfWeek})`,
+        titleBn: `ডাইনিং মেনু হালনাগাদ করা হয়েছে (${menu.dayOfWeekBn})`,
+        message: `Dining manager has updated the published menu for ${menu.dayOfWeek}.`,
+        messageBn: `ডাইনিং ম্যানেজার ${menu.dayOfWeekBn}-এর মেনু হালনাগাদ করেছেন।`,
+        category: 'academic',
+        timestamp: new Date().toISOString(),
+        read: false,
+        link: '/student/dining'
+      });
+    }
+
+    this.saveStore(store);
+    return updatedMenu;
+  }
+
+  public addBazarCostEntry(
+    data: Omit<BazarCostEntry, 'id' | 'enteredAt' | 'version'>,
+    actorRole: string,
+    actorUid: string,
+    correctionReason?: string
+  ): BazarCostEntry {
+    // // Real stock and dining financial changes must be done by server-side transactions.
+    // Append-only cost entry with corrections as new entries with a reason.
+    const store = this.getStore();
+    if (!store.diningBazarCostEntries) store.diningBazarCostEntries = [];
+
+    const newEntry: BazarCostEntry = {
+      ...data,
+      id: `bazar-${Date.now()}`,
+      enteredAt: new Date().toISOString(),
+      version: 1,
+      correctionReason
+    };
+
+    store.diningBazarCostEntries.unshift(newEntry);
+
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-bazar-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorRole,
+      actorUid,
+      hallId: data.hallId,
+      action: 'COST_ENTRY',
+      details: `Bazar entry recorded: ${data.item} (${data.quantity}) for BDT ${data.amount}. ${correctionReason ? `Correction: ${correctionReason}` : ''}`
+    });
+
+    this.saveStore(store);
+    return newEntry;
+  }
+
+  public getBazarCostEntries(hallId: HallId, month?: string): BazarCostEntry[] {
+    const store = this.getStore();
+    let list = (store.diningBazarCostEntries || []).filter((b) => b.hallId === hallId);
+    if (month) {
+      list = list.filter((b) => b.month === month);
+    }
+    return list;
+  }
+
+  public calculateMonthlyMealRate(
+    hallId: HallId,
+    month: string = '2026-11'
+  ): { totalCost: number; totalMeals: number; calculatedRate: number } {
+    const entries = this.getBazarCostEntries(hallId, month);
+    const totalCost = entries.reduce((acc, curr) => acc + curr.amount, 0);
+
+    // Oporajita Hall serves only 2 meals (Lunch, Dinner). Bijoy 24 serves 3 meals (Breakfast, Lunch, Dinner).
+    // Meal rate = cost / meals actually offered and served for that hall.
+    const baseResidents = hallId === 'hall-a' ? 260 : 250;
+    const mealsOfferedPerDay = hallId === 'hall-a' ? 2 : 3;
+    const baseMealsPerDay = baseResidents * mealsOfferedPerDay;
+    const daysInMonth = 30;
+    const totalMeals = baseMealsPerDay * daysInMonth;
+
+    const calculatedRate = totalMeals > 0 ? parseFloat((totalCost / totalMeals).toFixed(2)) : 52.5;
+
+    return {
+      totalCost,
+      totalMeals,
+      calculatedRate: calculatedRate > 0 ? calculatedRate : 53.0
+    };
+  }
+
+  public reviewDishSuggestion(
+    suggestionId: string,
+    status: import('../../types/hallDining').SuggestionStatus,
+    reason: string,
+    actorRole: string,
+    actorUid: string
+  ): boolean {
+    const store = this.getStore();
+    const sugg = store.diningDishSuggestions?.find((s) => s.id === suggestionId);
+    if (!sugg) return false;
+
+    sugg.status = status;
+    sugg.reviewReason = reason;
+
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-sugg-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorRole,
+      actorUid,
+      hallId: sugg.hallId,
+      action: 'SUGGESTION_REVIEW',
+      details: `Dish suggestion "${sugg.dishName}" ${status}. Reason: ${reason}`
+    });
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public reviewGuestMealRequest(
+    requestId: string,
+    status: import('../../types/hallDining').GuestMealStatus,
+    reviewNotes: string,
+    actorRole: string,
+    actorUid: string
+  ): boolean {
+    const store = this.getStore();
+    const req = store.diningGuestMealRequests?.find((r) => r.id === requestId);
+    if (!req) return false;
+
+    req.status = status;
+    req.reviewedAt = new Date().toISOString();
+    req.reviewedBy = actorRole;
+    req.reviewNotes = reviewNotes;
+
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-gmeal-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorRole,
+      actorUid,
+      hallId: req.hallId,
+      action: 'GUEST_MEAL_REVIEW',
+      details: `Guest meal request for ${req.studentName} (${req.guestCount} guests, ${req.mealType}) ${status}. Notes: ${reviewNotes}`
+    });
+
+    if (store.studentNotifications) {
+      store.studentNotifications.unshift({
+        id: `notif-gmeal-${Date.now()}`,
+        title: `Guest Meal Request ${status}`,
+        titleBn: `মেহমান মিল আবেদন ${status === 'APPROVED' ? 'অনুমোদিত' : 'প্রত্যাখ্যাত'}`,
+        message: `Your guest meal request for ${req.date} (${req.mealType}) has been ${status.toLowerCase()}. ${reviewNotes ? `Notes: ${reviewNotes}` : ''}`,
+        messageBn: `${req.date} তারিখের মেহমান মিল আবেদনটি ${status === 'APPROVED' ? 'অনুমোদন' : 'বাতিল'} করা হয়েছে।`,
+        category: 'academic',
+        timestamp: new Date().toISOString(),
+        read: false,
+        link: '/student/dining'
+      });
+    }
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public getDiningAuditTrail(hallId?: HallId): DiningAuditTrailEntry[] {
+    const store = this.getStore();
+    const list = store.diningAuditTrail || [];
+    if (hallId) return list.filter((a) => a.hallId === hallId);
+    return list;
+  }
+
+  public getDiningProvostReportData(): DiningProvostReportData {
+    const store = this.getStore();
+    const complaints = store.diningComplaints || [];
+    const ratings = store.diningMealRatings || [];
+
+    // Helper for small count protection: under 5 shown as "<5"
+    const formatSmallCount = (num: number): number | string => (num < 5 && num > 0 ? '<5' : num);
+
+    const statusCounts: Record<string, number> = {
+      SUBMITTED: 0,
+      UNDER_REVIEW: 0,
+      RESOLVED: 0,
+      DISMISSED: 0
+    };
+    complaints.forEach((c) => {
+      if (statusCounts[c.status] !== undefined) statusCounts[c.status]++;
+    });
+
+    const hallARatings = ratings.filter((r) => r.hallId === 'hall-a');
+    const hallBRatings = ratings.filter((r) => r.hallId === 'hall-b');
+
+    const avgHallA = hallARatings.length > 0
+      ? parseFloat((hallARatings.reduce((acc, r) => acc + r.rating, 0) / hallARatings.length).toFixed(1))
+      : 4.4;
+    const avgHallB = hallBRatings.length > 0
+      ? parseFloat((hallBRatings.reduce((acc, r) => acc + r.rating, 0) / hallBRatings.length).toFixed(1))
+      : 4.2;
+
+    const rateA = this.calculateMonthlyMealRate('hall-a', '2026-11');
+    const rateB = this.calculateMonthlyMealRate('hall-b', '2026-11');
+
+    return {
+      mealsPerDay: [
+        { date: 'Nov 03', hallA: 780, hallB: 640 },
+        { date: 'Nov 04', hallA: 795, hallB: 655 },
+        { date: 'Nov 05', hallA: 810, hallB: 670 },
+        { date: 'Nov 06', hallA: 760, hallB: 630 },
+        { date: 'Nov 07', hallA: 820, hallB: 685 },
+        { date: 'Nov 08', hallA: 850, hallB: 710 },
+        { date: 'Nov 09', hallA: 835, hallB: 690 }
+      ],
+      avgRatings: [
+        { hall: 'Oporajita Hall', rating: avgHallA, totalRatings: hallARatings.length || 14 },
+        { hall: 'Bijoy 24 Hall', rating: avgHallB, totalRatings: hallBRatings.length || 11 }
+      ],
+      costVsCollection: [
+        { month: 'Sep 2026', hallA_cost: 215000, hallA_collection: 228000, hallB_cost: 185000, hallB_collection: 192000 },
+        { month: 'Oct 2026', hallA_cost: 228000, hallA_collection: 239000, hallB_cost: 194000, hallB_collection: 201000 },
+        { month: 'Nov 2026 (Demo)', hallA_cost: 72300, hallA_collection: 88500, hallB_cost: 57200, hallB_collection: 69400 }
+      ],
+      complaintsByStatus: [
+        { status: 'Submitted', count: formatSmallCount(statusCounts.SUBMITTED) },
+        { status: 'Under Review', count: formatSmallCount(statusCounts.UNDER_REVIEW) },
+        { status: 'Resolved', count: formatSmallCount(statusCounts.RESOLVED) },
+        { status: 'Dismissed', count: formatSmallCount(statusCounts.DISMISSED) }
+      ],
+      summary: {
+        totalActiveMealsHallA: 835,
+        totalActiveMealsHallB: 690,
+        calculatedMealRateHallA: rateA.calculatedRate,
+        calculatedMealRateHallB: rateB.calculatedRate
+      }
+    };
+  }
+
+  // ==========================================
+  // HALL DINING H2: MEAL TOKENS & VERIFICATION
+  // ==========================================
+  // Real enforcement must move to Firestore rules / Cloud Functions.
+  // Real token validation and one-time-use marking must run server-side with atomic transactions, otherwise tokens can be reused or forged.
+
+  private generateSecureTokenString(): string {
+    if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
+      const arr = new Uint8Array(16);
+      window.crypto.getRandomValues(arr);
+      return Array.from(arr, (b) => b.toString(16).padStart(2, '0')).join('');
+    }
+    return Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+  }
+
+  private generateSixDigitCode(): string {
+    if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
+      const arr = new Uint32Array(1);
+      window.crypto.getRandomValues(arr);
+      return (100000 + (arr[0] % 900000)).toString();
+    }
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
+
+  public getOrCreateStudentMealToken(
+    studentUid: string,
+    studentName: string,
+    studentIdNum: string,
+    hallId: HallId,
+    mealTypeStr: 'Breakfast' | 'Lunch' | 'Dinner',
+    date: string = '2026-11-10'
+  ): MealToken {
+    const store = this.getStore();
+    if (!store.diningMealTokens) store.diningMealTokens = [];
+
+    const normalizedMealType = mealTypeStr.toLowerCase() as MealType;
+
+    // Check if token already exists for this student, meal, and date
+    let token = store.diningMealTokens.find(
+      (t) =>
+        (t.studentId === studentUid || t.studentUid === studentUid) &&
+        t.mealType === normalizedMealType &&
+        (t.dateStr === date || t.date === date)
+    );
+
+    if (token) return token;
+
+    // Check if meal is ON
+    const setting = (store.diningMealOnOffSettings || []).find(
+      (s) => s.studentId === studentUid && s.dateStr === date
+    );
+    const isSwitchedOn = setting
+      ? normalizedMealType === 'breakfast'
+        ? setting.breakfast
+        : normalizedMealType === 'lunch'
+        ? setting.lunch
+        : setting.dinner
+      : true; // Default ON if unconfigured
+
+    const expiryTime =
+      normalizedMealType === 'breakfast' ? '09:30 AM' : normalizedMealType === 'lunch' ? '03:30 PM' : '10:00 PM';
+
+    token = {
+      id: `tok-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      token: this.generateSecureTokenString(),
+      tokenString: this.generateSecureTokenString(),
+      manualCode: this.generateSixDigitCode(),
+      studentId: studentUid,
+      studentUid,
+      studentName,
+      studentIdNumber: studentIdNum,
+      maskedStudentName: studentName.replace(/^(\S)\S*(\s+)(\S)\S*$/, '$1*****$2$3****'),
+      hallId,
+      dateStr: date,
+      date,
+      mealType: normalizedMealType,
+      expiresAt: `${date} ${expiryTime}`,
+      isUsed: false,
+      isSwitchedOn,
+      status: isSwitchedOn ? 'ACTIVE' : 'INACTIVE',
+      scanCounter: 0
+    };
+
+    store.diningMealTokens.unshift(token);
+    this.saveStore(store);
+    return token;
+  }
+
+  public verifyAndConsumeMealToken(
+    input: string,
+    scannerHallId: HallId,
+    actorRole: string = 'dining_manager',
+    actorUid: string = 'demo_manager'
+  ): TokenVerificationResult {
+    // Real token validation and one-time-use marking must run server-side with atomic transactions, otherwise tokens can be reused or forged.
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    const cleanInput = (input || '').trim().toLowerCase();
+    const tokens = store.diningMealTokens || [];
+
+    const token = tokens.find(
+      (t) =>
+        t.token.toLowerCase() === cleanInput ||
+        (t.tokenString && t.tokenString.toLowerCase() === cleanInput) ||
+        t.manualCode.toLowerCase() === cleanInput ||
+        t.id.toLowerCase() === cleanInput
+    );
+
+    const nowIso = new Date().toISOString();
+
+    if (!token) {
+      return {
+        status: 'NOT_FOUND',
+        message: 'Meal token or manual code was not found in the campus dining database.',
+        messageBn: 'ডাইনিং সিস্টেমে এই মিল টোকেন বা কোডটি পাওয়া যায়নি।',
+        verifiedAt: nowIso
+      };
+    }
+
+    if (token.hallId !== scannerHallId) {
+      return {
+        status: 'WRONG_HALL',
+        token,
+        hallId: token.hallId,
+        mealType: token.mealType,
+        maskedStudentName: token.maskedStudentName,
+        maskedName: token.maskedStudentName,
+        message: `Token is issued for ${token.hallId === 'hall-a' ? 'Oporajita Hall' : 'Bijoy 24 Hall'}, but scanned at ${scannerHallId === 'hall-a' ? 'Oporajita Hall' : 'Bijoy 24 Hall'}.`,
+        messageBn: `এই টোকেনটি অন্য হলের জন্য সংরক্ষিত। বর্তমান হলের ডাইনিংয়ে এটি ব্যবহার করা যাবে না।`,
+        verifiedAt: nowIso
+      };
+    }
+
+    if (token.isSwitchedOn === false || token.status === 'INACTIVE') {
+      return {
+        status: 'NOT_SWITCHED_ON',
+        token,
+        hallId: token.hallId,
+        mealType: token.mealType,
+        maskedStudentName: token.maskedStudentName,
+        maskedName: token.maskedStudentName,
+        message: 'This meal was switched OFF before the cutoff time by the student.',
+        messageBn: 'শিক্ষার্থী কাট-অফ সময়ের আগে এই মিলটি বন্ধ (OFF) করেছিলেন।',
+        verifiedAt: nowIso
+      };
+    }
+
+    if (token.isUsed || token.status === 'USED') {
+      return {
+        status: 'ALREADY_USED',
+        token,
+        hallId: token.hallId,
+        mealType: token.mealType,
+        maskedStudentName: token.maskedStudentName,
+        maskedName: token.maskedStudentName,
+        message: `Token was already redeemed at ${token.usedAt ? new Date(token.usedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'earlier'}.`,
+        messageBn: 'এই টোকেনটি ইতিমধ্যে পরিবেশিত হয়েছে। পুনরায় ব্যবহার সম্ভব নয়।',
+        verifiedAt: nowIso
+      };
+    }
+
+    if (token.status === 'EXPIRED') {
+      return {
+        status: 'EXPIRED',
+        token,
+        hallId: token.hallId,
+        mealType: token.mealType,
+        maskedStudentName: token.maskedStudentName,
+        maskedName: token.maskedStudentName,
+        message: `Token meal window expired at ${token.expiresAt}.`,
+        messageBn: 'মিল পরিবেশনের নির্ধারিত সময় শেষ হয়ে গেছে।',
+        verifiedAt: nowIso
+      };
+    }
+
+    // Valid: Mark USED with timestamp
+    token.isUsed = true;
+    token.status = 'USED';
+    token.usedAt = nowIso;
+    token.scanCounter = (token.scanCounter || 0) + 1;
+
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-scan-${Date.now()}`,
+      timestamp: nowIso,
+      actorRole,
+      actorUid,
+      hallId: scannerHallId,
+      action: 'TOKEN_SCAN',
+      details: `Meal token ${token.manualCode} verified and served for ${token.mealType} (${token.dateStr || token.date}).`
+    });
+
+    this.saveStore(store);
+
+    return {
+      status: 'VALID',
+      token,
+      hallId: token.hallId,
+      mealType: token.mealType,
+      maskedStudentName: token.maskedStudentName,
+      maskedName: token.maskedStudentName,
+      message: 'Meal token verified successfully. 1 meal served.',
+      messageBn: 'টোকেন সফলভাবে যাচাইকৃত। ১টি মিল পরিবেশন সম্পন্ন।',
+      verifiedAt: nowIso
+    };
+  }
+
+  public overrideMealToken(
+    tokenOrId: string,
+    hallId: HallId,
+    reason: string,
+    actorRole: string,
+    actorUid: string
+  ): boolean {
+    const store = this.getStore();
+    const clean = tokenOrId.trim().toLowerCase();
+    const token = (store.diningMealTokens || []).find(
+      (t) =>
+        t.token.toLowerCase() === clean ||
+        (t.tokenString && t.tokenString.toLowerCase() === clean) ||
+        t.manualCode.toLowerCase() === clean ||
+        t.id.toLowerCase() === clean
+    );
+
+    if (!token) return false;
+
+    token.isUsed = true;
+    token.status = 'USED';
+    token.usedAt = new Date().toISOString();
+    token.scanCounter = (token.scanCounter || 0) + 1;
+    token.isManualOverride = true;
+    token.overrideReason = reason;
+    token.overrideBy = actorRole;
+
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-override-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorRole,
+      actorUid,
+      hallId,
+      action: 'TOKEN_OVERRIDE',
+      details: `Manual meal token override for student token #${token.manualCode} (${token.mealType}). Reason: ${reason}`
+    });
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public getLiveMealCounters(hallId: HallId, mealType: 'Breakfast' | 'Lunch' | 'Dinner' = 'Lunch') {
+    const store = this.getStore();
+    const normalizedMeal = mealType.toLowerCase() as MealType;
+    const tokens = (store.diningMealTokens || []).filter(
+      (t) => t.hallId === hallId && t.mealType === normalizedMeal
+    );
+
+    const baseExpected = hallId === 'hall-a' ? 420 : 340;
+    const servedCount = tokens.filter((t) => t.isUsed || t.status === 'USED').length;
+    const activeExpected = Math.max(
+      baseExpected,
+      tokens.filter((t) => t.isSwitchedOn !== false).length
+    );
+    const remainingCount = Math.max(0, activeExpected - servedCount);
+
+    return {
+      expected: activeExpected,
+      served: servedCount,
+      remaining: remainingCount
+    };
+  }
+
+  // ==========================================
+  // FESTIVAL & SPECIAL MEALS
+  // ==========================================
+  public getSpecialMealEvents(hallId?: HallId): SpecialMealEvent[] {
+    const store = this.getStore();
+    const list = store.diningSpecialMealEvents || [];
+    if (hallId) return list.filter((e) => e.hallId === hallId);
+    return list;
+  }
+
+  public createSpecialMealEvent(
+    data: Omit<SpecialMealEvent, 'id' | 'createdAt' | 'participantUids' | 'optOutUids' | 'registeredStudentIds' | 'optedOutStudentIds'>,
+    actorRole: string,
+    actorUid: string
+  ): SpecialMealEvent {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    if (!store.diningSpecialMealEvents) store.diningSpecialMealEvents = [];
+
+    const newEvent: SpecialMealEvent = {
+      ...data,
+      id: `special-${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      participantUids: [],
+      optOutUids: [],
+      registeredStudentIds: [],
+      optedOutStudentIds: []
+    };
+
+    store.diningSpecialMealEvents.unshift(newEvent);
+
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-special-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorRole,
+      actorUid,
+      hallId: data.hallId,
+      action: 'SPECIAL_MEAL_CREATE',
+      details: `Special meal event scheduled: "${data.title}" on ${data.date} (${data.mealType}). Extra charge: BDT ${data.extraCharge || data.extraChargeBDT || 0}.`
+    });
+
+    this.saveStore(store);
+    return newEvent;
+  }
+
+  public toggleSpecialMealSignup(
+    eventId: string,
+    studentUid: string,
+    action: 'sign_up' | 'opt_out'
+  ): boolean {
+    const store = this.getStore();
+    const ev = (store.diningSpecialMealEvents || []).find((e) => e.id === eventId);
+    if (!ev) return false;
+
+    if (!ev.participantUids) ev.participantUids = [];
+    if (!ev.optOutUids) ev.optOutUids = [];
+    if (!ev.registeredStudentIds) ev.registeredStudentIds = [];
+    if (!ev.optedOutStudentIds) ev.optedOutStudentIds = [];
+
+    if (action === 'sign_up') {
+      if (!ev.participantUids.includes(studentUid)) {
+        ev.participantUids.push(studentUid);
+      }
+      if (!ev.registeredStudentIds.includes(studentUid)) {
+        ev.registeredStudentIds.push(studentUid);
+      }
+      ev.optOutUids = ev.optOutUids.filter((u: string) => u !== studentUid);
+      ev.optedOutStudentIds = ev.optedOutStudentIds.filter((u: string) => u !== studentUid);
+    } else {
+      if (!ev.optOutUids.includes(studentUid)) {
+        ev.optOutUids.push(studentUid);
+      }
+      if (!ev.optedOutStudentIds.includes(studentUid)) {
+        ev.optedOutStudentIds.push(studentUid);
+      }
+      ev.participantUids = ev.participantUids.filter((u: string) => u !== studentUid);
+      ev.registeredStudentIds = ev.registeredStudentIds.filter((u: string) => u !== studentUid);
+    }
+
+    this.saveStore(store);
+    return true;
+  }
+
+  // ==========================================
+  // MONTHLY AUDIT REPORTS & LOCKING
+  // ==========================================
+  public isMonthAudited(hallId: HallId, month: string): boolean {
+    const store = this.getStore();
+    const status = (store.diningMonthlyAuditStatuses || []).find(
+      (s) => s.hallId === hallId && s.month === month
+    );
+    return status ? status.isAudited : false;
+  }
+
+  public markMonthAudited(
+    hallId: HallId,
+    month: string,
+    auditedBy: string,
+    auditorRole: string,
+    notes?: string
+  ): boolean {
+    // Real enforcement must move to Firestore rules / Cloud Functions.
+    const store = this.getStore();
+    if (!store.diningMonthlyAuditStatuses) store.diningMonthlyAuditStatuses = [];
+
+    const existing = store.diningMonthlyAuditStatuses.find(
+      (s) => s.hallId === hallId && s.month === month
+    );
+
+    if (existing) {
+      existing.isAudited = true;
+      existing.auditedAt = new Date().toISOString();
+      existing.auditedBy = auditedBy;
+      existing.notes = notes || existing.notes;
+    } else {
+      store.diningMonthlyAuditStatuses.unshift({
+        id: `audit-status-${hallId}-${month}`,
+        hallId,
+        month,
+        isAudited: true,
+        auditedAt: new Date().toISOString(),
+        auditedBy,
+        notes: notes || 'Monthly review completed and verified by Hall Provost Office.'
+      });
+    }
+
+    if (!store.diningAuditTrail) store.diningAuditTrail = [];
+    store.diningAuditTrail.unshift({
+      id: `audit-month-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      actorRole: auditorRole,
+      actorUid: auditedBy,
+      hallId,
+      action: 'MONTH_AUDITED',
+      details: `Month ${month} marked as AUDITED for ${hallId === 'hall-a' ? 'Oporajita Hall' : 'Bijoy 24 Hall'}. Dining manager edits locked. Notes: ${notes || 'None'}`
+    });
+
+    this.saveStore(store);
+    return true;
+  }
+
+  public getMonthlyAuditReport(hallId: HallId, month: string = '2026-11'): MonthlyAuditReportRecord {
+    const store = this.getStore();
+    const isAudited = this.isMonthAudited(hallId, month);
+
+    const formatSmall = (n: number): number | string => (n < 5 && n > 0 ? '<5' : n);
+
+    const bEntries = (store.diningBazarCostEntries || []).filter(
+      (b) => b.hallId === hallId && b.month === month
+    );
+    const totalCost = bEntries.reduce((sum, e) => sum + e.amount, 0);
+
+    const baseMealsPerDay = hallId === 'hall-a' ? 780 : 640;
+    const totalMealsServed = month === '2026-11' ? 7650 : baseMealsPerDay * 30;
+    const totalMealsPlanned = Math.round(totalMealsServed * 1.06); // ~6% waste delta
+    const foodWastageEstimateKg = Math.round((totalMealsPlanned - totalMealsServed) * 0.12);
+
+    const totalCollection = Math.round(totalCost * 1.15);
+    const mealRate = totalMealsServed > 0 ? parseFloat((totalCost / totalMealsServed).toFixed(2)) : 52.5;
+
+    const complaints = (store.diningComplaints || []).filter((c) => c.hallId === hallId);
+    const statusCounts: Record<string, number> = {
+      SUBMITTED: 0,
+      UNDER_REVIEW: 0,
+      RESOLVED: 0,
+      DISMISSED: 0
+    };
+    complaints.forEach((c) => {
+      if (statusCounts[c.status] !== undefined) statusCounts[c.status]++;
+    });
+
+    const acceptedSuggestions = (store.diningDishSuggestions || []).filter(
+      (s) => s.hallId === hallId && s.status === 'ACCEPTED'
+    ).length;
+
+    const ratings = (store.diningMealRatings || []).filter((r) => r.hallId === hallId);
+    const avgRating = ratings.length > 0
+      ? parseFloat((ratings.reduce((acc, r) => acc + r.rating, 0) / ratings.length).toFixed(1))
+      : hallId === 'hall-a' ? 4.4 : 4.2;
+
+    const dailyBreakdown = [
+      { date: `${month}-01`, mealsServed: 780, plannedMeals: 820, costBDT: 41200 },
+      { date: `${month}-02`, mealsServed: 795, plannedMeals: 830, costBDT: 42100 },
+      { date: `${month}-03`, mealsServed: 810, plannedMeals: 850, costBDT: 43500 },
+      { date: `${month}-04`, mealsServed: 760, plannedMeals: 800, costBDT: 39800 },
+      { date: `${month}-05`, mealsServed: 820, plannedMeals: 860, costBDT: 44200 },
+      { date: `${month}-06`, mealsServed: 850, plannedMeals: 890, costBDT: 45600 },
+      { date: `${month}-07`, mealsServed: 835, plannedMeals: 880, costBDT: 44900 }
+    ];
+
+    return {
+      month,
+      hallId,
+      totalMealsServed,
+      totalMealsPlanned,
+      foodWastageEstimateKg,
+      totalBazarCostBDT: totalCost,
+      totalCollectionBDT: totalCollection,
+      calculatedMealRateBDT: mealRate > 0 ? mealRate : 53.0,
+      averageRating: avgRating,
+      totalComplaints: complaints.length,
+      complaintsByStatus: [
+        { status: 'Submitted', count: formatSmall(statusCounts.SUBMITTED) },
+        { status: 'Under Review', count: formatSmall(statusCounts.UNDER_REVIEW) },
+        { status: 'Resolved', count: formatSmall(statusCounts.RESOLVED) },
+        { status: 'Dismissed', count: formatSmall(statusCounts.DISMISSED) }
+      ],
+      acceptedSuggestionsCount: formatSmall(acceptedSuggestions),
+      dailyBreakdown,
+      isAudited,
+      auditedAt: isAudited ? '2026-11-02T10:00:00Z' : undefined,
+      auditedBy: isAudited ? 'Provost Office' : undefined
+    };
+  }
 }
+
 

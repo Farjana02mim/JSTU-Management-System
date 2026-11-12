@@ -6,6 +6,9 @@ import { AIGroundingTools } from './src/services/ai/aiGroundingTools';
 import { AIGuardrails } from './src/services/ai/aiGuardrails';
 import { RuleBasedFallbackAIService } from './src/services/ai/ruleBasedFallbackService';
 import { AuthSessionContext } from './src/services/ai/aiTypes';
+import { MedicalAISafety } from './src/services/ai/medicalAISafety';
+import { MedicalAITools } from './src/services/ai/medicalAITools';
+import { MedicalRuleFallbackAIService } from './src/services/ai/medicalRuleFallbackService';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,8 +18,9 @@ const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json({ limit: '2mb' }));
 
-// Initialize shared Rule-Based Fallback
+// Initialize shared Rule-Based Fallbacks
 const fallbackService = new RuleBasedFallbackAIService();
+const medicalFallbackService = new MedicalRuleFallbackAIService();
 
 // Initialize GoogleGenAI client (if GEMINI_API_KEY is available)
 let genAIClient: GoogleGenAI | null = null;
@@ -29,6 +33,13 @@ if (process.env.GEMINI_API_KEY) {
       }
     }
   });
+}
+
+function withTimeout<T>(promise: Promise<T>, ms = 5000): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => setTimeout(() => reject(new Error('AI generation timeout')), ms))
+  ]);
 }
 
 /**
@@ -192,16 +203,19 @@ app.post('/api/ai/chat', async (req: Request, res: Response) => {
       });
 
       // Call Gemini 3.8 Flash with tools
-      const response = await genAIClient.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents,
-        config: {
-          systemInstruction,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          tools: geminiTools as any,
-          temperature: 0.2
-        }
-      });
+      const response = await withTimeout(
+        genAIClient.models.generateContent({
+          model: 'gemini-3.8-flash',
+          contents,
+          config: {
+            systemInstruction,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            tools: geminiTools as any,
+            temperature: 0.2
+          }
+        }),
+        5000
+      );
 
       const toolsUsed: string[] = [];
       const sources: string[] = [];
@@ -283,6 +297,221 @@ app.post('/api/ai/chat', async (req: Request, res: Response) => {
     sanitized.text,
     history || [],
     session,
+    lang || 'en'
+  );
+
+  res.json(fallbackResult);
+});
+
+/**
+ * Medical Center AI Assistant Tools
+ * Strict read-only tools: location/hours, duty roster, and own appointment dates/status only.
+ * NEVER clinical notes, prescriptions, reasons, or health records.
+ * // Real enforcement must move to Firestore rules / Cloud Functions.
+ */
+const medicalGeminiTools = [
+  {
+    functionDeclarations: [
+      {
+        name: 'getMedicalCenterInfo',
+        description: 'Retrieve campus medical center location, opening hours, emergency contacts, ambulance, and service catalog.',
+        parameters: { type: 'OBJECT', properties: {} }
+      },
+      {
+        name: 'getDutyRoster',
+        description: 'Retrieve duty roster of doctors, chamber rooms, specialties, and weekly shifts.',
+        parameters: { type: 'OBJECT', properties: {} }
+      },
+      {
+        name: 'getMyAppointments',
+        description: 'Retrieve scheduled appointment dates and statuses for the authenticated session user. Strictly NO clinical reasons, diagnoses, or notes.',
+        parameters: { type: 'OBJECT', properties: {} }
+      }
+    ]
+  }
+];
+
+function executeMedicalToolCall(
+  toolName: string,
+  _args: Record<string, unknown>,
+  session: AuthSessionContext
+): { result: unknown; sourceKey: string } {
+  switch (toolName) {
+    case 'getMedicalCenterInfo':
+      return { result: MedicalAITools.getMedicalCenterInfo(), sourceKey: 'medical_center_info' };
+    case 'getDutyRoster':
+      return { result: MedicalAITools.getDutyRoster(), sourceKey: 'duty_roster' };
+    case 'getMyAppointments':
+      return { result: MedicalAITools.getMyAppointments(session), sourceKey: 'my_appointments' };
+    default:
+      throw new Error(`Unrecognized medical tool: ${toolName}`);
+  }
+}
+
+/**
+ * Medical Center AI Health Information Assistant Chat Proxy Route
+ * Dual-layer safety: Rule-based emergency pre-check + strict Gemini prompt & tools.
+ * // Real enforcement must move to Firestore rules / Cloud Functions.
+ */
+app.post('/api/ai/medical-chat', async (req: Request, res: Response) => {
+  const { message, history, session, lang } = req.body;
+
+  const effectiveSession: AuthSessionContext = session && session.uid ? session : {
+    uid: 'guest_visitor',
+    role: 'public',
+    fullName: 'Campus Visitor',
+    email: 'visitor@jstu.ac.bd'
+  };
+
+  // 1. Sanitize user input (500 character limit)
+  const sanitized = AIGuardrails.sanitizeInput(message);
+  if (sanitized.error && sanitized.text.length === 0) {
+    res.status(400).json({ error: sanitized.error });
+    return;
+  }
+
+  // 2. Dual-Layer Safety Pre-Check (Immediate Emergency / Self-harm bypass)
+  const safetyHit = MedicalAISafety.evaluatePreCheck(sanitized.text, lang || 'en');
+  if (safetyHit) {
+    res.json({
+      reply: safetyHit.reply,
+      isEmergency: !!safetyHit.urgentCard,
+      emergencyContacts: safetyHit.emergencyContacts,
+      isFallback: true,
+      sources: ['emergency_desk'],
+      toolsUsed: []
+    });
+    return;
+  }
+
+  // 3. User hourly quota check (30 messages per hour)
+  const quota = AIGuardrails.checkAndIncrementQuota(effectiveSession.uid);
+  if (!quota.allowed) {
+    res.status(429).json({
+      reply: quota.errorMessage,
+      isFallback: true,
+      sources: [],
+      toolsUsed: []
+    });
+    return;
+  }
+
+  // 4. Attempt Gemini 3.8 Flash model if active
+  if (genAIClient) {
+    try {
+      const systemInstruction = MedicalAISafety.getSystemInstruction(
+        effectiveSession.fullName,
+        effectiveSession.role,
+        lang || 'en'
+      );
+
+      const contents: Array<{ role: 'user' | 'model'; parts: Array<{ text?: string }> }> = [];
+
+      if (Array.isArray(history)) {
+        for (const item of history.slice(-4)) {
+          contents.push({
+            role: item.sender === 'user' ? 'user' : 'model',
+            parts: [{ text: item.text }]
+          });
+        }
+      }
+
+      contents.push({
+        role: 'user',
+        parts: [{ text: sanitized.text }]
+      });
+
+      const response = await withTimeout(
+        genAIClient.models.generateContent({
+          model: 'gemini-3.8-flash',
+          contents,
+          config: {
+            systemInstruction,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            tools: medicalGeminiTools as any,
+            temperature: 0.2
+          }
+        }),
+        5000
+      );
+
+      const toolsUsed: string[] = [];
+      const sources: string[] = [];
+
+      if (response.functionCalls && response.functionCalls.length > 0) {
+        const functionResponses = [];
+
+        for (const call of response.functionCalls) {
+          toolsUsed.push(call.name);
+          const { result, sourceKey } = executeMedicalToolCall(call.name, call.args || {}, effectiveSession);
+          sources.push(sourceKey);
+
+          functionResponses.push({
+            name: call.name,
+            response: { output: result }
+          });
+        }
+
+        // Audit log: logs ONLY timestamp, role, and tools called (never message text)
+        AIGuardrails.logAIAssistantUsage(effectiveSession.uid, effectiveSession.role, toolsUsed);
+
+        const followUpContents = [
+          ...contents,
+          {
+            role: 'model' as const,
+            parts: response.functionCalls.map(f => ({
+              functionCall: { name: f.name, args: f.args }
+            }))
+          },
+          {
+            role: 'user' as const,
+            parts: functionResponses.map(fr => ({
+              functionResponse: {
+                name: fr.name,
+                response: fr.response
+              }
+            }))
+          }
+        ];
+
+        const followUpResponse = await genAIClient.models.generateContent({
+          model: 'gemini-3.8-flash',
+          contents: followUpContents as any,
+          config: {
+            systemInstruction,
+            temperature: 0.2
+          }
+        });
+
+        const reply = followUpResponse.text || 'Health information retrieved.';
+        res.json({
+          reply,
+          sources: Array.from(new Set(sources)),
+          isFallback: false,
+          toolsUsed
+        });
+        return;
+      }
+
+      if (response.text) {
+        res.json({
+          reply: response.text,
+          sources: [],
+          isFallback: false,
+          toolsUsed: []
+        });
+        return;
+      }
+    } catch {
+      // Model error or quota limit -> fall through to deterministic fallback
+    }
+  }
+
+  // 5. Deterministic Medical Rule-Based Fallback
+  const fallbackResult = await medicalFallbackService.sendMessage(
+    sanitized.text,
+    history || [],
+    effectiveSession,
     lang || 'en'
   );
 

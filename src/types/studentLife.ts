@@ -431,3 +431,80 @@ export interface AlumniRegistrationRequest {
   status: 'submitted' | 'verified' | 'rejected';
   appliedAt: string;
 }
+
+// ==========================================
+// M4: MEDICAL CENTER PHARMACY & STOCK
+// Real enforcement must move to Firestore rules / Cloud Functions.
+// Real stock changes must be done by server-side transactions so quantities cannot be altered from the browser.
+// ==========================================
+export type MedicalStockCategory = 'tablet' | 'syrup' | 'injection' | 'first_aid' | 'consumable';
+
+export interface MedicalStockBatch {
+  id: string;
+  batchNumber: string;
+  expiryDate: string; // YYYY-MM-DD
+  quantity: number;
+  receivedDate: string;
+  storageNote?: string;
+}
+
+export interface MedicalStockItem {
+  id: string; // e.g. "med-stock-01"
+  name: string; // Placeholder marked "[REPLACE WITH REAL CONTENT]"
+  nameBn: string;
+  category: MedicalStockCategory;
+  unit: string; // e.g. "strips", "bottles", "ampoules", "boxes", "pieces", "rolls"
+  reorderLevel: number;
+  storageNote: string;
+  batches: MedicalStockBatch[];
+}
+
+export type MedicalStockLedgerAction = 'RECEIVE' | 'DISPENSE' | 'ADJUSTMENT' | 'EXPIRED' | 'DAMAGED';
+
+export interface MedicalStockLedgerEntry {
+  id: string;
+  timestamp: string; // ISO
+  actorUid: string;
+  actorRole: string;
+  action: MedicalStockLedgerAction;
+  itemId: string;
+  itemName: string;
+  batchNumber: string;
+  quantityChange: number; // positive or negative
+  balanceAfter: number;
+  reason: string;
+  anonymousVisitRef?: string; // Strictly anonymous visit reference e.g. "VISIT-REF-2026-001", NEVER patient name/id
+}
+
+export interface MedicalStockAlertSummary {
+  lowStockCount: number;
+  expiringCount: number;
+  expiredCount: number;
+  alerts: Array<{
+    type: 'LOW_STOCK' | 'EXPIRING_SOON' | 'EXPIRED';
+    itemId: string;
+    itemName: string;
+    batchNumber?: string;
+    details: string;
+  }>;
+}
+
+export interface MedicalReportsData {
+  totalVisits: number;
+  totalAppointments: number;
+  noShowRatePercent: number;
+  completedVisitsCount: number;
+  cancelledVisitsCount: number;
+  visitsByDay: Array<{ date: string; displayDate: string; count: number; displayCount: string }>;
+  visitsByMonth: Array<{ month: string; displayMonth: string; count: number; displayCount: string }>;
+  appointmentsByStatus: Array<{ status: string; count: number; displayCount: string }>;
+  visitsByDoctor: Array<{ doctorId: string; doctorName: string; count: number; displayCount: string }>;
+  dispensedByCategory: Array<{ category: string; count: number; displayCount: string }>;
+  stockSummary: {
+    totalItems: number;
+    lowStockCount: number;
+    expiringWithin30DaysCount: number;
+    expiredBatchCount: number;
+  };
+}
+

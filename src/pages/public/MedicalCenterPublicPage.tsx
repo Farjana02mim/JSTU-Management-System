@@ -34,6 +34,7 @@ import {
   initialMedicalHealthTips,
   initialMedicalFaqs
 } from '../../data/studentLifeSeedData';
+import { MedicalAIAssistantModal, MedicalAIAssistantFloatingButton } from '../../components/medical/MedicalAIAssistantModal';
 
 type TabSection = 'overview' | 'services' | 'doctors' | 'hours' | 'emergency' | 'ambulance' | 'health-tips' | 'faq' | 'contact';
 
@@ -45,6 +46,7 @@ export const MedicalCenterPublicPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabSection>('overview');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [isAIOpen, setIsAIOpen] = useState(false);
 
   const doctors = initialMedicalDoctorsData;
   const services = initialMedicalServicesData;
@@ -143,6 +145,19 @@ export const MedicalCenterPublicPage: React.FC = () => {
                     {isBn ? 'জরুরি যোগাযোগ ও অ্যাম্বুলেন্স' : 'Emergency & Ambulance'}
                   </Button>
                 </a>
+
+                <Button
+                  variant="outline"
+                  size="md"
+                  onClick={() => setIsAIOpen(true)}
+                  className="font-bold border-blue-300 text-[#1E3A8A] hover:bg-blue-50"
+                  leftIcon={<HeartPulse className="w-4 h-4 text-rose-600" />}
+                >
+                  <span className="flex items-center gap-1.5">
+                    <span>{isBn ? 'স্বাস্থ্য তথ্য এআই' : 'Ask Health AI'}</span>
+                    <span className="px-1.5 py-0.5 bg-amber-400 text-gray-950 text-[9px] font-extrabold rounded-full uppercase">Demo</span>
+                  </span>
+                </Button>
               </div>
             </div>
 
@@ -820,6 +835,10 @@ export const MedicalCenterPublicPage: React.FC = () => {
           </div>
         )}
       </main>
+
+      {/* Floating launcher & AI Assistant Modal */}
+      <MedicalAIAssistantFloatingButton onClick={() => setIsAIOpen(true)} />
+      <MedicalAIAssistantModal isOpen={isAIOpen} onClose={() => setIsAIOpen(false)} />
     </div>
   );
 };

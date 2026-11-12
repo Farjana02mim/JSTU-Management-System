@@ -22,8 +22,11 @@ import {
   Award,
   AlertTriangle,
   FileCheck,
-  ExternalLink
+  ExternalLink,
+  Package,
+  BarChart3
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { SEOHead } from '../../components/common/SEOHead';
 import { Card } from '../../components/common/Card';
 import { Button } from '../../components/common/Button';
@@ -128,12 +131,20 @@ export const MedicalOfficerDashboard: React.FC = () => {
   const [revocationReason, setRevocationReason] = useState('');
   const [revokeError, setRevokeError] = useState('');
 
+  const [stockAlerts, setStockAlerts] = useState({ lowStockCount: 0, expiringCount: 0, expiredCount: 0 });
+
   // Load appointments
   // Real enforcement must move to Firestore rules / Cloud Functions.
   const loadData = () => {
     const list = storeManager.getMedicalAppointmentsForStaff(user?.uid);
     setAppointments(list);
     setDutyRoster(storeManager.getMedicalDutyRoster());
+    const alerts = storeManager.getMedicalStockAlerts();
+    setStockAlerts({
+      lowStockCount: alerts.lowStockCount,
+      expiringCount: alerts.expiringCount,
+      expiredCount: alerts.expiredCount
+    });
   };
 
   useEffect(() => {
@@ -204,7 +215,7 @@ export const MedicalOfficerDashboard: React.FC = () => {
     if (existing) {
       setActiveVisitRecord(existing);
       const cert = storeManager.getCertificateByVisitRecordId(existing.id);
-      setActiveCertificate(cert);
+      setActiveCertificate(cert || null);
       setNoteForm({
         complaint: existing.complaint || '',
         observation: existing.observation || '',
@@ -242,7 +253,7 @@ export const MedicalOfficerDashboard: React.FC = () => {
     setCertError('');
     setCertSuccess('');
     const cert = storeManager.getCertificateByVisitRecordId(activeVisitRecord.id);
-    setActiveCertificate(cert);
+    setActiveCertificate(cert || null);
     setCertificateForm({
       restStartDate: cert ? cert.restStartDate : activeVisitRecord.visitDate,
       restDays: cert ? cert.restDays : (activeVisitRecord.sickRestDays || 3),
@@ -601,44 +612,71 @@ export const MedicalOfficerDashboard: React.FC = () => {
           </p>
         </div>
 
-        {/* Tab switchers */}
-        <div className="flex items-center gap-2 bg-[#F8FAFC] p-1 rounded-xl border border-[#E2E8F0]">
-          <button
-            type="button"
-            onClick={() => setActiveTab('queue')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
-              activeTab === 'queue'
-                ? 'bg-white text-[#1E3A8A] shadow-xs border border-slate-200'
-                : 'text-slate-600 hover:text-[#0F172A]'
-            }`}
+        {/* Section Navigation Links */}
+        <div className="flex items-center gap-2 bg-[#F8FAFC] p-1 rounded-xl border border-[#E2E8F0] shrink-0">
+          <span className="px-3 py-1.5 text-xs font-bold rounded-lg bg-white text-[#1E3A8A] shadow-xs border border-slate-200 flex items-center gap-1.5">
+            <Stethoscope className="w-3.5 h-3.5 text-[#1E3A8A]" />
+            <span>{isBn ? 'পরামর্শ ও রোস্টার' : 'Consultations'}</span>
+          </span>
+          <Link
+            to="/office/medical/stock"
+            className="px-3 py-1.5 text-xs font-bold rounded-lg text-slate-600 hover:text-[#0F172A] transition-colors flex items-center gap-1.5"
           >
-            {isBn ? 'আজকের কিউ' : "Today's Queue"} ({stats.todayTotal})
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('all')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
-              activeTab === 'all'
-                ? 'bg-white text-[#1E3A8A] shadow-xs border border-slate-200'
-                : 'text-slate-600 hover:text-[#0F172A]'
-            }`}
+            <Package className="w-3.5 h-3.5" />
+            <span>{isBn ? 'ফার্মেসি ও স্টক' : 'Pharmacy & Stock'}</span>
+            {stockAlerts.lowStockCount + stockAlerts.expiringCount > 0 && (
+              <span className="px-1.5 py-0.2 bg-amber-400 text-gray-950 text-[9px] font-extrabold rounded-full">
+                {stockAlerts.lowStockCount + stockAlerts.expiringCount}
+              </span>
+            )}
+          </Link>
+          <Link
+            to="/office/medical/reports"
+            className="px-3 py-1.5 text-xs font-bold rounded-lg text-slate-600 hover:text-[#0F172A] transition-colors flex items-center gap-1.5"
           >
-            {isBn ? 'সকল অ্যাপয়েন্টমেন্ট' : 'All Appointments'} ({stats.grandTotal})
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('roster')}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
-              activeTab === 'roster'
-                ? 'bg-white text-[#1E3A8A] shadow-xs border border-slate-200'
-                : 'text-slate-600 hover:text-[#0F172A]'
-            }`}
-          >
-            {isBn ? 'ডিউটি রোস্টার' : 'Duty Roster'} ({dutyRoster.length})
-          </button>
+            <BarChart3 className="w-3.5 h-3.5" />
+            <span>{isBn ? 'রিপোর্ট ও পরিসংখ্যান' : 'Reports & Stats'}</span>
+          </Link>
         </div>
+      </div>
+
+      {/* Queue sub-tabs */}
+      <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2">
+        <button
+          type="button"
+          onClick={() => setActiveTab('queue')}
+          className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
+            activeTab === 'queue'
+              ? 'bg-[#1E3A8A] text-white shadow-xs'
+              : 'text-slate-600 hover:text-[#0F172A] hover:bg-slate-100'
+          }`}
+        >
+          {isBn ? 'আজকের কিউ' : "Today's Queue"} ({stats.todayTotal})
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('all')}
+          className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
+            activeTab === 'all'
+              ? 'bg-[#1E3A8A] text-white shadow-xs'
+              : 'text-slate-600 hover:text-[#0F172A] hover:bg-slate-100'
+          }`}
+        >
+          {isBn ? 'সকল অ্যাপয়েন্টমেন্ট' : 'All Appointments'} ({stats.grandTotal})
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('roster')}
+          className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
+            activeTab === 'roster'
+              ? 'bg-[#1E3A8A] text-white shadow-xs'
+              : 'text-slate-600 hover:text-[#0F172A] hover:bg-slate-100'
+          }`}
+        >
+          {isBn ? 'ডিউটি রোস্টার' : 'Duty Roster'} ({dutyRoster.length})
+        </button>
       </div>
 
       {/* -------------------------------------------------------------

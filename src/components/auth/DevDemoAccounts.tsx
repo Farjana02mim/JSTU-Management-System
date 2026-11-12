@@ -36,6 +36,8 @@ export const DevDemoAccounts: React.FC<DevDemoAccountsProps> = ({ currentEmail, 
         return { en: 'Library', bn: 'লাইব্রেরিয়ান' };
       case 'medical_officer':
         return { en: 'Medical Officer', bn: 'চিকিৎসা কর্মকর্তা' };
+      case 'dining_manager':
+        return { en: 'Dining Manager', bn: 'ডাইনিং ম্যানেজার' };
       case 'super_admin':
         return { en: 'Super Admin', bn: 'প্রধান প্রশাসক' };
       default:
